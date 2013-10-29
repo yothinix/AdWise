@@ -82,51 +82,50 @@
         </div><!--/span-->
         <div class="span9 hero-unit">
             <?php
-            $choice_detail = Array();
 
-            if(isset($quiz)):
-                foreach($quiz as $row):
-                    echo "<h2>Question: $row->QuestionNr</h2>";
-                    echo "<p>$row->Detail</p>";
+            $quiz = $this->Site_model->get_question(1,$QuestionNr);
+            foreach($quiz as $row){
+                echo "<h2>Question $row->QuestionNr</h2>";
+                echo "<p>$row->Detail</p>";
 
-                    $str = $row->ChoiceID;
-                    $choice_nr = explode(",", $str);
+                $temp_choice = $row->ChoiceID;
+                $choice_nr = explode(",", $temp_choice);
+            }
+            ?>
 
-                    //var_dump($choice_nr);
+            <div class="row-fluid">
 
-                    echo "<div class=\"row-fluid\">";
-                    foreach($choice_nr as $item)
-                    {
-                        echo "<div class=\"span4\"><h2>Choice: $item</h2>";
-                        foreach($choice as $row)
-                        {
-                            for($i = 0 ; $i<$item ; $i++)
-                            {
-                                $choice_detail = $row->Detail;
-                            }
-                        }
-                        echo "<p>$choice_detail</p>
-                        <a class=\"btn btn-primary btn-block btn-large\" href=\"#\">Select Choice $item</a>
-                        </div><!--/span-->";
+            <?php
+                $head = (int)$choice_nr[0];
+                end($choice_nr);
+                $tail = (int)$choice_nr[key($choice_nr)];
+
+                for($count=$head; $count<=$tail; $count++){
+                    $choice = $this->Site_model->get_choice($count);
+                    foreach($choice as $row){
+                        echo "
+                    <div class=\"span4\">
+                    <h2>$row->ChoiceID Choice</h2>
+                    <p>$row->Detail</p>
+                    <p><a class=\"btn btn-primary btn-block btn-large\" href=\"#\">Select Choice $row->ChoiceID</a></p>
+                    </div><!--/span-->
+                    ";
                     }
-
-                endforeach;
-            else:
-                echo "<h2>No Question were returned.</h2>";
-            endif;
-
+                }
             ?>
 
             <div class="span4">
                 <h3>Controller</h3>
                 <div class="row-fluid">
-                <div class="span4">
-                <p><a class="btn btn-success btn-block btn-large" href="#">&laquo; Prev</a></p> <!--หาวิธ๊ให้ปุ่มย้อนไปข้อก่อนหน้า-->
-            </div><!--/span-->
-            <div class="span4">
-                <p><a class="btn btn-danger btn-block btn-large" href="#">Next &raquo; </a></p> <!--หาวิธีให้ปุ่มเลื่อนคำถามไปข้อถัดไป-->
-            </div><!--/span-->
-        </div><!--/.fluid-container-->
+
+                        <div class="span4">
+                            <input type="button" class="btn btn-success btn-block btn-large" id="prev" name="prev" onclick="document.write('<?php $QuestionNr--; ?>')"/>
+                        </div><!--/span-->
+                        <div class="span4">
+                            <input type="button" class="btn-danger btn-block btn-large" id="next" name="next" onclick=" document.write('<?php $QuestionNr++; ?>')"/>
+                        </div><!--/span-->
+
+                </div><!--/.fluid-container-->
         <p><a class="btn btn-info btn-large btn-block" href="#"><i class="icon-download-alt icon-white"></i> Save Progress </a></p>
             </div><!--/span-->
         </div>

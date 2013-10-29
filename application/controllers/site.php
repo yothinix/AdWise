@@ -1,17 +1,28 @@
 <?php
 
 class site extends CI_Controller {
-    function index(){
-        $data = array();
+    function index()
+    {
+        $QuestionNr = 1;
+        $choice_nr = array();
+        $data = array(
+            'QuestionNr' => $QuestionNr,
+            'choice_nr' => $choice_nr
+        );
 
-        if($query = $this->Site_model->get_question())
-        {
-           $data['quiz'] = $query;
-        }
-        if($query = $this->Site_model->get_choice())
-        {
-            $data['choice'] = $query;
-        }
         $this->load->view('home', $data);
     }
+
+    function question_controller()
+    {
+        if(isset($_POST["prev"]))
+        {
+            $QuestionNr--;
+        }
+        if(isset($_POST["next"]))
+        {
+            $QuestionNr++;
+        }
+    }
+
 }
