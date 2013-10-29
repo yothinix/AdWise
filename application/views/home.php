@@ -82,30 +82,39 @@
         </div><!--/span-->
         <div class="span9 hero-unit">
             <?php
-            if(isset($record)) :
-                foreach($record as $row):
+            $choice_detail = Array();
+
+            if(isset($quiz)):
+                foreach($quiz as $row):
                     echo "<h2>Question: $row->QuestionNr</h2>";
                     echo "<p>$row->Detail</p>";
 
+                    $str = $row->ChoiceID;
+                    $choice_nr = explode(",", $str);
 
-                $str = $row->ChoiceID;
-                $arr = explode(",", $str);
-                //var_dump($arr);
-            echo "<div class=\"row-fluid\">";
-            foreach($arr as $item)
-            {
-                echo
-                    "<div class=\"span4\">
-                        <h2>Choice: $item</h2>
-                        <p>$row->Detail</p>
-                        <p><a class=\"btn btn-primary btn-block btn-large\" href=\"#\">Select Choice 1</a></p>
-                     </div><!--/span-->";
-            }
+                    //var_dump($choice_nr);
+
+                    echo "<div class=\"row-fluid\">";
+                    foreach($choice_nr as $item)
+                    {
+                        echo "<div class=\"span4\"><h2>Choice: $item</h2>";
+                        foreach($choice as $row)
+                        {
+                            for($i = 0 ; $i<$item ; $i++)
+                            {
+                                $choice_detail = $row->Detail;
+                            }
+                        }
+                        echo "<p>$choice_detail</p>
+                        <a class=\"btn btn-primary btn-block btn-large\" href=\"#\">Select Choice $item</a>
+                        </div><!--/span-->";
+                    }
 
                 endforeach;
-            else :
+            else:
                 echo "<h2>No Question were returned.</h2>";
             endif;
+
             ?>
 
             <div class="span4">

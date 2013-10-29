@@ -8,6 +8,12 @@ class Site_model extends CI_Model {
         return $query->result();
     }
 
+    function get_choice()
+    {
+        $query = $this->db->get('choice');
+        return $query->result();
+    }
+
 /*    function add_record($data)
     {
         $this->db->Insert('data', $data);
