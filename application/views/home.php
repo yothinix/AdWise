@@ -83,7 +83,7 @@
         <div class="span9 hero-unit">
             <?php
 
-            $quiz = $this->Site_model->get_question(1,$QuestionNr);
+            $quiz = $this->Site_model->get_question(1,$QuestionNr); // 2 เหลือทำระบบดึงคำถามจากชุดคำถามตรงนี้
             foreach($quiz as $row){
                 echo "<h2>Question $row->QuestionNr</h2>";
                 echo "<p>$row->Detail</p>";
@@ -117,7 +117,7 @@
             <div class="span4">
                 <h3>Controller</h3>
                 <div class="row-fluid">
-
+                        <!-- 1 ทำ OnClick ให้เรียกฟังก์ชั่น PHP เพื่ออัพเดทค่า $QuestionNr ให้ได้ -->
                         <div class="span4">
                             <input type="button" class="btn btn-success btn-block btn-large" id="prev" name="prev" onclick="document.write('<?php $QuestionNr--; ?>')"/>
                         </div><!--/span-->
