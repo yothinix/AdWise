@@ -1,28 +1,62 @@
 <?php
 
 class site extends CI_Controller {
+
+    public $QuestionNr;
+
+    function assessment($QuizNo)
+    {
+        $data = array(
+            'QuestionNr' => $QuizNo,
+            'main_content' => 'home'
+        );
+        $this->load->view('/includes/template', $data);
+    }
+
     function index()
     {
-        $QuestionNr = 1;
-        $choice_nr = array();
-        $data = array(
-            'QuestionNr' => $QuestionNr,
-            'choice_nr' => $choice_nr
-        );
-
-        $this->load->view('home', $data);
+        $this->assessment(1);
     }
 
-    function question_controller()
+    function quiz_nav($ctrl)
     {
-        if(isset($_POST["prev"]))
+        if($ctrl == 1)
         {
-            $QuestionNr--;
+            global $QuestionNr;
+            $QuestionNr = $QuestionNr-1;
+            $data = array(
+                'QuestionNr' => $$QuestionNr,
+                'main_content' => 'home'
+            );
+            $this->load->view('home', $data);
         }
-        if(isset($_POST["next"]))
+        elseif($ctrl == 2)
         {
-            $QuestionNr++;
+            global $QuestionNr;
+            $QuestionNr = $QuestionNr+1;
+            $data = array(
+                'QuestionNr' => $QuestionNr,
+                'main_content' => 'home'
+            );
+
+            $this->load->view('home', $data);
         }
     }
 
+
+    /*function submit()
+    {
+        $next = $this->input->post('next');
+        $data['main_content'] = "home";
+        $data['QuestionNr'] = 2;
+
+        if($this->input->post('ajax'))
+        {
+            $this->load->view($data['main_content']);
+        }
+        else
+        {
+            $this->load->view('includes/template', $data);
+        }
+    }*/
 }
