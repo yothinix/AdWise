@@ -1,6 +1,6 @@
 <?php
 
-class Site_model extends CI_Model {
+class Assessment_model extends CI_Model {
 
     function get_question($AID, $QID)
     {

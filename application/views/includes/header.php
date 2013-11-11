@@ -8,8 +8,8 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <!--<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>-->
+    <link href="<?php echo base_url("/assets/css/bootstrap.css"); ?>" rel="stylesheet">
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <style type="text/css">
         body {
             padding-top: 60px;
@@ -27,7 +27,7 @@
             }
         }
     </style>
-    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="<?php echo base_url("/assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -80,26 +80,6 @@
                 </ul>
             </div><!--/.well -->
         </div><!--/span-->
-
-
-<script type="text/javascript">
-    /*function question_ctrl(){
-        alert('ss');
-        var temp = 0;
-        temp = temp + 1;
-        alert(temp);
-        $.ajax({
-            url: "home.php",
-            data: "action=show&valiable="+temp
-            type: 'POST',
-            dataType: 'html',
-            success: function(data) {
-                $('#show').html(data);
-            }
-        });
-
-    }*/
-</script>
 
 
 
