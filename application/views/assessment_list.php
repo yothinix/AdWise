@@ -35,7 +35,6 @@
     <p><a class="btn btn-primary btn-large btn-block" href="
     <?php
     echo base_url("index.php/assessment/test/{$row->AssessmentID}/1");
-    //ทำ Interface กับ asessment/test ตรงนี้
     ?>
         ">Start Test &raquo;</a></p>
     <?php    echo "</div><!-- /.span4 -->";
