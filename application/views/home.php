@@ -1,4 +1,8 @@
-
+<style>
+     #quiz_no {
+        margin-top: -30px;
+    }
+</style>
             <?php
 
             $quiz = $this->Assessment_model->get_question(1,$QuestionNr); // 2 เหลือทำระบบดึงคำถามจากชุดคำถามตรงนี้

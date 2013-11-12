@@ -15,6 +15,14 @@ class Assessment extends CI_Controller {
 
     function index()
     {
-        $this->test(1);
+        $this->asmlist();
+    }
+
+    function asmlist()
+    {
+        $data = array(
+            'main_content' => 'assessment_list'
+        );
+        $this->load->view('/includes/template', $data);
     }
 }

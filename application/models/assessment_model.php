@@ -24,6 +24,15 @@ class Assessment_model extends CI_Model {
         return $query->result();
 
     }
+
+    function get_assessment()
+    {
+        $query = $this->db->query("
+        SELECT Name, Description
+        FROM assessment");
+
+        return $query->result();
+    }
 }
 ?>
 
