@@ -23,7 +23,8 @@
 
     <?php
     $assessment = $this->Assessment_model->get_assessment();
-    foreach($assessment as $row){
+    foreach($assessment as $row)
+    {
         echo "<div class=\"span4\">";
     ?>
         <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" data-src="holder.js/140x140" src="<?php echo base_url("/attachments/assessment.png"); ?>">
@@ -33,7 +34,8 @@
     ?>
     <p><a class="btn btn-primary btn-large btn-block" href="
     <?php
-    echo base_url("index.php/assessment/test/{$AID}");
+    echo base_url("index.php/assessment/test/{$row->AssessmentID}/1");
+    //ทำ Interface กับ asessment/test ตรงนี้
     ?>
         ">Start Test &raquo;</a></p>
     <?php    echo "</div><!-- /.span4 -->";

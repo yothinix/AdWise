@@ -3,11 +3,13 @@
 class Assessment extends CI_Controller {
 
     public $QuestionNr;
+    public $AssessID;
 
-    function test($QuizNo)
+    function test($AssessID,$QuizNo)
     {
         $data = array(
             'QuestionNr' => $QuizNo,
+            'AssessmentID' => $AssessID,
             'main_content' => 'home'
         );
         $this->load->view('/includes/template', $data);

@@ -28,7 +28,7 @@ class Assessment_model extends CI_Model {
     function get_assessment()
     {
         $query = $this->db->query("
-        SELECT Name, Description
+        SELECT AssessmentID, Name, Description
         FROM assessment");
 
         return $query->result();

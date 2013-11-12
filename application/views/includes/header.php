@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>AdWise | Example Assessment</title>
+    <title>AdWise | Assessment</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -67,7 +67,7 @@
                 <ul class="nav nav-list">
                     <li class="nav-header">Main Menu</li>
                     <li><a href="#"><i class="icon-home icon-black"></i>Home</a></li>
-                    <li class="active"><a href="#"><i class="icon-edit icon-black"></i>Assessment</a></li>
+                    <li class="active"><a href="<?php echo base_url("index.php/assessment/asmlist"); ?>"><i class="icon-edit icon-black"></i>Assessment</a></li>
                     <li><a href="#"><i class="icon-print icon-black"></i>Report</a></li>
                     <li class="nav-header">User Menu</li>
                     <li><a href="#"><i class="icon-user icon-black"></i>Profile</a></li>

@@ -5,7 +5,7 @@
 </style>
             <?php
 
-            $quiz = $this->Assessment_model->get_question(1,$QuestionNr); // 2 เหลือทำระบบดึงคำถามจากชุดคำถามตรงนี้
+            $quiz = $this->Assessment_model->get_question($AssessmentID,$QuestionNr);
             foreach($quiz as $row){
                 echo "<h2 id=\"quiz_no\">Question $row->QuestionNr</h2>";
                 echo "<p>$row->Detail</p>";
@@ -40,7 +40,7 @@
                         <!-- 1 ทำ OnClick ให้เรียกฟังก์ชั่น PHP เพื่ออัพเดทค่า $QuestionNr ให้ได้ -->
                         <div class="span4">
                             <?php
-                            echo form_open("assessment/test/{$QuestionNr}");
+                            echo form_open("assessment/test/{$AssessmentID}/{$QuestionNr}");
                             $QuestionNr = $QuestionNr-1;
                             echo form_submit('prev','Prev', "class = 'btn btn-primary btn-block btn-large'");
                             echo form_close();
@@ -48,7 +48,7 @@
                         </div><!--/span-->
                         <div class="span4">
                             <?php
-                            echo form_open("assessment/test/{$QuestionNr}");
+                            echo form_open("assessment/test/{$AssessmentID}/{$QuestionNr}");
                             $QuestionNr = $QuestionNr+1;
                             echo form_submit('next','Next', "class='btn btn-primary btn-block btn-large'");
                             echo form_close();
