@@ -62,7 +62,7 @@
 <?php
 
     $asmlist = base_url("index.php/assessment/asmlist");
-
+    $profile = base_url("index.php/user/profile");
 ?>
 
 <div class="container-fluid">
@@ -72,10 +72,12 @@
                 <ul class="nav nav-list">
                     <li class="nav-header">Main Menu</li>
                     <li><a href="#"><i class="icon-home icon-black"></i>Home</a></li>
-                    <li <?php if($main_content == 'assessment_list'){ echo "class=\"active\""; } ?>><a href="<?php echo $asmlist ?>"><i class="icon-edit icon-black"></i>Assessment</a></li>
+                    <li <?php if($main_content == 'assessment_list'){ echo "class=\"active\""; } ?>>
+                        <a href="<?php echo $asmlist ?>"><i class="icon-edit icon-black"></i>Assessment</a></li>
                     <li><a href="#"><i class="icon-print icon-black"></i>Report</a></li>
-                    <li>User Menu</li>
-                    <li <?php if($main_content == 'login/profile'){ echo "class=\"active\""; } ?>><a href="<?php echo base_url("index.php/user/profile"); ?>"><i class="icon-user icon-black"></i>Profile</a></li>
+                    <li class="nav-header">User Menu</li>
+                    <li <?php if($main_content == 'login/profile'){ echo "class=\"active\""; } ?>>
+                        <a href="<?php echo $profile ?>"><i class="icon-user icon-black"></i>Profile</a></li>
                     <li><a href="#"><i class="icon-wrench icon-black"></i>Settings</a></li>
                     <div id="push"></div>
                     <div id="push"></div>

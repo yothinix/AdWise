@@ -1,6 +1,7 @@
 <hr>
-<footer>
-    <p>&copy; AdWise Project | Information Engineering | KMITL 2013</p>
+<footer id="footer">
+    <p>&copy; AdWise | Information Engineering | KMITL 2013</p>
+    <a class="pull-right" href="#" style="margin-top: -30px">About</a>
 </footer>
 
 <!-- Le javascript
