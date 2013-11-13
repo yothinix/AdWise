@@ -1,15 +1,14 @@
 <div class="container-fluid">
     <div class="row-fluid">
-        <div class="span9">
+        <div class="span11">
         <div class="row-fluid">
-            <div class="span3">
-                <h2 style="margin-top: -30px">Profile</h2>
-                <hr/>
+            <h2 style="margin-top: -30px">Profile</h2>
+            <hr/>
+            <div class="span4">
                 <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" data-src="holder.js/140x140" src="<?php echo base_url("/resources/assessment.png"); ?>">
             </div><!--/span-->
 
-            <div class="span4">
-                <?php echo br(2); ?>
+            <div class="span6">
                 <?php
                 $pro = array(
                     'class' => 'form-horizontal'
@@ -84,8 +83,8 @@
 
                 <div class="control-group">
                     <div class="controls">
-                        <button type="submit" value="save" class="btn btn-success btn-block">Save</button>
-                        <button type="clear" value="clear" class="btn btn-danger btn-block">Clear</button>
+                        <button type="submit" value="save" class="btn btn-success">Save</button>
+                        <button type="clear" value="clear" class="btn btn-danger">Clear</button>
                     </div>
                 </div>
 

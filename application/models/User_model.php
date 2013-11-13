@@ -42,11 +42,8 @@ class User_model extends CI_Model {
 
     public function profile($ID)
     {
-        $sql= "select name,lastname,phone,email from User where ID='$ID'";
-        $rs=$this->db->query($sql);
 
 
-        $this->db->insert('user',$data);
     }
 
 }
