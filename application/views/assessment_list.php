@@ -13,7 +13,6 @@
         margin-left: 10px;
         margin-right: 10px;
     }
-
 </style>
 <?php ?>
     <h2 style="margin-top: -30px">Assessment List</h2>
@@ -27,7 +26,7 @@
     {
         echo "<div class=\"span4\">";
     ?>
-        <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" data-src="holder.js/140x140" src="<?php echo base_url("/attachments/assessment.png"); ?>">
+        <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" data-src="holder.js/140x140" src="<?php echo base_url("/resources/assessment.png"); ?>">
     <?php
         echo heading("$row->Name", 3);
         echo "<p>$row->Description</p>";
