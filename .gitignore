@@ -11,3 +11,5 @@ application/logs/*
 .idea/*
 
 application/config/*
+!application/config/config.php
+!application/config/database.php
