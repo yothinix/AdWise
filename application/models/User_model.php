@@ -33,7 +33,7 @@ class User_model extends CI_Model {
     public function signup()
     {
         $data=array(
-            'name'=>$this->input->post('name'),
+            'username'=>$this->input->post('username'),
             'email'=>$this->input->post('email'),
             'password'=>md5($this->input->post('password'))
         );
@@ -42,6 +42,20 @@ class User_model extends CI_Model {
 
     public function profile($ID)
     {
+        if($this->input->post("save")!= null)
+        {
+            $ar=array(
+                "Name"=>$this->input->post("Name"),
+                "Lastname"=>$this->input->post("Lastname"),
+                "Gender"=>$this->input->post("Gender"),
+                "Birthday"=>$this->input->post("Birthday"),
+                "Phone"=>$this->input->post("Phone"),
+                "Email"=>$this->input->post("Email"),
+            );
+            $this->db->where("ID","$ID");
+            $this->db->update("User",$ar);
+            exit();
+        }
 
 
     }

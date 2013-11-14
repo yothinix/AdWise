@@ -13,7 +13,7 @@
                 $pro = array(
                     'class' => 'form-horizontal'
                 );
-                echo form_open("user/profile",$pro);
+                echo form_open('user/profile',$pro);
                 ?>
 
                 <div class="control-group">
