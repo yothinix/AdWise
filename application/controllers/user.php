@@ -66,7 +66,8 @@ class User extends CI_Controller{
         else
         {
             $this->user_model->signup();
-            $this->load->view('assessment_list');
+            $data = array('main_content' => 'assessment_list');
+            $this->load->view('includes/template', $data);
         }
     }
 
