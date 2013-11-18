@@ -3,13 +3,13 @@
         margin-top: -30px;
     }
 </style>
+
 <?php
 
     $quiz = $this->Assessment_model->get_question($AssessmentID,$QuestionNr);
     foreach($quiz as $row)
     {
-        echo "<h3 id=\"quiz_no\">Question $row->QuestionNr</h3>";
-        echo "<h2>$row->Detail</h2>";
+        echo "<h2 id=\"quiz_no\">$row->QuestionNr. $row->Detail ?</h2>";
         $temp_choice = $row->ChoiceID;
         $choice_nr = explode(",", $temp_choice);
     }
@@ -25,35 +25,45 @@
             $choice = $this->Assessment_model->get_choice($count);
             foreach($choice as $row)
             {
-                echo "<div class=\"span4\">
-                    <h2>$row->ChoiceID Choice</h2>
+                echo "<div class=\"span3\">
                     <p>$row->Detail</p>
-                    <p><a class=\"btn btn-primary btn-block btn-large\" href=\"#\">Select Choice $row->ChoiceID</a></p>
+                    <p><a class=\"btn btn-primary btn-block\" href=\"#\">ตัวเลือก $row->ChoiceID</a></p>
                     </div><!--/span-->";
             }
         }
     ?>
-    <div class="span4">
-        <h3>Controller</h3>
-        <div class="row-fluid">
-            <div class="span4">
-                <?php
-                    echo form_open("assessment/test/{$AssessmentID}/{$QuestionNr}");
-                    $QuestionNr = $QuestionNr+1;
-                    echo form_submit('prev','Prev', "class = 'btn btn-primary btn-block btn-large'");
-                    echo form_close();
-                ?>
-            </div><!--/span4-->
-            <div class="span4">
-                <?php
-                    echo form_open("assessment/test/{$AssessmentID}/{$QuestionNr}");
-                    $QuestionNr = $QuestionNr-1;
-                    echo form_submit('next','Next', "class='btn btn-primary btn-block btn-large'");
-                    echo form_close();
-                ?>
-            </div><!--/span4-->
-        </div><!--/.fluid-container-->
-        <br/>
-        <p><a class="btn btn-info btn-large btn-block" href="#"><i class="icon-download-alt icon-white"></i> Save Progress </a></p>
-    </div><!--/span-->
+</div>
+<br/>
+
+<?php
+    $baseTestUrl = "index.php/assessment/test";
+    $pageList = array(
+        '1' => base_url("$baseTestUrl/$AssessmentID/1"),
+        '2' => base_url("$baseTestUrl/$AssessmentID/2"),
+        '3' => base_url("$baseTestUrl/$AssessmentID/3"),
+        '4' => base_url("$baseTestUrl/$AssessmentID/4"),
+        '5' => base_url("$baseTestUrl/$AssessmentID/5"),
+        '6' => base_url("$baseTestUrl/$AssessmentID/6"),
+        '7' => base_url("$baseTestUrl/$AssessmentID/7"),
+        '8' => base_url("$baseTestUrl/$AssessmentID/8"),
+        '9' => base_url("$baseTestUrl/$AssessmentID/9"),
+        '10' => base_url("$baseTestUrl/$AssessmentID/10")
+    );
+    $Prev = $QuestionNr-1;
+    $Next = $QuestionNr+1;
+?>
+<div class="pagination" style="margin-left: 220px">
+    <ul>
+        <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$Prev"); ?>">«</a></li>
+        <?php
+            for($i=1; $i<=10; $i++)
+            {
+                echo "<li ";
+                if($QuestionNr == "$i")
+                    echo "class=\"active\"";
+                echo "><a href=\"$pageList[$i]\">$i</a></li>";
+            }
+        ?>
+        <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$Next"); ?>">»</a></li>
+    </ul>
 </div>

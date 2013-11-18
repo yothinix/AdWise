@@ -60,7 +60,6 @@
 </div>
 
 <?php
-
     $asmlist = base_url("index.php/assessment/asmlist");
     $profile = base_url("index.php/user/profile");
 ?>
@@ -72,7 +71,8 @@
                 <ul class="nav nav-list">
                     <li class="nav-header">Main Menu</li>
                     <li><a href="#"><i class="icon-home icon-black"></i>Home</a></li>
-                    <li <?php if($main_content == 'assessment_list'){ echo "class=\"active\""; } ?>>
+                    <li <?php if($main_content == 'assessment_list' || $main_content == 'home')
+                            { echo "class=\"active\""; } ?>>
                         <a href="<?php echo $asmlist ?>"><i class="icon-edit icon-black"></i>Assessment</a></li>
                     <li><a href="#"><i class="icon-print icon-black"></i>Report</a></li>
                     <li class="nav-header">User Menu</li>
