@@ -49,7 +49,7 @@
             <a class="brand" href="#">AdWise</a>
             <div class="nav-collapse collapse">
                 <p class="navbar-text pull-right">
-                    Logged in as <a href="#" class="navbar-link">Yothinix</a>
+                    Logged in as <a href="<?php echo $profile ?>" class="navbar-link"><?php echo $this->session->userdata('user_name'); ?></a>
                 </p>
                 <ul class="nav">
                     <li><a href="#about">About</a></li>

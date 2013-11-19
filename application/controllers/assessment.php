@@ -17,7 +17,17 @@ class Assessment extends CI_Controller {
 
     function index()
     {
-        $this->asmlist();
+        if(($this->session->userdata('user_name')!=""))
+        {
+            $data['title']= 'AdWise | When Student found their ways';
+            $this->load->view('login/header',$data);
+            $this->load->view('login/signup',$data);
+            $this->load->view('login/footer',$data);
+        }
+        else
+        {
+            $this->asmlist();
+        }
     }
 
     function asmlist()
