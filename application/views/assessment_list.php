@@ -14,7 +14,7 @@
         margin-right: 10px;
     }
 </style>
-<?php ?>
+
     <h2 style="margin-top: -30px">Assessment List</h2>
 <hr/>
 

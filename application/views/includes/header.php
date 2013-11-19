@@ -18,13 +18,7 @@
             padding: 9px 0;
         }
 
-        @media (max-width: 980px) {
-            /* Enable use of floated navbar text */
-            .navbar-text.pull-right {
-                float: none;
-                padding-left: 5px;
-                padding-right: 5px;
-            }
+
         }
     </style>
     <link href="<?php echo base_url("/assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
@@ -37,6 +31,11 @@
 </head>
 
 <body>
+
+<?php
+$asmlist = base_url("index.php/assessment/asmlist");
+$profile = base_url("index.php/user/profile");
+?>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
@@ -58,11 +57,6 @@
         </div>
     </div>
 </div>
-
-<?php
-    $asmlist = base_url("index.php/assessment/asmlist");
-    $profile = base_url("index.php/user/profile");
-?>
 
 <div class="container-fluid">
     <div class="row-fluid">

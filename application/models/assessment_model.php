@@ -22,7 +22,6 @@ class Assessment_model extends CI_Model {
         ");
 
         return $query->result();
-
     }
 
     function get_assessment()
@@ -30,6 +29,17 @@ class Assessment_model extends CI_Model {
         $query = $this->db->query("
         SELECT AssessmentID, Name, Description
         FROM assessment");
+
+        return $query->result();
+    }
+
+    function get_asm_info($AssessmentID)
+    {
+        $query = $this->db->query("
+        SELECT AssessmentID, Name, Description
+        FROM assessment
+        WHERE AssessmentID='{$AssessmentID}'
+        ");
 
         return $query->result();
     }
