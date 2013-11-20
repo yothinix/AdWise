@@ -43,6 +43,17 @@ class Assessment_model extends CI_Model {
 
         return $query->result();
     }
+
+    function check_admin($username)
+    {
+        $query = $this->db->query("
+        SELECT Role
+        FROM user
+        WHERE Username='{$username}'
+        ");
+
+        return $query->result();
+    }
 }
 ?>
 

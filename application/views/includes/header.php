@@ -73,11 +73,27 @@ $profile = base_url("index.php/user/profile");
                     <li <?php if($main_content == 'login/profile'){ echo "class=\"active\""; } ?>>
                         <a href="<?php echo $profile ?>"><i class="icon-user icon-black"></i>Profile</a></li>
                     <li><a href="#"><i class="icon-wrench icon-black"></i>Settings</a></li>
-                    <div id="push"></div>
-                    <div id="push"></div>
-                    <div id="push"></div>
-                    <div id="push"></div>
-                    <div id="push"></div>
+                    <?php
+                        $session_username =  $this->session->userdata('user_name'); //แก้เป็น String
+                        $user_role = $this->Assessment_model->check_admin($session_username);
+                        foreach ($user_role as $row)
+                        if( $row->Role == "1" )
+                        {
+                    ?>
+                            <li class="nav-header">Admin Menu</li>
+                            <li><a href="#"><i class="icon-cog"></i>Admin Home</a></li>
+                            <li><a href="#"><i class="icon-th-list"></i>Manage Assessment Type</a></li>
+                            <li><a href="#"><i class="icon-file"></i>Manage Assessment</a></li>
+                            <li><a href="#"><i class="icon-tasks"></i>Manage Result</a></li>
+                            <li><a href="#"><i class="icon-random"></i>Manage Answer Group</a></li>
+                            <li><a href="#"><i class="icon-tags"></i>Manage Occupation</a></li>
+                            <li><a href="#"><i class="icon-tags"></i>Manage Academic</a></li>
+                            <li><a href="#"><i class="icon-user"></i>Manage User</a></li>
+                            <li><a href="#"><i class="icon-home"></i>Analytics</a></li>
+                    <?php
+                        }
+                    ?>
+
                 </ul>
             </div><!--/.well -->
         </div><!--/span-->
