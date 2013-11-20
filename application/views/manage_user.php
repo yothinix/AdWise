@@ -28,9 +28,9 @@
     <td>01</td>
     <td>Yothin</td>
     <td>Muangsommuk</td>
-    <td>In Progress</td>
-    <td>Complete</td>
-    <td>Complete</td>
+    <td style="text-align: center"><a class = "btn btn-warning">In Progress</a></td>
+    <td style="text-align: center"><a class = "btn btn-success">Complete</a></td>
+    <td style="text-align: center"><a class = "btn btn-success">Complete</a></td>
     <td><i class ="icon-file" style="margin-left: 15px"></i>
         <i class="icon-pencil" style="margin-left: 10px"></i>
         <i class="icon-trash" style="margin-left: 10px"></i></td>
@@ -42,9 +42,9 @@
     <td>02</td>
     <td>Patthira</td>
     <td>Khakhuntod</td>
-    <td>In Progress</td>
-    <td>In Progress</td>
-    <td>Complete</td>
+    <td style="text-align: center"><a class = "btn btn-success">Complete</a></td>
+    <td style="text-align: center"><a class = "btn btn-danger">Imcomplete</a></td>
+    <td style="text-align: center"><a class = "btn btn-warning">In Progress</a></td>
     <td><i class ="icon-file" style="margin-left: 15px"></i>
         <i class="icon-pencil" style="margin-left: 10px"></i>
         <i class="icon-trash" style="margin-left: 10px"></i></td>
@@ -55,9 +55,9 @@
     <td>03</td>
     <td>Ratchanon</td>
     <td>Jungsangsanguansit</td>
-    <td>In Progress</td>
-    <td>Complete</td>
-    <td>Complete</td>
+    <td style="text-align: center"><a class = "btn btn-success">Complete</a></td>
+    <td style="text-align: center"><a class = "btn btn-warning">In Progress</a></td>
+    <td style="text-align: center"><a class = "btn btn-danger">Imcomplete</a></td>
     <td><i class ="icon-file" style="margin-left: 15px"></i>
         <i class="icon-pencil" style="margin-left: 10px"></i>
         <i class="icon-trash" style="margin-left: 10px"></i></td>
