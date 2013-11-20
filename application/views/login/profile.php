@@ -1,3 +1,10 @@
+<script>
+    function myFunction()
+    {
+        alert("Success! You have successfully done it.");
+    }
+</script>
+
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span11">
@@ -39,8 +46,8 @@
                 <div class="control-group">
                     <label class="control-label" for="inputGender"> Gender </label>
                     <div class="controls">
-                        <input type="radio" id="gender" value=""> Male
-                        <input type="radio" id="gender" value=""> Female
+                        <input type="radio" name="gender" value="0" <?php echo $row->Gender ?> > Male
+                        <input type="radio" name="gender" value="1" <?php echo $row->Gender ?>> Female
                     </div>
                 </div>
 
@@ -48,7 +55,7 @@
                     <label class="control-label" for="inputBirthday"> Birthday </label>
                     <div class="controls">
                         <div class='input-append date' id='datetimepicker1'>
-                            <input placeholder="Birthday" data-format='dd/MM/yyyy' type='text' />
+                            <input type='text' name="birthday" data-format='yyyy-mm-dd' value="<?php echo $row->Birthday ?>" >
                          <span class='add-on'>
                          <i data-date-icon='icon-calendar'>
                          </i>
@@ -80,7 +87,7 @@
 
                 <div class="control-group">
                     <div class="controls">
-                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="submit" onclick="myFunction()" class="btn btn-success">Save</button>
                         <?php echo form_close(); ?>
                     </div>
                 </div>
@@ -96,3 +103,4 @@
 
 <script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-datetimepicker.min.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-datetimepicker.pt-BR.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-alert.js"); ?>"></script>

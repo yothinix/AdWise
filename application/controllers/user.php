@@ -73,7 +73,9 @@ class User extends CI_Controller{
 
     function profile()
     {
-        $profile = $this->user_model->profile('pattie1211');
+        $username = $this->session->userdata('user_name');
+
+        $profile = $this->user_model->profile($username);
         $data = array(
             'main_content' => 'login/profile',
             'profile' => $profile
@@ -83,6 +85,8 @@ class User extends CI_Controller{
 
     function update()
     {
+        $username = $this->session->userdata('user_name');
+
         $this->load->model('User_model');
         /*$data=array(
             'name'=>$this->input->post('name'),
@@ -95,12 +99,13 @@ class User extends CI_Controller{
         $data = array(
             'name'=>$this->input->post('name'),
             'lastname'=>$this->input->post('lastname'),
+            'gender'=>$this->input->post('gender'),
+            'birthday'=>$this->input->post('birthday'),
             'phone'=>$this->input->post('phone'),
             'email'=>($this->input->post('email'))
         );
 
-        $this->User_model->update("pattie1211", $data);
-
+        $this->User_model->update("$username", $data);
         $this->profile();
     }
 }

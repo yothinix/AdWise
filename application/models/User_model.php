@@ -40,12 +40,12 @@ class User_model extends CI_Model {
         $this->db->insert('user',$data);
     }
 
-    function profile()
+    function profile($username)
     {
         $query = $this->db->query("
         SELECT Name,Lastname,Gender,Birthday,Phone,Email
         FROM User
-        WHERE Username='pattie1211'
+        WHERE Username='$username'
         ");
 
             return $query->result();
@@ -56,5 +56,6 @@ class User_model extends CI_Model {
         $this->db->where('Username', $user);
         $this->db->update('user', $data);
     }
+
 }
 ?>
