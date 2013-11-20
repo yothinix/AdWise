@@ -17,7 +17,7 @@
                 foreach($profile as $row)
                 {
 
-                echo form_open('user/update');
+                echo form_open('user/update',$pro);
                 ?>
 
 
@@ -78,18 +78,14 @@
                      </div>
                 </div>
 
-
                 <div class="control-group">
                     <div class="controls">
                         <button type="submit" class="btn btn-success">Save</button>
-                        <?php } //ตัวปิด ?>
                         <?php echo form_close(); ?>
                     </div>
                 </div>
 
-
-
-
+                <?php } //ตัวปิด ?>
 
             </div><!--/span-->
         </div>
