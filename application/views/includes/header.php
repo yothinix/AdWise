@@ -23,6 +23,9 @@
     </style>
     <link href="<?php echo base_url("/assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
 
+
+    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url("/assets/css/bootstrap-datetimepicker.min.css"); ?>">
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="assets/js/html5shiv.js"></script>
@@ -46,13 +49,17 @@ $profile = base_url("index.php/user/profile");
                 <span class="icon-bar"></span>
             </button>
             <a class="brand" href="#">AdWise</a>
+
             <div class="nav-collapse collapse">
-                <p class="navbar-text pull-right">
-                    Logged in as <a href="<?php echo $profile ?>" class="navbar-link"><?php echo $this->session->userdata('user_name'); ?></a>
-                </p>
                 <ul class="nav">
                     <li><a href="#about">About</a></li>
                 </ul>
+                <div class="navbar-text pull-right" style="margin-bottom: -30px">
+                    <?php echo form_open("user/signout"); ?>
+                    Logged in as <a href="<?php echo $profile ?>" class="navbar-link"><?php echo $this->session->userdata('user_name'); ?></a>
+                    <button type="submit" value="signout" class="btn" style="margin-bottom: 10px; margin-left: 10px">Sign out</button>
+                    <?php echo form_close(); ?>
+                </div>
             </div><!--/.nav-collapse -->
         </div>
     </div>
