@@ -108,5 +108,17 @@ class User extends CI_Controller{
         $this->User_model->update("$username", $data);
         $this->profile();
     }
+
+    function dashboard()
+    {
+        $username = $this->session->userdata('user_name');
+
+        $dashboard = $this->user_model->dashboard($username);
+        $data = array(
+            'main_content' => 'dashboard',
+            'dashboard' => $dashboard
+        );
+        $this->load->view('includes/template', $data);
+    }
 }
 ?>

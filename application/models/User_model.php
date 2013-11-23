@@ -57,5 +57,15 @@ class User_model extends CI_Model {
         $this->db->update('user', $data);
     }
 
+    function dashboard($username)
+    {
+        $query = $this->db->query("
+        SELECT Name,Lastname,Email,Username
+        FROM User
+        WHERE Username='$username'
+        ");
+
+        return $query->result();
+    }
 }
 ?>
