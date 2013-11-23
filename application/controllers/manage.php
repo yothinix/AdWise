@@ -16,7 +16,7 @@ class Manage extends CI_Controller{
         }
         else
         {
-            $this->asmlist();
+            $this->manage_user();
         }
     }
 
