@@ -14,11 +14,8 @@
         margin-right: 10px;
     }
 </style>
-<div class="page-header">
-    <h2 style="margin-top: -30px">Report </h2><small><?php echo "ชื่อแบบทดสอบที่ทำ" ?></small>
-</div>
+    <h2 style="margin-top: -30px">Report</h2>
 <hr/>
-
 <div class="row">
 <?php
     $asm_info = $this->Assessment_model->get_asm_info(1); //เอาค่ามาจาก session วิธีเดียวกับ Take an Assessment
