@@ -37,4 +37,15 @@ class Assessment extends CI_Controller {
         );
         $this->load->view('/includes/template', $data);
     }
+
+    function result()
+    {
+        //do ResultExpression กระทำกับ Session Data (AssessmentID, QID, ChoiceID, AnswerGroup, ResultID)
+
+        $data = array(
+            'main_content' => 'result'
+        );
+        $this->load->view('/includes/template', $data);
+
+    }
 }
