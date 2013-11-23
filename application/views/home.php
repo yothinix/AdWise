@@ -59,7 +59,7 @@
     <?php
                 echo base_url("index.php/assessment/test/{$asm_info_row->AssessmentID}/1");
                 ?>
-        ">Save Progress &raquo;</a></p>
+        "><i class="icon-hdd icon-white"></i> Save Progress</a></p>
             <?php    echo "</div><!-- /.span4 -->";
         }
     ?>

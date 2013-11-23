@@ -57,8 +57,8 @@ $profile = base_url("index.php/user/profile");
                 </ul>
                 <div class="navbar-text pull-right" style="margin-bottom: -30px">
                     <?php echo form_open("user/signout"); ?>
-                    Logged in as <a href="<?php echo $profile ?>" class="navbar-link"><?php echo $this->session->userdata('user_name'); ?></a>
-                    <button type="submit" value="signout" class="btn" style="margin-bottom: 10px; margin-left: 10px">Sign out</button>
+                    Logged in as <a href="<?php echo $profile ?>" class="navbar-link"><b><?php echo $this->session->userdata('user_name'); ?></b></a>
+                    <button type="submit" value="signout" class="btn btn-danger" style="margin-bottom: 10px; margin-left: 10px">Sign out</button>
                     <?php echo form_close(); ?>
                 </div>
             </div><!--/.nav-collapse -->

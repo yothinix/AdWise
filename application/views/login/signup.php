@@ -2,7 +2,7 @@
 
 <style type="text/css">
     body {
-        padding-top: 60px;
+        padding-top: 76px;
         padding-bottom: 0px;
         background-image: url("<?php echo base_url("/resources/signup.jpg"); ?>");
         background-size: 100% 100%;
@@ -10,9 +10,9 @@
     }
     .form-signup {
         max-width: 350px;
-        padding: 19px 29px 29px;
+        padding: 9px 19px 19px;
         margin: 0 auto 20px;
-        background-color: rgba(0,0,0,0.75);
+        background-color: rgba(0,0,0,0.5);
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
