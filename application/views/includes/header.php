@@ -48,11 +48,12 @@ $profile = base_url("index.php/user/profile");
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="#">AdWise</a>
+            <a class="brand" href="<?php echo base_url(); ?>"><b style="color: #ffffff">Ad</b><b style="color: red">Wise</b></a>
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li><a href="#about">About</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Meet Us</a></li>
                 </ul>
                 <div class="navbar-text pull-right" style="margin-bottom: -30px">
                     <?php echo form_open("user/signout"); ?>
