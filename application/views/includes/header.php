@@ -38,6 +38,7 @@
 <?php
 $asmlist = base_url("index.php/assessment/asmlist");
 $profile = base_url("index.php/user/profile");
+$manage_user = base_url("index.php/manage/manage_user");
 ?>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -96,7 +97,7 @@ $profile = base_url("index.php/user/profile");
                             <li><a href="#"><i class="icon-random"></i>Manage Answer Group</a></li>
                             <li><a href="#"><i class="icon-tags"></i>Manage Occupation</a></li>
                             <li><a href="#"><i class="icon-tags"></i>Manage Academic</a></li>
-                            <li><a href="#"><i class="icon-user"></i>Manage User</a></li>
+                            <li <?php if($main_content == 'manage_user'){ echo "class=\"active\""; } ?>><a href="<?php echo $manage_user; ?>"><i class="icon-user"></i>Manage User</a></li>
                             <li><a href="#"><i class="icon-home"></i>Analytics</a></li>
                     <?php
                         }
