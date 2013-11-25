@@ -5,20 +5,22 @@ class Assessment_model extends CI_Model {
     function get_question($AID, $QID)
     {
         $query = $this->db->query("
-        SELECT QuestionNr, Detail, ChoiceID
+        SELECT AssessmentID, QuestionNr, Detail, QID
         FROM question
         WHERE AssessmentID='{$AID}'
-        AND QuestionNr='{$QID}'");
+        AND QuestionNr='{$QID}'
+        ");
 
         return $query->result();
     }
 
-    function get_choice($ChoiceID)
+    function get_choice($AID, $QNR)
     {
         $query = $this->db->query("
         SELECT ChoiceID, Detail
         FROM choice
-        WHERE ChoiceID='{$ChoiceID}'
+        WHERE AssessmentID = '{$AID}'
+        AND QuestionNr = '{$QNR}'
         ");
 
         return $query->result();
@@ -28,7 +30,8 @@ class Assessment_model extends CI_Model {
     {
         $query = $this->db->query("
         SELECT AssessmentID, Name, Description
-        FROM assessment");
+        FROM assessment
+        ");
 
         return $query->result();
     }
@@ -36,7 +39,7 @@ class Assessment_model extends CI_Model {
     function get_asm_info($AssessmentID)
     {
         $query = $this->db->query("
-        SELECT AssessmentID, Name, Description
+        SELECT AssessmentID, Name, Description, TotalQuestion
         FROM assessment
         WHERE AssessmentID='{$AssessmentID}'
         ");

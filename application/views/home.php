@@ -78,19 +78,8 @@
     foreach($quiz as $row)
     {
         echo "<h2 style=\"text-align: center\">$row->QuestionNr. $row->Detail ?</h2>";
-        $temp_choice = $row->ChoiceID;
-        $choice_nr = explode(",", $temp_choice);
     }
-?>
-
-    <?php
-        $head = (int)$choice_nr[0];
-        end($choice_nr);
-        $tail = (int)$choice_nr[key($choice_nr)];
-
-        for($count=$head; $count<=$tail; $count++)
-        {
-            $choice = $this->Assessment_model->get_choice($count);
+            $choice = $this->Assessment_model->get_choice($row->AssessmentID, $row->QuestionNr); //QID ที่ตรงกับ QuestionNr นั้น
             foreach($choice as $row)
             {
                 echo "<div class=\"row\">
@@ -102,7 +91,6 @@
                         </div><!--/span4-->
                     </div><!--/row-->";
             }
-        }
     ?>
 </div>
 <br/>
@@ -111,7 +99,11 @@
     <ul>
         <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$Prev"); ?>">«</a></li>
         <?php
-            for($i=1; $i<=10; $i++)
+            $TotalQuestion = $this->Assessment_model->get_asm_info($AssessmentID);
+            foreach($TotalQuestion as $row)
+                $TTQ = $row->TotalQuestion;
+
+            for($i=1; $i<=$TTQ; $i++)
             {
                 echo "<li ";
                 if($QuestionNr == "$i")
