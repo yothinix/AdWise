@@ -44,7 +44,7 @@ class User_model extends CI_Model {
     {
         $query = $this->db->query("
         SELECT Name,Lastname,Gender,Birthday,Phone,Email
-        FROM User
+        FROM user
         WHERE Username='$username'
         ");
 
