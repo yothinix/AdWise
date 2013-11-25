@@ -44,7 +44,7 @@ class User_model extends CI_Model {
     {
         $query = $this->db->query("
         SELECT Name,Lastname,Gender,Birthday,Phone,Email
-        FROM User
+        FROM user
         WHERE Username='$username'
         ");
 
@@ -61,9 +61,18 @@ class User_model extends CI_Model {
     {
         $query = $this->db->query("
         SELECT Name,Lastname,Email,Username
-        FROM User
+        FROM user
         WHERE Username='$username'
         ");
+
+        return $query->result();
+    }
+
+    function get_assessment()
+    {
+        $query = $this->db->query("
+        SELECT AssessmentID, Name, Description
+        FROM assessment");
 
         return $query->result();
     }

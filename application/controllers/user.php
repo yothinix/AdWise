@@ -118,7 +118,14 @@ class User extends CI_Controller{
             'main_content' => 'dashboard',
             'dashboard' => $dashboard
         );
-        $this->load->view('includes/template', $data);
+
+        $assessment = $this->user_model->get_assessment();
+        $data2 = array(
+            'main_content' => 'assessment_list'
+        );
+        $this->load->view('includes/template', $data, $data2);
     }
+
+
 }
 ?>
