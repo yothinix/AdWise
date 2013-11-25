@@ -6,7 +6,7 @@ class User_model extends CI_Model {
         parent::__construct();
     }
 
-    public function signin($username,$password)
+    function signin($username,$password)
     {
         $this->db->where("username",$username);
         $this->db->where("password",$password);
@@ -21,7 +21,7 @@ class User_model extends CI_Model {
                     'user_id' 		=> $rows->ID,
                     'user_name' 	=> $rows->Username,
                     'user_email'    => $rows->Email,
-                    'logged_in' 	=> TRUE,
+                    'logged_in' 	=> TRUE
                 );
             }
             $this->session->set_userdata($newdata);
@@ -30,7 +30,7 @@ class User_model extends CI_Model {
         return false;
     }
 
-    public function signup()
+    function signup()
     {
         $data=array(
             'username'=>$this->input->post('username'),
@@ -40,24 +40,21 @@ class User_model extends CI_Model {
         $this->db->insert('user',$data);
     }
 
-    public function profile($ID)
+    function profile($username)
     {
-        if($this->input->post("save")!= null)
-        {
-            $ar=array(
-                "Name"=>$this->input->post("Name"),
-                "Lastname"=>$this->input->post("Lastname"),
-                "Gender"=>$this->input->post("Gender"),
-                "Birthday"=>$this->input->post("Birthday"),
-                "Phone"=>$this->input->post("Phone"),
-                "Email"=>$this->input->post("Email"),
-            );
-            $this->db->where("ID","$ID");
-            $this->db->update("User",$ar);
-            exit();
-        }
+        $query = $this->db->query("
+        SELECT Name,Lastname,Gender,Birthday,Phone,Email
+        FROM User
+        WHERE Username='$username'
+        ");
 
+            return $query->result();
+    }
 
+    function update($user,$data)
+    {
+        $this->db->where('Username', $user);
+        $this->db->update('user', $data);
     }
 
     function manage_user()

@@ -2,7 +2,7 @@
 
 <style type="text/css">
     body {
-        padding-top: 60px;
+        padding-top: 76px;
         padding-bottom: 0px;
         background-image: url("<?php echo base_url("/resources/signup.jpg"); ?>");
         background-size: 100% 100%;
@@ -10,10 +10,9 @@
     }
     .form-signup {
         max-width: 350px;
-        padding: 19px 29px 29px;
+        padding: 9px 19px 19px;
         margin: 0 auto 20px;
-        background-color: #fff;
-        border: 1px solid #e5e5e5;
+        background-color: rgba(0,0,0,0.5);
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
@@ -21,6 +20,7 @@
         -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
         box-shadow: 0 1px 2px rgba(0,0,0,.05);
     }
+
     .form-signup .form-signup-heading,
     .form-signup .checkbox {
         margin-bottom: 10px;
@@ -32,6 +32,11 @@
         margin-bottom: 15px;
         padding: 7px 9px;
     }
+
+    #adtext {
+        margin-top: 100px;
+        margin-left: 30px;
+    }
 </style>
 
 <body>
@@ -41,11 +46,13 @@ echo br(5);
 <!-- ===== Sign Up ===== -->
 <div class="container-fluid">
     <div class="row-fluid">
-        <div class="span7">
+        <div id="adtext" class="span5">
             <!--Sidebar content-->
+            <h1><b style="color: #ffffff">Ad</b><b style="color: red">Wise</b></h1>
+            <h3 style="color: #ffffff">Finding the right career path for high school<br>student is not hard anymore. With AdWise<br>you can find yourself in a few minutes.</h3>
         </div>
 
-    <div class="span4">
+    <div class="span4 offset2">
     <?php
     $attr = array(
         'class' => 'form-signup'
@@ -53,7 +60,7 @@ echo br(5);
     echo form_open("user/signup",$attr);
     ?>
 
-    <h2 class="form-signup-heading">Please sign up</h2>
+    <h2 class="form-signup-heading"><b style="color: lightgray">Sign Up to </b><b style="color: #ffffff">Ad</b><b style="color: red">Wise</b></h2>
 
     <input type="text" id="username" name="username" class="input-block-level" placeholder="Username" value="<?php echo set_value('username'); ?>">
     <br />

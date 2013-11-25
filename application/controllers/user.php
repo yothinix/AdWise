@@ -20,7 +20,7 @@ class User extends CI_Controller{
         }
     }
 
-    public function signin()
+    function signin()
     {
         $username=$this->input->post('username');
         $password=md5($this->input->post('password'));
@@ -37,20 +37,20 @@ class User extends CI_Controller{
         }
     }
 
-    public function logout()
+    function signout()
     {
         $newdata = array(
-            'user_id' => '',
-            'user_name' => '',
+            'user_id'    => '',
+            'user_name'  => '',
             'user_email' => '',
-            'logged_in' => FALSE,
+            'logged_in'  => FALSE,
         );
         $this->session->unset_userdata($newdata);
         $this->session->sess_destroy();
-        //$this->index();
+        $this->index();
     }
 
-    public function signup()
+    function signup()
     {
         $this->load->library('form_validation');
         // field name, error message, validation rules
@@ -66,14 +66,47 @@ class User extends CI_Controller{
         else
         {
             $this->user_model->signup();
-            $this->load->view('assessment_list');
+            $data = array('main_content' => 'assessment_list');
+            $this->load->view('includes/template', $data);
         }
     }
 
     function profile()
     {
-        $data = array('main_content' => 'login/profile');
+        $username = $this->session->userdata('user_name');
+
+        $profile = $this->user_model->profile($username);
+        $data = array(
+            'main_content' => 'login/profile',
+            'profile' => $profile
+        );
         $this->load->view('includes/template', $data);
+    }
+
+    function update()
+    {
+        $username = $this->session->userdata('user_name');
+
+        $this->load->model('User_model');
+        /*$data=array(
+            'name'=>$this->input->post('name'),
+            'lastname'=>$this->input->post('lastname'),
+            'phone'=>$this->input->post('phone'),
+            'email'=>($this->input->post('email'))
+        );
+        $this->db->update('user',$data,array('username' => 'pattie1211'));*/
+
+        $data = array(
+            'name'=>$this->input->post('name'),
+            'lastname'=>$this->input->post('lastname'),
+            'gender'=>$this->input->post('gender'),
+            'birthday'=>$this->input->post('birthday'),
+            'phone'=>$this->input->post('phone'),
+            'email'=>($this->input->post('email'))
+        );
+
+        $this->User_model->update("$username", $data);
+        $this->profile();
     }
 }
 ?>

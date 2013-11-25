@@ -48,9 +48,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
+$db['default']['hostname'] = 'adwise.kmi.tl';
+$db['default']['username'] = 'development';
+$db['default']['password'] = '1q2w3e4r';
 $db['default']['database'] = 'project';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';

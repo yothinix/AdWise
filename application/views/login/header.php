@@ -20,11 +20,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="brand" href="#">AdWise</a>
+                <a class="brand" href="#"><b style="color: #ffffff">Ad</b><b style="color: red">Wise</b></a>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Meet Us</a></li>
                     </ul>
 
                     <div class="navbar-form pull-right" style="margin-bottom: -20px">
