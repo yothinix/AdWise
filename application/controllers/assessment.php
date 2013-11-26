@@ -13,6 +13,7 @@ class Assessment extends CI_Controller {
             'main_content' => 'home'
         );
         $this->load->view('/includes/template', $data);
+        //$this->Assessment_model->testdata();
     }
 
     function index()
@@ -46,6 +47,5 @@ class Assessment extends CI_Controller {
             'main_content' => 'result'
         );
         $this->load->view('/includes/template', $data);
-
     }
 }

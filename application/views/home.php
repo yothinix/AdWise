@@ -15,11 +15,10 @@
     }
 </style>
 <script>
-    var isAns = true;
-    function ans(ans){
-        if(isAns){
-            isAns = false;
-            document.getElementById("ans").value = ans;
+    var tricker = true;
+    function answer(ans){
+        if(tricker){
+            tricker = false;
             document.getElementById("question-form").submit();
         }
     }
@@ -33,14 +32,7 @@
     $pageList = array(
         '1' => base_url("$baseTestUrl/$AssessmentID/1"),
         '2' => base_url("$baseTestUrl/$AssessmentID/2"),
-        '3' => base_url("$baseTestUrl/$AssessmentID/3"),
-        '4' => base_url("$baseTestUrl/$AssessmentID/4"),
-        '5' => base_url("$baseTestUrl/$AssessmentID/5"),
-        '6' => base_url("$baseTestUrl/$AssessmentID/6"),
-        '7' => base_url("$baseTestUrl/$AssessmentID/7"),
-        '8' => base_url("$baseTestUrl/$AssessmentID/8"),
-        '9' => base_url("$baseTestUrl/$AssessmentID/9"),
-        '10' => base_url("$baseTestUrl/$AssessmentID/10")
+        '3' => base_url("$baseTestUrl/$AssessmentID/3")
     );
     $Prev = $QuestionNr-1;
     $Next = $QuestionNr+1;
@@ -82,16 +74,27 @@
             $choice = $this->Assessment_model->get_choice($row->AssessmentID, $row->QuestionNr); //QID ที่ตรงกับ QuestionNr นั้น
             foreach($choice as $row)
             {
+                $currentChoiceID = $row->ChoiceID;
                 echo "<div class=\"row\">
                         <div class=\"span4\">
-                            <a class=\"btn btn-primary\" href=\"javascript:ans($row->ChoiceID)\">ตัวเลือก $row->ChoiceID</a>
+                            <a class=\"btn btn-primary\" href=\"javascript:ans($currentChoiceID)\">ตัวเลือก $row->ChoiceID</a>
                         </div><!--/span2-->
                         <div class=\"span8\" style =\"margin-left: -40px\">
                             <p>$row->Detail</p>
                         </div><!--/span4-->
                     </div><!--/row-->";
             }
+            $select = $this->input->get('btn');
     ?>
+
+        <?php
+            $this->session->set_userdata('assessmentID', $AssessmentID);
+            $this->session->set_userdata('QuestionNr', $QuestionNr);
+            $this->session->set_userdata('SelectChoice', $select);
+            var_dump($this->session->all_userdata());
+
+        ?>
+
 </div>
 <br/>
 

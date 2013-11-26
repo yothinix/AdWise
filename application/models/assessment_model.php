@@ -57,6 +57,18 @@ class Assessment_model extends CI_Model {
 
         return $query->result();
     }
+
+    function testdata() //ยังไม่ใช้ติดปัญหา Query ผี 13 entry หาที่มาไม่ได้
+    {
+        $data=array
+        (
+            'UserID' => $this->session->userdata('user_id'),
+            'AssessmentID' => $this->session->userdata('assessmentID'),
+            'QuestionNr' =>$this->session->userdata('QuestionNr'),
+            'ChoiceID' => $this->input->post('name of submit element')
+        );
+        $this->db->insert('test',$data);
+    }
 }
 ?>
 
