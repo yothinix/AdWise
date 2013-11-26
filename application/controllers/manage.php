@@ -21,10 +21,10 @@ class Manage extends CI_Controller{
         }
     }
 
-    function manage_user()
+    /*function manage_user()
     {
-        $this->manage_user();
-    }
+        $this->manager_user();
+    }*/
 
     function manage_user()
     {

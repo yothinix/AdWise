@@ -8,7 +8,7 @@ class Manage extends CI_Model {
 
     function manage_user()
     {
-        $query = $this->db->query("SELECT ID,Name,Lastname FROM User");
+        $query = $this->db->query("SELECT ID,Name,Lastname FROM user");
         return $query->result();
     }
 

@@ -25,7 +25,7 @@
     </tr>
 
     <?php
-    $user = $this->Manage->manage_user();
+    $user = $this->User_model->manage_user();
     foreach($user as $row)
     {
         echo form_open('manage/manage_user');
