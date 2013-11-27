@@ -16,11 +16,24 @@
 </style>
 <script>
     var tricker = true;
-    function answer(ans){
+    function ans(ans){
         if(tricker){
             tricker = false;
+            document.getElementById("ans").value = ans;
+            //ถ้าตรงกับคำถามข้อสุดท้ายโหลด Result_Page
+            //ถ้าไม่ตรงโหลด Question-form ข้อถัดไป
             document.getElementById("question-form").submit();
         }
+    }
+
+    function httpGet(theUrl)
+    {
+        var xmlHttp = null;
+
+        xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false );
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
     }
 </script>
 <h2 style="margin-top: -30px">Assessment: </h2>
