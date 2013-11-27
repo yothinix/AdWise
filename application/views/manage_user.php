@@ -35,12 +35,17 @@
         <td><?php echo $row->ID ?> </td>
         <td><?php echo $row->Name ?> </td>
         <td><?php echo $row->Lastname ?> </td>
-
+        <td><button type="button" class="btn btn-warning">In Progress</button></td>
+        <td><button type="button" class="btn btn-success">Complete</button></td>
+        <td><button type="button" class="btn btn-danger">Incomplete</button></td>
     </tr>
 
     <?php
     echo form_close();
     }
     ?>
+
+
+
 
 </table>
