@@ -25,16 +25,6 @@
             document.getElementById("question-form").submit();
         }
     }
-
-    function httpGet(theUrl)
-    {
-        var xmlHttp = null;
-
-        xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", theUrl, false );
-        xmlHttp.send( null );
-        return xmlHttp.responseText;
-    }
 </script>
 <h2 style="margin-top: -30px">Assessment: </h2>
 <hr/>
@@ -91,21 +81,21 @@
                 echo "<div class=\"row\">
                         <div class=\"span4\">
                             <a class=\"btn btn-primary\" href=\"javascript:ans($currentChoiceID)\">ตัวเลือก $row->ChoiceID</a>
-                        </div><!--/span2-->
+                        </div><!--/span4-->
                         <div class=\"span8\" style =\"margin-left: -40px\">
                             <p>$row->Detail</p>
-                        </div><!--/span4-->
+                        </div><!--/span8-->
                     </div><!--/row-->";
             }
-            $select = $this->input->get('btn');
     ?>
 
         <?php
+            $select = $this->input->post('ans');
             $this->session->set_userdata('assessmentID', $AssessmentID);
             $this->session->set_userdata('QuestionNr', $QuestionNr);
             $this->session->set_userdata('SelectChoice', $select);
             var_dump($this->session->all_userdata());
-
+            $testdata;
         ?>
 
 </div>
