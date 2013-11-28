@@ -11,58 +11,46 @@
 
 <h2 style="margin-top: -30px">Manage User</h2>
 <hr />
-
-
-
 <table class="table table-bordered">
-    <tr>
-        <th style="text-align: center">ID</th>
-        <th style="text-align: center">Name</th>
-        <th style="text-align: center">Lastname</th>
-        <th style="text-align: center">ASM1</th>
-        <th style="text-align: center">ASM2</th>
-        <th style="text-align: center">ASM3</th>
-        <th style="text-align: center">Controller</th>
+            <tr>
+                <th style="text-align: center">ID</th>
+                <th style="text-align: center">Name</th>
+                <th style="text-alignnter">Lastname</th>
+                <th style="text-align: center">ASM1</th>
+                <th style="text-align: center">ASM2</th>
+                <th style="text-align: center">ASM3</th>
+                <th style="text-align: center">Controller</th>
+
 
     </tr>
-    <td>01</td>
-    <td>Yothin</td>
-    <td>Muangsommuk</td>
-    <td style="text-align: center"><a class = "btn btn-warning">In Progress</a></td>
-    <td style="text-align: center"><a class = "btn btn-success">Complete</a></td>
-    <td style="text-align: center"><a class = "btn btn-success">Complete</a></td>
-    <td><i class ="icon-file" style="margin-left: 15px"></i>
-        <i class="icon-pencil" style="margin-left: 10px"></i>
-        <i class="icon-trash" style="margin-left: 10px"></i></td>
 
+    <?php
+    $user = $this->User_model->manage_user();
+    foreach($user as $row)
+    {
+        echo form_open('manage/manage_user');
+    ?>
 
     <tr>
 
-    </tr>
-    <td>02</td>
-    <td>Patthira</td>
-    <td>Khakhuntod</td>
-    <td style="text-align: center"><a class = "btn btn-success">Complete</a></td>
-    <td style="text-align: center"><a class = "btn btn-danger">Imcomplete</a></td>
-    <td style="text-align: center"><a class = "btn btn-warning">In Progress</a></td>
-    <td><i class ="icon-file" style="margin-left: 15px"></i>
-        <i class="icon-pencil" style="margin-left: 10px"></i>
-        <i class="icon-trash" style="margin-left: 10px"></i></td>
-
-    <tr>
+        <td><?php echo $row->ID ?>  </td>
+        <td><?php echo $row->Name ?>  </td>
+        <td><?php echo $row->Lastname ?>  </td>
+        <td><button type="button" class="btn btn-warning">In Progress</button> </td>
+        <td><button type="button" class="btn btn-success">Complete</button>  </td>
+        <td><button type="button" class="btn btn-danger">Incomplete</button> </td>
+        <td><a  style="margin-left: 20px"class="btn btn-small" href="#"><i class="icon-file"></i></a>
+            <a  class="btn btn-small" href="#"><i class="icon-pencil"></i></a>
+            <a  class="btn btn-small" href="#"><i class="icon-trash"></i></a>  </td>
 
     </tr>
-    <td>03</td>
-    <td>Ratchanon</td>
-    <td>Jungsangsanguansit</td>
-    <td style="text-align: center"><a class = "btn btn-success">Complete</a></td>
-    <td style="text-align: center"><a class = "btn btn-warning">In Progress</a></td>
-    <td style="text-align: center"><a class = "btn btn-danger">Imcomplete</a></td>
-    <td><i class ="icon-file" style="margin-left: 15px"></i>
-        <i class="icon-pencil" style="margin-left: 10px"></i>
-        <i class="icon-trash" style="margin-left: 10px"></i></td>
-    <tr>
 
-    </tr>
+    <?php
+    echo form_close();
+    }
+    ?>
+
+
+
 
 </table>
