@@ -95,7 +95,6 @@
             $this->session->set_userdata('QuestionNr', $QuestionNr);
             $this->session->set_userdata('SelectChoice', $select);
             var_dump($this->session->all_userdata());
-            $testdata;
         ?>
 
 </div>

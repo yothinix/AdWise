@@ -5,18 +5,6 @@ class Assessment extends CI_Controller {
     public $QuestionNr;
     public $AssessID;
 
-    function test($AssessID,$QuizNo)
-    {
-        $testdata = $this->Assessment_model->testdata();
-        $data = array(
-            'QuestionNr' => $QuizNo,
-            'AssessmentID' => $AssessID,
-            'testdata' => $testdata,
-            'main_content' => 'home'
-        );
-        $this->load->view('/includes/template', $data);
-    }
-
     function index()
     {
         if(($this->session->userdata('user_name')!=""))
@@ -38,6 +26,28 @@ class Assessment extends CI_Controller {
             'main_content' => 'assessment_list'
         );
         $this->load->view('/includes/template', $data);
+    }
+
+    function test_all($AssessID,$QuizNo)
+    {
+        $data = array(
+            'QuestionNr' => $QuizNo,
+            'AssessmentID' => $AssessID,
+            'main_content' => 'home'
+        );
+        $this->load->view('/includes/template', $data);
+    }
+
+    function test($AID, $QID)
+    {
+        if($this->session->userdata('SelectChoice') == false)
+        {
+            $this->test_all($AID,$QID);
+        }
+        else
+        {
+            $this->Assessment_model->testdata();
+        }
     }
 
     function result()
