@@ -119,7 +119,6 @@ class User extends CI_Controller{
         $this->load->view('includes/template', $data);
     }
 
-
     function password()
     {
         $username = $this->session->userdata('user_name');
@@ -141,5 +140,23 @@ class User extends CI_Controller{
             $this->profile();
         }
     }
+
+    function dashboard()
+    {
+        $username = $this->session->userdata('user_name');
+
+        $dashboard = $this->user_model->dashboard($username);
+        $data = array(
+            'main_content' => 'dashboard',
+            'dashboard' => $dashboard
+        );
+
+        $assessment = $this->user_model->get_assessment();
+        $data2 = array(
+            'main_content' => 'assessment_list'
+        );
+        $this->load->view('includes/template', $data, $data2);
+    }
+
 }
 ?>

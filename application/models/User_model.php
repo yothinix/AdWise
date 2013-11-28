@@ -75,5 +75,26 @@ class User_model extends CI_Model {
         return $query->result();
     }
 
+    function dashboard($username)
+    {
+        $query = $this->db->query("
+        SELECT Name,Lastname,Email,Username
+        FROM user
+        WHERE Username='$username'
+        ");
+
+        return $query->result();
+    }
+
+    function get_assessment()
+    {
+        $query = $this->db->query("
+        SELECT AssessmentID, Name, Description
+        FROM assessment");
+
+        return $query->result();
+    }
+
+
 }
 ?>
