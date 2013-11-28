@@ -38,6 +38,7 @@
 <?php
 $asmlist = base_url("index.php/assessment/asmlist");
 $profile = base_url("index.php/user/profile");
+$change = base_url("index.php/user/changepassword");
 $result = base_url("index.php/assessment/result");
 $manage_user = base_url("index.php/manage/manage_user");
 ?>
@@ -83,6 +84,8 @@ $manage_user = base_url("index.php/manage/manage_user");
                     <li class="nav-header">User Menu</li>
                     <li <?php if($main_content == 'login/profile'){ echo "class=\"active\""; } ?>>
                         <a href="<?php echo $profile ?>"><i class="icon-user icon-black"></i>Profile</a></li>
+                    <li <?php if($main_content == 'login/changepassword'){ echo "class=\"active\""; } ?>>
+                        <a href="<?php echo $change ?>"><i class="icon-lock icon-black"></i>Change Password</a></li>
                     <li><a href="#"><i class="icon-wrench icon-black"></i>Settings</a></li>
                     <?php
                         $session_username =  $this->session->userdata('user_name'); //แก้เป็น String
