@@ -32,11 +32,6 @@
 
 <?php
     $baseTestUrl = "index.php/assessment/test";
-    $pageList = array(
-        '1' => base_url("$baseTestUrl/$AssessmentID/1"),
-        '2' => base_url("$baseTestUrl/$AssessmentID/2"),
-        '3' => base_url("$baseTestUrl/$AssessmentID/3")
-    );
     $Prev = $QuestionNr-1;
     $Next = $QuestionNr+1;
 
@@ -66,7 +61,6 @@
     );
     echo form_open("assessment/test/{$AssessmentID}/{$Next}", $attr);
 ?>
-            <input type="hidden" name="no" id="no" value="1" />
 			<input type="hidden" name="ans" id="ans" value="" />
 <?php
     $quiz = $this->Assessment_model->get_question($AssessmentID,$QuestionNr);
@@ -92,7 +86,7 @@
         <?php
             $select = $this->input->post('ans');
             $this->session->set_userdata('assessmentID', $AssessmentID);
-            $this->session->set_userdata('QuestionNr', $QuestionNr);
+            $this->session->set_userdata('QuestionNr', $Prev);
             $this->session->set_userdata('SelectChoice', $select);
             var_dump($this->session->all_userdata());
         ?>
@@ -104,16 +98,23 @@
     <ul>
         <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$Prev"); ?>">«</a></li>
         <?php
+
+            function pagelist($aid, $i)
+            {
+                return base_url("index.php/assessment/test/$aid/$i");
+            }
+
             $TotalQuestion = $this->Assessment_model->get_asm_info($AssessmentID);
             foreach($TotalQuestion as $row)
                 $TTQ = $row->TotalQuestion;
-
             for($i=1; $i<=$TTQ; $i++)
             {
                 echo "<li ";
                 if($QuestionNr == "$i")
                     echo "class=\"active\"";
-                echo "><a href=\"$pageList[$i]\">$i</a></li>";
+                echo "><a href=\"";
+                echo pagelist($AssessmentID,$i);
+                echo "\">$i</a></li>";
             }
         ?>
         <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$Next"); ?>">»</a></li>

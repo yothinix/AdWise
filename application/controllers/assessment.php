@@ -47,6 +47,7 @@ class Assessment extends CI_Controller {
         else
         {
             $this->Assessment_model->testdata();
+            $this->test_all($AID,$QID);
         }
     }
 

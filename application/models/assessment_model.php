@@ -65,7 +65,8 @@ class Assessment_model extends CI_Model {
             'UserID' => $this->session->userdata('user_id'),
             'AssessmentID' => $this->session->userdata('assessmentID'),
             'QuestionNr' =>$this->session->userdata('QuestionNr'),
-            'ChoiceID' => $this->session->userdata('SelectChoice')
+            'ChoiceID' => $this->session->userdata('SelectChoice'),
+            'sessionID' => $this->session->userdata('session_id')
         );
         $this->db->insert('test',$data);
     }
