@@ -57,5 +57,15 @@ class User_model extends CI_Model {
         $this->db->update('user', $data);
     }
 
+    function password($user)
+    {
+        $pass=array(
+            'password'=>md5($this->input->post('password'))
+        );
+
+        $this->db->where('Username',$user);
+        $this->db->update('user', $pass);
+    }
+
 }
 ?>

@@ -108,5 +108,39 @@ class User extends CI_Controller{
         $this->User_model->update("$username", $data);
         $this->profile();
     }
+
+    function newpass()
+    {
+        $username = $this->session->userdata('user_name');
+
+        $data = array(
+            'main_content' => 'login/newpass',
+        );
+        $this->load->view('includes/template', $data);
+    }
+
+
+    function password()
+    {
+        $username = $this->session->userdata('user_name');
+
+        $this->load->model('User_model');
+
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('password', 'password', 'trim|required|min_length[8]|max_length[32]');
+        $this->form_validation->set_rules('ConfirmPassword', 'ConfirmPassword', 'trim|required|matches[password]');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->load->view('Failed');
+        }
+        else
+        {
+            $this->User_model->password($username);
+            $this->profile();
+        }
+
+
+    }
 }
 ?>
