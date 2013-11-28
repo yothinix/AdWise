@@ -32,12 +32,17 @@
     ?>
 
     <tr>
-        <td><?php echo $row->ID ?> </td>
-        <td><?php echo $row->Name ?> </td>
-        <td><?php echo $row->Lastname ?> </td>
-        <td><button type="button" class="btn btn-warning">In Progress</button></td>
-        <td><button type="button" class="btn btn-success">Complete</button></td>
-        <td><button type="button" class="btn btn-danger">Incomplete</button></td>
+
+        <td><?php echo $row->ID ?>  </td>
+        <td><?php echo $row->Name ?>  </td>
+        <td><?php echo $row->Lastname ?>  </td>
+        <td><button type="button" class="btn btn-warning">In Progress</button> </td>
+        <td><button type="button" class="btn btn-success">Complete</button>  </td>
+        <td><button type="button" class="btn btn-danger">Incomplete</button> </td>
+        <td><a  style="margin-left: 20px"class="btn btn-small" href="#"><i class="icon-file"></i></a>
+            <a  class="btn btn-small" href="#"><i class="icon-pencil"></i></a>
+            <a  class="btn btn-small" href="#"><i class="icon-trash"></i></a>  </td>
+
     </tr>
 
     <?php

@@ -30,6 +30,30 @@ class Manage extends CI_Controller{
             'manage_user' => $user
         );
         $this->load->view('includes/template', $data);
+
     }
+    /*public function del($id)
+    {
+        $this->db->delete("login",array('id'=>$id));
+        redirect("member","refresh");
+        exit();
+    }
+    public function edit($id)
+    {
+        if($this->input->post("btsave")!=null)
+        {
+
+            $ar=array(
+
+                'ID'=>$this->input->post("ID"),
+                'Name'=>$this->input->post("Name"),
+                'Lastname'=>$this->input->post("Lastname")
+            );
+
+            $this->db->where('id',$id);
+            $this->db->update("login",$ar);
+            redirect("member","refresh");
+            exit();
+        }*/
   }
 ?>

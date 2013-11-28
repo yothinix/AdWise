@@ -12,5 +12,6 @@ class Manage extends CI_Model {
         return $query->result();
     }
 
+
 }
 ?>
