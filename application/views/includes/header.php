@@ -41,6 +41,7 @@ $profile = base_url("index.php/user/profile");
 $change = base_url("index.php/user/changepassword");
 $result = base_url("index.php/assessment/result");
 $manage_user = base_url("index.php/manage/manage_user");
+$dashboard = base_url("index.php/user/dashboard");
 ?>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -75,7 +76,8 @@ $manage_user = base_url("index.php/manage/manage_user");
             <div class="well sidebar-nav">
                 <ul class="nav nav-list">
                     <li class="nav-header">Main Menu</li>
-                    <li><a href="#"><i class="icon-home icon-black"></i>Home</a></li>
+                    <li <?php if($main_content == 'dashboard'){ echo "class=\"active\""; } ?>>
+                        <a href="<?php echo $dashboard ?>"><i class="icon-home icon-black"></i>Home</a></li>
                     <li <?php if($main_content == 'assessment_list' || $main_content == 'home')
                             { echo "class=\"active\""; } ?>>
                         <a href="<?php echo $asmlist ?>"><i class="icon-edit icon-black"></i>Assessment</a></li>
@@ -86,7 +88,7 @@ $manage_user = base_url("index.php/manage/manage_user");
                         <a href="<?php echo $profile ?>"><i class="icon-user icon-black"></i>Profile</a></li>
                     <li <?php if($main_content == 'login/changepassword'){ echo "class=\"active\""; } ?>>
                         <a href="<?php echo $change ?>"><i class="icon-lock icon-black"></i>Change Password</a></li>
-                    <li><a href="#"><i class="icon-wrench icon-black"></i>Settings</a></li>
+
                     <?php
                         $session_username =  $this->session->userdata('user_name'); //แก้เป็น String
                         $user_role = $this->Assessment_model->check_admin($session_username);

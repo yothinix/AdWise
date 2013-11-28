@@ -28,8 +28,7 @@ class User extends CI_Controller{
         $result=$this->user_model->signin($username,$password);
         if($result)
         {
-            $data = array('main_content' => 'assessment_list');
-            $this->load->view('includes/template', $data);
+            $this->dashboard();
         }
         else
         {
@@ -144,7 +143,6 @@ class User extends CI_Controller{
     function dashboard()
     {
         $username = $this->session->userdata('user_name');
-
         $dashboard = $this->user_model->dashboard($username);
         $data = array(
             'main_content' => 'dashboard',

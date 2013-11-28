@@ -5,8 +5,9 @@
         padding-top: 76px;
         padding-bottom: 0px;
         background-image: url("<?php echo base_url("/resources/signup.jpg"); ?>");
-        background-size: 100% 100%;
+        background-size: 100% auto;
         background-repeat: no-repeat;
+        background-position: center;
     }
     .form-signup {
         max-width: 350px;
@@ -36,6 +37,11 @@
     #adtext {
         margin-top: 100px;
         margin-left: 30px;
+    }
+
+    #footer {
+        position: fixed;
+        bottom: 0px;
     }
 </style>
 
