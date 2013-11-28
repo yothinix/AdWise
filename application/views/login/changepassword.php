@@ -9,7 +9,7 @@
     <div class="row-fluid">
         <div class="span11">
             <div class="row-fluid">
-                <h2 style="margin-top: -30px">Profile</h2>
+                <h2 style="margin-top: -30px">Change Password</h2>
                 <hr/>
                 <div class="span4">
                     <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" data-src="holder.js/140x140" src="<?php echo base_url("/resources/assessment.png"); ?>">
@@ -25,17 +25,24 @@
                     ?>
 
                     <div class="control-group">
-                        <label class="control-label" for="inputPassword"> New Password </label>
+                        <label class="control-label" for="inputPassword"> Current Password </label>
                         <div class="controls">
                             <input type="password" name="password" value="<?php echo set_value('password'); ?>">
                         </div>
                     </div>
 
+                    <div class="control-group">
+                        <label class="control-label" for="inputNewPass"> New Password </label>
+                        <div class="controls">
+                            <input type="password" name="newpass" value="<?php echo set_value('newpass'); ?>">
+                        </div>
+                    </div>
+
 
                     <div class="control-group">
-                        <label class="control-label" for="inputConfirmPassword"> Confirm Password </label>
+                        <label class="control-label" for="inputConfirm"> Confirm Password </label>
                         <div class="controls">
-                            <input type="password" name="ConfirmPassword" value="<?php echo set_value('ConfirmPassword'); ?>">
+                            <input type="password" name="confirm" value="<?php echo set_value('confirm'); ?>">
                         </div>
                     </div>
 
