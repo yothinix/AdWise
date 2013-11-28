@@ -16,12 +16,12 @@
 </style>
 <script>
     var tricker = true;
-    function ans(ans){
-        if(tricker){
+    function ans(choice)
+    {
+        if(tricker)
+        {
             tricker = false;
-            document.getElementById("ans").value = ans;
-            //ถ้าตรงกับคำถามข้อสุดท้ายโหลด Result_Page
-            //ถ้าไม่ตรงโหลด Question-form ข้อถัดไป
+            document.getElementById("ans").value = choice;
             document.getElementById("question-form").submit();
         }
     }
@@ -31,11 +31,9 @@
 <div class="row">
 
 <?php
-    $baseTestUrl = "index.php/assessment/test";
     $Prev = $QuestionNr-1;
     $Next = $QuestionNr+1;
 
-        $asm_info = $this->Assessment_model->get_asm_info($AssessmentID); //เอาค่ามาจาก session
         foreach($asm_info as $asm_info_row)
         {
             echo "<div class=\"span4\">";
@@ -63,12 +61,10 @@
 ?>
 			<input type="hidden" name="ans" id="ans" value="" />
 <?php
-    $quiz = $this->Assessment_model->get_question($AssessmentID,$QuestionNr);
     foreach($quiz as $row)
     {
         echo "<h2 style=\"text-align: center\">$row->QuestionNr. $row->Detail ?</h2>";
     }
-            $choice = $this->Assessment_model->get_choice($row->AssessmentID, $row->QuestionNr); //QID ที่ตรงกับ QuestionNr นั้น
             foreach($choice as $row)
             {
                 $currentChoiceID = $row->ChoiceID;
@@ -104,7 +100,7 @@
                 return base_url("index.php/assessment/test/$aid/$i");
             }
 
-            $TotalQuestion = $this->Assessment_model->get_asm_info($AssessmentID);
+
             foreach($TotalQuestion as $row)
                 $TTQ = $row->TotalQuestion;
             for($i=1; $i<=$TTQ; $i++)

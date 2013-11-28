@@ -30,9 +30,19 @@ class Assessment extends CI_Controller {
 
     function test_all($AssessID,$QuizNo)
     {
+        $asm_info = $this->Assessment_model->get_asm_info($AssessID);
+        $quiz = $this->Assessment_model->get_question($AssessID,$QuizNo);
+        $choice = $this->Assessment_model->get_choice($AssessID,$QuizNo);
+        $TotalQuestion = $this->Assessment_model->get_asm_info($AssessID);
+
         $data = array(
             'QuestionNr' => $QuizNo,
             'AssessmentID' => $AssessID,
+            'asm_info' => $asm_info,
+            'quiz' => $quiz,
+            'choice' => $choice,
+            'TotalQuestion' => $TotalQuestion,
+            'baseTestUrl' => "index.php/assessment/test",
             'main_content' => 'home'
         );
         $this->load->view('/includes/template', $data);
