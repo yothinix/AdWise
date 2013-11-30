@@ -64,7 +64,7 @@ class User extends CI_Controller{
         }
         else
         {
-            $this->user_model->signup();
+            $this->User_model->signup();
             $data = array('main_content' => 'assessment_list');
             $this->load->view('includes/template', $data);
         }
@@ -74,7 +74,7 @@ class User extends CI_Controller{
     {
         $username = $this->session->userdata('user_name');
 
-        $profile = $this->user_model->profile($username);
+        $profile = $this->User_model->profile($username);
         $data = array(
             'main_content' => 'login/profile',
             'profile' => $profile
@@ -143,13 +143,13 @@ class User extends CI_Controller{
     function dashboard()
     {
         $username = $this->session->userdata('user_name');
-        $dashboard = $this->user_model->dashboard($username);
+        $dashboard = $this->User_model->dashboard($username);
         $data = array(
             'main_content' => 'dashboard',
             'dashboard' => $dashboard
         );
 
-        $assessment = $this->user_model->get_assessment();
+        $assessment = $this->User_model->get_assessment();
         $data2 = array(
             'main_content' => 'assessment_list'
         );
