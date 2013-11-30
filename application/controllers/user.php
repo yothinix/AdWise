@@ -3,7 +3,7 @@ class User extends CI_Controller{
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('User_model');
     }
 
     public function index()
@@ -25,7 +25,7 @@ class User extends CI_Controller{
         $username=$this->input->post('username');
         $password=md5($this->input->post('password'));
 
-        $result=$this->user_model->signin($username,$password);
+        $result=$this->User_model->signin($username,$password);
         if($result)
         {
             $this->dashboard();
