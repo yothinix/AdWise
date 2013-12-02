@@ -70,4 +70,12 @@ class Assessment extends CI_Controller {
         );
         $this->load->view('/includes/template', $data);
     }
+
+    function create_assessment()
+    {
+        $data = array(
+            'main_content' => 'create_assessment'
+        );
+        $this->load->view('/includes/template', $data);
+    }
 }
