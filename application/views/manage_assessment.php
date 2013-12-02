@@ -10,6 +10,7 @@
 </style>
 
 <h2 style="margin-top: -30px">Assessment Manager</h2>
+<a href="#" style="margin-top: -40px" class="btn pull-right">+ Create Assessment</a>
 <hr />
 <table class="table table-bordered">
             <tr>
@@ -28,11 +29,11 @@
     ?>
     <tr>
 
-        <td><?php echo $row->AssessmentID ?>  </td>
-        <td><?php echo $row->Name ?>  </td>
-        <td><?php echo $row->CreatorID ?>  </td>
-        <td><?php echo "no of participant"; ?>  </td>
-        <td><?php echo "rank"; ?>  </td>
+        <td style="text-align: center"><?php echo $row->AssessmentID ?></td>
+        <td><a href="<?php echo base_url("index.php/assessment/test/{$row->AssessmentID}/1"); ?>"><?php echo $row->Name ?></a></td>
+        <td><?php foreach($this->User_model->get_creatorName($row->CreatorID) as $row){echo $row->Username;} ?>  </td>
+        <td style="text-align: center"><?php echo "no of participant"; ?>  </td>
+        <td style="text-align: center"><?php echo "rank"; ?>  </td>
         <td><a  style="margin-left: 20px"class="btn btn-small" href="#"><i class="icon-file"></i></a>
             <a  class="btn btn-small" href="#"><i class="icon-pencil"></i></a>
             <a  class="btn btn-small" href="#"><i class="icon-trash"></i></a>  </td>
