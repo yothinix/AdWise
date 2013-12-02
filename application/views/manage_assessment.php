@@ -10,7 +10,7 @@
 </style>
 
 <h2 style="margin-top: -30px">Assessment Manager</h2>
-<a href="#" style="margin-top: -40px" class="btn pull-right">+ Create Assessment</a>
+<a href="<?php echo base_url("index.php/assessment/create_assessment"); ?>" style="margin-top: -40px" class="btn pull-right">+ Create Assessment</a>
 <hr />
 <table class="table table-bordered">
             <tr>
