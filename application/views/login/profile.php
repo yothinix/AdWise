@@ -11,8 +11,29 @@
         <div class="row-fluid">
             <h2 style="margin-top: -30px">Profile</h2>
             <hr/>
+            <br>
             <div class="span4">
                 <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" data-src="holder.js/140x140" src="<?php echo base_url("/resources/assessment.png"); ?>">
+                <br><br>
+
+                <!-- Button to trigger modal -->
+                <a href="#myModal" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
+
+                <!-- Modal -->
+                <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="myModalLabel">Modal header</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>One fine body…</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                        <button class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+
             </div><!--/span-->
 
             <div class="span6">
@@ -54,8 +75,8 @@
                 <div class="control-group">
                     <label class="control-label" for="inputBirthday"> Birthday </label>
                     <div class="controls">
-                        <div class='input-append date' id='datetimepicker1'>
-                            <input type='text' name="birthday" data-format='yyyy-mm-dd' value="<?php echo $row->Birthday ?>" >
+                        <div class='input-append' id='datetimepicker1'>
+                            <input type='text' name="birthday" data-format='yyyy-MM-dd' value="<?php echo $row->Birthday ?>" >
                          <span class='add-on'>
                          <i data-date-icon='icon-calendar'>
                          </i>
@@ -104,3 +125,4 @@
 <script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-datetimepicker.min.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-datetimepicker.pt-BR.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-alert.js"); ?>"></script>
+
