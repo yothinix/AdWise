@@ -4,6 +4,7 @@ class Manage extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('User_model');
+        $this->load->model('Assessment_model');
     }
 
     function index()
@@ -68,6 +69,16 @@ class Manage extends CI_Controller{
         <a href="#" class="btn btn-primary">Save changes</a>
         </div>
         </div> */
+
+    function manage_assessment()
+    {
+        $get_assessment = $this->Assessment_model->get_assessment();
+        $data = array(
+            'main_content' => 'manage_assessment',
+            'get_assessment' => $get_assessment
+        );
+        $this->load->view('includes/template', $data);
+    }
 
 }
 ?>

@@ -41,6 +41,7 @@ $profile = base_url("index.php/user/profile");
 $change = base_url("index.php/user/changepassword");
 $result = base_url("index.php/assessment/result");
 $manage_user = base_url("index.php/manage/manage_user");
+$manage_assessment = base_url("index.php/manage/manage_assessment");
 $dashboard = base_url("index.php/user/dashboard");
 ?>
 
@@ -97,9 +98,12 @@ $dashboard = base_url("index.php/user/dashboard");
                         {
                     ?>
                             <li class="nav-header">Admin Menu</li>
-                            <li><a href="#"><i class="icon-cog"></i>Admin Home</a></li>
-                            <li><a href="#"><i class="icon-th-list"></i>Manage Assessment Type</a></li>
-                            <li><a href="#"><i class="icon-file"></i>Manage Assessment</a></li>
+                            <li>
+                                <a href="#"><i class="icon-cog"></i>Admin Home</a></li>
+                            <li>
+                                <a href="#"><i class="icon-th-list"></i>Manage Assessment Type</a></li>
+                            <li  <?php if($main_content == 'manage_assessment'){ echo "class=\"active\""; } ?>>
+                                <a href="<?php echo $manage_assessment; ?>"><i class="icon-file"></i>Manage Assessment</a></li>
                             <li><a href="#"><i class="icon-tasks"></i>Manage Result</a></li>
                             <li><a href="#"><i class="icon-random"></i>Manage Answer Group</a></li>
                             <li><a href="#"><i class="icon-tags"></i>Manage Occupation</a></li>
