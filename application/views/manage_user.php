@@ -50,7 +50,7 @@
                     <h3 id="myModalLabel">Delete User</h3>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure? you want to delete</p>
+                    <p>Are you sure? </p>
                 </div>
                 <div class="modal-footer">
                     <a class="btn btn-primary" href="<?php echo base_url("index.php/manage/delete_user/{$userID}"); ?>">    Yes    </a>
