@@ -30,32 +30,15 @@ class Manage extends CI_Controller{
             'manage_user' => $user
         );
         $this->load->view('includes/template', $data);
-
+    }
+    function delete_user($userID)
+    {
+        $this->db->delete('user', array('ID' => $userID));
+        $this->manage_user();
     }
 
-        /*public function del($id)
-        {
-            $this->db->delete("login",array('id'=>$id));
-            redirect("member","refresh");
-            exit();
-        }
-        public function edit($id)
-        {
-            if($this->input->post("btsave")!=null)
-        {
-            //สร้างตัวแปร อาเรย์เก็บค่า
-            $ar=array(
-                //ชื่อ attribute ในdb โดยรับค่ามากจาก   ปุ่มจากหน้า view
-                //ชื่อฟิล ใน db                  input  name="xxx "
-                'ID'=>$this->input->post("ID"),
-                'Name'=>$this->input->post("Name"),
-                'Lastname'=>$this->input->post("Lastname")
-            );
-            //ต้องอ้างอิง where ไปที่ (ชื่อfield,ตัวแปร)
-            $this->db->where('id',$id);
-            $this->db->update("login",$ar);
-            redirect("member","refresh");
-            exit();
-        }*/
+
+
+
 }
 ?>

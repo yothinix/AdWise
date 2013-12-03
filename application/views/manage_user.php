@@ -28,6 +28,7 @@
     $user = $this->User_model->manage_user();
     foreach($user as $row)
     {
+        $userID = $row->ID;
         echo form_open('manage/manage_user');
     ?>
 
@@ -39,9 +40,24 @@
         <td><button type="button" class="btn btn-warning">In Progress</button> </td>
         <td><button type="button" class="btn btn-success">Complete</button>  </td>
         <td><button type="button" class="btn btn-danger">Incomplete</button> </td>
-        <td><a  style="margin-left: 20px"class="btn btn-small" href="#"><i class="icon-file"></i></a>
-            <a  class="btn btn-small" href="#"><i class="icon-pencil"></i></a>
-            <a  class="btn btn-small" href="#"><i class="icon-trash"></i></a>  </td>
+        <td><a href="#myModal" role="button" style="margin-left: 10px" class="btn" data-toggle="modal"><i class="icon-file"></i></a>
+            <a href="#myModal" role="button" style="margin-left: 10px" class="btn" data-toggle="modal"><i class="icon-pencil"></i></a>
+            <a href="#myModal<?php echo $userID; ?>" role="button" style="margin-left: 10px" class="btn" data-toggle="modal"><i class="icon-trash"></i></a>
+            <!-- Modal -->
+            <div id="myModal<?php echo $userID; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">?</button>
+                    <h3 id="myModalLabel">Delete User</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure? you want to delete</p>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="<?php echo base_url("index.php/manage/delete_user/{$userID}"); ?>">    Yes    </a>
+                    <button class="btn ">Cancel</button>
+                </div>
+            </div>
+        </td>
 
     </tr>
 
@@ -54,3 +70,5 @@
 
 
 </table>
+
+<script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-modal.js"); ?>"></script>
