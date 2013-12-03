@@ -21,19 +21,19 @@
 <div class="row">
     <div class="tabbable"> <!-- Only required for left/right tabs -->
         <ul class="nav nav-tabs">
-            <li><a href="#tab1" data-toggle="tab">Assessment Info</a></li>
+            <li class="active"><a href="#tab1" data-toggle="tab">Assessment Info</a></li>
             <li><a href="#tab2" data-toggle="tab">Question & Answers</a></li>
             <li><a href="#tab3" data-toggle="tab">Result Condition</a></li>
             <li><a href="#tab4" data-toggle="tab">Review Assessment</a></li>
-            <li class="active"><a href="#tab5" data-toggle="tab">Submit Questions</a></li>
+            <li><a href="#tab5" data-toggle="tab">Submit Questions</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane" id="tab1">
+            <div class="tab-pane active" id="tab1">
                 <?php
-                    echo form_open("ctrl class/ctrl function"); //Save ASM_info_data to initialize
+                    echo form_open("assessment/init_create_asm"); //Save ASM_info_data to initialize
                 ?>
-                <input type="text" id="assessment_name" name="assessment_name" class="input-block-level" placeholder="Assessment Name" value="<?php echo set_value('assessment_name'); ?>">
-                <textarea type="text" rows="10" id="assessment_desc" name="assessment_dec" class="input-block-level" placeholder="Assessment Description" value="<?php echo set_value('assessment_description'); ?>"></textarea>
+                <input type="text" id="asm_name" name="asm_name" class="input-block-level" placeholder="Assessment Name" value="<?php echo set_value('asm_name'); ?>" />
+                <textarea type="text" rows="10" id="asm_desc" name="asm_desc" class="input-block-level" placeholder="Assessment Description" value="<?php echo set_value('asm_desc'); ?>"></textarea>
                 <?php
                     $options = array(
                         'desc' => 'Type name',
@@ -43,11 +43,11 @@
                         'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
                     );
 
-                    echo form_dropdown('shirts', $options, 'desc');
+                    echo form_dropdown('asm_type', $options, 'desc');
                 ?>
                 <div style="text-align: center">
                     <button type="submit" class="btn btn-success btn-large input-large">Submit</button>
-                    <button type="submit" class="btn btn-danger btn-large input-large">Reset</button>
+                    <button class="btn btn-danger btn-large input-large">Reset</button> <!--เอาไว้ลบค่าในช่องทั้งหมดที่ใส่ไป-->
                 </div>
                 <?php
                     echo form_close();
@@ -301,7 +301,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane active" id="tab5">
+            <div class="tab-pane" id="tab5">
                 <form class="form-horizontal"> <!--//Save ASM_info_data to initialize-->
                         <div class="control-group">
                             <label class="control-label" for="creator">Creator</label>

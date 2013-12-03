@@ -71,6 +71,8 @@ class Assessment extends CI_Controller {
         $this->load->view('/includes/template', $data);
     }
 
+/*//////////Manage_Assessment / Create_Assessment controller function ///////////*/
+
     function create_assessment()
     {
         $data = array(
@@ -78,4 +80,14 @@ class Assessment extends CI_Controller {
         );
         $this->load->view('/includes/template', $data);
     }
+
+    function init_create_asm()
+    {
+        $this->load->model('Manage_assessment');
+        $this->Manage_assessment->insert_asm_info();
+        $this->create_assessment();
+    }
+
+/*//////////Manage_Assessment / Create_Assessment controller function ///////////*/
+
 }
