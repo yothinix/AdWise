@@ -30,44 +30,15 @@ class Manage extends CI_Controller{
             'manage_user' => $user
         );
         $this->load->view('includes/template', $data);
-
     }
-    /*public function del($id)
+    function delete_user($userID)
     {
-        $this->db->delete("login",array('id'=>$id));
-        redirect("member","refresh");
-        exit();
+        $this->db->delete('user', array('ID' => $userID));
+        $this->manage_user();
     }
-    public function edit($id)
-    {
-        if($this->input->post("btsave")!=null)
-        {
 
-            $ar=array(
 
-                'ID'=>$this->input->post("ID"),
-                'Name'=>$this->input->post("Name"),
-                'Lastname'=>$this->input->post("Lastname")
-            );
 
-            $this->db->where('id',$id);
-            $this->db->update("login",$ar);
-            redirect("member","refresh");
-            exit();
-        }
-        <div class="modal hide fade">
-        <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Modal header</h3>
-        </div>
-        <div class="modal-body">
-        <p>One fine body…</p>
-        </div>
-        <div class="modal-footer">
-        <a href="#" class="btn">Close</a>
-        <a href="#" class="btn btn-primary">Save changes</a>
-        </div>
-        </div> */
 
 }
 ?>
