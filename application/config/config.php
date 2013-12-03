@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://adwise.kmi.tl';
+$config['base_url']	= 'localhost/adwise';
 
 $config['server_root'] = $_SERVER['DOCUMENT_ROOT']; 
 /*
