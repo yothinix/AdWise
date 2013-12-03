@@ -10,6 +10,7 @@
     <!-- Le styles -->
     <link href="<?php echo base_url("/assets/css/bootstrap.css"); ?>" rel="stylesheet">
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+
     <style type="text/css">
         body {
             padding-top: 60px;
@@ -102,7 +103,7 @@ $dashboard = base_url("index.php/user/dashboard");
                                 <a href="#"><i class="icon-cog"></i>Admin Home</a></li>
                             <li>
                                 <a href="#"><i class="icon-th-list"></i>Manage Assessment Type</a></li>
-                            <li  <?php if($main_content == 'manage_assessment'){ echo "class=\"active\""; } ?>>
+                            <li  <?php if($main_content == 'manage_assessment' || $main_content == 'create_assessment'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $manage_assessment; ?>"><i class="icon-file"></i>Manage Assessment</a></li>
                             <li><a href="#"><i class="icon-tasks"></i>Manage Result</a></li>
                             <li><a href="#"><i class="icon-random"></i>Manage Answer Group</a></li>
