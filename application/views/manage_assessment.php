@@ -25,6 +25,7 @@
     <?php
     foreach($get_assessment as $row)
     {
+        $ASMID = $row->AssessmentID;
         echo form_open('manage/manage_assessment'); //name of the function to send form of manage_assesssment query
     ?>
     <tr>
@@ -36,16 +37,28 @@
         <td style="text-align: center"><?php echo "rank"; ?>  </td>
         <td><a  style="margin-left: 20px"class="btn btn-small" href="#"><i class="icon-file"></i></a>
             <a  class="btn btn-small" href="#"><i class="icon-pencil"></i></a>
-            <a  class="btn btn-small" href="#"><i class="icon-trash"></i></a>  </td>
+            <a href="#myModal<?php echo $ASMID ?>" role="button" class="btn" data-toggle="modal"><i class="icon-trash"></i></a>
+
 
     </tr>
+
+        <!-- Modal -->
+        <div id="myModal<?php echo $ASMID ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Delete Assessment</h3>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure?</p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-primary" href="<?php echo base_url("index.php/assessment/delete_asm/{$ASMID}"); ?>">    Yes    </a>
+                <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            </div>
+        </div>
 
     <?php
     echo form_close();
     }
     ?>
-
-
-
-
 </table>
