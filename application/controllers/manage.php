@@ -6,6 +6,7 @@ class Manage extends CI_Controller{
         $this->load->model('User_model');
         $this->load->model('Assessment_model');
         $this->load->model('Manage_assessment_type');
+        $this->load->model('Manage_answer_group');
     }
 
     function index()
@@ -98,6 +99,25 @@ class Manage extends CI_Controller{
 
         //then load manage assessment page again
         $this->manage_assessment_type();
+    }
+
+    function manage_answer_group()
+    {
+        $get_answer_group = $this->Manage_answer_group->get_answer_group();
+        $data = array(
+            'main_content' => 'manage_answer_group',
+            'get_answer_group' => $get_answer_group
+        );
+        $this->load->view('includes/template', $data);
+    }
+
+    function delete_answer_group($AnswerGroupID)
+    {
+        $this->load->model('Manage_assessment_type');
+        $this->Manage_answer_group->delete($AnswerGroupID);
+
+        //then load manage assessment page again
+        $this->manage_answer_group();
     }
 
 }
