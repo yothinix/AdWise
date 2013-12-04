@@ -31,13 +31,21 @@ class Manage extends CI_Controller{
         );
         $this->load->view('includes/template', $data);
     }
+
     function delete_user($userID)
     {
         $this->db->delete('user', array('ID' => $userID));
         $this->manage_user();
     }
 
+    function manage_result()
+    {
+        $data = array(
+            'main_content' => 'manage_result',
+        );
+        $this->load->view('includes/template', $data);
 
+    }
 
 
 }
