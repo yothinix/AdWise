@@ -91,6 +91,12 @@ class Manage extends CI_Controller{
         $this->load->view('includes/template', $data);
     }
 
+    function create_asm_type()
+    {
+        $this->Manage_assessment_type->insert_asm_type();
+        $this->manage_assessment_type();
+    }
+
     function delete_asm_type($AssessmentTypeID)
     {
         $this->load->model('Manage_assessment_type');

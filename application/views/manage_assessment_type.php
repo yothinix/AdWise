@@ -78,21 +78,18 @@
             <div class="tab-content"> <!-- ทำฟอร์มครอบทั้ง Modal เลยเริ่มตรงนี้ -->
                 <div class="tab-pane active" id="tab1">
                     <?php
-                    echo form_open("assessment/init_create_asm"); //Save ASM_info_data to initialize
+                    echo form_open("manage/create_asm_type"); //Save ASM_info_data to initialize
                     ?>
                     <input type="text" id="asm_type_name" name="asm_type_name" class="input-block-level" placeholder="Assessment Type Name" />
                     <input type="text" id="asm_type_desc" name="asm_type_desc" class="input-block-level" placeholder="Description" />
                     <input type="text" id="no_choice" name="no_choice" class="input-block-level" placeholder="No. of Choice" />
                     <input type="text" id="no_answer" name="no_answer" class="input-block-level" placeholder="No. of Answer" />
                     <input type="text" id="no_answer_group" name="no_answer_group" class="input-block-level" placeholder="No. of Answer Group" />
-                    <?php
-                    echo form_close();
-                    ?>
                 </div>
                 <div class="tab-pane" id="tab2">
                     <textarea type="text" rows="10" id="result_expression" name="result_expression" class="input-block-level" placeholder="Result Expression" ></textarea>
                     <div style="text-align: center">
-                        <button type="submit" class="btn btn-warning">Check Expression</button>
+                        <button class="btn btn-warning">Check Expression</button>
                         <button class="btn btn-success">Add Expression</button>
                     </div>
                 </div>
@@ -100,7 +97,10 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a class="btn btn-success" href="#">Create Assessment Type</a>
-        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button type="submit" class="btn btn-success">Create Assessment Type</button>
+        <button type="reset" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <?php
+        echo form_close();
+        ?>
     </div>
 </div>

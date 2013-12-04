@@ -18,6 +18,24 @@ class Manage_assessment_type extends CI_Model {
         $this->db->delete('assessment_type', array('AssessmentTypeID' => $AsmTypeID));
     }
 
+    function insert_asm_type()
+    {
+        $data = array
+        (
+            'Name' => $this->input->post('asm_type_name'),
+            'Description' => $this->input->post('asm_type_desc'),
+            'TotalChoice' => $this->input->post('no_choice'),
+            'TotalAnswer' => $this->input->post('no_answer'),
+            'TotalAnswerGroup' => $this->input->post('no_answer_group')
+        );
+        $this->db->insert('assessment_type',$data);
+    }
+
+    //ต้องสร้าง
+    //- Function ไว้แปลง Result Expression เก็บลงตาราง Result Expression
+    //  แล้วเก็บเป็น ID ใน Assessment Type
+    //- Function ไว้เช็ค Result Expression ว่าเขียนถูกมั้ยด้วย
+
 }
 ?>
 
