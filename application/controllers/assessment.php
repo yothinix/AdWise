@@ -2,6 +2,13 @@
 
 class Assessment extends CI_Controller {
 
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('User_model');
+        $this->load->model('Assessment_model');
+    }
+
     public $QuestionNr;
     public $AssessID;
 
@@ -70,4 +77,38 @@ class Assessment extends CI_Controller {
         );
         $this->load->view('/includes/template', $data);
     }
+
+/*//////////Manage_Assessment / Create_Assessment controller function ///////////*/
+
+    function create_assessment()
+    {
+        $data = array(
+            'main_content' => 'create_assessment'
+        );
+        $this->load->view('/includes/template', $data);
+    }
+
+    function init_create_asm()
+    {
+        $this->load->model('Manage_assessment');
+        $this->Manage_assessment->insert_asm_info();
+        $this->create_assessment();
+    }
+
+    function delete_asm($AssessmentID)
+    {
+        $this->load->model('Manage_assessment');
+        $this->Manage_assessment->delete_asm($AssessmentID);
+
+        //then load manage assessment page again
+        $get_assessment = $this->Assessment_model->get_assessment();
+        $data = array(
+            'main_content' => 'manage_assessment',
+            'get_assessment' => $get_assessment
+        );
+        $this->load->view('includes/template', $data);
+    }
+
+/*//////////Manage_Assessment / Create_Assessment controller function ///////////*/
+
 }
