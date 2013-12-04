@@ -42,6 +42,7 @@ $change = base_url("index.php/user/changepassword");
 $result = base_url("index.php/assessment/result");
 $manage_user = base_url("index.php/manage/manage_user");
 $dashboard = base_url("index.php/user/dashboard");
+$academic = base_url("index.php/manage/manage_academic");
 ?>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -103,7 +104,8 @@ $dashboard = base_url("index.php/user/dashboard");
                             <li><a href="#"><i class="icon-tasks"></i>Manage Result</a></li>
                             <li><a href="#"><i class="icon-random"></i>Manage Answer Group</a></li>
                             <li><a href="#"><i class="icon-tags"></i>Manage Occupation</a></li>
-                            <li><a href="#"><i class="icon-tags"></i>Manage Academic</a></li>
+                            <li <?php if($main_content == 'manage_academic'){ echo "class=\"active\""; } ?>>
+                                <a href="<?php echo $academic?>"><i class="icon-tags"></i>Manage Academic</a></li>
                             <li <?php if($main_content == 'manage_user'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $manage_user; ?>"><i class="icon-user"></i>Manage User</a></li>
                             <li><a href="#"><i class="icon-home"></i>Analytics</a></li>

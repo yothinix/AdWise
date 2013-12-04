@@ -4,6 +4,7 @@ class Manage extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('User_model');
+        $this->load->model('Manage_academic');
     }
 
     function index()
@@ -67,7 +68,46 @@ class Manage extends CI_Controller{
         <a href="#" class="btn">Close</a>
         <a href="#" class="btn btn-primary">Save changes</a>
         </div>
-        </div> */
+        </div>
+    } */
+
+    function manage_academic()
+    {
+        $user = $this->Manage_academic->academic();
+        $data = array(
+            'main_content' => 'manage_academic',
+            'manage_academic' => $user
+        );
+        $this->load->view('includes/template', $data);
+    }
+
+    function del_academic($Academic_id)
+    {
+        $this->db->delete('academic',array('Academic_id' => $Academic_id));
+        $this->manage_academic();
+    }
+
+    function create_academic()
+    {
+        $data = array(
+            'name'=>$this->input->post('name'),
+            'detail'=>$this->input->post('detail'),
+            'tag'=>($this->input->post('tag'))
+        );
+        $this->Manage_academic->create_academic($data);
+        $this->manage_academic();
+    }
+
+    function update($academic_id)
+    {
+        $data = array(
+            'name'=>$this->input->post('name'),
+            'detail'=>$this->input->post('detail'),
+            'tag'=>($this->input->post('tag'))
+        );
+        $this->Manage_academic->update($academic_id ,$data);
+        $this->manage_academic();
+    }
 
 }
 ?>
