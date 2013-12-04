@@ -7,6 +7,11 @@
 
     }
 
+    td
+    {
+        font-size: 14px;
+    }
+
 </style>
 
 <h2 style="margin-top: -30px">Manage Answer Group</h2>
@@ -24,18 +29,15 @@
     foreach($get_answer_group as $row)
     {
         $Answer_group_ID = $row->AnswerGroupID;
-        echo form_open('manage/manage_assessment'); //name of the function to send form of manage_assesssment query
-        ?>
+    ?>
         <tr>
 
             <td style="text-align: center"><?php echo $row->AnswerGroupID ?></td>
             <td><?php echo $row->Name ?></td>
             <td><?php echo $row->Detail ?></td>
-            <td><a  style="margin-left: 20px"class="btn btn-small" href="#"><i class="icon-file"></i></a>
+            <td>
                 <a  class="btn btn-small" href="#"><i class="icon-pencil"></i></a>
                 <a href="#myModal<?php echo $Answer_group_ID ?>" role="button" class="btn" data-toggle="modal"><i class="icon-trash"></i></a>
-
-
         </tr>
 
         <!-- Modal -->
@@ -67,16 +69,16 @@
     </div>
     <div class="modal-body">
         <?php
-        echo form_open("assessment/init_create_asm"); //Save ASM_info_data to initialize
+        echo form_open("manage/create_answer_group");
         ?>
-        <input type="text" id="asm_type_name" name="asm_type_name" class="input-block-level" placeholder="Answer Group" />
-        <textarea type="text" rows="10" id="result_expression" name="result_expression" class="input-block-level" placeholder="Detail" ></textarea>
+        <input type="text" id="answer_group_name" name="answer_group_name" class="input-block-level" placeholder="Answer Group" />
+        <textarea type="text" rows="10" id="answer_group_detail" name="answer_group_detail" class="input-block-level" placeholder="Detail" ></textarea>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" href="#">Create Answer Group</button>
+        <button type="reset" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
         <?php
         echo form_close();
         ?>
-    </div>
-    <div class="modal-footer">
-        <a class="btn btn-success" href="#">Create Answer Group</a>
-        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
     </div>
 </div>

@@ -111,6 +111,12 @@ class Manage extends CI_Controller{
         $this->load->view('includes/template', $data);
     }
 
+    function create_answer_group()
+    {
+        $this->Manage_answer_group->insert_answer_group();
+        $this->manage_answer_group();
+    }
+
     function delete_answer_group($AnswerGroupID)
     {
         $this->load->model('Manage_assessment_type');
