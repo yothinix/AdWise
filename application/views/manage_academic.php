@@ -37,33 +37,34 @@
             <td><?php echo $row->Tag ?>  </td>
             <td style="text-align: center">
                 <!-- Edit -->
-                <a role="button"  class="btn btn-small" href="#edit" data-toggle="modal"><i class="icon-pencil"></i></a>
+                <a role="button"  class="btn btn-small" href="#edit<?php echo $Academic_id ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
                 <!-- Delete -->
-                <a role="button"  class="btn btn-small" href="#del" data-toggle="modal"><i class="icon-trash"></i></a>  </td>
+                <a role="button"  class="btn btn-small" href="#del<?php echo $Academic_id ?>" data-toggle="modal"><i class="icon-trash"></i></a>  </td>
         </tr>
 
         <!-- Modal Edit -->
-        <div id="edit<?php $Academic_id ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="edit<?php echo $Academic_id ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3 id="myModalLabel">Edit Academic</h3>
         </div>
-        <div class="modal-body">
-            <form class="form-horizontal" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
-                <?php echo form_open("manage/update/{$Academic_id}"); ?>
-                <div class="control-group" style="margin-left: -90px; margin-right: 20px">
+        <div class="modal-body" style="margin-top: -10px">
+                <?php
+                $form = array('class' => 'form-horizontal');
+                echo form_open("manage/update/{$Academic_id}",$form); ?>
+                <div class="control-group" >
                     <label class="control-label" for="inputName">Name</label>
                     <div class="controls">
                         <input type="text" name="name" class="input-block-level" value="<?php echo $row->Name ?>">
                     </div>
                 </div>
-                <div class="control-group" style="margin-left: -90px; margin-right: 20px">
+                <div class="control-group" >
                     <label class="control-label" for="inputDetail">Detail</label>
                     <div class="controls">
                         <input type="text" name="detail" class="input-block-level" value="<?php echo $row->Detail ?>">
                     </div>
                 </div>
-                <div class="control-group" style="margin-left: -90px; margin-right: 20px">
+                <div class="control-group" >
                     <label class="control-label" for="inputTag">Tag</label>
                     <div class="controls">
                         <input type="text" name="tag" class="input-block-level" value="<?php echo $row->Tag ?>">
@@ -74,12 +75,11 @@
                     <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
                 </div>
                 <?php echo form_close(); ?>
-            </form>
         </div> <!-- ปิด modal-header -->
         </div> <!-- ปิด edit -->
 
         <!-- Modal Delete -->
-        <div id="del<?php $Academic_id ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="del<?php echo $Academic_id ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3 id="myModalLabel">Delete</h3>
