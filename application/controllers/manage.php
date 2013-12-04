@@ -5,6 +5,7 @@ class Manage extends CI_Controller{
         parent::__construct();
         $this->load->model('User_model');
         $this->load->model('Assessment_model');
+        $this->load->model('Manage_assessment_type');
     }
 
     function index()
@@ -78,6 +79,25 @@ class Manage extends CI_Controller{
             'get_assessment' => $get_assessment
         );
         $this->load->view('includes/template', $data);
+    }
+
+    function manage_assessment_type()
+    {
+        $get_assessment_type = $this->Manage_assessment_type->get_assessment_type();
+        $data = array(
+            'main_content' => 'manage_assessment_type',
+            'get_assessment_type' => $get_assessment_type
+        );
+        $this->load->view('includes/template', $data);
+    }
+
+    function delete_asm_type($AssessmentTypeID)
+    {
+        $this->load->model('Manage_assessment_type');
+        $this->Manage_assessment_type->delete($AssessmentTypeID);
+
+        //then load manage assessment page again
+        $this->manage_assessment_type();
     }
 
 }
