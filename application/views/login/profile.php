@@ -116,8 +116,8 @@
                 <div class="control-group">
                     <label class="control-label" for="inputGender"> Gender </label>
                     <div class="controls">
-                        <input type="radio" name="gender" value="0" <?php echo $row->Gender ?> > Male
-                        <input type="radio" name="gender" value="1" <?php echo $row->Gender ?>> Female
+                        <input type="radio" name="gender" value="0" <?php if($row->Gender==0) echo "checked"; ?> > Male
+                        <input type="radio" name="gender" value="1" <?php if($row->Gender==1) echo "checked"; ?> > Female
                     </div>
                 </div>
 
