@@ -18,6 +18,20 @@ class Manage_assessment_type extends CI_Model {
         $this->db->delete('assessment_type', array('AssessmentTypeID' => $AsmTypeID));
     }
 
+    function update_asm_type($ASMTID)
+    {
+        $data = array
+        (
+            'Name' => $this->input->post('asm_type_name'),
+            'Description' => $this->input->post('asm_type_desc'),
+            'TotalChoice' => $this->input->post('no_choice'),
+            'TotalAnswer' => $this->input->post('no_answer'),
+            'TotalAnswerGroup' => $this->input->post('no_answer_group')
+        );
+        $this->db->where('AssessmentTypeID', $ASMTID);
+        $this->db->update('assessment_type',$data);
+    }
+
     function insert_asm_type()
     {
         $data = array
