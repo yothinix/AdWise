@@ -117,6 +117,12 @@ class Manage extends CI_Controller{
         $this->manage_answer_group();
     }
 
+    function edit_answer_group($AnswerGroupID)
+    {
+        $this->Manage_answer_group->update_answer_group($AnswerGroupID);
+        $this->manage_answer_group();
+    }
+
     function delete_answer_group($AnswerGroupID)
     {
         $this->load->model('Manage_assessment_type');

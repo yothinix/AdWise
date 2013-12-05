@@ -15,7 +15,7 @@
 </style>
 
 <h2 style="margin-top: -30px">Manage Answer Group</h2>
-<a href="#CreateAsmType" style="margin-top: -40px" class="btn pull-right" role="button" data-toggle="modal">+ Create Answer Group</a>
+<a href="#CreateAnswerGroup" style="margin-top: -40px" class="btn pull-right" role="button" data-toggle="modal">+ Create Answer Group</a>
 <hr />
 <table class="table table-bordered">
     <tr>
@@ -36,12 +36,12 @@
             <td><?php echo $row->Name ?></td>
             <td><?php echo $row->Detail ?></td>
             <td>
-                <a  class="btn btn-small" href="#"><i class="icon-pencil"></i></a>
-                <a href="#myModal<?php echo $Answer_group_ID ?>" role="button" class="btn" data-toggle="modal"><i class="icon-trash"></i></a>
+                <a href="#EditAnswerGroup<?php echo $Answer_group_ID; ?>" class="btn btn-small" role="button" data-toggle="modal"><i class="icon-pencil"></i></a>
+                <a href="#myModal<?php echo $Answer_group_ID ?>" class="btn" role="button" data-toggle="modal"><i class="icon-trash"></i></a>
         </tr>
 
-        <!-- Modal -->
-        <div id="myModal<?php echo $Answer_group_ID ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <!-- Delete Answer Group Modal -->
+        <div id="myModal<?php echo $Answer_group_ID; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h3 id="myModalLabel">Delete Answer Group</h3>
@@ -55,14 +55,38 @@
             </div>
         </div>
 
+        <!-- Edit Answer Group Modal -->
+        <div id="EditAnswerGroup<?php echo $Answer_group_ID; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Edit Answer Group: <?php echo $Answer_group_ID ?></h3>
+            </div>
+            <div class="modal-body">
+                <?php
+                echo form_open("manage/edit_answer_group/{$Answer_group_ID}");
+                ?>
+                <small>Name</small>
+                <input type="text" id="answer_group_name" name="answer_group_name" class="input-block-level" placeholder="Answer Group" value="<?php echo $row->Name; ?>"/>
+                <small>Detail</small>
+                <textarea type="text" rows="10" id="answer_group_detail" name="answer_group_detail" class="input-block-level" placeholder="Detail"><?php echo $row->Detail; ?></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" href="#">Done</button>
+                <button type="reset" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <?php
+                echo form_close();
+                ?>
+            </div>
+        </div>
+
         <?php
         echo form_close();
     }
     ?>
 </table>
 
-<!-- Modal -->
-<div id="CreateAsmType" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Create Answer Group Modal -->
+<div id="CreateAnswerGroup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="myModalLabel">Create Answer Group</h3>
