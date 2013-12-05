@@ -5,6 +5,7 @@ class Manage extends CI_Controller{
         parent::__construct();
         $this->load->model('User_model');
         $this->load->model('Manage_occupation');
+        $this->load->model('Manage_result_data');
     }
 
     function index()
@@ -33,6 +34,54 @@ class Manage extends CI_Controller{
         $this->load->view('includes/template', $data);
     }
 
+    function delete_user($userID)
+    {
+        $this->db->delete('user', array('ID' => $userID));
+        $this->manage_user();
+    }
+
+     /*Manage_result function*/
+
+    function  manage_result()
+    {
+        $this->load->model('Manage_result_data');
+        $user = $this->Manage_result_data->get_manage_result();
+        $data = array(
+            'main_content' => 'manage_result',
+            'manage_result' => $user
+        );
+        $this->load->view('includes/template', $data);
+
+    }
+
+    function create_result()
+    {
+        $data = array(
+            'name'=>$this->input->post('name'),
+            'detail'=>$this->input->post('detail')
+
+        );
+        $this->Manage_result_data->create_result($data);
+        $this->manage_result();
+    }
+
+    function update_result($ResultID)
+    {
+        $data = array(
+            'Name'=>$this->input->post('name'),
+            'Detail'=>$this->input->post('detail')
+        );
+        $this->Manage_result_data->update_result($ResultID ,$data);
+        $this->manage_result();
+    }
+    
+    function delete_result($ResultID)
+    {
+        $this->db->delete('result', array('ResultID' => $ResultID));
+        $this->manage_result();
+    }
+
+    /*Manage_Occupation function*/
 
     function manage_occupation_data()
     {
@@ -40,21 +89,6 @@ class Manage extends CI_Controller{
             'main_content' => 'manage_occupation_data',
         );
         $this->load->view('manage occupation data', $data);
-
-    }
-
-    function delete_user($userID)
-    {
-        $this->db->delete('user', array('ID' => $userID));
-        $this->manage_user();
-    }
-
-    function manage_result()
-    {
-        $data = array(
-            'main_content' => 'manage_result',
-        );
-        $this->load->view('includes/template', $data);
 
     }
 
@@ -87,6 +121,7 @@ class Manage extends CI_Controller{
         $this->Manage_occupation->create_occupation($data);
         $this->manage_occupation();
     }
+
     function update($occupation_id)
     {
         $data = array(
@@ -98,5 +133,6 @@ class Manage extends CI_Controller{
         $this->Manage_occupation->update($occupation_id ,$data);
         $this->manage_occupation();
     }
-}
+
+ }
 ?>
