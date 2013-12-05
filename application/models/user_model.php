@@ -115,5 +115,23 @@ class User_model extends CI_Model {
 
         return $query->result();
     }
+
+    function get_creatorName($creatorID)
+    {
+        $query = $this->db->query("
+        SELECT Username
+        FROM user
+        WHERE ID = '$creatorID'
+        ");
+
+        return $query->result();
+    }
+
+    function up_user($userID,$data)
+    {
+        $this->db->where('ID', $userID);
+        $this->db->update('user', $data);
+    }
+
 }
 ?>

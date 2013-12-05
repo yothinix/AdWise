@@ -53,7 +53,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" style="margin-top: -25px; margin-left: 10px; margin-right: 10px">
-                    <?php echo form_open("manage/update/{$Occupation_id}"); ?>
+                    <?php echo form_open("manage/update_occupation/{$Occupation_id}"); ?>
                     <div class="control-group" style="margin-left:5px; margin-right:5px">
                         <label class="control-label" for="inputName">Name :</label>
                         <div class="controls">

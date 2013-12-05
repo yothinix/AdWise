@@ -51,7 +51,7 @@
         <div class="modal-body" style="margin-top: -10px">
                 <?php
                 $form = array('class' => 'form-horizontal');
-                echo form_open("manage/update/{$Academic_id}",$form); ?>
+                echo form_open("manage/update_academic/{$Academic_id}",$form); ?>
                 <div class="control-group" >
                     <label class="control-label" for="inputName">Name</label>
                     <div class="controls">

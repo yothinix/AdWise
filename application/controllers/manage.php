@@ -71,7 +71,7 @@ class Manage extends CI_Controller{
         $this->manage_academic();
     }
 
-    function update($academic_id)
+    function update_academic($academic_id)
     {
         $data = array(
             'name'=>$this->input->post('name'),
@@ -233,7 +233,7 @@ class Manage extends CI_Controller{
         $this->manage_occupation();
     }
 
-    function update($occupation_id)
+    function update_occupation($occupation_id)
     {
         $data = array(
             'name'=>$this->input->post('name'),
@@ -245,6 +245,35 @@ class Manage extends CI_Controller{
         $this->manage_occupation();
     }
 
+    function update_user($ID)
+    {
+        $data = array(
+            'name'=>$this->input->post('name'),
+            'lastname'=>$this->input->post('lastname'),
+            'gender'=>$this->input->post('gender'),
+            'birthday'=>$this->input->post('birthday'),
+            'phone'=>$this->input->post('phone'),
+            'email'=>$this->input->post('email')
+        );
+        $this->User_model->up_user($ID ,$data);
+        $this->manage_user();
+    }
 
-}
+    function upload_photo()
+    {
+        $username = $this->session->userdata('user_name');
+
+        $config['upload_path'] = 'uploads/';
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['max_width']  = '0';
+        $config['max_height']  = '0';
+        $config['file_name'] = date("YmdHis");
+
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+
+
+
+
+    }
 ?>
