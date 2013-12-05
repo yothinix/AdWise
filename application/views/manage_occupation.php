@@ -48,25 +48,25 @@
 
         <div id="edit<?php echo $Occupation_id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">?</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 <h3 id="myModalLabel">Edit Occupation</h3>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
+                <form class="form-horizontal" style="margin-top: -25px; margin-left: 10px; margin-right: 10px">
                     <?php echo form_open("manage/update/{$Occupation_id}"); ?>
-                    <div class="control-group" style="margin-left: -90px; margin-right: 20px">
+                    <div class="control-group" style="margin-left:5px; margin-right:5px">
                         <label class="control-label" for="inputName">Name :</label>
                         <div class="controls">
                             <input type="text" name="name" class="input-block-level" value="<?php echo $row->Name ?>">
                         </div>
                     </div>
-                    <div class="control-group" style="margin-left: -90px; margin-right: 20px">
+                    <div class="control-group" style="margin-left: 5px; margin-right: 5px">
                         <label class="control-label" for="inputDetail">Detail :</label>
                         <div class="controls">
                             <input type="text" name="detail" class="input-block-level" value="<?php echo $row->Detail ?>">
                         </div>
                     </div>
-                    <div class="control-group" style="margin-left: -90px; margin-right: 20px">
+                    <div class="control-group" style="margin-left: 5px; margin-right: 5px">
                         <label class="control-label" for="inputTag">Tag :</label>
                         <div class="controls">
                             <input type="text" name="tag" class="input-block-level" value="<?php echo $row->Tag ?>">
