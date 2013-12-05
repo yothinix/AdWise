@@ -44,6 +44,7 @@ $result = base_url("index.php/assessment/result");
 $manage_user = base_url("index.php/manage/manage_user");
 $manage_assessment = base_url("index.php/manage/manage_assessment");
 $manage_assessment_type = base_url("index.php/manage/manage_assessment_type");
+$manage_answer_group = base_url("index.php/manage/manage_answer_group");
 $dashboard = base_url("index.php/user/dashboard");
 $academic = base_url("index.php/manage/manage_academic");
 ?>
@@ -105,10 +106,11 @@ $academic = base_url("index.php/manage/manage_academic");
                                 <a href="#"><i class="icon-cog"></i>Admin Home</a></li>
                             <li <?php if($main_content == 'manage_assessment_type'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $manage_assessment_type; ?>"><i class="icon-th-list"></i>Manage Assessment Type</a></li>
-                            <li  <?php if($main_content == 'manage_assessment' || $main_content == 'create_assessment'){ echo "class=\"active\""; } ?>>
+                            <li <?php if($main_content == 'manage_assessment' || $main_content == 'create_assessment'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $manage_assessment; ?>"><i class="icon-file"></i>Manage Assessment</a></li>
                             <li><a href="#"><i class="icon-tasks"></i>Manage Result</a></li>
-                            <li><a href="#"><i class="icon-random"></i>Manage Answer Group</a></li>
+                            <li <?php if($main_content == 'manage_answer_group'){ echo "class=\"active\""; } ?>>
+                                <a href="<?php echo $manage_answer_group; ?>"><i class="icon-random"></i>Manage Answer Group</a></li>
                             <li><a href="#"><i class="icon-tags"></i>Manage Occupation</a></li>
                             <li <?php if($main_content == 'manage_academic'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $academic?>"><i class="icon-tags"></i>Manage Academic</a></li>
