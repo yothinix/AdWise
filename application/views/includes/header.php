@@ -43,6 +43,7 @@ $change = base_url("index.php/user/changepassword");
 $result = base_url("index.php/assessment/result");
 $manage_user = base_url("index.php/manage/manage_user");
 $manage_assessment = base_url("index.php/manage/manage_assessment");
+$manage_assessment_type = base_url("index.php/manage/manage_assessment_type");
 $dashboard = base_url("index.php/user/dashboard");
 ?>
 
@@ -101,8 +102,8 @@ $dashboard = base_url("index.php/user/dashboard");
                             <li class="nav-header">Admin Menu</li>
                             <li>
                                 <a href="#"><i class="icon-cog"></i>Admin Home</a></li>
-                            <li>
-                                <a href="#"><i class="icon-th-list"></i>Manage Assessment Type</a></li>
+                            <li <?php if($main_content == 'manage_assessment_type'){ echo "class=\"active\""; } ?>>
+                                <a href="<?php echo $manage_assessment_type; ?>"><i class="icon-th-list"></i>Manage Assessment Type</a></li>
                             <li  <?php if($main_content == 'manage_assessment' || $main_content == 'create_assessment'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $manage_assessment; ?>"><i class="icon-file"></i>Manage Assessment</a></li>
                             <li><a href="#"><i class="icon-tasks"></i>Manage Result</a></li>
