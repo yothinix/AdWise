@@ -181,7 +181,7 @@ class Manage extends CI_Controller{
     function update_result($ResultID)
     {
         $data = array(
-            'Name'=>$this->input->post('name'),
+            'Name' => $this->input->post('name'),
             'Detail'=>$this->input->post('detail')
         );
         $this->Manage_result_data->update_result($ResultID ,$data);
@@ -271,9 +271,6 @@ class Manage extends CI_Controller{
 
         $this->load->library('upload');
         $this->upload->initialize($config);
-
-
-
-
     }
+}
 ?>

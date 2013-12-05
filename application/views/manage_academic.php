@@ -37,13 +37,13 @@
             <td><?php echo $row->Tag ?>  </td>
             <td style="text-align: center">
                 <!-- Edit -->
-                <a role="button"  class="btn btn-small" href="#edit<?php echo $Academic_id ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
+                <a role="button"  class="btn btn-small" href="#edit<?php echo $Academic_id; ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
                 <!-- Delete -->
-                <a role="button"  class="btn btn-small" href="#del<?php echo $Academic_id ?>" data-toggle="modal"><i class="icon-trash"></i></a>  </td>
+                <a role="button"  class="btn btn-small" href="#del<?php echo $Academic_id; ?>" data-toggle="modal"><i class="icon-trash"></i></a>  </td>
         </tr>
 
         <!-- Modal Edit -->
-        <div id="edit<?php echo $Academic_id ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="edit<?php echo $Academic_id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3 id="myModalLabel">Edit Academic</h3>
@@ -79,7 +79,7 @@
         </div> <!-- ปิด edit -->
 
         <!-- Modal Delete -->
-        <div id="del<?php echo $Academic_id ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="del<?php echo $Academic_id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3 id="myModalLabel">Delete</h3>
@@ -116,5 +116,3 @@
         <?php echo form_close(); ?>
     </div>
 </div>
-
-<script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-modal.js"); ?>"></script>

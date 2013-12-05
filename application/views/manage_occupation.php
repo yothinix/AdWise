@@ -9,7 +9,7 @@
 
 </style>
 
-<h2 style="margin-top: -30px">Manage Occupation Data</h2>
+<h2 style="margin-top: -30px">Manage Occupation</h2>
 <a href="#create" role="button" class="btn pull-right" data-toggle="modal" style="margin-top: -40px">+ Create Occupation</a>
 <hr />
 <table class="table table-bordered">
@@ -127,4 +127,3 @@
 
 
 
-<script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-modal.js"); ?>"></script>

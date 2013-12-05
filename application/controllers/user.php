@@ -172,7 +172,7 @@ class User extends CI_Controller{
         if($this->upload->do_upload('photo'))
         {
             $filepath = $this->upload->data();
-            $this->user_model->upload($filepath['file_name']); //อัดไฟล์พาร์ธเข้ามาในนี้
+            $this->User_model->upload($filepath['file_name']); //อัดไฟล์พาร์ธเข้ามาในนี้
             $this->profile();
         }
         else

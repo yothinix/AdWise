@@ -51,7 +51,7 @@
             <br>
             <div class="span4">
                 <?php
-                $get_image = $this->user_model->img($this->session->userdata('user_name'));
+                $get_image = $this->User_model->img($this->session->userdata('user_name'));
                 foreach($get_image as $row) //ดึงข้อมูลมาจาก db
                 {
                     $filename = $row->Image;
