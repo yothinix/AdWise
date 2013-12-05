@@ -18,7 +18,7 @@
 <h2 style="margin-top: -30px">Create Assessment</h2>
 <hr/>
 
-<div class="row">
+<div class="row" ng-app>
     <div class="tabbable"> <!-- Only required for left/right tabs -->
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tab1" data-toggle="tab">Assessment Info</a></li>
@@ -62,9 +62,7 @@
 
 <!-- Question_And_Answer_Tab -->
             <div class="tab-pane" id="tab2">
-                <?php
-                echo form_open("ctrl class/ctrl function"); //ควรจะใช้ฟอร์ดเดียวกันทั้งหมดของ Create Assessment เดี๋ยวแก้ทีหลัง
-                ?>
+
 <!-- Script in AngularJS -->
                 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
                 <script type="text/javascript">
@@ -79,7 +77,7 @@
                     }
                 </script>
 <!-- HTML in AngularJS -->
-                <div ng-app>
+                <div>
                     <div ng-controller="TodoCtrl">
                         <span>Total Question: {{todos.length}}</span>
                         <ul class="unstyled">
@@ -99,7 +97,6 @@
                                         '3'   => 'True/False',
                                         'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
                                     );
-
                                     echo form_dropdown('shirts', $options, 'desc');
                                     ?>
                                     <input type="text" class="input-small" placeholder="Answer No.">
@@ -112,7 +109,6 @@
                                         '3'   => 'True/False',
                                         'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
                                     );
-
                                     echo form_dropdown('shirts', $options, 'desc');
                                     ?>
                                 </form>
@@ -124,84 +120,69 @@
                         </form>
                     </div>
                 </div>
-                <?php
-                    echo form_close();
-                ?>
             </div>
 
 <!-- Result_Condition_Tab -->
             <div class="tab-pane" id="tab3">
-                <?php
-                echo form_open("ctrl class/ctrl function"); //Save ASM_info_data to initialize
-                ?>
-                <div class="row-fluid">
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Result 1</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 1</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 2</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 3</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 4</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Result 1</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 1</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 2</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 3</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 4</option>
-                            <option>Result 2</option>
-                        </select>
+
+<!-- Script in AngularJS -->
+                <script type="text/javascript">
+                    function ResultCtrl($scope) {
+                        $scope.results = [
+                            {}];
+
+                        $scope.addResult = function() {
+                            $scope.results.push({text:$scope.resultText, done:false});
+                            $scope.resultText = '';
+                        };
+                    }
+                </script>
+<!-- HTML in AngularJS -->
+                <div>
+                    <div ng-controller="ResultCtrl">
+                        <span>Total Result: {{results.length}}</span>
+                        <ul class="unstyled">
+                            <li ng-repeat="result in results">
+                                <div class="row-fluid">
+                                    <div class="span2">
+                                        <select class="input-block-level">
+                                            <option>Result 1</option>
+                                            <option>Result 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="span2">
+                                        <select class="input-block-level">
+                                            <option>Answer group 1</option>
+                                            <option>Result 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="span2">
+                                        <select class="input-block-level">
+                                            <option>Answer group 2</option>
+                                            <option>Result 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="span2">
+                                        <select class="input-block-level">
+                                            <option>Answer group 3</option>
+                                            <option>Result 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="span2">
+                                        <select class="input-block-level">
+                                            <option>Answer group 4</option>
+                                            <option>Result 2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <hr>
+                        <form ng-submit="addResult()">
+                            <input type="submit" class="btn input-large" style="margin-top: -20px" value="+ Add another result">
+                        </form>
                     </div>
                 </div>
-                <?php
-                    echo form_close();
-                ?>
-                <button class="btn input-large" style="margin-top: -20px">+ Add another result</button>
             </div>
 
 <!-- Review_Assessment_Tab -->
