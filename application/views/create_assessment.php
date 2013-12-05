@@ -50,14 +50,6 @@
                         echo form_dropdown('asm_type', $options, 'desc');
                         ?>
                     </div>
-                    <div class="span5 form-horizontal" style="margin-left: -90px">
-                        <div class="control-group">
-                            <label class="control-label" for="total_question">Total Question:</label>
-                            <div class="controls">
-                                <input type="text" id="total_question" name="total_question" class="input-block-level" placeholder="Total Question"/>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div style="text-align: center">
                     <button type="submit" class="btn btn-success btn-large input-large">Submit</button>
@@ -71,57 +63,69 @@
 <!-- Question_And_Answer_Tab -->
             <div class="tab-pane" id="tab2">
                 <?php
-                echo form_open("ctrl class/ctrl function"); //Save ASM_info_data to initialize
+                echo form_open("ctrl class/ctrl function"); //ควรจะใช้ฟอร์ดเดียวกันทั้งหมดของ Create Assessment เดี๋ยวแก้ทีหลัง
                 ?>
-                <fieldset>Question</fieldset>
-                <form class="form-inline">
-                    <input type="text" class="input-small" placeholder="Question No.">
-                    <input type="text" class="input-xxlarge" placeholder="Question Detail">
-                <fieldset>Answer</fieldset>
-                    <input type="text" class="input-small" placeholder="Answer No.">
-                    <input type="text" class="input-xxlarge" placeholder="Answer Detail">
-                    <?php
-                    $options = array(
-                        'desc' => 'Answer group',
-                        '1'  => 'Single Choice',
-                        '2'    => 'Multiple Choice',
-                        '3'   => 'True/False',
-                        'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
-                    );
+<!-- Script in AngularJS -->
+                <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+                <script type="text/javascript">
+                    function TodoCtrl($scope) {
+                        $scope.todos = [
+                            {}];
 
-                    echo form_dropdown('shirts', $options, 'desc');
-                    ?>
-                    <input type="text" class="input-small" placeholder="Answer No.">
-                    <input type="text" class="input-xxlarge" placeholder="Answer Detail">
-                    <?php
-                    $options = array(
-                        'desc' => 'Answer group',
-                        '1'  => 'Single Choice',
-                        '2'    => 'Multiple Choice',
-                        '3'   => 'True/False',
-                        'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
-                    );
-
-                    echo form_dropdown('shirts', $options, 'desc');
-                    ?>
-                </form>
-                <div id="write"></div>  <!--ยังไม่เสร็จ ยัง Add more question ไม่ได้-->
-                <script>
-                    (function printMsg() {
-                        var node = document.getElementById("write");
-                        node.innerHTML("<p>" + "Write here" + "</p>";
-                    })();
+                        $scope.addTodo = function() {
+                            $scope.todos.push({text:$scope.todoText, done:false});
+                            $scope.todoText = '';
+                        };
+                    }
                 </script>
-                <hr>
-                <button class="btn input-large" style="margin-top: -20px" onclick="printMsg()">+ Add more Question</button>
-                <?php
-                ?>
-                <div style="text-align: center; margin-top: 10px">
-                    <button type="submit" class="btn btn-danger btn-large input-large">« Back</button>
-                    <button type="submit" class="btn btn-success btn-large input-large">Next »</button>
+<!-- HTML in AngularJS -->
+                <div ng-app>
+                    <div ng-controller="TodoCtrl">
+                        <span>Total Question: {{todos.length}}</span>
+                        <ul class="unstyled">
+                            <li ng-repeat="todo in todos">
+                                <fieldset>Question</fieldset>
+                                <form class="form-inline">
+                                    <input type="text" class="input-small" placeholder="Question No.">
+                                    <input type="text" class="input-xxlarge" placeholder="Question Detail">
+                                    <fieldset>Answer</fieldset>
+                                    <input type="text" class="input-small" placeholder="Answer No.">
+                                    <input type="text" class="input-xxlarge" placeholder="Answer Detail">
+                                    <?php
+                                    $options = array(
+                                        'desc' => 'Answer group',
+                                        '1'  => 'Single Choice',
+                                        '2'    => 'Multiple Choice',
+                                        '3'   => 'True/False',
+                                        'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
+                                    );
+
+                                    echo form_dropdown('shirts', $options, 'desc');
+                                    ?>
+                                    <input type="text" class="input-small" placeholder="Answer No.">
+                                    <input type="text" class="input-xxlarge" placeholder="Answer Detail">
+                                    <?php
+                                    $options = array(
+                                        'desc' => 'Answer group',
+                                        '1'  => 'Single Choice',
+                                        '2'    => 'Multiple Choice',
+                                        '3'   => 'True/False',
+                                        'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
+                                    );
+
+                                    echo form_dropdown('shirts', $options, 'desc');
+                                    ?>
+                                </form>
+                                <hr>
+                            </li>
+                        </ul>
+                        <form ng-submit="addTodo()">
+                            <input type="submit" class="btn input-large" style="margin-top: -20px" value="+ Add more Question">
+                        </form>
+                    </div>
                 </div>
                 <?php
-                echo form_close();
+                    echo form_close();
                 ?>
             </div>
 
