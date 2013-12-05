@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="span4" style="margin-left: 30px">
         <?php
-        $get_image = $this->user_model->img($this->session->userdata('user_name'));
+        $get_image = $this->User_model->img($this->session->userdata('user_name'));
         foreach($get_image as $row) //ดึงข้อมูลมาจาก db
         {
         $filename = $row->Image;
