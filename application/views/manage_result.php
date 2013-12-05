@@ -58,7 +58,7 @@
                         <div class="control-group" style="margin-left: 10px; margin-right: 10px">
                             <label class="control-label" for="inputName">Name :</label>
                             <div class="controls">
-                                <input type="text" id="name" ame="name" class="input-block-level" value="<?php echo $row->Name ?>">
+                                <input type="text" id="name" name="name" class="input-block-level" value="<?php echo $row->Name ?>">
                             </div>
                         </div>
                         <div class="control-group" style="margin-left: 10px; margin-right: 10px">

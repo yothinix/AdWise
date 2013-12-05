@@ -27,6 +27,7 @@ class Manage extends CI_Controller{
         }
     }
 
+//////////////// Manage User Controller Function Group/////////////////////////
 
     function manage_user()
     {
@@ -43,6 +44,36 @@ class Manage extends CI_Controller{
         $this->db->delete('user', array('ID' => $userID));
         $this->manage_user();
     }
+
+    function update_user($ID)
+    {
+        $data = array(
+            'name'=>$this->input->post('name'),
+            'lastname'=>$this->input->post('lastname'),
+            'gender'=>$this->input->post('gender'),
+            'birthday'=>$this->input->post('birthday'),
+            'phone'=>$this->input->post('phone'),
+            'email'=>$this->input->post('email')
+        );
+        $this->User_model->up_user($ID ,$data);
+        $this->manage_user();
+    }
+
+    function upload_photo()
+    {
+        $username = $this->session->userdata('user_name');
+
+        $config['upload_path'] = 'uploads/';
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['max_width']  = '0';
+        $config['max_height']  = '0';
+        $config['file_name'] = date("YmdHis");
+
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+    }
+
+    ////// Manage Academic Controller Function Group/////////////////////////
 
     function manage_academic()
     {
@@ -82,6 +113,8 @@ class Manage extends CI_Controller{
         $this->manage_academic();
     }
 
+/////////// Manage Assessment Controller Function Group/////////////////////////
+
     function manage_assessment()
     {
         $get_assessment = $this->Assessment_model->get_assessment();
@@ -91,6 +124,8 @@ class Manage extends CI_Controller{
         );
         $this->load->view('includes/template', $data);
     }
+
+/////////// Manage Assessment Type Controller Function Group////////////////////
 
     function manage_assessment_type()
     {
@@ -118,10 +153,10 @@ class Manage extends CI_Controller{
     {
         $this->load->model('Manage_assessment_type');
         $this->Manage_assessment_type->delete($AssessmentTypeID);
-
-        //then load manage assessment page again
         $this->manage_assessment_type();
     }
+
+/////////// Manage Answer Group Controller Function Group///////////////////
 
     function manage_answer_group()
     {
@@ -149,16 +184,13 @@ class Manage extends CI_Controller{
     {
         $this->load->model('Manage_assessment_type');
         $this->Manage_answer_group->delete($AnswerGroupID);
-
-        //then load manage assessment page again
         $this->manage_answer_group();
     }
 
-    /*Manage_result function*/
+/////////// Manage Result Controller Function Group/////////////////////////
 
-    function  manage_result()
+    function manage_result()
     {
-        $this->load->model('Manage_result_data');
         $user = $this->Manage_result_data->get_manage_result();
         $data = array(
             'main_content' => 'manage_result',
@@ -181,7 +213,7 @@ class Manage extends CI_Controller{
     function update_result($ResultID)
     {
         $data = array(
-            'Name' => $this->input->post('name'),
+            'name' => $this->input->post('name'),
             'Detail'=>$this->input->post('detail')
         );
         $this->Manage_result_data->update_result($ResultID ,$data);
@@ -194,7 +226,7 @@ class Manage extends CI_Controller{
         $this->manage_result();
     }
 
-    /*Manage_Occupation function*/
+/////////// Manage Occupation Controller Function Group/////////////////////////
 
     function manage_occupation_data()
     {
@@ -236,41 +268,14 @@ class Manage extends CI_Controller{
     function update_occupation($occupation_id)
     {
         $data = array(
-            'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag'))
+            'Name'=>$this->input->post('name'),
+            'Detail'=>$this->input->post('detail'),
+            'Tag'=>($this->input->post('tag'))
             //'academic_id'=>($this->input->post('academic'))//
         );
         $this->Manage_occupation->update($occupation_id ,$data);
         $this->manage_occupation();
     }
 
-    function update_user($ID)
-    {
-        $data = array(
-            'name'=>$this->input->post('name'),
-            'lastname'=>$this->input->post('lastname'),
-            'gender'=>$this->input->post('gender'),
-            'birthday'=>$this->input->post('birthday'),
-            'phone'=>$this->input->post('phone'),
-            'email'=>$this->input->post('email')
-        );
-        $this->User_model->up_user($ID ,$data);
-        $this->manage_user();
-    }
-
-    function upload_photo()
-    {
-        $username = $this->session->userdata('user_name');
-
-        $config['upload_path'] = 'uploads/';
-        $config['allowed_types'] = 'gif|jpg|jpeg|png';
-        $config['max_width']  = '0';
-        $config['max_height']  = '0';
-        $config['file_name'] = date("YmdHis");
-
-        $this->load->library('upload');
-        $this->upload->initialize($config);
-    }
 }
 ?>

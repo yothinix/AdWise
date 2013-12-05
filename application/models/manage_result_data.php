@@ -17,7 +17,7 @@ class Manage_result_data extends CI_Model {
         $this->db->insert('result', $data);
     }
 
-    function update_result($ResultID,$data)
+    function update_result($ResultID, $data)
     {
         $this->db->where('ResultID', $ResultID);
         $this->db->update('result', $data);
