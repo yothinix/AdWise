@@ -28,23 +28,37 @@
             <li><a href="#tab5" data-toggle="tab">Submit Questions</a></li>
         </ul>
         <div class="tab-content">
+
+<!-- ASM_Info_Tab -->
             <div class="tab-pane active" id="tab1">
                 <?php
                     echo form_open("assessment/init_create_asm"); //Save ASM_info_data to initialize
                 ?>
                 <input type="text" id="asm_name" name="asm_name" class="input-block-level" placeholder="Assessment Name" value="<?php echo set_value('asm_name'); ?>" />
                 <textarea type="text" rows="10" id="asm_desc" name="asm_desc" class="input-block-level" placeholder="Assessment Description" value="<?php echo set_value('asm_desc'); ?>"></textarea>
-                <?php
-                    $options = array(
-                        'desc' => 'Type name',
-                        '1'  => 'Single Choice',
-                        '2'    => 'Multiple Choice',
-                        '3'   => 'True/False',
-                        'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
-                    );
+                <div class="row">
+                    <div class="span4">
+                        <?php
+                        $options = array(
+                            'desc' => 'Type name',
+                            '1'  => 'Single Choice',
+                            '2'    => 'Multiple Choice',
+                            '3'   => 'True/False',
+                            'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
+                        );
 
-                    echo form_dropdown('asm_type', $options, 'desc');
-                ?>
+                        echo form_dropdown('asm_type', $options, 'desc');
+                        ?>
+                    </div>
+                    <div class="span5 form-horizontal" style="margin-left: -90px">
+                        <div class="control-group">
+                            <label class="control-label" for="total_question">Total Question:</label>
+                            <div class="controls">
+                                <input type="text" id="total_question" name="total_question" class="input-block-level" placeholder="Total Question"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div style="text-align: center">
                     <button type="submit" class="btn btn-success btn-large input-large">Submit</button>
                     <button class="btn btn-danger btn-large input-large">Reset</button> <!--เอาไว้ลบค่าในช่องทั้งหมดที่ใส่ไป-->
@@ -53,6 +67,8 @@
                     echo form_close();
                 ?>
             </div>
+
+<!-- Question_And_Answer_Tab -->
             <div class="tab-pane" id="tab2">
                 <?php
                 echo form_open("ctrl class/ctrl function"); //Save ASM_info_data to initialize
@@ -108,6 +124,8 @@
                 echo form_close();
                 ?>
             </div>
+
+<!-- Result_Condition_Tab -->
             <div class="tab-pane" id="tab3">
                 <?php
                 echo form_open("ctrl class/ctrl function"); //Save ASM_info_data to initialize
@@ -181,6 +199,8 @@
                 ?>
                 <button class="btn input-large" style="margin-top: -20px">+ Add another result</button>
             </div>
+
+<!-- Review_Assessment_Tab -->
             <div class="tab-pane" id="tab4">
                 <div style="text-align: center">
                     <h3>Assessment Name</h3>
@@ -301,6 +321,8 @@
                     </div>
                 </div>
             </div>
+
+<!-- Submit_Assessment_Tab -->
             <div class="tab-pane" id="tab5">
                 <form class="form-horizontal"> <!--//Save ASM_info_data to initialize-->
                         <div class="control-group">
