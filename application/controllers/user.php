@@ -156,5 +156,31 @@ class User extends CI_Controller{
         $this->load->view('includes/template', $data, $data2);
     }
 
+    function upload()
+    {
+        $username = $this->session->userdata('user_name');
+
+        $config['upload_path'] = 'uploads/';
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['max_width']  = '0';
+        $config['max_height']  = '0';
+        $config['file_name'] = date("YmdHis");
+
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+
+        if($this->upload->do_upload('photo'))
+        {
+            $filepath = $this->upload->data();
+            $this->user_model->upload($filepath['file_name']); //อัดไฟล์พาร์ธเข้ามาในนี้
+            $this->profile();
+        }
+        else
+        {
+            //$data['error'] = $this->upload->display_errors();
+            //$this->load->view('upload/insert_view',$data);
+        }
+    }
+
 }
 ?>

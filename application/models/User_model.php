@@ -95,6 +95,27 @@ class User_model extends CI_Model {
         return $query->result();
     }
 
+    function upload($filepath)  //เก็บลง database
+    {
+        $username = $this->session->userdata('user_name');
+
+        $data = array(
+            'Image' => $filepath
+        );
+        $query = $this->db->update('user', $data, array('Username' => $username ));
+    }
+
+    function img($username)
+    {
+        $query = $this->db->query("
+        SELECT Image
+        FROM user
+        WHERE Username='$username'
+        ");
+
+        return $query->result();
+    }
+
     function get_creatorName($creatorID)
     {
         $query = $this->db->query("
@@ -106,6 +127,11 @@ class User_model extends CI_Model {
         return $query->result();
     }
 
+    function up_user($userID,$data)
+    {
+        $this->db->where('ID', $userID);
+        $this->db->update('user', $data);
+    }
 
 }
 ?>
