@@ -18,7 +18,7 @@
 <h2 style="margin-top: -30px">Create Assessment</h2>
 <hr/>
 
-<div class="row">
+<div class="row" ng-app>
     <div class="tabbable"> <!-- Only required for left/right tabs -->
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tab1" data-toggle="tab">Assessment Info</a></li>
@@ -28,23 +28,29 @@
             <li><a href="#tab5" data-toggle="tab">Submit Questions</a></li>
         </ul>
         <div class="tab-content">
+
+<!-- ASM_Info_Tab -->
             <div class="tab-pane active" id="tab1">
                 <?php
                     echo form_open("assessment/init_create_asm"); //Save ASM_info_data to initialize
                 ?>
                 <input type="text" id="asm_name" name="asm_name" class="input-block-level" placeholder="Assessment Name" value="<?php echo set_value('asm_name'); ?>" />
                 <textarea type="text" rows="10" id="asm_desc" name="asm_desc" class="input-block-level" placeholder="Assessment Description" value="<?php echo set_value('asm_desc'); ?>"></textarea>
-                <?php
-                    $options = array(
-                        'desc' => 'Type name',
-                        '1'  => 'Single Choice',
-                        '2'    => 'Multiple Choice',
-                        '3'   => 'True/False',
-                        'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
-                    );
+                <div class="row">
+                    <div class="span4">
+                        <?php
+                        $options = array(
+                            'desc' => 'Type name',
+                            '1'  => 'Single Choice',
+                            '2'    => 'Multiple Choice',
+                            '3'   => 'True/False',
+                            'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
+                        );
 
-                    echo form_dropdown('asm_type', $options, 'desc');
-                ?>
+                        echo form_dropdown('asm_type', $options, 'desc');
+                        ?>
+                    </div>
+                </div>
                 <div style="text-align: center">
                     <button type="submit" class="btn btn-success btn-large input-large">Submit</button>
                     <button class="btn btn-danger btn-large input-large">Reset</button> <!--เอาไว้ลบค่าในช่องทั้งหมดที่ใส่ไป-->
@@ -53,134 +59,133 @@
                     echo form_close();
                 ?>
             </div>
+
+<!-- Question_And_Answer_Tab -->
             <div class="tab-pane" id="tab2">
-                <?php
-                echo form_open("ctrl class/ctrl function"); //Save ASM_info_data to initialize
-                ?>
-                <fieldset>Question</fieldset>
-                <form class="form-inline">
-                    <input type="text" class="input-small" placeholder="Question No.">
-                    <input type="text" class="input-xxlarge" placeholder="Question Detail">
-                <fieldset>Answer</fieldset>
-                    <input type="text" class="input-small" placeholder="Answer No.">
-                    <input type="text" class="input-xxlarge" placeholder="Answer Detail">
-                    <?php
-                    $options = array(
-                        'desc' => 'Answer group',
-                        '1'  => 'Single Choice',
-                        '2'    => 'Multiple Choice',
-                        '3'   => 'True/False',
-                        'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
-                    );
 
-                    echo form_dropdown('shirts', $options, 'desc');
-                    ?>
-                    <input type="text" class="input-small" placeholder="Answer No.">
-                    <input type="text" class="input-xxlarge" placeholder="Answer Detail">
-                    <?php
-                    $options = array(
-                        'desc' => 'Answer group',
-                        '1'  => 'Single Choice',
-                        '2'    => 'Multiple Choice',
-                        '3'   => 'True/False',
-                        'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
-                    );
+<!-- Script in AngularJS -->
+                <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+                <script type="text/javascript">
+                    function TodoCtrl($scope) {
+                        $scope.todos = [
+                            {}];
 
-                    echo form_dropdown('shirts', $options, 'desc');
-                    ?>
-                </form>
-                <div id="write"></div>  <!--ยังไม่เสร็จ ยัง Add more question ไม่ได้-->
-                <script>
-                    (function printMsg() {
-                        var node = document.getElementById("write");
-                        node.innerHTML("<p>" + "Write here" + "</p>";
-                    })();
+                        $scope.addTodo = function() {
+                            $scope.todos.push({text:$scope.todoText, done:false});
+                            $scope.todoText = '';
+                        };
+                    }
                 </script>
-                <hr>
-                <button class="btn input-large" style="margin-top: -20px" onclick="printMsg()">+ Add more Question</button>
-                <?php
-                ?>
-                <div style="text-align: center; margin-top: 10px">
-                    <button type="submit" class="btn btn-danger btn-large input-large">« Back</button>
-                    <button type="submit" class="btn btn-success btn-large input-large">Next »</button>
+<!-- HTML in AngularJS -->
+                <div>
+                    <div ng-controller="TodoCtrl">
+                        <span>Total Question: {{todos.length}}</span>
+                        <ul class="unstyled">
+                            <li ng-repeat="todo in todos">
+                                <fieldset>Question</fieldset>
+                                <form class="form-inline">
+                                    <input type="text" class="input-small" placeholder="Question No.">
+                                    <input type="text" class="input-xxlarge" placeholder="Question Detail">
+                                    <fieldset>Answer</fieldset>
+                                    <input type="text" class="input-small" placeholder="Answer No.">
+                                    <input type="text" class="input-xxlarge" placeholder="Answer Detail">
+                                    <?php
+                                    $options = array(
+                                        'desc' => 'Answer group',
+                                        '1'  => 'Single Choice',
+                                        '2'    => 'Multiple Choice',
+                                        '3'   => 'True/False',
+                                        'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
+                                    );
+                                    echo form_dropdown('shirts', $options, 'desc');
+                                    ?>
+                                    <input type="text" class="input-small" placeholder="Answer No.">
+                                    <input type="text" class="input-xxlarge" placeholder="Answer Detail">
+                                    <?php
+                                    $options = array(
+                                        'desc' => 'Answer group',
+                                        '1'  => 'Single Choice',
+                                        '2'    => 'Multiple Choice',
+                                        '3'   => 'True/False',
+                                        'ASM_type_ID' => 'ASM_Type_Name',   //ดึงจาก DB แบบนี้
+                                    );
+                                    echo form_dropdown('shirts', $options, 'desc');
+                                    ?>
+                                </form>
+                                <hr>
+                            </li>
+                        </ul>
+                        <form ng-submit="addTodo()">
+                            <input type="submit" class="btn input-large" style="margin-top: -20px" value="+ Add more Question">
+                        </form>
+                    </div>
                 </div>
-                <?php
-                echo form_close();
-                ?>
             </div>
+
+<!-- Result_Condition_Tab -->
             <div class="tab-pane" id="tab3">
-                <?php
-                echo form_open("ctrl class/ctrl function"); //Save ASM_info_data to initialize
-                ?>
-                <div class="row-fluid">
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Result 1</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 1</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 2</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 3</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 4</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Result 1</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 1</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 2</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 3</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 4</option>
-                            <option>Result 2</option>
-                        </select>
+
+<!-- Script in AngularJS -->
+                <script type="text/javascript">
+                    function ResultCtrl($scope) {
+                        $scope.results = [
+                            {}];
+
+                        $scope.addResult = function() {
+                            $scope.results.push({text:$scope.resultText, done:false});
+                            $scope.resultText = '';
+                        };
+                    }
+                </script>
+<!-- HTML in AngularJS -->
+                <div>
+                    <div ng-controller="ResultCtrl">
+                        <span>Total Result: {{results.length}}</span>
+                        <ul class="unstyled">
+                            <li ng-repeat="result in results">
+                                <div class="row-fluid">
+                                    <div class="span2">
+                                        <select class="input-block-level">
+                                            <option>Result 1</option>
+                                            <option>Result 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="span2">
+                                        <select class="input-block-level">
+                                            <option>Answer group 1</option>
+                                            <option>Result 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="span2">
+                                        <select class="input-block-level">
+                                            <option>Answer group 2</option>
+                                            <option>Result 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="span2">
+                                        <select class="input-block-level">
+                                            <option>Answer group 3</option>
+                                            <option>Result 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="span2">
+                                        <select class="input-block-level">
+                                            <option>Answer group 4</option>
+                                            <option>Result 2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <hr>
+                        <form ng-submit="addResult()">
+                            <input type="submit" class="btn input-large" style="margin-top: -20px" value="+ Add another result">
+                        </form>
                     </div>
                 </div>
-                <?php
-                    echo form_close();
-                ?>
-                <button class="btn input-large" style="margin-top: -20px">+ Add another result</button>
             </div>
+
+<!-- Review_Assessment_Tab -->
             <div class="tab-pane" id="tab4">
                 <div style="text-align: center">
                     <h3>Assessment Name</h3>
@@ -301,6 +306,8 @@
                     </div>
                 </div>
             </div>
+
+<!-- Submit_Assessment_Tab -->
             <div class="tab-pane" id="tab5">
                 <form class="form-horizontal"> <!--//Save ASM_info_data to initialize-->
                         <div class="control-group">
