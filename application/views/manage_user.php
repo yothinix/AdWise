@@ -46,14 +46,6 @@
     }
 </style>
 
-<script type='text/javascript'>
-    $(function() {
-        $('#datetimepicker1').datetimepicker({
-            language: 'pt-BR'
-        });
-    });
-</script>
-
 <h2 style="margin-top: -30px">Manage User</h2>
 <hr />
 <table class="table table-bordered">
@@ -138,6 +130,13 @@
     </div> <!-- ปิด edit -
 
     <!-- Model Edit -->
+    <script type='text/javascript'>
+        $(function() {
+            $('#datetimepicker<?php echo $userID; ?>').datetimepicker({
+                language: 'pt-BR'
+            });
+        });
+    </script>
         <div id="edit<?php echo $userID; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -185,7 +184,7 @@
                         <input type="radio" name="gender" value="1" <?php if($row->Gender==1) echo "checked"; ?> > Female
                         <br>
                         <b>Birthday</b>
-                        <div class='input-append' id='datetimepicker1'>
+                        <div class='input-append' id='datetimepicker<?php echo $userID; ?>'>
                             <input type='text' name="birthday" class="input-medium" data-format='yyyy-MM-dd' value="<?php echo $row->Birthday ?>" >
                             <span class='add-on'>
                                 <i data-date-icon='icon-calendar'></i>
