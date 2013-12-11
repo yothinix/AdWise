@@ -28,7 +28,7 @@
 <div class="container-fluid">
 
         <?php
-        $assessment = $this->user_model->get_assessment();
+        $assessment = $this->User_model->get_assessment();
         foreach($assessment as $row)
         {
             echo "<div class=\"span4\">";

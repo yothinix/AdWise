@@ -48,7 +48,7 @@ class User_model extends CI_Model {
         WHERE Username='$username'
         ");
 
-            return $query->result();
+        return $query->result();
     }
 
     function update($user,$data)
