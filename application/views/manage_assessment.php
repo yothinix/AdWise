@@ -10,7 +10,8 @@
 </style>
 
 <h2 style="margin-top: -30px">Manage Assessment</h2>
-<a href="<?php echo base_url("index.php/assessment/create_assessment"); ?>" style="margin-top: -40px" class="btn pull-right">+ Create Assessment</a>
+<?php $page = "asm_info"; ?>
+<a href="<?php echo base_url("index.php/assessment/create_asm_view/{$page}"); ?>" style="margin-top: -40px" class="btn pull-right">+ Create Assessment</a>
 <hr />
 <table class="table table-bordered">
             <tr>

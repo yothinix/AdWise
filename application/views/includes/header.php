@@ -34,7 +34,7 @@
 
 </head>
 
-<body>
+<body ng-app>
 
 <?php
 $asmlist = base_url("index.php/assessment/asmlist");
