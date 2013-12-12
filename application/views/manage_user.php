@@ -119,6 +119,8 @@
                     <b>Phone</b> <?php echo $row->Phone ?>
                     <br>
                     <b>Email </b> <?php echo $row->Email ?>
+                    <br>
+                    <b>Role </b> <?php if($row->Role==0) echo "User"; ?> <?php if($row->Role==1) echo "Admin"; ?>
                 </div>
             </div>
             <div class="row">
@@ -168,34 +170,38 @@
                         <span class="btn btn-success btn-submit">
                             Upload <input type="submit"  name="upload">
                         </span>
-
+                        <br><br><br>
                         <?php echo form_close(); }?>
                 </div>
                 <div class="row">
-                        <?php echo form_open("manage/update_user/{$userID}"); ?>
-                        <b>Name </b>
-                        <input type="text" name="name" class="input-medium" value="<?php echo $row->Name ?>">
-                        <br>
-                        <b>Lastname </b>
-                        <input type="text" name="lastname" class="input-medium" value="<?php echo $row->Lastname ?>">
-                        <br>
-                        <b>Gender </b>
-                        <input type="radio" name="gender" value="0" <?php if($row->Gender==0) echo "checked"; ?> > Male
-                        <input type="radio" name="gender" value="1" <?php if($row->Gender==1) echo "checked"; ?> > Female
-                        <br>
-                        <b>Birthday</b>
-                        <div class='input-append' id='datetimepicker<?php echo $userID; ?>'>
-                            <input type='text' name="birthday" class="input-medium" data-format='yyyy-MM-dd' value="<?php echo $row->Birthday ?>" >
-                            <span class='add-on'>
-                                <i data-date-icon='icon-calendar'></i>
-                            </span>
-                        </div>
-                        <br>
-                        <b>Phone</b>
-                        <input type="text" name="phone" class="input-medium" value="<?php echo $row->Phone ?>">
-                        <br>
-                        <b>Email </b>
-                        <input type="text" name="email" class="input-medium" value="<?php echo $row->Email ?>">
+                    <?php echo form_open("manage/update_user/{$userID}"); ?>
+                    <b>Name </b>
+                    <input type="text" name="name" class="input-medium" value="<?php echo $row->Name ?>">
+                    <br>
+                    <b>Lastname </b>
+                    <input type="text" name="lastname" class="input-medium" value="<?php echo $row->Lastname ?>">
+                    <br>
+                    <b>Gender </b>
+                    <input type="radio" name="gender" value="0" <?php if($row->Gender==0) echo "checked"; ?> > Male
+                    <input type="radio" name="gender" value="1" <?php if($row->Gender==1) echo "checked"; ?> > Female
+                    <br>
+                    <b>Birthday</b>
+                    <div class='input-append' id='datetimepicker1'>
+                    <input type='text' name="birthday" class="input-medium" data-format='yyyy-MM-dd' value="<?php echo $row->Birthday ?>" >
+                        <span class='add-on'>
+                            <i data-date-icon='icon-calendar'></i>
+                        </span>
+                    </div>
+                    <br>
+                    <b>Phone</b>
+                    <input type="text" name="phone" class="input-medium" value="<?php echo $row->Phone ?>">
+                    <br>
+                    <b>Email </b>
+                    <input type="text" name="email" class="input-medium" value="<?php echo $row->Email ?>">
+                    <br>
+                    <b>Role </b>
+                    <input type="radio" name="gender" value="0" <?php if($row->Role==0) echo "checked"; ?> > User
+                    <input type="radio" name="gender" value="1" <?php if($row->Role==1) echo "checked"; ?> > Admin
                 <div class="row">
                     <div style="text-align: center; margin-top: 20px">
                         <button type="submit" class="btn btn-success">Save</button>
