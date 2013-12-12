@@ -88,14 +88,6 @@ class Assessment extends CI_Controller {
         $this->load->view('/includes/template', $data);
     }
 
-    function question_and_answer()
-    {
-        $data = array(
-            'main_content' => 'createAsm/question_and_answer'
-        );
-        $this->load->view('/includes/template', $data);
-    }
-
     function init_create_asm()
     {
         $this->load->model('Manage_assessment');

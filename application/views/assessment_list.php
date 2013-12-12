@@ -21,7 +21,7 @@
 <div class="row">
 
     <?php
-    $assessment = $this->Assessment_model->get_assessment();
+    $assessment = $this->Assessment_model->get_asm_list();
     foreach($assessment as $row)
     {
         echo "<div class=\"span4\">";
