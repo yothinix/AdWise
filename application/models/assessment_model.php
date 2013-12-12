@@ -29,8 +29,19 @@ class Assessment_model extends CI_Model {
     function get_assessment()
     {
         $query = $this->db->query("
-        SELECT AssessmentID, Name, Description, CreatorID
+        SELECT AssessmentID, Name, Description, AssessmentTypeID, CreatorID, status
         FROM assessment
+        ");
+
+        return $query->result();
+    }
+
+    function get_asm_list()
+    {
+        $query = $this->db->query("
+        SELECT AssessmentID, Name, Description, CreatorID, status
+        FROM assessment
+        WHERE status = '1'
         ");
 
         return $query->result();
@@ -39,7 +50,7 @@ class Assessment_model extends CI_Model {
     function get_asm_info($AssessmentID)
     {
         $query = $this->db->query("
-        SELECT AssessmentID, Name, Description, TotalQuestion
+        SELECT AssessmentID, Name, Description, TotalQuestion, AssessmentTypeID
         FROM assessment
         WHERE AssessmentID='{$AssessmentID}'
         ");
@@ -69,6 +80,16 @@ class Assessment_model extends CI_Model {
             'sessionID' => $this->session->userdata('session_id')
         );
         $this->db->insert('test',$data);
+    }
+
+    function set_status($aid)
+    {
+        $this->db->update('assessment', array('status' => 1 ), array('AssessmentID' => $aid));
+    }
+
+    function unset_status($aid)
+    {
+        $this->db->update('assessment', array('status' => 0 ), array('AssessmentID' => $aid));
     }
 }
 ?>

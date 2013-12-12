@@ -45,6 +45,29 @@ class Manage_assessment_type extends CI_Model {
         $this->db->insert('assessment_type',$data);
     }
 
+    function get_asm_type()
+    {
+        $this->db->select('AssessmentTypeID, Name');
+        $this->db->order_by('AssessmentTypeID', "asc");
+        $query = $this->db->get('assessment_type');
+        if($query)
+        {
+            $query = $query->result_array();
+            return $query;
+        }
+    }
+
+    function get_attr($AsmTypeID)
+    {
+        $query = $this->db->query("
+        SELECT AssessmentTypeID, TotalChoice, TotalAnswer, TotalAnswerGroup
+        FROM assessment_type
+        WHERE AssessmentTypeID='{$AsmTypeID}'
+        ");
+
+        return $query->result();
+    }
+
     //ต้องสร้าง
     //- Function ไว้แปลง Result Expression เก็บลงตาราง Result Expression
     //  แล้วเก็บเป็น ID ใน Assessment Type

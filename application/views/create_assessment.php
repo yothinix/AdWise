@@ -13,19 +13,26 @@
         margin-left: 10px;
         margin-right: 10px;
     }
+
+    .nav-tabs a {
+        font-size: 14px;
+    }
 </style>
 
 <h2 style="margin-top: -30px">Create Assessment</h2>
 <hr/>
 
+<?php $tab = 1; ?>
+
 <div class="row" ng-app>
     <div class="tabbable"> <!-- Only required for left/right tabs -->
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab1" data-toggle="tab">Assessment Info</a></li>
+            <li <?php if($tab == 1) echo "class=\"active\""; ?>><a href="#tab1" data-toggle="tab">Assessment Info</a></li>
             <li><a href="#tab2" data-toggle="tab">Question & Answers</a></li>
-            <li><a href="#tab3" data-toggle="tab">Result Condition</a></li>
-            <li><a href="#tab4" data-toggle="tab">Review Assessment</a></li>
-            <li><a href="#tab5" data-toggle="tab">Submit Questions</a></li>
+            <li><a href="#tab3" data-toggle="tab">Review Q&A</a></li>
+            <li><a href="#tab4" data-toggle="tab">Result Condition</a></li>
+            <li><a href="#tab5" data-toggle="tab">Review Condition</a></li>
+            <li><a href="#tab6" data-toggle="tab">Submit Questions</a></li>
         </ul>
         <div class="tab-content">
 
@@ -50,6 +57,7 @@
                         echo form_dropdown('asm_type', $options, 'desc');
                         ?>
                     </div>
+                    <input type="text" id="total_question" name="total_question" class="input-medium" placeholder="Total Question" value="<?php echo set_value('total_question'); ?>" />
                 </div>
                 <div style="text-align: center">
                     <button type="submit" class="btn btn-success btn-large input-large">Submit</button>
@@ -58,6 +66,15 @@
                 <?php
                     echo form_close();
                 ?>
+                <hr>
+                <ul class="pager">
+                    <li class="previous">
+                        <a href="<?php echo base_url("index.php/manage/manage_assessment"); ?>">&larr; Manage Assessment</a>
+                    </li>
+                    <li class="next">
+                        <a href="#tab2" data-toggle="tab">Question & Answer &rarr;</a>
+                    </li>
+                </ul>
             </div>
 
 <!-- Question_And_Answer_Tab -->
@@ -120,73 +137,19 @@
                         </form>
                     </div>
                 </div>
-            </div>
-
-<!-- Result_Condition_Tab -->
-            <div class="tab-pane" id="tab3">
-
-<!-- Script in AngularJS -->
-                <script type="text/javascript">
-                    function ResultCtrl($scope) {
-                        $scope.results = [
-                            {}];
-
-                        $scope.addResult = function() {
-                            $scope.results.push({text:$scope.resultText, done:false});
-                            $scope.resultText = '';
-                        };
-                    }
-                </script>
-<!-- HTML in AngularJS -->
-                <div>
-                    <div ng-controller="ResultCtrl">
-                        <span>Total Result: {{results.length}}</span>
-                        <ul class="unstyled">
-                            <li ng-repeat="result in results">
-                                <div class="row-fluid">
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Result 1</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Answer group 1</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Answer group 2</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Answer group 3</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Answer group 4</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <hr>
-                        <form ng-submit="addResult()">
-                            <input type="submit" class="btn input-large" style="margin-top: -20px" value="+ Add another result">
-                        </form>
-                    </div>
-                </div>
+                <hr>
+                <ul class="pager">
+                    <li class="previous">
+                        <a href="#tab1" data-toggle="tab">&larr; Assessment Info</a>
+                    </li>
+                    <li class="next">
+                        <a href="#tab3" data-toggle="tab">Review Q&A &rarr;</a>
+                    </li>
+                </ul>
             </div>
 
 <!-- Review_Assessment_Tab -->
-            <div class="tab-pane" id="tab4">
+            <div class="tab-pane" id="tab3">
                 <div style="text-align: center">
                     <h3>Assessment Name</h3>
                     <p> Type: <small>Assessment Type</small> Creator: <small>Creator Name</small></p>
@@ -199,6 +162,17 @@
                 </div>
                 <hr/>
                 <div id="question" style="margin-left: 30px">
+
+                    <input type="text" name="txt" id = "txt" value="" onkeyup = "copyIt()"><br>
+                    <input type="text" name="txt1" id = "txt1"  value=""><br>
+
+                    <script type = "text/javascript">
+                        function copyIt() {
+                            var x = document.getElementById("txt").value;
+                            document.getElementById("txt1").value = x;
+                        }
+                    </script>
+
                     <h4>1. โต๊ะของคุณเป็นอย่างไร</h4>
                         <div id="answer">
                             <label class="radio">
@@ -239,76 +213,104 @@
                         </label>
                     </div>
                 </div>
-                <hr/>
-                <h4>Result</h4>
-                <div class="row-fluid">
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Result 1</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 1</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 2</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 3</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 4</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Result 1</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 1</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 2</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 3</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                    <div class="span2">
-                        <select class="input-block-level">
-                            <option>Answer group 4</option>
-                            <option>Result 2</option>
-                        </select>
-                    </div>
-                </div>
+                <hr>
+                <ul class="pager">
+                    <li class="previous">
+                        <a href="#tab2" data-toggle="tab">&larr; Question & Answer</a>
+                    </li>
+                    <li class="next">
+                        <a href="#tab4" data-toggle="tab">Result Condition &rarr;</a>
+                    </li>
+                </ul>
             </div>
 
+<!-- Result_Condition_Tab -->
+<div class="tab-pane" id="tab4">
+
+    <!-- Script in AngularJS -->
+    <script type="text/javascript">
+        function ResultCtrl($scope) {
+            $scope.results = [
+                {}];
+
+            $scope.addResult = function() {
+                $scope.results.push({text:$scope.resultText, done:false});
+                $scope.resultText = '';
+            };
+        }
+    </script>
+    <!-- HTML in AngularJS -->
+    <div>
+        <div ng-controller="ResultCtrl">
+            <span>Total Result: {{results.length}}</span>
+            <ul class="unstyled">
+                <li ng-repeat="result in results">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <select class="input-block-level">
+                                <option>Result 1</option>
+                                <option>Result 2</option>
+                            </select>
+                        </div>
+                        <div class="span2">
+                            <select class="input-block-level">
+                                <option>Answer group 1</option>
+                                <option>Result 2</option>
+                            </select>
+                        </div>
+                        <div class="span2">
+                            <select class="input-block-level">
+                                <option>Answer group 2</option>
+                                <option>Result 2</option>
+                            </select>
+                        </div>
+                        <div class="span2">
+                            <select class="input-block-level">
+                                <option>Answer group 3</option>
+                                <option>Result 2</option>
+                            </select>
+                        </div>
+                        <div class="span2">
+                            <select class="input-block-level">
+                                <option>Answer group 4</option>
+                                <option>Result 2</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <hr>
+            <form ng-submit="addResult()">
+                <input type="submit" class="btn input-large" style="margin-top: -20px" value="+ Add another result">
+            </form>
+        </div>
+    </div>
+    <hr>
+    <ul class="pager">
+        <li class="previous">
+            <a href="#tab3" data-toggle="tab">&larr; Review Q&A</a>
+        </li>
+        <li class="next">
+            <a href="#tab5" data-toggle="tab">Review Condition &rarr;</a>
+        </li>
+    </ul>
+</div>
+
+<!-- Review Result Condition Tab -->
+<div class="tab-pane" id="tab5">
+    <hr>
+    <ul class="pager">
+        <li class="previous">
+            <a href="#tab4" data-toggle="tab">&larr; Result Condition</a>
+        </li>
+        <li class="next">
+            <a href="#tab6" data-toggle="tab">Submit Question &rarr;</a>
+        </li>
+    </ul>
+</div>
+
 <!-- Submit_Assessment_Tab -->
-            <div class="tab-pane" id="tab5">
+            <div class="tab-pane" id="tab6">
                 <form class="form-horizontal"> <!--//Save ASM_info_data to initialize-->
                         <div class="control-group">
                             <label class="control-label" for="creator">Creator</label>
@@ -342,6 +344,12 @@
                             <button type="submit" class="btn btn-success btn-large input-large">Submit</button>
                         </div>
                 </form>
+                <hr>
+                <ul class="pager">
+                    <li class="previous">
+                        <a href="#tab5" data-toggle="tab">&larr; Review Condition</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
