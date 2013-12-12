@@ -186,7 +186,7 @@
                     <input type="radio" name="gender" value="1" <?php if($row->Gender==1) echo "checked"; ?> > Female
                     <br>
                     <b>Birthday</b>
-                    <div class='input-append' id='datetimepicker1'>
+                    <div class='input-append' id='datetimepicker<?php echo $userID; ?>'>
                     <input type='text' name="birthday" class="input-medium" data-format='yyyy-MM-dd' value="<?php echo $row->Birthday ?>" >
                         <span class='add-on'>
                             <i data-date-icon='icon-calendar'></i>
