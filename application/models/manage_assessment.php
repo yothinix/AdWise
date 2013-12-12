@@ -15,7 +15,8 @@ class Manage_assessment extends CI_Model {
         (
             'Name' => $this->input->post('asm_name'),
             'Description' => $this->input->post('asm_desc'),
-            'AssessmentTypeID' => $this->input->post('asm_type')
+            'AssessmentTypeID' => $this->input->post('asm_type'),
+            'TotalQuestion' => $this->input->post('total_question')
         );
         $this->db->insert('assessment',$data);
     }

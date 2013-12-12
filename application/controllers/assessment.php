@@ -80,10 +80,10 @@ class Assessment extends CI_Controller {
 
 /*//////////Manage_Assessment / Create_Assessment controller function ///////////*/
 
-    function create_assessment()
+    function create_asm_view($page)
     {
         $data = array(
-            'main_content' => 'create_assessment'
+            'main_content' => "createAsm/{$page}"
         );
         $this->load->view('/includes/template', $data);
     }
@@ -92,7 +92,7 @@ class Assessment extends CI_Controller {
     {
         $this->load->model('Manage_assessment');
         $this->Manage_assessment->insert_asm_info();
-        $this->create_assessment();
+        $this->create_asm_view("createAsm/asm_info");
     }
 
     function delete_asm($AssessmentID)

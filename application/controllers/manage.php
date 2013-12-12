@@ -125,6 +125,18 @@ class Manage extends CI_Controller{
         $this->load->view('includes/template', $data);
     }
 
+    function set_asm_status($AID)
+    {
+        $this->Assessment_model->set_status($AID);
+        $this->manage_assessment();
+    }
+
+    function unset_asm_status($AID)
+    {
+        $this->Assessment_model->unset_status($AID);
+        $this->manage_assessment();
+    }
+
 /////////// Manage Assessment Type Controller Function Group////////////////////
 
     function manage_assessment_type()
