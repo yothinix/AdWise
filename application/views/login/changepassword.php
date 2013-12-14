@@ -24,7 +24,7 @@
                     <?php }
                     else
                     { ?>
-                        <img class="img-polaroid" style="width: 200px; height: 200px; margin-left: 15px" src="<?php echo base_url("/uploads/{$filename}") ?>" >
+                        <img class="img-circle" style="width: 200px; height: 200px; margin-left: 15px" src="<?php echo base_url("/uploads/{$filename}") ?>" >
                     <?php } }?>
                 </div><!--/span-->
 
