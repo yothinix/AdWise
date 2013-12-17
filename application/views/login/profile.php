@@ -46,14 +46,10 @@
             {
                 rules: {
                     name: {
-                        required: true,
-                        trim: true,
-                        number: false
+                        required: true
                     },
                     lastname: {
-                        required: true,
-                        trim: true,
-                        number: false
+                        required: true
                     },
                     phone: {
                         number: true,
