@@ -60,9 +60,10 @@
                     </div>
 
 
-                    <div class="control-group" style="text-align: center">
+                    <div class="control-group">
                         <div class="controls">
                             <button type="submit" onclick="myFunction()" class="btn btn-success">Save</button>
+                            <button type="reset" class="btn btn-danger" style="margin-left: 10px">Cancel</button>
                             <?php echo form_close(); ?>
                         </div>
                     </div>
