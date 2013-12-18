@@ -121,8 +121,6 @@
                 <br>
                 <input type="text" name="tag" id="tag" class="input-block-level" placeholder="Tag :">
                 <br>
-                <input type="text" name="academic" id="academic" class="input-block-level" placeholder="Academic :">
-                <br>
                 <button type="submit" class="btn btn-success">Add new occupation</button>
                 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
                 <?php echo form_close(); ?>
