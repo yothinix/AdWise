@@ -105,11 +105,11 @@
     </div>
     <div class="modal-body" style="text-align: center">
         <?php echo form_open('manage/create_academic'); ?>
-        <input type="text" name="name" id="name" class="input-block-level" placeholder="Name">
+        <input type="text" name="name" id="name" class="input-block-level" placeholder="Name :">
         <br>
-        <input type="text" name="detail" id="detail" class="input-block-level" placeholder="Detail">
+        <input type="text" name="detail" id="detail" class="input-block-level" placeholder="Detail :">
         <br>
-        <input type="text" name="tag" id="tag" class="input-block-level" placeholder="Tag">
+        <input type="text" name="tag" id="tag" class="input-block-level" placeholder="Tag :">
         <br>
         <button type="submit" class="btn btn-success">Add new academic</button>
         <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>

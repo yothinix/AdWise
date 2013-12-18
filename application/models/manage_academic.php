@@ -6,20 +6,20 @@ class Manage_academic extends CI_Model {
         parent::__construct();
     }
 
+
     function academic()
     {
-        $query = $this->db->query("
-        SELECT Academic_id,Name,Detail,Tag
-        FROM academic
-        ");
+        $query = $this->db->query("SELECT Academic_id,Name,Detail,Tag FROM academic");
 
         return $query->result();
     }
+
 
     function create_academic($data)
     {
         $this->db->insert('academic', $data);
     }
+
 
     function update($academic_id,$data)
     {
