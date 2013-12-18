@@ -1,6 +1,6 @@
 <?php
 
-class ResultExpression extends CI_Controller {
+class Resultexp extends CI_Controller {
 
     function __construct()
     {
@@ -8,20 +8,43 @@ class ResultExpression extends CI_Controller {
         $this->load->model('ResultExp_model');
     }
 
-    function _re_Summation($AnswerArray)    //Answer_Array[AssessmentID, QuestionNo, ChoiceID]
+    function Summation($userID, $AID)   //Answer_Array[AssessmentID, QuestionNo, ChoiceID]
     {
-        //Put below this line into Take an Assessment
-        $AssessmentID = $this->session->userdata('AssessmentID');
-        $QuestionNr = $this->session->userdata('QuestionNr');
-        $SelectChoice = $this->session->userdata('SelectChoice');
-        $AnswerArray($AssessmentID, $QuestionNr, $SelectChoice);
-        foreach($AnswerArray as &$t) {
-            if($t[1]==1){
-                array_push($t, "hello World"); // or just $t[] = "hello World";
-            }
+        //เปิดผ่าน URL นี้นะ >> http://localhost/project/index.php/resultexp/Summation/3/1
+        
+        $Total_AnswerGroup = 0;
+        $total_awg = $this->ResultExp_model->get_total_awg($AID);
+        foreach($total_awg as $row)
+        {
+            $Total_AnswerGroup = $row->TotalAnswerGroup;
+        }
+        //get From database จำนวนเท่ากับ Total AnswerGroup ในตาราง ASM_type
+
+        $summation_array = array();
+        for($i=1; $i<=$Total_AnswerGroup;$i++)
+        {
+            $summation_array[$i] = 0;
         }
 
-        //return AnswerGroup_Array
+        $sheet = $this->ResultExp_model->load_asw_sheet($userID, $AID);
+        foreach($sheet as $items)
+        {
+            $awg = $this->ResultExp_model->CID2AWG($items->ChoiceID);
+            foreach($awg as $awg_items)
+            {
+                $awg = $awg_items->AnswerGroupID;
+            }
+            $summation_array[$awg]++;
+        }
+
+        $data = array(
+            'main_content' => 'result_test',
+            'summation_array' => $summation_array,
+            'Total_AnswerGroup' => $Total_AnswerGroup
+        );
+        $this->load->view('/includes/template', $data);
+
+        return $summation_array;
     }
 
     function _re_Sort($ASGArray, $Pattern_length)
