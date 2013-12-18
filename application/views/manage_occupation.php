@@ -9,7 +9,7 @@
 
 </style>
 
-<h2 style="margin-top: -30px">Manage Occupation Data</h2>
+<h2 style="margin-top: -30px">Manage Occupation</h2>
 <a href="#create" role="button" class="btn pull-right" data-toggle="modal" style="margin-top: -40px">+ Create Occupation</a>
 <hr />
 <table class="table table-bordered">
@@ -52,33 +52,37 @@
                 <h3 id="myModalLabel">Edit Occupation</h3>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" style="margin-top: -25px; margin-left: 10px; margin-right: 10px">
-                    <?php echo form_open("manage/update/{$Occupation_id}"); ?>
-                    <div class="control-group" style="margin-left:5px; margin-right:5px">
-                        <label class="control-label" for="inputName">Name :</label>
-                        <div class="controls">
-                            <input type="text" name="name" class="input-block-level" value="<?php echo $row->Name ?>">
-                        </div>
+                <?php
+                $attr = array(
+                    'class' => 'form-horizontal',
+                    'style' => 'margin-top: -25px; margin-left: 10px; margin-right: 10px'
+                );
+                echo form_open("manage/update_occupation/{$Occupation_id}", $attr); ?>
+                <div class="control-group" style="margin-left:5px; margin-right:5px">
+                    <label class="control-label" for="inputName">Name :</label>
+                    <div class="controls">
+                        <input type="text" id="name" name="name" class="input-block-level" value="<?php echo $row->Name ?>">
                     </div>
-                    <div class="control-group" style="margin-left: 5px; margin-right: 5px">
-                        <label class="control-label" for="inputDetail">Detail :</label>
-                        <div class="controls">
-                            <input type="text" name="detail" class="input-block-level" value="<?php echo $row->Detail ?>">
-                        </div>
+                </div>
+                <div class="control-group" style="margin-left: 5px; margin-right: 5px">
+                    <label class="control-label" for="inputDetail">Detail :</label>
+                    <div class="controls">
+                        <input type="text" id="detail" name="detail" class="input-block-level" value="<?php echo $row->Detail ?>">
                     </div>
-                    <div class="control-group" style="margin-left: 5px; margin-right: 5px">
-                        <label class="control-label" for="inputTag">Tag :</label>
-                        <div class="controls">
-                            <input type="text" name="tag" class="input-block-level" value="<?php echo $row->Tag ?>">
-                        </div>
+                </div>
+                <div class="control-group" style="margin-left: 5px; margin-right: 5px">
+                    <label class="control-label" for="inputTag">Tag :</label>
+                    <div class="controls">
+                        <input type="text" id="tag" name="tag" class="input-block-level" value="<?php echo $row->Tag ?>">
+                    </div>
 
-                    </div>
-                    <div class="control-group" style="margin-top: 10px; text-align: center">
-                        <button type="submit" class="btn btn-success">Save</button>
-                        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                    </div>
-                    <?php echo form_close(); ?>
-                </form></div>
+                </div>
+                <div class="control-group" style="margin-top: 10px; text-align: center">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                </div>
+                <?php echo form_close(); ?>
+            </div>
         </div>
 
         <!-- Modal Delete -->
@@ -127,4 +131,3 @@
 
 
 
-<script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-modal.js"); ?>"></script>

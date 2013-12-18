@@ -15,7 +15,7 @@ class Manage_occupation extends CI_Model {
     {
         $this->db->insert('occupation', $data);
     }
-    function update($occupation_id,$data)
+    function update($occupation_id, $data)
     {
         $this->db->where('Occupation_id', $occupation_id);
         $this->db->update('occupation', $data);

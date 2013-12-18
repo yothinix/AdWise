@@ -11,11 +11,24 @@
             <div class="row-fluid">
                 <h2 style="margin-top: -30px">Change Password</h2>
                 <hr/>
-                <div class="span4">
-                    <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" data-src="holder.js/140x140" src="<?php echo base_url("/resources/assessment.png"); ?>">
+                <div class="span4" style="margin-top: 25px; text-align: center">
+                    <?php
+                    $get_image = $this->User_model->img($this->session->userdata('user_name'));
+                    foreach($get_image as $row) //ดึงข้อมูลมาจาก db
+                    {
+                    $filename = $row->Image;
+
+                    if($filename=="")
+                    { ?>
+                        <img class="img-circle" style="width: 200px; height: 200px; margin-left: 15px" src="<?php echo base_url("/uploads/default.jpg") ?>" >
+                    <?php }
+                    else
+                    { ?>
+                        <img class="img-polaroid" style="width: 200px; height: 200px; margin-left: 15px" src="<?php echo base_url("/uploads/{$filename}") ?>" >
+                    <?php } }?>
                 </div><!--/span-->
 
-                <div class="span6">
+                <div class="span6" style="margin-top: 50px">
                     <?php
                     $pro = array(
                         'class' => 'form-horizontal'
@@ -47,7 +60,7 @@
                     </div>
 
 
-                    <div class="control-group">
+                    <div class="control-group" style="text-align: center">
                         <div class="controls">
                             <button type="submit" onclick="myFunction()" class="btn btn-success">Save</button>
                             <?php echo form_close(); ?>
@@ -59,3 +72,4 @@
         </div>
     </div>
 </div>
+<br><br>
