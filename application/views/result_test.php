@@ -48,6 +48,15 @@
         </div>
     </div>
     <div id="awg_content" class="span8">
+        <?php
+            var_dump($str_array);
+            var_dump($out);
+            for($i=1;$i<=4;$i++)
+            {
+                echo $statement[$i];
+                echo br();
+            }
+        ?>
         <h3 style="font-style: italic">Answer Group: Summation</h3>
         <?php
             //var_dump($Total_AnswerGroup);
