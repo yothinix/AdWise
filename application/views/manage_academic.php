@@ -32,9 +32,9 @@
 
         <tr>
             <td style="text-align: center"><?php echo $row->Academic_id ?>  </td>
-            <td><?php echo $row->Name ?></td>
-            <td><?php echo $row->Detail ?></td>
-            <td></td>
+            <td><?php echo $row->Name ?>  </td>
+            <td><?php echo $row->Detail ?>  </td>
+            <td><?php echo $row->Tag ?>  </td>
             <td style="text-align: center">
                 <!-- Edit -->
                 <a role="button"  class="btn btn-small" href="#edit<?php echo $Academic_id; ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
@@ -49,41 +49,32 @@
             <h3 id="myModalLabel">Edit Academic</h3>
         </div>
         <div class="modal-body" style="margin-top: -10px">
-            <?php
-            $form = array('class' => 'form-horizontal');
-            echo form_open("manage/update_academic/{$Academic_id}",$form); ?>
-            <div class="control-group" >
-                <label class="control-label" for="inputName">Name</label>
-                <div class="controls">
-                    <input type="text" name="name" class="input-block-level" value="<?php echo $row->Name ?>">
-                </div>
-            </div>
-            <div class="control-group" >
-                <label class="control-label" for="inputDetail">Detail</label>
-                <div class="controls">
-                    <input type="text" name="detail" class="input-block-level" value="<?php echo $row->Detail ?>">
-                </div>
-            </div>
-            <div class="control-group" >
-                <label class="control-label" for="inputTag">Tag</label>
-                <div class="controls">
-                    <div class="bootstrap-tagsinput">
-                        <input type="text" name="tag" value="" data-role="tagsinput">
-                        <script>
-                            $('input').tagsinput({
-                                itemText: function(item) {
-                                    return item.label;
-                                }
-                            });
-                        </script>
+                <?php
+                $form = array('class' => 'form-horizontal');
+                echo form_open("manage/update_academic/{$Academic_id}",$form); ?>
+                <div class="control-group" >
+                    <label class="control-label" for="inputName">Name</label>
+                    <div class="controls">
+                        <input type="text" name="name" class="input-block-level" value="<?php echo $row->Name ?>">
                     </div>
                 </div>
-            </div>
-            <div class="control-group" style="margin-top: 10px; text-align: center">
-                <button type="submit" class="btn btn-success">Save</button>
-                <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
-            </div>
-            <?php echo form_close(); ?>
+                <div class="control-group" >
+                    <label class="control-label" for="inputDetail">Detail</label>
+                    <div class="controls">
+                        <input type="text" name="detail" class="input-block-level" value="<?php echo $row->Detail ?>">
+                    </div>
+                </div>
+                <div class="control-group" >
+                    <label class="control-label" for="inputTag">Tag</label>
+                    <div class="controls">
+                        <input type="text" name="tag" class="input-block-level" value="<?php echo $row->Tag ?>">
+                    </div>
+                </div>
+                <div class="control-group" style="margin-top: 10px; text-align: center">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                </div>
+                <?php echo form_close(); ?>
         </div> <!-- ปิด modal-header -->
         </div> <!-- ปิด edit -->
 
@@ -103,6 +94,7 @@
         </div> <!-- ปิด delete -->
 
     <?php } ?>
+
 </table>
 
 <!-- Modal Create -->
@@ -117,15 +109,10 @@
         <br>
         <input type="text" name="detail" id="detail" class="input-block-level" placeholder="Detail">
         <br>
-        <input type="text" name="tag" class="input-block-level" data-role="tagsinput" placeholder="Tag" style="display: none;">
+        <input type="text" name="tag" id="tag" class="input-block-level" placeholder="Tag">
         <br>
         <button type="submit" class="btn btn-success">Add new academic</button>
         <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
         <?php echo form_close(); ?>
     </div>
 </div>
-
-<script type="text/javascript" src="<?php echo base_url("/assets/css/bootstrap-tagsinput.css"); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-tagsinput.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-tagsinput-angular.js"); ?>"></script>
-

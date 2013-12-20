@@ -8,15 +8,10 @@ class Manage_academic extends CI_Model {
 
     function academic()
     {
-        //$query = $this->db->query("
-        //SELECT Academic_id,Name,Detail,Tag
-        //FROM academic
-        //");
-
-        //return $query->result();
-
         $query = $this->db->query("
-        SELECT * FROM academic");
+        SELECT Academic_id,Name,Detail,Tag
+        FROM academic
+        ");
 
         return $query->result();
     }
