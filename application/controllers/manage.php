@@ -96,7 +96,7 @@ class Manage extends CI_Controller{
         $data = array(
             'name'=>$this->input->post('name'),
             'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag'))
+            'tag'=>$this->input->post('tag')
         );
         $this->Manage_academic->create_academic($data);
         $this->manage_academic();
@@ -107,7 +107,7 @@ class Manage extends CI_Controller{
         $data = array(
             'name'=>$this->input->post('name'),
             'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag'))
+            'tag'=>$this->input->post('tag')
         );
         $this->Manage_academic->update($academic_id ,$data);
         $this->manage_academic();
