@@ -9,7 +9,7 @@ class Manage_academic extends CI_Model {
     function academic()
     {
         $query = $this->db->query("
-        SELECT Academic_id,Name,Detail,Tag
+        SELECT *
         FROM academic
         ");
 

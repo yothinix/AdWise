@@ -34,7 +34,7 @@
             <td style="text-align: center"><?php echo $row->Academic_id ?>  </td>
             <td><?php echo $row->Name ?>  </td>
             <td><?php echo $row->Detail ?>  </td>
-            <td><?php echo $row->Tag ?>  </td>
+            <td>  </td>
             <td style="text-align: center">
                 <!-- Edit -->
                 <a role="button"  class="btn btn-small" href="#edit<?php echo $Academic_id; ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
@@ -67,7 +67,7 @@
                 <div class="control-group" >
                     <label class="control-label" for="inputTag">Tag</label>
                     <div class="controls">
-                        <input type="text" name="tag" class="input-block-level" value="<?php echo $row->Tag ?>">
+                        <input type="text" name="tag" class="input-block-level" value="">
                     </div>
                 </div>
                 <div class="control-group" style="margin-top: 10px; text-align: center">
