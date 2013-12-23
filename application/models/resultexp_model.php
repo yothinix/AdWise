@@ -84,4 +84,23 @@ class ResultExp_model extends CI_Model {
         return $output;
     }
 
+    function get_result_Name($resultID)
+    {
+        $query = $this->db->query("
+            SELECT Name
+            FROM result
+            WHERE ResultID = '{$resultID}'
+            ");
+
+        foreach($query->result() as $row)
+            $output = $row->Name;
+
+        return $output;
+    }
+
+    function save_user_test($data)
+    {
+        $this->db->insert('user_test', $data); 
+    }
+
 }

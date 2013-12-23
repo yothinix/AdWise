@@ -82,17 +82,6 @@ class Resultexp extends CI_Controller {
             $statement[$j] = "Pair({$out[$j][0]}) = AnswerGroup({$awg1}) + AnswerGroup({$awg2})";
         }
 
-        //ยัด pairID, awgID1, awgID2 ลง Array
-        //might use in future but now not just keep it
-        $re_array = array();
-        for($k=1;$k<=4;$k++)
-        {
-            for($l=0;$l<=2;$l++)
-            {
-                $re_array[$k][$l]= $out[$k][$l];
-            }
-        }
-
         $sorted = $this->re_Sort($summation_array);
         $resultID = $this->re_Compare($sorted);
 
@@ -104,8 +93,9 @@ class Resultexp extends CI_Controller {
             'str_array' => $str_array,
             'out' => $out,
             'statement' => $statement,
-            'sorted' => $sorted,
-            'resultID' => $resultID
+            'resultID' => $resultID,
+            'sorted' => $sorted
+            
         );
         $this->load->view('/includes/template', $data);
 
@@ -172,8 +162,6 @@ class Resultexp extends CI_Controller {
         $return_array = array();
         for($i=1;$i<=$total_pair;$i++)
         {
-            //$ASGPattern[$i] = max($compare_array[$i]);
-            //$ASGPattern[$i] = array_keys($compare_array[$i], max($compare_array[$i]));
             for($pair_ID = 1;$pair_ID<=$total_answer_group; $pair_ID++)
             {
                 $ASGPattern[$i] = max($compare_array[$i]);
@@ -186,23 +174,36 @@ class Resultexp extends CI_Controller {
             }
         }
 
-        //[Solved] problem because it keep only value not ID of AWG so it can revert back to AWG_ID 
-        //return $pair_array;
-        //return $compare_array;
-        //return $temp;
         return $return_array;
-        //return $ASGPattern;
-        //return ASGArray in Pattern_length
     }
 
     function re_Compare($ASGPattern)
     {
         $ASGPattern = implode('', $ASGPattern);
         $ResultID = $this->ResultExp_model->get_result_ID($ASGPattern);
-
+        $ResultName = $this->ResultExp_model->get_result_Name($ResultID);
+        $date = date('Y/m/d H:i:s');
         
-        return ResultID;
-
         //Save relation AssessmentID+UserID = ResultID into Database too!
+        $data = array(
+            'UserID' => $this->session->userdata('user_id'),
+            'AssessmentID' => $this->session->userdata('assessmentID'),
+            'TestDate' => $date,
+            'ResultID' => $ResultID
+        ); 
+        $this->ResultExp_model->save_user_test($data);
+
+        return $ResultName;
     }
+
 }
+
+//    current issue
+//    - how and where to save Result Expression to database
+//    - how to keep record of user test data
+//    
+//    bug
+//    - identified pair_ID line 181
+//    - ghost query (effect a lot in processing method)
+// 
+//

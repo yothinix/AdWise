@@ -48,7 +48,7 @@
         </div>
     </div>
     <div id="awg_content" class="span8">
-        <?php
+<?php
             var_dump($str_array);
             var_dump($out);
             for($i=1;$i<=4;$i++)
