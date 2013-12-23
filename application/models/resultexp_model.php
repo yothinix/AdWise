@@ -55,4 +55,33 @@ class ResultExp_model extends CI_Model {
 
         return $query_awg->result();
     }
+
+    function get_awg_name($awgID)
+    {
+        $query = $this->db->query("
+        SELECT Name
+        FROM answer_group
+        WHERE AnswerGroupID = '{$awgID}'
+        ");
+
+        foreach ($query->result() as $row)
+            $output = $row->Name;
+
+        return $output;
+    }
+
+    function get_result_ID($result_pattern)
+    {
+        $query = $this->db->query("
+            SELECT ResultID
+            FROM result
+            WHERE Name = '{$result_pattern}'
+            ");
+
+        foreach($query->result() as $row)
+            $output = $row->ResultID;
+
+        return $output;
+    }
+
 }

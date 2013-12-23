@@ -77,8 +77,25 @@ class Resultexp extends CI_Controller {
         //Test string output position
         for($j=1;$j<=4;$j++)
         {
-            $statement[$j] = "pair({$out[$j][0]}) = {arg({$out[$j][1]}) + arg({$out[$j][2]})}";
+            $awg1 = $this->ResultExp_model->get_awg_name($out[$j][1]);
+            $awg2 = $this->ResultExp_model->get_awg_name($out[$j][2]);
+            $statement[$j] = "Pair({$out[$j][0]}) = AnswerGroup({$awg1}) + AnswerGroup({$awg2})";
         }
+
+        //ยัด pairID, awgID1, awgID2 ลง Array
+        //might use in future but now not just keep it
+        $re_array = array();
+        for($k=1;$k<=4;$k++)
+        {
+            for($l=0;$l<=2;$l++)
+            {
+                $re_array[$k][$l]= $out[$k][$l];
+            }
+        }
+
+        $sorted = $this->re_Sort($summation_array);
+        $resultID = $this->re_Compare($sorted);
+
         ////////////////////////////////////////////////////////////////
         $data = array(
             'main_content' => 'result_test',
@@ -86,41 +103,104 @@ class Resultexp extends CI_Controller {
             'Total_AnswerGroup' => $Total_AnswerGroup,
             'str_array' => $str_array,
             'out' => $out,
-            'statement' => $statement
+            'statement' => $statement,
+            'sorted' => $sorted,
+            'resultID' => $resultID
         );
         $this->load->view('/includes/template', $data);
 
         return $summation_array;
     }
 
-    function re_core() //($ASGArray, $Resultexp) AKA sort_pair
+    function re_Sort($summation_array) //($summation_array, $Resultexp) AKA sort_pair
     {
+        /*
+        * === Result Expression ===
+        Total_AWG = 8;
+        AWG = {1,2,3,4,5,6,7,8};	//ใช้ ID ของ AWG เทียบเอา
+        // 1=>I, 2=>E, 3=>S, 4=>N, 5=>T, 6=>F, 7=>J, 8=>P
+
+        == sort_pair == //หาตัวแทนคู่ลำดับ
+        pair(1) = {AWG(1),AWG(2)};
+        pair(2) = {AWG(3),AWG(4)};
+        pair(3) = {AWG(5),AWG(6)};
+        pair(4) = {AWG(7),AWG(8)};
+
+        == compare pattern ==
+        pattern = pair(1)+pair(2)+pair(3)+pair(4)
+        *
+        */
+        //override Result expression input
+        $str = "pair(1) = {awg(1),awg(2)};
+                pair(2) = {awg(3),awg(4)};
+                pair(3) = {awg(5),awg(6)};
+                pair(4) = {awg(7),awg(8)};";
+
+        $str_array = explode(";", str_replace(' ','',trim(preg_replace('/\s\s+/', ' ', $str))),-1);
+
+        $out = array();
+        for($i=1;$i<=4;$i++)
+        {
+            preg_match_all('/\((.*?)\)/', $str_array[$i-1], $matches);
+            $out[$i] = $matches[1];
+            //0 = pairID, awgID:1, awgID:2 ... awgID:n
+        }
+
+        //////////// under this line is the main method of re_sort function /////////////////// 
+
+        //out[$i][$k] and out[$i][$l] need to pair with summation_array[$k] before compare
+
+        $compare_array = array();
+        $pair_array = array();      //for identified 'out' array and 'summation' array
+        $total_answer_group = 8;    //can pull from database
+        $k = 1;
+        $total_pair = 4;
+        while($k<=$total_answer_group)
+        {
+            for($i=1;$i<=$total_pair;$i++)
+            {
+                for($j=1;$j<=2;$j++)
+                {
+                    $compare_array[$i][$j] = $summation_array[$k];
+                    $pair_array[$out[$i][$j]] = $compare_array[$i][$j];
+                    $k++;
+                }
+            }
+        }
+        $ASGPattern = array();
+        $temp = array();
+        $return_array = array();
+        for($i=1;$i<=$total_pair;$i++)
+        {
+            //$ASGPattern[$i] = max($compare_array[$i]);
+            //$ASGPattern[$i] = array_keys($compare_array[$i], max($compare_array[$i]));
+            for($pair_ID = 1;$pair_ID<=$total_answer_group; $pair_ID++)
+            {
+                $ASGPattern[$i] = max($compare_array[$i]);
+                if(($ASGPattern[$i] == $pair_array[$pair_ID]) && ($pair_ID != $temp[$i-1]) && ($pair_ID != $temp[$i-2]))
+                {
+                    $temp[$i] = $pair_ID;  //problem cannot identified AWG_ID when value is equal :( need to lock ID that used
+                    $pair_ID = $total_answer_group;
+                    $return_array[$i] = $this->ResultExp_model->get_awg_name((int) $temp[$i]);
+                }
+            }
+        }
+
+        //[Solved] problem because it keep only value not ID of AWG so it can revert back to AWG_ID 
+        //return $pair_array;
+        //return $compare_array;
+        //return $temp;
+        return $return_array;
+        //return $ASGPattern;
         //return ASGArray in Pattern_length
     }
 
-    function _re_Compare($ASGPattern)
+    function re_Compare($ASGPattern)
     {
-        $n = 0;
-        $AsmResult = "";
-        $result_404 = 404;                                          //ResultID for 404 case
-        $totalResult = $this->session->userdata('total_Result');    //ยังไม่ได้ทำตอน Take an Assessment
-        $result_array = $this->session->userdata('result_array');   //ยังไม่ได้ทำตอน Take an Assessment
-        $found = false;
-        while($n < $totalResult && $found == false)
-        {
-            if($ASGPattern == $result_array($n))
-            {
-                $AsmResult = $result_array($n);
-                $found = true;
-            }
-            $n++;
-        }
-        if($found == false)
-        {
-            $AsmResult =  $result_404;
-        }
-        $resultID = $this->ResultExp_model->getResultID($result_array($n)); //ยังไม่สร้าง ResultExp_Model
+        $ASGPattern = implode('', $ASGPattern);
+        $ResultID = $this->ResultExp_model->get_result_ID($ASGPattern);
 
+        
         return ResultID;
 
         //Save relation AssessmentID+UserID = ResultID into Database too!

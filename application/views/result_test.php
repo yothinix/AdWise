@@ -43,7 +43,7 @@
                 <h2>Your Meyer-Briggs Type Indicator is:</h2>
             </div>
             <div id="asset_result" class="span4">
-                <pre><h1 style="text-align: left"><?php //echo $result_test; ?></h1></pre>
+                <pre><h1 style="text-align: left"><?php echo $resultID; ?></h1></pre>
             </div>
         </div>
     </div>
@@ -56,6 +56,8 @@
                 echo $statement[$i];
                 echo br();
             }
+            echo "Output from re_sort";
+            var_dump($sorted);
         ?>
         <h3 style="font-style: italic">Answer Group: Summation</h3>
         <?php
