@@ -49,6 +49,7 @@ $manage_result = base_url("index.php/manage/manage_result");
 $manage_occupation = base_url("index.php/manage/manage_occupation");
 $dashboard = base_url("index.php/user/dashboard");
 $academic = base_url("index.php/manage/manage_academic");
+$tags = base_url("index.php/manage/manage_tags");
 ?>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -118,13 +119,14 @@ $academic = base_url("index.php/manage/manage_academic");
                                 <a href="<?php echo $manage_occupation; ?>"><i class="icon-tags"></i>Manage Occupation</a></li>
                             <li <?php if($main_content == 'manage_academic'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $academic?>"><i class="icon-tags"></i>Manage Academic</a></li>
+                            <li <?php if($main_content == 'manage_tags'){ echo "class=\"active\""; } ?>>
+                                <a href="<?php echo $tags?>"><i class="icon-tags"></i>Manage Tags</a></li>
                             <li <?php if($main_content == 'manage_user'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $manage_user; ?>"><i class="icon-user"></i>Manage User</a></li>
                             <li><a href="#"><i class="icon-home"></i>Analytics</a></li>
                     <?php
                         }
                     ?>
-
                 </ul>
             </div><!--/.well -->
         </div><!--/span-->
