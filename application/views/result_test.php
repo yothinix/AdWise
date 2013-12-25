@@ -49,13 +49,6 @@
     </div>
     <div id="awg_content" class="span8">
 <?php
-            var_dump($str_array);
-            var_dump($out);
-            for($i=1;$i<=4;$i++)
-            {
-                echo $statement[$i];
-                echo br();
-            }
             echo "Output from re_sort";
             var_dump($sorted);
         ?>

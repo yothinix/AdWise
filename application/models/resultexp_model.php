@@ -103,4 +103,49 @@ class ResultExp_model extends CI_Model {
         $this->db->insert('user_test', $data); 
     }
 
+    function update_user_test($data, $userID, $AsmID)
+    {
+        $this->db->where('UserID', $userID);
+        $this->db->where('AssessmentID', $AsmID);
+        $this->db->update('user_test', $data);
+    }
+
+    function get_asm_status($userID, $AsmID)
+    {
+        $query = $this->db->query("
+            SELECT Status
+            FROM user_test
+            WHERE UserID = '{$userID}'
+            AND AssessmentID = '{$AsmID}'
+            ");
+
+        foreach($query->result() as $row)
+            $output = $row->Status;
+
+        return $output;
+    }
+
+    function get_result_expression($AsmID)
+    {
+        $query1 = $this->db->query("
+            SELECT ResultExpressionID
+            FROM assessment
+            WHERE AssessmentID = '{$AsmID}'
+            ");
+
+        foreach($query1->result() as $temp)
+            $ResultExpressionID = $temp->ResultExpressionID;
+
+        $query2 = $this->db->query("
+            SELECT Expression
+            FROM result_expression
+            WHERE ResultExpID = '{$ResultExpressionID}'
+            ");
+
+        foreach($query2->result() as $row)
+            $output = $row->Expression;
+
+        return $output;
+    }
+
 }
