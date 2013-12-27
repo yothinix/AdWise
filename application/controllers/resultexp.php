@@ -45,8 +45,7 @@ class Resultexp extends CI_Controller {
             'main_content' => 'result_test',
             'summation_array' => $summation_array,
             'Total_AnswerGroup' => $Total_AnswerGroup,
-            'resultID' => $resultID,
-            'sorted' => $sorted
+            'resultID' => $resultID
         );
         $this->load->view('/includes/template', $data);
 

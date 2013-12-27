@@ -48,10 +48,6 @@
         </div>
     </div>
     <div id="awg_content" class="span8">
-<?php
-            echo "Output from re_sort";
-            var_dump($sorted);
-        ?>
         <h3 style="font-style: italic">Answer Group: Summation</h3>
         <?php
             //var_dump($Total_AnswerGroup);
