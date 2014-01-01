@@ -36,6 +36,8 @@ class ResultExp_model extends CI_Model {
 
     function get_total_awg($AID)
     {
+        $asm_type_ID = 0;
+
         $query_asm = $this->db->query("
         SELECT AssessmentTypeID
         FROM assessment
@@ -43,16 +45,16 @@ class ResultExp_model extends CI_Model {
         ");
 
         $query_asm_result = $query_asm->result();
+        
         foreach($query_asm_result as $row)
-        {
             $asm_type_ID = $row->AssessmentTypeID;
-        }
+        
         $query_awg = $this->db->query("
         SELECT TotalAnswerGroup
         FROM assessment_type
         WHERE AssessmentTypeID = '{$asm_type_ID}'
         ");
-
+        
         return $query_awg->result();
     }
 
@@ -72,6 +74,7 @@ class ResultExp_model extends CI_Model {
 
     function get_result_ID($result_pattern)
     {
+        $output = 0;
         $query = $this->db->query("
             SELECT ResultID
             FROM result
@@ -86,6 +89,7 @@ class ResultExp_model extends CI_Model {
 
     function get_result_Name($resultID)
     {
+        $output = 0;
         $query = $this->db->query("
             SELECT Name
             FROM result

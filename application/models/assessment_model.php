@@ -58,6 +58,21 @@ class Assessment_model extends CI_Model {
         return $query->result();
     }
 
+    function get_total_question($AssessmentID)
+    {
+        $output = 0;
+        $query = $this->db->query("
+            SELECT TotalQuestion
+            FROM assessment
+            WHERE AssessmentID = '{$AssessmentID}'
+            ");
+
+        foreach($query->result() as $row)
+            $output = $row->TotalQuestion;
+
+        return $output;
+    }
+
     function check_admin($username)
     {
         $query = $this->db->query("

@@ -31,8 +31,8 @@
 <div class="row">
 
 <?php
-    $Prev = $QuestionNr-1;
-    $Next = $QuestionNr+1;
+    $Prev = $QuestionNr - 1;
+    $Next = $QuestionNr + 1;
 
         foreach($asm_info as $asm_info_row)
         {
@@ -57,7 +57,19 @@
         'id' => "question-form",
         'name'=> "question-form"
     );
-    echo form_open("assessment/test/{$AssessmentID}/{$Next}", $attr);
+        $new_Total = (int) $TotalQuestion;
+        if($Next > $new_Total)
+        {
+            $normal = "assessment/result";
+        }
+        else
+        {
+            $normal = "assessment/test/{$AssessmentID}/{$Next}";
+        }
+        
+        var_dump($Next);
+        var_dump($new_Total);
+        echo form_open($normal, $attr);
 ?>
 			<input type="hidden" name="ans" id="ans" value="" />
 <?php
