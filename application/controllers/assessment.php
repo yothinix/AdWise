@@ -42,7 +42,7 @@ class Assessment extends CI_Controller {
         $asm_info = $this->Assessment_model->get_asm_info($AssessID);
         $quiz = $this->Assessment_model->get_question($AssessID,$QuizNo);
         $choice = $this->Assessment_model->get_choice($AssessID,$QuizNo);
-        $TotalQuestion = $this->Assessment_model->get_asm_info($AssessID);
+        $TotalQuestion = $this->Assessment_model->get_total_question($AssessID);
 
         $data = array(
             'QuestionNr' => $QuizNo,
@@ -57,25 +57,27 @@ class Assessment extends CI_Controller {
         $this->load->view('/includes/template', $data);
     }
 
-    function test($AID, $QID)
+    function test($AID, $QNR)
     {
         if($this->session->userdata('SelectChoice') == false)
         {
-            $this->test_all($AID,$QID);
+            $this->test_all($AID,$QNR);
         }
+        
         else
         {
             $this->Assessment_model->testdata();
-            $this->test_all($AID,$QID);
+            $this->test_all($AID,$QNR);
         }
     }
 
     function result()
     {
         //do ResultExpression กระทำกับ Session Data (AssessmentID, QID, ChoiceID, AnswerGroup, ResultID)
-
         $data = array(
-            'main_content' => 'result'
+            'UserID' => $this->session->userdata('user_id'),
+            'AsmID' => $this->session->userdata('assessmentID'),
+            'main_content' => 'finish'
         );
         $this->load->view('/includes/template', $data);
     }
@@ -140,7 +142,5 @@ class Assessment extends CI_Controller {
         $this->create_asm_view("asm_info");
 
     }
-
-/*//////////Manage_Assessment / Create_Assessment controller function ///////////*/
 
 }
