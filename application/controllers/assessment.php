@@ -74,7 +74,6 @@ class Assessment extends CI_Controller {
     function result()
     {
         //do ResultExpression กระทำกับ Session Data (AssessmentID, QID, ChoiceID, AnswerGroup, ResultID)
-
         $data = array(
             'UserID' => $this->session->userdata('user_id'),
             'AsmID' => $this->session->userdata('assessmentID'),

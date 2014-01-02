@@ -12,13 +12,7 @@ class Resultexp extends CI_Controller {
     {
         //เปิดผ่าน URL นี้นะ >> http://localhost/project/index.php/resultexp/Summation/3/1
         
-        $Total_AnswerGroup = 0;
-        $total_awg = $this->ResultExp_model->get_total_awg($AID);
-        foreach($total_awg as $row)
-        {
-            $Total_AnswerGroup = $row->TotalAnswerGroup;
-        }
-        //get From database จำนวนเท่ากับ Total AnswerGroup ในตาราง ASM_type
+        $Total_AnswerGroup = $this->ResultExp_model->get_total_awg($AID);
 
         $summation_array = array();
         for($i=1; $i<=$Total_AnswerGroup;$i++)
@@ -85,9 +79,9 @@ class Resultexp extends CI_Controller {
 
         $compare_array = array();
         $pair_array = array();      //for identified 'out' array and 'summation' array
-        $total_answer_group = 8;    //can pull from database
+        $total_answer_group = $this->ResultExp_model->get_total_awg($AID);    //can pull from database
         $k = 1;
-        $total_pair = 4;
+        $total_pair = 4; //database improve will change this into query
 
         while($k<=$total_answer_group)
         {
@@ -169,10 +163,5 @@ class Resultexp extends CI_Controller {
 
 }
 
-//    current issue
-//    -
-//
 //    bug
 //    - ghost query (effect a lot in processing method)
-// 
-//

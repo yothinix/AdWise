@@ -37,6 +37,7 @@ class ResultExp_model extends CI_Model {
     function get_total_awg($AID)
     {
         $asm_type_ID = 0;
+        $out = 0;
 
         $query_asm = $this->db->query("
         SELECT AssessmentTypeID
@@ -54,8 +55,11 @@ class ResultExp_model extends CI_Model {
         FROM assessment_type
         WHERE AssessmentTypeID = '{$asm_type_ID}'
         ");
+
+        foreach($query_awg->result() as $i)
+            $out = $i->TotalAnswerGroup;
         
-        return $query_awg->result();
+        return $out;
     }
 
     function get_awg_name($awgID)
