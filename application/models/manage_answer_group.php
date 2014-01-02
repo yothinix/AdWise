@@ -37,6 +37,18 @@ class Manage_answer_group extends CI_Model {
         $this->db->delete('answer_group', array('AnswerGroupID' => $AnswerGroupID));
     }
 
+    function get_awg()
+    {
+        $this->db->select('AnswerGroupID, Name');
+        $this->db->order_by('AnswerGroupID', "asc");
+        $query = $this->db->get('answer_group');
+        if($query)
+        {
+            $query = $query->result_array();
+            return $query;
+        }
+    }
+
 }
 ?>
 

@@ -8,6 +8,7 @@ class Assessment extends CI_Controller {
         $this->load->model('User_model');
         $this->load->model('Assessment_model');
         $this->load->model('Manage_assessment_type');
+        $this->load->model('Manage_answer_group');
         $this->load->library('session');
     }
 

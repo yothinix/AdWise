@@ -68,6 +68,21 @@ class Manage_assessment_type extends CI_Model {
         return $query->result();
     }
 
+    function get_total_choice($AsmTypeID)
+    {
+        $output = 0;
+        $query = $this->db->query("
+            SELECT TotalChoice
+            FROM assessment_type
+            WHERE AssessmentTypeID = '{$AsmTypeID}'
+            ");
+
+        foreach($query->result() as $row)
+            $output = $row->TotalChoice;
+
+        return (int) $output;
+    }
+
     //ต้องสร้าง
     //- Function ไว้แปลง Result Expression เก็บลงตาราง Result Expression
     //  แล้วเก็บเป็น ID ใน Assessment Type
