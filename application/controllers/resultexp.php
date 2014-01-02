@@ -79,7 +79,8 @@ class Resultexp extends CI_Controller {
 
         $compare_array = array();
         $pair_array = array();      //for identified 'out' array and 'summation' array
-        $total_answer_group = $this->ResultExp_model->get_total_awg($AID);    //can pull from database
+        $AssessmentID = $this->session->userdata('assessmentID');
+        $total_answer_group = $this->ResultExp_model->get_total_awg($AssessmentID);    //can pull from database
         $k = 1;
         $total_pair = 4; //database improve will change this into query
 

@@ -67,8 +67,6 @@
             $normal = "assessment/test/{$AssessmentID}/{$Next}";
         }
         
-        var_dump($Next);
-        var_dump($new_Total);
         echo form_open($normal, $attr);
 ?>
 			<input type="hidden" name="ans" id="ans" value="" />
@@ -96,7 +94,6 @@
             $this->session->set_userdata('assessmentID', $AssessmentID);
             $this->session->set_userdata('QuestionNr', $Prev);
             $this->session->set_userdata('SelectChoice', $select);
-            var_dump($this->session->all_userdata());
         ?>
 
 </div>
