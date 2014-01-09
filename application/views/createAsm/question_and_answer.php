@@ -24,6 +24,7 @@
 <?php
 $prev = "asm_info";
 $next = "review_qa";
+$TotalChoice = (int) $this->Manage_assessment_type->get_total_choice($this->session->userdata('asm_type'));
 ?>
 <ul class="pager">
     <li class="previous">
@@ -47,9 +48,12 @@ $next = "review_qa";
         //}];
 
         $scope.datas = [{
-            qnr:'QuestionNo',
+            qnr:'',
             detail:'',    
-            choice:[{id: '', detail: '', awg: ''}] 
+            choice:{
+                0:{id: '', detail: '', awg: ''}, 
+                1:{id: '', detail: '', awg: ''}
+            } 
         }]; 
 
         $scope.addQuestion = function() {
@@ -86,8 +90,8 @@ $next = "review_qa";
                     <?php
                         $asm_type = $this->session->userdata('asm_type');
                     ?>
-                    <input type="text" ng-model="data.qnr" class="input-small" required/>
-                    <input type="text" ng-model="data.detail" class="input-xxlarge" placeholder="Question Detail">
+                    <input type="text" ng-model="data.qnr" class="input-small" placeholder="Question No."/>
+                    <input type="text" ng-model="data.detail" class="input-xxlarge" placeholder="Question Detail"/>
                     <fieldset>Answer</fieldset>
                     <?php
                         $TotalChoice = $this->Manage_assessment_type->get_total_choice($asm_type);
@@ -98,11 +102,11 @@ $next = "review_qa";
                         {
                             ?>
                             <div> <!-- เดี๋ยวพอต้องโหลด/เซฟ ข้อมูลจำต้องใส่ dynamic ID ให้หน้า element ทุกตัวในนี้นะ -->
-                            <input type="text" ng-model="data.choice.id" class="input-small" placeholder="Answer No.">
-                            <input type="text" ng-model="data.choice.detail" class="input-xxlarge" placeholder="Answer Detail">
+                            <input type="text" ng-model="<?php echo "data.choice.{$counter}.id"; ?>" class="input-small" placeholder="Answer No."/>
+                            <input type="text" ng-model="<?php echo "data.choice.{$counter}.detail"; ?>" class="input-xxlarge" placeholder="Answer Detail"/>
                             <div class="row">
                                 <div class="span4">
-                                    <select ng-model="data.choice.awg" name="answer_group">
+                                <select ng-model="<?php echo "data.choice.{$counter}.awg"; ?>" name="answer_group">
                                     <?php
                                         $get_answer_group = $this->Manage_answer_group->get_awg();
                                         foreach($get_answer_group as $dd) 
