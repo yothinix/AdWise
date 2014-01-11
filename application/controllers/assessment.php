@@ -100,6 +100,35 @@ class Assessment extends CI_Controller {
         $this->create_asm_view("question_and_answer");
     }
 
+    //Add Question & Answer Method skeleton
+    //  1)Method: Add_answer($Answer_detail, $Answer_group)
+    //      expect return: $Answer_id
+    //  2)Method: Add_Question($QuestionNr, $Q_Detail, $AnswerID array())
+    //      expect return: $Question_id
+    //  3)Method: Add Assessment($AssessmentID, $Question_id array())
+    //      expect return: sql callback status
+    //  NOTE: Data transfer using session_data
+    
+    function add_question_and_answer()
+    {
+        $this->load->model('Manage_assessment');
+        $Answer_detail = $this->session->userdata('');
+        $Answer_group = $this->session->userdata('');
+        $asm_name = $this->session->userdata('asm_name');
+        $asm_type = $this->session->userdata('asm_type');
+        $AssessmentID = $this->Manage_assessment->get_assessmentID($asm_name, $asm_type);
+        $this->session->set_userdata('AssessmentID', $AssessmentID);
+        $TotalChoice = $this->Manage_assessment_type->get_total_choice($asm_type);
+        $counter = 0; 
+        //Add Choice from user_session loop
+        while($counter < $TotalChoice)
+        {
+            //need to call A_detail, A_group from array identifier
+            $this->Manage_assessment->add_answer($Answer_detail, $Answer_group);
+            $counter++;
+        }
+    }
+
     function delete_asm($AssessmentID)
     {
         $this->load->model('Manage_assessment');
@@ -139,6 +168,7 @@ class Assessment extends CI_Controller {
             $this->session->set_userdata('asm_desc', $asm_desc);
             $this->session->set_userdata('asm_type', $asm_type);
             $this->session->set_userdata('total_question', $total_q);
+            $this->session->set_userdata('AssessmentID', $AID);
         }
         $this->create_asm_view("asm_info");
 
