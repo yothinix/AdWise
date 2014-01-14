@@ -108,25 +108,26 @@ class Assessment extends CI_Controller {
     //  3)Method: Add Assessment($AssessmentID, $Question_id array())
     //      expect return: sql callback status
     //  NOTE: Data transfer using session_data
-    
+
     function add_question_and_answer()
     {
         $this->load->model('Manage_assessment');
-        $Answer_detail = $this->session->userdata('');
-        $Answer_group = $this->session->userdata('');
-        $asm_name = $this->session->userdata('asm_name');
-        $asm_type = $this->session->userdata('asm_type');
-        $AssessmentID = $this->Manage_assessment->get_assessmentID($asm_name, $asm_type);
-        $this->session->set_userdata('AssessmentID', $AssessmentID);
+        $QNR = $this->Manage_assessment->add_question();
+        $this->session->set_userdata('QNR', $QNR);
+        $asm_type = $this->session->userdata('asm_type'); 
         $TotalChoice = $this->Manage_assessment_type->get_total_choice($asm_type);
         $counter = 0; 
-        //Add Choice from user_session loop
+        $CID = array();
         while($counter < $TotalChoice)
         {
             //need to call A_detail, A_group from array identifier
-            $this->Manage_assessment->add_answer($Answer_detail, $Answer_group);
+            $Answer_detail = $this->input->post("data_choice_{$counter}_detail");
+            $Answer_group = $this->input->post("data_choice_{$counter}_awg");
+            $CID[$counter] = $this->Manage_assessment->add_answer($Answer_detail, $Answer_group, $QNR);
             $counter++;
         }
+        $this->session->set_userdata('CID', $CID);
+        $this->create_asm_view("question_and_answer");
     }
 
     function delete_asm($AssessmentID)

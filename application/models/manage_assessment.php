@@ -45,14 +45,14 @@ class Manage_assessment extends CI_Model {
         return $AssessmentID;
     }
     
-    function add_answer($Answer_detail, $Answer_group)
+    function add_answer($Answer_detail, $Answer_group, $QNR)
     {
         $data = array
             (
                 'Detail' => $Answer_detail,
+                'QuestionNr' => $QNR,
                 'AnswerGroupID' => $Answer_group,
                 'AssessmentID' => $this->session->userdata('AssessmentID')
-                //QuestionNr needed
             );
         $this->db->insert('choice', $data);
         
@@ -70,27 +70,16 @@ class Manage_assessment extends CI_Model {
         return $choiceID;
     }
 
-    function add_question($QuestionNr, $Q_Detail)
+    function add_question()
     {
-        $data = array
-            (
-                'QuestionNr' => $QuestionNr,
-                'Detail' => $Q_Detail,
-                'AssessmentID' => $this->session->userdata('AssessmentID')
-            );
+        $data = array(
+            'QuestionNr' => $this->input->post('data_qnr'),
+            'Detail' => $this->input->post('data_detail'),
+            'AssessmentID' => $this->session->userdata('AssessmentID')
+        );
         $this->db->insert("question", $data);
-        $query = $this->db->query("
-            SELECT QID
-            FROM question
-            WHERE QuestionNr = '{$QuestionNr}'
-            AND Detail = '{$Q_Detail}'
-            ");
-        //Above might add AssessmentID as Identifier if having trouble
-        $QID = 0;
-        foreach($query->result() as $dd)
-            $QID = $dd->QID;
 
-        return $QID;
+        return $data['QuestionNr'];
     }
 
     function delete_asm($AssessmentID)
