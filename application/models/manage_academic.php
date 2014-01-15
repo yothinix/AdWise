@@ -21,10 +21,5 @@ class Manage_academic extends CI_Model {
         $this->db->insert('academic', $data);
     }
 
-    function update($academic_id,$data)
-    {
-        $this->db->where('Academic_id', $academic_id);
-        $this->db->update('academic', $data);
-    }
 }
 ?>

@@ -11,6 +11,8 @@
     <link href="<?php echo base_url("/assets/css/bootstrap.css"); ?>" rel="stylesheet">
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 
+    <script src="<?php echo base_url("assets/js/tag/bootstrap.min.js"); ?>"></script>
+
     <style type="text/css">
         body {
             padding-top: 60px;

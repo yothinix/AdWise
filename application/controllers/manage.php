@@ -74,7 +74,7 @@ class Manage extends CI_Controller{
         $this->upload->initialize($config);
     }
 
-    ////// Manage Academic Controller Function Group/////////////////////////
+/////////// Manage Academic Controller Function Group ////////////////
 
     function manage_academic()
     {
@@ -92,23 +92,39 @@ class Manage extends CI_Controller{
         $this->manage_academic();
     }
 
-    function create_academic()
+    function academic_db()
     {
-        $data = array(
-            'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag'))
+        $data = array
+        (
+            'Name' => $Academic_name,
+            'Detail' => $Academic_detail
         );
-        $this->Manage_academic->create_academic($data);
-        $this->manage_academic();
+        $this->db->insert('academic', $data);
+
+        $query = $this->db->query("
+            SELECT Academic_id
+            FROM academic
+            WHERE Name = '{$Academic_name}'
+            AND Detail = '{$Academic_detail}'
+            ");
+
+        $Academic_id = 0;
+        foreach($query->result() as $acid)
+            $Academic_id = $acid->Academic_id;
+
+        return $Academic_id;
+    }
+
+    function tag_db()
+    {
+
     }
 
     function update_academic($academic_id)
     {
         $data = array(
             'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag'))
+            'detail'=>$this->input->post('detail')
         );
         $this->Manage_academic->update($academic_id ,$data);
         $this->manage_academic();
@@ -325,6 +341,11 @@ class Manage extends CI_Controller{
         $this->Manage_tags->update($Tags_id,$data);
 
         $this->manage_tags();
+    }
+
+    function taginput()
+    {
+        $this->load->view('taginput.html');
     }
 }
 ?>
