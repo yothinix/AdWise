@@ -107,9 +107,9 @@
     </div>
     <div class="modal-body" style="text-align: center">
         <?php echo form_open('manage/create_academic'); ?>
-        <input type="text" name="name" id="name" class="input-block-level" placeholder="Name">
+        <input type="text" name="academic_name" id="academic_name" class="input-block-level" placeholder="Name">
         <br>
-        <input type="text" name="detail" id="detail" class="input-block-level" placeholder="Detail">
+        <input type="text" name="academic_detail" id="academic_detail" class="input-block-level" placeholder="Detail">
         <br>
         <div class="example example_typeahead">
             <div class="bs-docs-example">

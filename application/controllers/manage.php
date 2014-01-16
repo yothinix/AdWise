@@ -92,34 +92,6 @@ class Manage extends CI_Controller{
         $this->manage_academic();
     }
 
-    function academic_db()
-    {
-        $data = array
-        (
-            'Name' => $Academic_name,
-            'Detail' => $Academic_detail
-        );
-        $this->db->insert('academic', $data);
-
-        $query = $this->db->query("
-            SELECT Academic_id
-            FROM academic
-            WHERE Name = '{$Academic_name}'
-            AND Detail = '{$Academic_detail}'
-            ");
-
-        $Academic_id = 0;
-        foreach($query->result() as $acid)
-            $Academic_id = $acid->Academic_id;
-
-        return $Academic_id;
-    }
-
-    function tag_db()
-    {
-
-    }
-
     function update_academic($academic_id)
     {
         $data = array(
@@ -129,6 +101,13 @@ class Manage extends CI_Controller{
         $this->Manage_academic->update($academic_id ,$data);
         $this->manage_academic();
     }
+
+    function create_academic()
+    {
+        $this->load->model('Manage_academic');
+
+    }
+
 
 /////////// Manage Assessment Controller Function Group/////////////////////////
 
