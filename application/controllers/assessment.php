@@ -165,6 +165,22 @@ class Assessment extends CI_Controller {
             $this->session->set_userdata('AssessmentID', $AID);
         }
         $this->create_asm_view("asm_info");
+    }
+
+    function add_resultexp()
+    {
+        //Need to store in to place
+        //1) result_expression->Expression then get ResultExpID from latest insert and send to (2)
+        //2) assessment->ResultExpressionID according to AssessmentID
+        $this->load->model('ResultExp_model');
+        $this->load->model('Manage_assessment');
+        $AssessmentID = $this->session->userdata('AssessmentID');
+
+        $result_exp = $this->input->post('result_exp');
+        $ResultExpID = $this->ResultExp_model->add_resultexp($result_exp);
+        $this->Manage_assessment->add_ResultExpID($AssessmentID, $ResultExpID);
+
+        $this->create_asm_view("result_condition");
 
     }
 

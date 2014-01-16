@@ -108,6 +108,13 @@ class Manage_assessment extends CI_Model {
         return $query->result();
     }
 
+    function add_ResultExpID($AssessmentID, $ResultExpID)
+    {
+        $data = array('ResultExpressionID' => $ResultExpID);
+        $this->db->where('AssessmentID', $AssessmentID);
+        $this->db->update('assessment', $data);
+    }
+
 }
 ?>
 
