@@ -57,7 +57,6 @@
                     {
                 ?>
                 <div> 
-                    <input type="text" name="<?php echo "data_choice_{$counter}_id"; ?>" class="input-small" placeholder="Answer No."/>
                     <input type="text" name="<?php echo "data_choice_{$counter}_detail"; ?>" class="input-xxlarge" placeholder="Answer Detail"/>
                     <div class="row">
                         <div class="span4">
@@ -79,7 +78,8 @@
                     <?php
                     }
                     ?>
-                    <input type="submit" name="mysubmit" class="btn input-large" value="+ Add more Question" />
+                    <br>
+                    <input type="submit" name="mysubmit" class="btn input-large" style="margin-top:-20px" value="+ Add more Question" />
                     <pre>
                         <?php
                             var_dump($this->session->userdata('QNR'));

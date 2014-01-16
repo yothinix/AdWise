@@ -87,6 +87,27 @@ class Manage_assessment extends CI_Model {
         $this->db->delete('assessment', array('AssessmentID' => $AssessmentID));
     }
 
+    function get_asm_info($AssessmentID)
+    {
+        $query = $this->db->query
+            ("SELECT Name, Description, AssessmentTypeID, CreatorID
+              FROM assessment
+              WHERE AssessmentID = '{$AssessmentID}'
+            ");
+
+        return $query->result();
+    }
+
+    function get_all_question($AssessmentID)
+    {
+        $query = $this->db->query
+            ("SELECT QuestionNr, Detail
+              FROM question
+              WHERE AssessmentID = '{$AssessmentID}'
+              ");
+        return $query->result();
+    }
+
 }
 ?>
 

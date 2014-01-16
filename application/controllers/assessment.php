@@ -87,6 +87,8 @@ class Assessment extends CI_Controller {
 
     function create_asm_view($page)
     {
+        $this->load->model('Manage_assessment');
+        $this->load->model('Manage_assessment_type');
         $data = array(
             'main_content' => "createAsm/{$page}"
         );
@@ -99,15 +101,6 @@ class Assessment extends CI_Controller {
         $this->Manage_assessment->insert_asm_info();
         $this->create_asm_view("question_and_answer");
     }
-
-    //Add Question & Answer Method skeleton
-    //  1)Method: Add_answer($Answer_detail, $Answer_group)
-    //      expect return: $Answer_id
-    //  2)Method: Add_Question($QuestionNr, $Q_Detail, $AnswerID array())
-    //      expect return: $Question_id
-    //  3)Method: Add Assessment($AssessmentID, $Question_id array())
-    //      expect return: sql callback status
-    //  NOTE: Data transfer using session_data
 
     function add_question_and_answer()
     {

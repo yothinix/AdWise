@@ -82,12 +82,20 @@ class Manage_assessment_type extends CI_Model {
 
         return (int) $output;
     }
+    
+    function get_asm_type_name($AsmTypeID)
+    {
+        $query = $this->db->query
+            ("SELECT Name
+              FROM assessment_type
+              WHERE AssessmentTypeID = '{$AsmTypeID}'
+              ");
+        foreach($query->result() as $dd)
+            $Name = $dd->Name;
 
-    //ต้องสร้าง
-    //- Function ไว้แปลง Result Expression เก็บลงตาราง Result Expression
-    //  แล้วเก็บเป็น ID ใน Assessment Type
-    //- Function ไว้เช็ค Result Expression ว่าเขียนถูกมั้ยด้วย
-
+        return $Name;
+    }
+    
 }
 ?>
 
