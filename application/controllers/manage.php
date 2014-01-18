@@ -74,7 +74,7 @@ class Manage extends CI_Controller{
         $this->upload->initialize($config);
     }
 
-    ////// Manage Academic Controller Function Group/////////////////////////
+/////////// Manage Academic Controller Function Group ////////////////
 
     function manage_academic()
     {
@@ -92,27 +92,22 @@ class Manage extends CI_Controller{
         $this->manage_academic();
     }
 
-    function create_academic()
-    {
-        $data = array(
-            'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag'))
-        );
-        $this->Manage_academic->create_academic($data);
-        $this->manage_academic();
-    }
-
     function update_academic($academic_id)
     {
         $data = array(
             'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag'))
+            'detail'=>$this->input->post('detail')
         );
         $this->Manage_academic->update($academic_id ,$data);
         $this->manage_academic();
     }
+
+    function create_academic()
+    {
+        $this->load->model('Manage_academic');
+
+    }
+
 
 /////////// Manage Assessment Controller Function Group/////////////////////////
 
@@ -325,6 +320,11 @@ class Manage extends CI_Controller{
         $this->Manage_tags->update($Tags_id,$data);
 
         $this->manage_tags();
+    }
+
+    function taginput()
+    {
+        $this->load->view('taginput.html');
     }
 }
 ?>

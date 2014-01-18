@@ -34,7 +34,7 @@
             <td style="text-align: center"><?php echo $row->Academic_id ?>  </td>
             <td><?php echo $row->Name ?>  </td>
             <td><?php echo $row->Detail ?>  </td>
-            <td><?php echo $row->Tag ?>  </td>
+            <td> </td>
             <td style="text-align: center">
                 <!-- Edit -->
                 <a role="button"  class="btn btn-small" href="#edit<?php echo $Academic_id; ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
@@ -66,8 +66,10 @@
                 </div>
                 <div class="control-group" >
                     <label class="control-label" for="inputTag">Tag</label>
-                    <div class="controls">
-                        <input type="text" name="tag" class="input-block-level" value="<?php echo $row->Tag ?>">
+                    <div class="example example_typeahead">
+                        <div class="bs-docs-example">
+                            <input type="text" name="tags" value=" " >
+                        </div>
                     </div>
                 </div>
                 <div class="control-group" style="margin-top: 10px; text-align: center">
@@ -105,14 +107,27 @@
     </div>
     <div class="modal-body" style="text-align: center">
         <?php echo form_open('manage/create_academic'); ?>
-        <input type="text" name="name" id="name" class="input-block-level" placeholder="Name">
+        <input type="text" name="academic_name" id="academic_name" class="input-block-level" placeholder="Name">
         <br>
-        <input type="text" name="detail" id="detail" class="input-block-level" placeholder="Detail">
+        <input type="text" name="academic_detail" id="academic_detail" class="input-block-level" placeholder="Detail">
         <br>
-        <input type="text" name="tag" id="tag" class="input-block-level" placeholder="Tag">
+        <div class="example example_typeahead">
+            <div class="bs-docs-example">
+                <input type="text" placeholder="Tag" name="tags" >
+            </div>
+        </div>
         <br>
         <button type="submit" class="btn btn-success">Add new academic</button>
         <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
         <?php echo form_close(); ?>
     </div>
 </div>
+
+<link rel="stylesheet" href="<?php echo base_url("assets/css/tag/docs.css"); ?>">
+<link rel="stylesheet" href="<?php echo base_url("assets/css/tag/bootstrap-tagsinput.css"); ?>" >
+<link rel="stylesheet" href="<?php echo base_url("assets/css/tag/app.css"); ?>" >
+
+<script src="<?php echo base_url("assets/js/tag/bootstrap-tagsinput.js"); ?>"></script>
+<script src="<?php echo base_url("assets/js/tag/bootstrap-tagsinput-angular.js"); ?>"></script>
+<script src="<?php echo base_url("assets/js/tag/app_bs2.js"); ?>"></script>
+<script src="<?php echo base_url("assets/js/tag/app.js"); ?>"></script>
