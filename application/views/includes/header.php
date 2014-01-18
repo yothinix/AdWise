@@ -10,8 +10,9 @@
     <!-- Le styles -->
     <link href="<?php echo base_url("/assets/css/bootstrap.css"); ?>" rel="stylesheet">
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-
     <script src="<?php echo base_url("assets/js/tag/bootstrap.min.js"); ?>"></script>
+    <link href="<?php echo base_url("/assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url("/assets/css/bootstrap-datetimepicker.min.css"); ?>">
 
     <style type="text/css">
         body {
@@ -20,15 +21,8 @@
         .sidebar-nav {
             padding: 9px 0;
         }
-
-
-        }
     </style>
-    <link href="<?php echo base_url("/assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
-
-
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url("/assets/css/bootstrap-datetimepicker.min.css"); ?>">
-
+    
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="assets/js/html5shiv.js"></script>
@@ -36,7 +30,7 @@
 
 </head>
 
-<body ng-app>
+<body>
 
 <?php
 $asmlist = base_url("index.php/assessment/asmlist");
