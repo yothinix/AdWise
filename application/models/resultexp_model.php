@@ -13,11 +13,13 @@ class ResultExp_model extends CI_Model {
 
     function load_asw_sheet($userID, $AID)
     {
+        $sessionID = $this->session->userdata('session_id');
         $query = $this->db->query("
         SELECT QuestionNr, ChoiceID
         FROM test
         WHERE UserID = '{$userID}'
         AND AssessmentID = '{$AID}'
+        AND sessionID ='{$sessionID}'
         ");
 
         return $query->result();
@@ -120,6 +122,7 @@ class ResultExp_model extends CI_Model {
 
     function get_asm_status($userID, $AsmID)
     {
+        $output;
         $query = $this->db->query("
             SELECT Status
             FROM user_test
@@ -154,6 +157,23 @@ class ResultExp_model extends CI_Model {
             $output = $row->Expression;
 
         return $output;
+    }
+
+    function add_resultexp($data) 
+    {
+        $ResultExpID = 0;
+        $this->db->set('Expression', $data);
+        $this->db->insert('result_expression');
+        
+        $query = $this->db->query
+           ("SELECT ResultExpID
+             FROM result_expression
+             WHERE Expression = '{$data}' 
+             ");
+        foreach($query->result() as $row)
+            $ResultExpID = $row->ResultExpID;
+        
+        return $ResultExpID;
     }
 
 }
