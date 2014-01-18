@@ -68,10 +68,6 @@ class Manage_assessment_type extends CI_Model {
         return $query->result();
     }
 
-    //ต้องสร้าง
-    //- Function ไว้แปลง Result Expression เก็บลงตาราง Result Expression
-    //  แล้วเก็บเป็น ID ใน Assessment Type
-    //- Function ไว้เช็ค Result Expression ว่าเขียนถูกมั้ยด้วย
 
 }
 ?>
