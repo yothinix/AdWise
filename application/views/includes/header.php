@@ -7,13 +7,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <!-- Javascript preload -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    <script src="<?php echo base_url("assets/js/bootstrap.min.js"); ?>"></script>
+
     <!-- Le styles -->
     <link href="<?php echo base_url("/assets/css/bootstrap.css"); ?>" rel="stylesheet">
-    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-    <script src="<?php echo base_url("assets/js/tag/bootstrap.min.js"); ?>"></script>
     <link href="<?php echo base_url("/assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url("/assets/css/bootstrap-datetimepicker.min.css"); ?>">
-
     <style type="text/css">
         body {
             padding-top: 60px;
