@@ -1,3 +1,7 @@
+<link rel="stylesheet" href="<?php echo base_url("assets/css/docs.css"); ?>">
+<link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap-tagsinput.css"); ?>" >
+<link rel="stylesheet" href="<?php echo base_url("assets/css/app.css"); ?>" >
+
 <style type = "text/css">
     th
     {
@@ -23,12 +27,12 @@
         <th style="text-align: center">Controller</th>
     </tr>
 
-    <?php
+<?php
     $user = $this->Manage_academic->academic();
     foreach($user as $row)
     {
         $Academic_id = $row->Academic_id;
-        ?>
+?>
 
         <tr>
             <td style="text-align: center"><?php echo $row->Academic_id ?>  </td>
@@ -49,7 +53,7 @@
             <h3 id="myModalLabel">Edit Academic</h3>
         </div>
         <div class="modal-body" style="margin-top: -10px">
-                <?php
+<?php
                 $form = array('class' => 'form-horizontal');
                 echo form_open("manage/update_academic/{$Academic_id}",$form); ?>
                 <div class="control-group" >
@@ -76,7 +80,7 @@
                     <button type="submit" class="btn btn-success">Save</button>
                     <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
                 </div>
-                <?php echo form_close(); ?>
+<?php echo form_close(); ?>
         </div> <!-- ปิด modal-header -->
         </div> <!-- ปิด edit -->
 
@@ -94,8 +98,7 @@
             <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
         </div>
         </div> <!-- ปิด delete -->
-
-    <?php } ?>
+<?php } ?>
 
 </table>
 
@@ -123,11 +126,6 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="<?php echo base_url("assets/css/tag/docs.css"); ?>">
-<link rel="stylesheet" href="<?php echo base_url("assets/css/tag/bootstrap-tagsinput.css"); ?>" >
-<link rel="stylesheet" href="<?php echo base_url("assets/css/tag/app.css"); ?>" >
-
-<script src="<?php echo base_url("assets/js/tag/bootstrap-tagsinput.js"); ?>"></script>
-<script src="<?php echo base_url("assets/js/tag/bootstrap-tagsinput-angular.js"); ?>"></script>
-<script src="<?php echo base_url("assets/js/tag/app_bs2.js"); ?>"></script>
-<script src="<?php echo base_url("assets/js/tag/app.js"); ?>"></script>
+<script src="<?php echo base_url("assets/js/bootstrap-tagsinput.js"); ?>"></script>
+<script src="<?php echo base_url("assets/js/tag_typehead.js"); ?>"></script>
+<script src="<?php echo base_url("assets/js/tag_input_change.js"); ?>"></script>
