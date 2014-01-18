@@ -159,4 +159,21 @@ class ResultExp_model extends CI_Model {
         return $output;
     }
 
+    function add_resultexp($data) 
+    {
+        $ResultExpID = 0;
+        $this->db->set('Expression', $data);
+        $this->db->insert('result_expression');
+        
+        $query = $this->db->query
+           ("SELECT ResultExpID
+             FROM result_expression
+             WHERE Expression = '{$data}' 
+             ");
+        foreach($query->result() as $row)
+            $ResultExpID = $row->ResultExpID;
+        
+        return $ResultExpID;
+    }
+
 }

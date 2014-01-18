@@ -68,7 +68,34 @@ class Manage_assessment_type extends CI_Model {
         return $query->result();
     }
 
+    function get_total_choice($AsmTypeID)
+    {
+        $output = 0;
+        $query = $this->db->query("
+            SELECT TotalChoice
+            FROM assessment_type
+            WHERE AssessmentTypeID = '{$AsmTypeID}'
+            ");
 
+        foreach($query->result() as $row)
+            $output = $row->TotalChoice;
+
+        return (int) $output;
+    }
+    
+    function get_asm_type_name($AsmTypeID)
+    {
+        $query = $this->db->query
+            ("SELECT Name
+              FROM assessment_type
+              WHERE AssessmentTypeID = '{$AsmTypeID}'
+              ");
+        foreach($query->result() as $dd)
+            $Name = $dd->Name;
+
+        return $Name;
+    }
+    
 }
 ?>
 

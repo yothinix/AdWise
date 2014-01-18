@@ -43,7 +43,6 @@ $page = "question_and_answer";
                     <div class="span4">
                         <select name="asm_type">
                     <?php
-                        var_dump($this->session->userdata('asm_type'));
                         $get_asm_type = $this->Manage_assessment_type->get_asm_type();
                         foreach($get_asm_type as $dd)
                         {
