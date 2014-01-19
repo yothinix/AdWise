@@ -123,6 +123,26 @@ class Assessment extends CI_Controller {
         $this->create_asm_view("question_and_answer");
     }
 
+    function update_qa($AssessmentID, $QuestionNr)
+    {
+        $this->load->model('Manage_assessment');
+        $this->load->model('Manage_assessment_type');
+        //send the question data through session_id
+        $Q_data = $this->Manage_assessment->get_question_data($AssessmentID, $QuestionNr);
+        $this->session->set_userdata('QuestionNr', $Q_data['QuestionNr']);
+        $this->session->set_userdata('Q_Detail', $Q_data['Q_Detail']);
+        $A_data = $this->Manage_assessment->get_choice_data($AssessmentID, $QuestionNr);
+        $counter = 1;
+        foreach($A_data as $row)
+        {
+            $this->session->set_userdata("C_Detail_{$counter}", $row->Detail);
+            $this->session->set_userdata("AnswerGroupID_{$counter}", $row->AnswerGroupID);
+            $counter++;
+        }
+
+        $this->create_asm_view("question_and_answer");
+    }
+
     function delete_asm($AssessmentID)
     {
         $this->load->model('Manage_assessment');

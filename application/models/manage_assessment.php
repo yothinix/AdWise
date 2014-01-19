@@ -108,6 +108,34 @@ class Manage_assessment extends CI_Model {
         return $query->result();
     }
 
+    function get_question_data($AssessmentID, $QuestionNr)
+    {
+        $data = array();
+        $query = $this->db->query
+            ("SELECT QuestionNr, Detail
+              FROM question
+              WHERE QuestionNr = '{$QuestionNr}'
+              AND AssessmentID = '{$AssessmentID}'
+            ");
+        foreach($query->result() as $row)
+        {
+            $data['QuestionNr'] = $row->QuestionNr;
+            $data['Q_Detail'] = $row->Detail; 
+        }
+        return $data;
+    }
+
+    function get_choice_data($AssessmentID, $QuestionNr)
+    {
+        $query = $this->db->query
+            ("SELECT Detail, AnswerGroupID
+              FROM choice
+              WHERE AssessmentID = '{$AssessmentID}'
+              AND QuestionNr = '{$QuestionNr}'
+             ");
+        return $query->result();
+    }
+
     function add_ResultExpID($AssessmentID, $ResultExpID)
     {
         $data = array('ResultExpressionID' => $ResultExpID);

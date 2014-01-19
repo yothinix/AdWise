@@ -60,7 +60,7 @@
         $Q_Detail = $row->Detail;
 ?>                
                     <div id="question" style="margin-left: 30px">
-                    <h4><?php echo "{$QuestionNr}. {$Q_Detail}"; ?></h4>
+                    <h4><a href="<?php echo base_url("index.php/assessment/update_qa/{$AsmID}/{$QuestionNr}"); ?>"><?php echo "{$QuestionNr}. {$Q_Detail}"; ?></a></h4>
                         <div id="answer">
 <?php 
         $choice = $this->Assessment_model->get_choice($AsmID, $QuestionNr);
