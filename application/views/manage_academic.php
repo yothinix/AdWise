@@ -110,13 +110,13 @@
     </div>
     <div class="modal-body" style="text-align: center">
         <?php echo form_open('manage/create_academic'); ?>
-        <input type="text" name="academic_name" id="academic_name" class="input-block-level" placeholder="Name">
+        <input type="text" name="Academic_name" id="Academic_name" class="input-block-level" placeholder="Name">
         <br>
-        <input type="text" name="academic_detail" id="academic_detail" class="input-block-level" placeholder="Detail">
+        <input type="text" name="Academic_detail" id="Academic_detail" class="input-block-level" placeholder="Detail">
         <br>
         <div class="example example_typeahead">
             <div class="bs-docs-example">
-                <input type="text" placeholder="Tag" name="tags" >
+                <input type="text" placeholder="Tag" name="Tags" id="Tags" >
             </div>
         </div>
         <br>
