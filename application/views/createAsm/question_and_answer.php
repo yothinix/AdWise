@@ -37,7 +37,7 @@
                 <?php
                     $form_controller = "assessment/add_question_and_answer";
                     if($this->session->userdata('form_flag') == 1)
-                        $form_controller = "assessment/edit_qa";            
+                        $form_controller = "assessment/update_qa";            
                     $attr = array('class' => "form-inline");
                     echo form_open($form_controller, $attr);
                     $asm_type = $this->session->userdata('asm_type');

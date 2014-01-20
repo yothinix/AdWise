@@ -123,7 +123,7 @@ class Assessment extends CI_Controller {
         $this->create_asm_view("review_qa");
     }
 
-    function update_qa($AssessmentID, $QuestionNr)
+    function get_qa_data($AssessmentID, $QuestionNr)
     {
         $this->load->model('Manage_assessment');
         $this->load->model('Manage_assessment_type');
@@ -145,7 +145,7 @@ class Assessment extends CI_Controller {
         $this->create_asm_view("question_and_answer");
     }
 
-    function edit_qa()
+    function update_qa()
     {
         $this->load->model('Manage_assessment_type');
         $this->load->model('Manage_assessment');
@@ -161,7 +161,6 @@ class Assessment extends CI_Controller {
         while($counter < $TotalChoice)
         {
             $ChoiceID = $this->session->userdata("ChoiceID_{$counter}");
-            //need to call A_detail, A_group from array identifier
             $Answer_detail = $this->input->post("data_choice_{$counter}_detail");
             $Answer_group = $this->input->post("data_choice_{$counter}_awg");
             $CID[$counter] = $this->Manage_assessment->update_answer($Answer_detail, $Answer_group, $QNR, $ChoiceID);

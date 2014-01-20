@@ -62,7 +62,7 @@ class Manage_assessment extends CI_Model {
             WHERE Detail = '{$Answer_detail}'
             AND AnswerGroupID = '{$Answer_group}'
             ");
-        //Above might add AssessmentID as Identifier if having trouble
+        
         $choiceID = 0; 
         foreach($query->result() as $dd)
             $choiceID = $dd->ChoiceID;
@@ -86,7 +86,7 @@ class Manage_assessment extends CI_Model {
             WHERE Detail = '{$Answer_detail}'
             AND AnswerGroupID = '{$Answer_group}'
             ");
-        //Above might add AssessmentID as Identifier if having trouble
+        
         $choiceID = 0; 
         foreach($query->result() as $dd)
             $choiceID = $dd->ChoiceID;
