@@ -179,6 +179,37 @@ class Manage_assessment extends CI_Model {
         $data = array('ResultExpressionID' => $ResultExpID);
         $this->db->where('AssessmentID', $AssessmentID);
         $this->db->update('assessment', $data);
+
+        //clear session relate
+        $this->session->unset_userdata('Expression');
+    }
+
+    function get_ResultExpID($AssessmentID)
+    {
+        $ResultExpID = 0;
+        $query = $this->db->query
+            ("SELECT ResultExpressionID
+              FROM assessment
+              WHERE AssessmentID = '{$AssessmentID}'
+              ");
+        foreach($query->result() as $row)
+            $ResultExpID = $row->ResultExpressionID;
+
+        return (int) $ResultExpID;
+    }
+
+    function get_Expression($ResultExpID)
+    {
+        $Expression = "";
+        $query = $this->db->query
+            ("SELECT Expression
+              FROM result_expression
+              WHERE ResultExpID = '{$ResultExpID}'
+              ");
+        foreach($query->result() as $row)
+            $Expression = $row->Expression;
+
+        return $Expression;
     }
 
 }

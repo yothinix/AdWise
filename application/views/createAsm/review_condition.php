@@ -22,8 +22,10 @@
 <h2 style="margin-top: -30px">Create Assessment</h2>
 <hr/>
 <?php
-$prev = "result_condition";
-$next = "submit_question";
+    $prev = "result_condition";
+    $next = "submit_question";
+    $this->load->model('Manage_assessment');    
+    $AsmID = $this->session->userdata('AssessmentID');    
 ?>
 <ul class="pager">
     <li class="previous">
@@ -34,9 +36,19 @@ $next = "submit_question";
     </li>
 </ul>
 <hr>
-        <p>Review Result Condition</p>
-
-
+        <p>
+            <small>Result Condition of Assessment</small>
+            <a href="<?php echo base_url("index.php/assessment/get_condition_data/{$AsmID}"); ?>" class="btn btn-success">Edit Condition</a>
+        </p>
+        <pre>
+<?php
+    $ResultExpressionID = $this->Manage_assessment->get_ResultExpID($AsmID);
+    $Expression = $this->Manage_assessment->get_Expression($ResultExpressionID);
+    $str_array = explode(';', $Expression);
+    foreach($str_array as $row)
+        echo "<p style='text-align:center'>{$row}</p>";
+?>
+        </pre>
 <hr>
 
 

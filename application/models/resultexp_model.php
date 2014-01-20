@@ -176,4 +176,14 @@ class ResultExp_model extends CI_Model {
         return $ResultExpID;
     }
 
+    function update_resultexp($data)
+    {
+        $ResultExpID = $this->session->userdata('ResultExpID');
+        $expression = array('Expression' => $data);
+        $this->db->where('ResultExpID', $ResultExpID);
+        $this->db->update('result_expression', $expression);
+
+        return $ResultExpID;
+    }
+
 }

@@ -243,8 +243,36 @@ class Assessment extends CI_Controller {
         $ResultExpID = $this->ResultExp_model->add_resultexp($result_exp);
         $this->Manage_assessment->add_ResultExpID($AssessmentID, $ResultExpID);
 
-        $this->create_asm_view("result_condition");
+        $this->create_asm_view("review_condition");
+    }
 
+    function update_resultexp()
+    {
+        $this->load->model('ResultExp_model');
+        $this->load->model('Manage_assessment');
+        $AssessmentID = $this->session->userdata('AssessmentID');
+
+        $result_exp = $this->input->post('result_exp');
+        $ResultExpID = $this->ResultExp_model->update_resultexp($result_exp);
+        $this->Manage_assessment->add_ResultExpID($AssessmentID, $ResultExpID);
+        
+        //unset all session relate to update result_condition
+        $this->session->unset_userdata('Expression');
+        $this->session->unset_userdata('ResultExpID');
+        $this->session->unset_userdata('re_flag');
+        $this->create_asm_view('review_condition');
+    }
+
+    function get_condition_data($AsmID)
+    {
+        $this->load->model('Manage_assessment');
+        //get data to fill the form
+        $ResultExpID = $this->Manage_assessment->get_ResultExpID($AsmID);
+        $Expression = $this->Manage_assessment->get_Expression($ResultExpID);
+        $this->session->set_userdata('Expression', $Expression);
+        $this->session->set_userdata('ResultExpID', $ResultExpID);
+        $this->session->set_userdata('re_flag', 1);
+        $this->create_asm_view("result_condition");
     }
 
 }
