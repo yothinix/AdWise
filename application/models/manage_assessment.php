@@ -70,6 +70,30 @@ class Manage_assessment extends CI_Model {
         return $choiceID;
     }
 
+    function update_answer($Answer_detail, $Answer_group, $QNR, $CID)
+    {
+        $data = array
+            (
+                'Detail' => $Answer_detail,
+                'AnswerGroupID' => $Answer_group
+            );
+        $this->db->where('ChoiceID', $CID);
+        $this->db->update('choice', $data);
+        
+        $query = $this->db->query("
+            SELECT ChoiceID
+            FROM choice
+            WHERE Detail = '{$Answer_detail}'
+            AND AnswerGroupID = '{$Answer_group}'
+            ");
+        //Above might add AssessmentID as Identifier if having trouble
+        $choiceID = 0; 
+        foreach($query->result() as $dd)
+            $choiceID = $dd->ChoiceID;
+
+        return $choiceID;
+    }
+
     function add_question()
     {
         $data = array(
@@ -78,6 +102,19 @@ class Manage_assessment extends CI_Model {
             'AssessmentID' => $this->session->userdata('AssessmentID')
         );
         $this->db->insert("question", $data);
+
+        return $data['QuestionNr'];
+    }
+
+    function update_question()
+    {
+        $data = array(
+            'QuestionNr' => $this->input->post('data_qnr'),
+            'Detail' => $this->input->post('data_detail'),
+            'AssessmentID' => $this->session->userdata('AssessmentID')
+        );
+        $this->db->where('QID', $this->session->userdata('QID'));
+        $this->db->update('question', $data);
 
         return $data['QuestionNr'];
     }
@@ -112,7 +149,7 @@ class Manage_assessment extends CI_Model {
     {
         $data = array();
         $query = $this->db->query
-            ("SELECT QuestionNr, Detail
+            ("SELECT QuestionNr, Detail, QID
               FROM question
               WHERE QuestionNr = '{$QuestionNr}'
               AND AssessmentID = '{$AssessmentID}'
@@ -121,6 +158,7 @@ class Manage_assessment extends CI_Model {
         {
             $data['QuestionNr'] = $row->QuestionNr;
             $data['Q_Detail'] = $row->Detail; 
+            $data['QID'] = $row->QID;
         }
         return $data;
     }
@@ -128,7 +166,7 @@ class Manage_assessment extends CI_Model {
     function get_choice_data($AssessmentID, $QuestionNr)
     {
         $query = $this->db->query
-            ("SELECT Detail, AnswerGroupID
+            ("SELECT ChoiceID, Detail, AnswerGroupID
               FROM choice
               WHERE AssessmentID = '{$AssessmentID}'
               AND QuestionNr = '{$QuestionNr}'

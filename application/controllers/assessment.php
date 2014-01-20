@@ -120,7 +120,7 @@ class Assessment extends CI_Controller {
             $counter++;
         }
         $this->session->set_userdata('CID', $CID);
-        $this->create_asm_view("question_and_answer");
+        $this->create_asm_view("review_qa");
     }
 
     function update_qa($AssessmentID, $QuestionNr)
@@ -129,18 +129,62 @@ class Assessment extends CI_Controller {
         $this->load->model('Manage_assessment_type');
         //send the question data through session_id
         $Q_data = $this->Manage_assessment->get_question_data($AssessmentID, $QuestionNr);
+        $this->session->set_userdata('QID', $Q_data['QID']);
         $this->session->set_userdata('QuestionNr', $Q_data['QuestionNr']);
         $this->session->set_userdata('Q_Detail', $Q_data['Q_Detail']);
         $A_data = $this->Manage_assessment->get_choice_data($AssessmentID, $QuestionNr);
-        $counter = 1;
+        $counter = 0;
         foreach($A_data as $row)
         {
+            $this->session->set_userdata("ChoiceID_{$counter}", $row->ChoiceID);
             $this->session->set_userdata("C_Detail_{$counter}", $row->Detail);
             $this->session->set_userdata("AnswerGroupID_{$counter}", $row->AnswerGroupID);
             $counter++;
         }
-
+        $this->session->set_userdata('form_flag', 1);
         $this->create_asm_view("question_and_answer");
+    }
+
+    function edit_qa()
+    {
+        $this->load->model('Manage_assessment_type');
+        $this->load->model('Manage_assessment');
+        
+        //everything that relate to update database going below this line
+        
+        $QNR = $this->Manage_assessment->update_question();
+        $this->session->set_userdata('QNR', $QNR);
+        $asm_type = $this->session->userdata('asm_type'); 
+        $TotalChoice = $this->Manage_assessment_type->get_total_choice($asm_type);
+        $counter = 0; 
+        $CID = array();
+        while($counter < $TotalChoice)
+        {
+            $ChoiceID = $this->session->userdata("ChoiceID_{$counter}");
+            //need to call A_detail, A_group from array identifier
+            $Answer_detail = $this->input->post("data_choice_{$counter}_detail");
+            $Answer_group = $this->input->post("data_choice_{$counter}_awg");
+            $CID[$counter] = $this->Manage_assessment->update_answer($Answer_detail, $Answer_group, $QNR, $ChoiceID);
+            $counter++;
+        }
+        $this->session->set_userdata('CID', $CID);
+
+        //unset all session relate to update_qa
+        $this->session->unset_userdata('QID');
+        $this->session->unset_userdata('QuestionNr');
+        $this->session->unset_userdata('Q_Detail');
+        $AsmTypeID = $this->session->userdata('asm_type');
+        $total_choice = $this->Manage_assessment_type->get_total_choice($AsmTypeID);
+        $counter = 0;
+        while($counter <= $total_choice)
+        {
+            $this->session->unset_userdata("ChoiceID_{$counter}");
+            $this->session->unset_userdata("C_Detail_{$counter}");
+            $this->session->unset_userdata("AnswerGroupID_{$counter}");
+            $counter++;
+        }
+        $this->session->unset_userdata('form_flag');
+        $this->create_asm_view("review_qa");
     }
 
     function delete_asm($AssessmentID)

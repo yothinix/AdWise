@@ -20,13 +20,6 @@
     $prev = "asm_info";
     $next = "review_qa";
     $TotalChoice = (int) $this->Manage_assessment_type->get_total_choice($this->session->userdata('asm_type'));
-
-    //session data for update question_form
-    $data = array('QuestionNr' => 0, 'Q_Detail' => "");
-    if($data['QuestionNr'] == 0) $data['QuestionNr'] = "Question No.";
-    else $data['QuestionNr'] = $this->session->userdata('QuestionNr');
-    if($data['Q_Detail'] == "") $data['Q_Detail'] = "Question Detail";
-    else $data['Q_Detail'] = $this->session->userdata('Q_Detail');
 ?>
 <ul class="pager">
     <li class="previous">
@@ -37,14 +30,16 @@
     </li>
 </ul>
 <hr>
-<!-- HTML in AngularJS -->
 <div>
     <div>
         <span>Total Question: <?php echo $this->session->userdata('total_question'); ?></span>
             <fieldset>Question</fieldset>
                 <?php
+                    $form_controller = "assessment/add_question_and_answer";
+                    if($this->session->userdata('form_flag') == 1)
+                        $form_controller = "assessment/edit_qa";            
                     $attr = array('class' => "form-inline");
-                    echo form_open('assessment/add_question_and_answer', $attr);
+                    echo form_open($form_controller, $attr);
                     $asm_type = $this->session->userdata('asm_type');
                 ?>
                     <small>Question No. </small>
@@ -54,10 +49,10 @@
                 <fieldset>Answer</fieldset>
                 <?php
                     $TotalChoice = $this->Manage_assessment_type->get_total_choice($asm_type);
-                    $counter = 1;
+                    $counter = 0;
 
                     //วนลูปสร้าง Answer ตาม AssessmentType ตรงนี้
-                    while($counter <= $TotalChoice)
+                    while($counter < $TotalChoice)
                     {
                 ?>
                 <div> 
@@ -70,7 +65,7 @@
                                     foreach($get_answer_group as $dd) 
                                     {
                                         echo "<option value='". $dd['AnswerGroupID'] ."'";
-                                        if($dd['AnswerGroupID'] == $this->session->userdata('answer_group'))
+                                        if($dd['AnswerGroupID'] == $this->session->userdata("AnswerGroupID_{$counter}"))
                                             echo "selected=\"selected\"";
                                             echo ">". $dd['Name'] ."</option>";
                                     }
