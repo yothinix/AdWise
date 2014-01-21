@@ -244,7 +244,6 @@ class Manage extends CI_Controller{
         $this->load->view('manage occupation data', $data);
     }
 
-
     function  manage_occupation()
     {
         $this->load->model('Manage_occupation');
@@ -256,25 +255,28 @@ class Manage extends CI_Controller{
         $this->load->view('includes/template', $data);
     }
 
-
     function delete_occupation($Occupation_id)
     {
         $this->db->delete('occupation', array('Occupation_id' => $Occupation_id));
         $this->manage_occupation();
     }
 
-
     function create_occupation()
     {
-        $data = array(
-            'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag')),
-        );
-        $this->Manage_occupation->create_occupation($data);
+        $this->load->model('Manage_occupation');
+        $Occupation_id = $this->Manage_occupation->ocp_db();
+        $Tags = $this->input->post('Tags');
+        $TotalTags = substr_count($Tags,',')+1;
+        $Tags_Key = explode(",", $Tags);
+        $counter = 0;
+        while($counter < $TotalTags)
+        {
+            $Tags_id = $this->Manage_occupation->tags_db($Tags_Key[$counter]);
+            $this->Manage_occupation->tags_ocp($Occupation_id,$Tags_id);
+            $counter++;
+        }
         $this->manage_occupation();
     }
-
 
     function update_occupation($occupation_id)
     {
