@@ -34,64 +34,22 @@ $next = "review_condition";
     </li>
 </ul>
 <hr>
-                <!-- Script in AngularJS -->
-                <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
-                <script type="text/javascript">
-                    function ResultCtrl($scope) {
-                        $scope.results = [
-                        {}];
-                        $scope.addResult = function() {
-                        $scope.results.push({text:$scope.resultText, done:false});
-                        $scope.resultText = '';
-                        };
-                    }
-                </script>
-                <!-- HTML in AngularJS -->
-                <div>
-                    <div ng-controller="ResultCtrl">
-                        <span>Total Result: {{results.length}}</span>
-                        <ul class="unstyled">
-                            <li ng-repeat="result in results">
-                                <div class="row-fluid">
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Result 1</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Answer group 1</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Answer group 2</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Answer group 3</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Answer group 4</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <hr>
-                        <form ng-submit="addResult()">
-                            <input type="submit" class="btn input-large" style="margin-top: -20px" value="+ Add another result">
-                        </form>
-                    </div>
-                </div>
+    <h3>Result Expression</h3>
+    <div style="text-align: center">
+<?php
+    $AsmID = $this->session->userdata('AssessmentID');
+    $attr = array('class' => "form-inline");
+    echo form_open("assessment/add_resultexp", $attr);
+?>
+        <textarea type="text" rows="10" name="result_exp" class="input-block-level" placeholder ="Result Expression"></textarea>
+        <div style="text-align: center; margin-top: 20px">
+            <input type="submit" name="check_exp" class="btn btn-warning" value="Check Expression" />
+            <input type="submit" name="add_exp" class="btn btn-success" value="Add Expression" />
+        </div>
+<?php
+    echo form_close();
+?>
+    </div>
 <hr>
 
 

@@ -7,10 +7,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <!-- Javascript preload -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    <script src="<?php echo base_url("assets/js/bootstrap.min.js"); ?>"></script>
+
     <!-- Le styles -->
     <link href="<?php echo base_url("/assets/css/bootstrap.css"); ?>" rel="stylesheet">
-    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-
+    <link href="<?php echo base_url("/assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url("/assets/css/bootstrap-datetimepicker.min.css"); ?>">
     <style type="text/css">
         body {
             padding-top: 60px;
@@ -18,15 +22,8 @@
         .sidebar-nav {
             padding: 9px 0;
         }
-
-
-        }
     </style>
-    <link href="<?php echo base_url("/assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
-
-
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url("/assets/css/bootstrap-datetimepicker.min.css"); ?>">
-
+    
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="assets/js/html5shiv.js"></script>
@@ -34,7 +31,7 @@
 
 </head>
 
-<body ng-app>
+<body>
 
 <?php
 $asmlist = base_url("index.php/assessment/asmlist");
@@ -49,6 +46,7 @@ $manage_result = base_url("index.php/manage/manage_result");
 $manage_occupation = base_url("index.php/manage/manage_occupation");
 $dashboard = base_url("index.php/user/dashboard");
 $academic = base_url("index.php/manage/manage_academic");
+$tags = base_url("index.php/manage/manage_tags");
 ?>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -118,13 +116,14 @@ $academic = base_url("index.php/manage/manage_academic");
                                 <a href="<?php echo $manage_occupation; ?>"><i class="icon-tags"></i>Manage Occupation</a></li>
                             <li <?php if($main_content == 'manage_academic'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $academic?>"><i class="icon-tags"></i>Manage Academic</a></li>
+                            <li <?php if($main_content == 'manage_tags'){ echo "class=\"active\""; } ?>>
+                                <a href="<?php echo $tags?>"><i class="icon-tags"></i>Manage Tags</a></li>
                             <li <?php if($main_content == 'manage_user'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $manage_user; ?>"><i class="icon-user"></i>Manage User</a></li>
                             <li><a href="#"><i class="icon-home"></i>Analytics</a></li>
                     <?php
                         }
                     ?>
-
                 </ul>
             </div><!--/.well -->
         </div><!--/span-->

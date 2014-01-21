@@ -9,7 +9,7 @@ class Manage_occupation extends CI_Model {
 
     function get_manage_occupation()
     {
-        $query = $this->db->query("SELECT Occupation_id,Name,Detail,Tag FROM occupation");
+        $query = $this->db->query("SELECT Occupation_id,Name,Detail,Academic_id,Tag FROM occupation");
         return $query->result();
     }
 

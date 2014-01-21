@@ -45,11 +45,8 @@
     }
 </style>
 
-<body>
-<?php
-echo br(5);
-?>
-<!-- ===== Sign Up ===== -->
+<?php echo br(5); ?>
+
 <div class="container-fluid">
     <div class="row-fluid">
         <div id="adtext" class="span5">
@@ -58,32 +55,21 @@ echo br(5);
             <h3 style="color: #ffffff">Finding the right career path for high school<br>student is not hard anymore. With AdWise<br>you can find yourself in a few minutes.</h3>
         </div>
 
-    <div class="span4 offset2">
-    <?php
-    $attr = array(
-        'class' => 'form-signup'
-    );
-    echo form_open("user/signup",$attr);
-    ?>
+        <div class="span4 offset2">
+            <form action="user/signup" id="contact-form" class="form-signup">
+                <h2 class="form-signup-heading"><b style="color: lightgray">Sign Up to </b><b style="color: #ffffff">Ad</b><b style="color: red">Wise</b></h2>
+                <input type="text" id="username" name="username" class="input-block-level" placeholder="Username" value="<?php echo set_value('username'); ?>">
+                <br />
+                <input type="text" id="email" name="email" class="input-block-level" placeholder="Your Email" value="<?php echo set_value('email'); ?>">
+                <br />
+                <input type="password" id="password" name="password" class="input-block-level" placeholder="Password" value="<?php echo set_value('password'); ?>">
+                <br />
+                <input type="password" id="re-type_password" name="re-type_password" class="input-block-level" placeholder="Re-type Password" value="<?php echo set_value('re-type_password'); ?>">
+                <br />
+                <button type="submit" value="submit" class="btn btn-success btn-large btn-block">Sign up</button>
 
-    <h2 class="form-signup-heading"><b style="color: lightgray">Sign Up to </b><b style="color: #ffffff">Ad</b><b style="color: red">Wise</b></h2>
-
-    <input type="text" id="username" name="username" class="input-block-level" placeholder="Username" value="<?php echo set_value('username'); ?>">
-    <br />
-    <input type="text" id="email" name="email" class="input-block-level" placeholder="Your Email" value="<?php echo set_value('email'); ?>">
-    <br />
-    <input type="password" id="password" name="password" class="input-block-level" placeholder="Password" value="<?php echo set_value('password'); ?>">
-    <br />
-    <input type="password" id="re-type_password" name="re-type_password" class="input-block-level" placeholder="Re-type Password" value="<?php echo set_value('re-type_password'); ?>">
-    <br />
-    <button type="submit" value="submit" class="btn btn-success btn-large btn-block">Sign up</button>
-        <a id="forget" href="#" class="pull-right">Forget your password ?</a>
-
-
-    <?php
-    echo form_close();
-    ?>
-
-</div>
-</div>
+                <a id="forget" href="#" class="pull-right">Forget your password ?</a>
+            </form>
+        </div>
+    </div>
 </div>

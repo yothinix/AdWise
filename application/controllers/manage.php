@@ -10,6 +10,7 @@ class Manage extends CI_Controller{
         $this->load->model('Manage_answer_group');
         $this->load->model('Manage_occupation');
         $this->load->model('Manage_result_data');
+        $this->load->model('Manage_tags');
     }
 
     function index()
@@ -73,7 +74,7 @@ class Manage extends CI_Controller{
         $this->upload->initialize($config);
     }
 
-    ////// Manage Academic Controller Function Group/////////////////////////
+/////////// Manage Academic Controller Function Group ////////////////
 
     function manage_academic()
     {
@@ -91,27 +92,22 @@ class Manage extends CI_Controller{
         $this->manage_academic();
     }
 
-    function create_academic()
-    {
-        $data = array(
-            'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag'))
-        );
-        $this->Manage_academic->create_academic($data);
-        $this->manage_academic();
-    }
-
     function update_academic($academic_id)
     {
         $data = array(
             'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag'))
+            'detail'=>$this->input->post('detail')
         );
         $this->Manage_academic->update($academic_id ,$data);
         $this->manage_academic();
     }
+
+    function create_academic()
+    {
+        $this->load->model('Manage_academic');
+
+    }
+
 
 /////////// Manage Assessment Controller Function Group/////////////////////////
 
@@ -291,5 +287,46 @@ class Manage extends CI_Controller{
         $this->manage_occupation();
     }
 
+////////////// Manage Tags Controller Function Group //////////////
+
+    function manage_tags()
+    {
+        $user = $this->Manage_tags->tags();
+        $data = array(
+            'main_content' => 'manage_tags',
+            'manage_tags' => $user
+        );
+        $this->load->view('includes/template', $data);
+    }
+
+    function del_tags($Tags_id)
+    {
+        $this->db->delete('tags',array('Tags_id' => $Tags_id));
+        $this->manage_tags();
+    }
+
+    function create_tags()
+    {
+        $data = array(
+            'tags_name'=>$this->input->post('tags_name')
+        );
+        $this->Manage_tags->create_tags($data);
+        $this->manage_tags();
+    }
+
+    function update_tags($Tags_id)
+    {
+        $data = array(
+            'tags_name'=>$this->input->post('tags_name')
+        );
+        $this->Manage_tags->update($Tags_id,$data);
+
+        $this->manage_tags();
+    }
+
+    function taginput()
+    {
+        $this->load->view('taginput.html');
+    }
 }
 ?>

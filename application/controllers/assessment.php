@@ -8,6 +8,7 @@ class Assessment extends CI_Controller {
         $this->load->model('User_model');
         $this->load->model('Assessment_model');
         $this->load->model('Manage_assessment_type');
+        $this->load->model('Manage_answer_group');
         $this->load->library('session');
     }
 
@@ -42,7 +43,7 @@ class Assessment extends CI_Controller {
         $asm_info = $this->Assessment_model->get_asm_info($AssessID);
         $quiz = $this->Assessment_model->get_question($AssessID,$QuizNo);
         $choice = $this->Assessment_model->get_choice($AssessID,$QuizNo);
-        $TotalQuestion = $this->Assessment_model->get_asm_info($AssessID);
+        $TotalQuestion = $this->Assessment_model->get_total_question($AssessID);
 
         $data = array(
             'QuestionNr' => $QuizNo,
@@ -57,25 +58,27 @@ class Assessment extends CI_Controller {
         $this->load->view('/includes/template', $data);
     }
 
-    function test($AID, $QID)
+    function test($AID, $QNR)
     {
         if($this->session->userdata('SelectChoice') == false)
         {
-            $this->test_all($AID,$QID);
+            $this->test_all($AID,$QNR);
         }
+        
         else
         {
             $this->Assessment_model->testdata();
-            $this->test_all($AID,$QID);
+            $this->test_all($AID,$QNR);
         }
     }
 
     function result()
     {
         //do ResultExpression กระทำกับ Session Data (AssessmentID, QID, ChoiceID, AnswerGroup, ResultID)
-
         $data = array(
-            'main_content' => 'result'
+            'UserID' => $this->session->userdata('user_id'),
+            'AsmID' => $this->session->userdata('assessmentID'),
+            'main_content' => 'finish'
         );
         $this->load->view('/includes/template', $data);
     }
@@ -84,6 +87,8 @@ class Assessment extends CI_Controller {
 
     function create_asm_view($page)
     {
+        $this->load->model('Manage_assessment');
+        $this->load->model('Manage_assessment_type');
         $data = array(
             'main_content' => "createAsm/{$page}"
         );
@@ -94,6 +99,27 @@ class Assessment extends CI_Controller {
     {
         $this->load->model('Manage_assessment');
         $this->Manage_assessment->insert_asm_info();
+        $this->create_asm_view("question_and_answer");
+    }
+
+    function add_question_and_answer()
+    {
+        $this->load->model('Manage_assessment');
+        $QNR = $this->Manage_assessment->add_question();
+        $this->session->set_userdata('QNR', $QNR);
+        $asm_type = $this->session->userdata('asm_type'); 
+        $TotalChoice = $this->Manage_assessment_type->get_total_choice($asm_type);
+        $counter = 0; 
+        $CID = array();
+        while($counter < $TotalChoice)
+        {
+            //need to call A_detail, A_group from array identifier
+            $Answer_detail = $this->input->post("data_choice_{$counter}_detail");
+            $Answer_group = $this->input->post("data_choice_{$counter}_awg");
+            $CID[$counter] = $this->Manage_assessment->add_answer($Answer_detail, $Answer_group, $QNR);
+            $counter++;
+        }
+        $this->session->set_userdata('CID', $CID);
         $this->create_asm_view("question_and_answer");
     }
 
@@ -136,11 +162,26 @@ class Assessment extends CI_Controller {
             $this->session->set_userdata('asm_desc', $asm_desc);
             $this->session->set_userdata('asm_type', $asm_type);
             $this->session->set_userdata('total_question', $total_q);
+            $this->session->set_userdata('AssessmentID', $AID);
         }
         $this->create_asm_view("asm_info");
-
     }
 
-/*//////////Manage_Assessment / Create_Assessment controller function ///////////*/
+    function add_resultexp()
+    {
+        //Need to store in to place
+        //1) result_expression->Expression then get ResultExpID from latest insert and send to (2)
+        //2) assessment->ResultExpressionID according to AssessmentID
+        $this->load->model('ResultExp_model');
+        $this->load->model('Manage_assessment');
+        $AssessmentID = $this->session->userdata('AssessmentID');
+
+        $result_exp = $this->input->post('result_exp');
+        $ResultExpID = $this->ResultExp_model->add_resultexp($result_exp);
+        $this->Manage_assessment->add_ResultExpID($AssessmentID, $ResultExpID);
+
+        $this->create_asm_view("result_condition");
+
+    }
 
 }
