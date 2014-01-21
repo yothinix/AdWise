@@ -265,7 +265,7 @@ class Assessment extends CI_Controller {
         $this->Manage_assessment->add_ResultExpID($AssessmentID, $ResultExpID);
         
         //unset all session relate to update result_condition
-        $data_array(
+        $data_array = array(
             'Expression' => '',
             'ResultExpID' => '',
             're_flag' => ''
