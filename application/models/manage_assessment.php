@@ -40,6 +40,15 @@ class Manage_assessment extends CI_Model {
         );
         $this->db->where('AssessmentID', $this->session->userdata('AssessmentID'));
         $this->db->update('assessment', $data);
+
+        //reset session data to latest info
+        $set_data_array = array(
+            'asm_name' => $data['Name'],
+            'asm_desc' => $data['Description'],
+            'asm_type' => $data['AssessmentTypeID'],
+            'total_question' => $data['TotalQuestion']
+        );
+        $this->session->set_userdata($set_data_array);
     }
 
     function get_assessmentID($asm_name, $asm_type)

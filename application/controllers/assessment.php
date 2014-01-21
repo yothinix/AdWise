@@ -225,15 +225,14 @@ class Assessment extends CI_Controller {
         $asm_info = $this->Assessment_model->get_asm_info($AID);
         foreach($asm_info as $row)
         {
-            $asm_name = $row->Name;
-            $asm_desc = $row->Description;
-            $asm_type = $row->AssessmentTypeID;
-            $total_q  = $row->TotalQuestion;
-            $this->session->set_userdata('asm_name', $asm_name);
-            $this->session->set_userdata('asm_desc', $asm_desc);
-            $this->session->set_userdata('asm_type', $asm_type);
-            $this->session->set_userdata('total_question', $total_q);
-            $this->session->set_userdata('AssessmentID', $AID);
+            $data_array = array(
+                'asm_name' => $row->Name,
+                'asm_desc' => $row->Description,
+                'asm_type' => $row->AssessmentTypeID,
+                'total_question' => $row->TotalQuestion,
+                'AssessmentID' => $AID
+            );
+            $this->session->set_userdata($data_array);
         }
             $this->session->set_userdata('info_flag', 1);
         $this->create_asm_view("asm_info");
@@ -266,9 +265,12 @@ class Assessment extends CI_Controller {
         $this->Manage_assessment->add_ResultExpID($AssessmentID, $ResultExpID);
         
         //unset all session relate to update result_condition
-        $this->session->unset_userdata('Expression');
-        $this->session->unset_userdata('ResultExpID');
-        $this->session->unset_userdata('re_flag');
+        $data_array(
+            'Expression' => '',
+            'ResultExpID' => '',
+            're_flag' => ''
+        );
+        $this->session->unset_userdata($data_array);
         $this->create_asm_view('review_condition');
     }
 
