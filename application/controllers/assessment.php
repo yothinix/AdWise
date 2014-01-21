@@ -102,6 +102,14 @@ class Assessment extends CI_Controller {
         $this->create_asm_view("question_and_answer");
     }
 
+    function update_asm_info()
+    {
+        $this->load->model('Manage_assessment');
+        $this->Manage_assessment->update_asm_info();
+        $this->session->unset_userdata('info_flag');
+        $this->create_asm_view('question_and_answer');
+    }
+
     function add_question_and_answer()
     {
         $this->load->model('Manage_assessment');
@@ -227,6 +235,7 @@ class Assessment extends CI_Controller {
             $this->session->set_userdata('total_question', $total_q);
             $this->session->set_userdata('AssessmentID', $AID);
         }
+            $this->session->set_userdata('info_flag', 1);
         $this->create_asm_view("asm_info");
     }
 

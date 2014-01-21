@@ -34,9 +34,14 @@ $page = "question_and_answer";
     </li>
 </ul>
 <hr>
-            <?php
-                echo form_open("assessment/init_create_asm"); //Save ASM_info_data to initialize
-            ?>
+<?php
+    $controller = "";
+    if($this->session->userdata('info_flag') == 1)
+        $controller = "assessment/update_asm_info";
+    else
+        $controller = "assessment/init_create_asm";
+    echo form_open($controller);
+?>
                 <input type="text" id="asm_name" name="asm_name" class="input-block-level" placeholder="Assessment Name" value="<?php echo $this->session->userdata('asm_name'); ?>" />
                 <textarea type="text" rows="10" id="asm_desc" name="asm_desc" class="input-block-level" placeholder="Assessment Description"><?php echo $this->session->userdata('asm_desc'); ?></textarea>
                 <div class="row">
@@ -58,6 +63,7 @@ $page = "question_and_answer";
                     <input type="text" id="total_question" name="total_question" class="input-medium" placeholder="Total Question" value="<?php echo $this->session->userdata('total_question'); ?>" />
                 </div>
                 <div style="text-align: center">
+<p>
                     <button type="submit" class="btn btn-primary btn-large input-large">Submit</button>
             <?php
                 echo form_close();
@@ -68,7 +74,8 @@ $page = "question_and_answer";
                     <button type="submit" class="btn btn-large input-large">Reset</button> <!--เอาไว้ลบค่าในช่องทั้งหมดที่ใส่ไป-->
             <?php
                 echo form_close();
-            ?>
+?>
+</p>
                 </div>
 <hr>
 
