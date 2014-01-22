@@ -23,7 +23,6 @@
 <hr/>
 <?php
     $prev = "result_condition";
-    $next = "submit_question";
     $this->load->model('Manage_assessment');    
     $AsmID = $this->session->userdata('AssessmentID');    
 ?>
@@ -32,7 +31,7 @@
         <a href="<?php echo base_url("index.php/assessment/create_asm_view/{$prev}"); ?>">&larr; Result Condition</a>
     </li>
     <li class="next">
-        <a href="<?php echo base_url("index.php/assessment/create_asm_view/{$next}"); ?>">Submit Question &rarr;</a>
+        <a href="<?php echo base_url("index.php/manage/manage_assessment"); ?>">Return to Manage Assessment &rarr;</a>
     </li>
 </ul>
 <hr>

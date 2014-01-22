@@ -12,12 +12,14 @@ class Manage_assessment extends CI_Model {
     function insert_asm_info()
     {
         $asm_name = $this->input->post('asm_name');
+        $asm_creator = $this->session->userdata('user_id');
         $asm_desc = $this->input->post('asm_desc');
         $asm_type = $this->input->post('asm_type');
         $total_q = $this->input->post('total_question');
         $data = array
         (
             'Name' => $asm_name,
+            'CreatorID' => $asm_creator,
             'Description' => $asm_desc,
             'AssessmentTypeID' => $asm_type,
             'TotalQuestion' => $total_q
@@ -34,6 +36,7 @@ class Manage_assessment extends CI_Model {
         $data = array
         (
             'Name' => $this->input->post('asm_name'),
+            'CreatorID' => $this->session->userdata('user_id'),
             'Description' => $this->input->post('asm_desc'),
             'AssessmentTypeID' => $this->input->post('asm_type'),
             'TotalQuestion' => $this->input->post('total_question')
