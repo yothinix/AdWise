@@ -237,6 +237,16 @@ class Manage_assessment extends CI_Model {
         return $Expression;
     }
 
+    function count_question($AssessmentID)
+    {
+        $this->db->like('AssessmentID', $AssessmentID);
+        $this->db->from('question');
+
+        $row = $this->db->count_all_results();
+
+        return $row;
+    }
+
 }
 ?>
 
