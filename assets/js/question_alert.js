@@ -6,4 +6,3 @@ bootstrap_alert.warning = function() {
 $('#clickme').on('click', function() {
             bootstrap_alert.warning('Your text goes here');
 });
-

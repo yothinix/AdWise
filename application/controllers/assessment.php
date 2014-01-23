@@ -97,38 +97,77 @@ class Assessment extends CI_Controller {
 
     function init_create_asm()
     {
-        $this->load->model('Manage_assessment');
-        $this->Manage_assessment->insert_asm_info();
-        $this->create_asm_view("question_and_answer");
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('asm_name','Assessment Name','required|max_length[32]|xss_clean');
+        $this->form_validation->set_rules('asm_desc','Assessment Description','max_length[255]|xss_clean');
+        $this->form_validation->set_rules('total_question','Assessment Name','integer|required|max_length[8]|xss_clean');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            //load view with error message on alert
+            $this->create_asm_view("asm_info");
+        }
+        else
+        {
+            $this->load->model('Manage_assessment');
+            $this->Manage_assessment->insert_asm_info();
+            $this->create_asm_view("question_and_answer");
+        }
     }
 
     function update_asm_info()
     {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('asm_name','Assessment Name','required|max_length[32]|xss_clean');
+        $this->form_validation->set_rules('asm_desc','Assessment Description','max_length[255]|xss_clean');
+        $this->form_validation->set_rules('total_question','Assessment Name','integer|required|max_length[8]|xss_clean');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            //load view with error message on alert
+            $this->create_asm_view("asm_info");
+        }
+        else
+        {
         $this->load->model('Manage_assessment');
         $this->Manage_assessment->update_asm_info();
         $this->session->unset_userdata('info_flag');
         $this->create_asm_view('question_and_answer');
+        }
     }
 
     function add_question_and_answer()
     {
-        $this->load->model('Manage_assessment');
-        $QNR = $this->Manage_assessment->add_question();
-        $this->session->set_userdata('QNR', $QNR);
-        $asm_type = $this->session->userdata('asm_type'); 
-        $TotalChoice = $this->Manage_assessment_type->get_total_choice($asm_type);
-        $counter = 0; 
-        $CID = array();
-        while($counter < $TotalChoice)
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('data_qnr','Question No.','required|integer|max_length[11]|xss_clean');
+        $this->form_validation->set_rules('data_detail','Question Detail','required|max_length[255]|xss_clean');
+        //remain validate answer detail
+        
+        if($this->form_validation->run() == FALSE)
         {
-            //need to call A_detail, A_group from array identifier
-            $Answer_detail = $this->input->post("data_choice_{$counter}_detail");
-            $Answer_group = $this->input->post("data_choice_{$counter}_awg");
-            $CID[$counter] = $this->Manage_assessment->add_answer($Answer_detail, $Answer_group, $QNR);
-            $counter++;
+            //load view with error message on alert
+            $this->create_asm_view("question_and_answer");
         }
-        $this->session->set_userdata('CID', $CID);
-        $this->create_asm_view("review_qa");
+        else
+        {
+            $this->load->model('Manage_assessment');
+            $QNR = $this->Manage_assessment->add_question();
+            $this->session->set_userdata('QNR', $QNR);
+            $asm_type = $this->session->userdata('asm_type'); 
+            $TotalChoice = $this->Manage_assessment_type->get_total_choice($asm_type);
+            $counter = 0; 
+            $CID = array();
+            while($counter < $TotalChoice)
+            {
+                //need to call A_detail, A_group from array identifier
+                $Answer_detail = $this->input->post("data_choice_{$counter}_detail");
+                $Answer_group = $this->input->post("data_choice_{$counter}_awg");
+                $CID[$counter] = $this->Manage_assessment->add_answer($Answer_detail, $Answer_group, $QNR);
+                $counter++;
+            }
+            $this->session->set_userdata('CID', $CID);
+            $this->create_asm_view("review_qa");
+        }
     }
 
     function get_qa_data($AssessmentID, $QuestionNr)
@@ -158,40 +197,51 @@ class Assessment extends CI_Controller {
         $this->load->model('Manage_assessment_type');
         $this->load->model('Manage_assessment');
         
-        //everything that relate to update database going below this line
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('data_qnr','Question No.','required|integer|max_length[11]|xss_clean');
+        $this->form_validation->set_rules('data_detail','Question Detail','required|max_length[255]|xss_clean');
+        //remain validate answer detail
         
-        $QNR = $this->Manage_assessment->update_question();
-        $this->session->set_userdata('QNR', $QNR);
-        $asm_type = $this->session->userdata('asm_type'); 
-        $TotalChoice = $this->Manage_assessment_type->get_total_choice($asm_type);
-        $counter = 0; 
-        $CID = array();
-        while($counter < $TotalChoice)
+        if($this->form_validation->run() == FALSE)
         {
-            $ChoiceID = $this->session->userdata("ChoiceID_{$counter}");
-            $Answer_detail = $this->input->post("data_choice_{$counter}_detail");
-            $Answer_group = $this->input->post("data_choice_{$counter}_awg");
-            $CID[$counter] = $this->Manage_assessment->update_answer($Answer_detail, $Answer_group, $QNR, $ChoiceID);
-            $counter++;
+            //load view with error message on alert
+            $this->create_asm_view("question_and_answer");
         }
-        $this->session->set_userdata('CID', $CID);
+        else
+        {
+            $QNR = $this->Manage_assessment->update_question();
+            $this->session->set_userdata('QNR', $QNR);
+            $asm_type = $this->session->userdata('asm_type'); 
+            $TotalChoice = $this->Manage_assessment_type->get_total_choice($asm_type);
+            $counter = 0; 
+            $CID = array();
+            while($counter < $TotalChoice)
+            {
+                $ChoiceID = $this->session->userdata("ChoiceID_{$counter}");
+                $Answer_detail = $this->input->post("data_choice_{$counter}_detail");
+                $Answer_group = $this->input->post("data_choice_{$counter}_awg");
+                $CID[$counter] = $this->Manage_assessment->update_answer($Answer_detail, $Answer_group, $QNR, $ChoiceID);
+                $counter++;
+            }
+            $this->session->set_userdata('CID', $CID);
 
-        //unset all session relate to update_qa
-        $this->session->unset_userdata('QID');
-        $this->session->unset_userdata('QuestionNr');
-        $this->session->unset_userdata('Q_Detail');
-        $AsmTypeID = $this->session->userdata('asm_type');
-        $total_choice = $this->Manage_assessment_type->get_total_choice($AsmTypeID);
-        $counter = 0;
-        while($counter <= $total_choice)
-        {
-            $this->session->unset_userdata("ChoiceID_{$counter}");
-            $this->session->unset_userdata("C_Detail_{$counter}");
-            $this->session->unset_userdata("AnswerGroupID_{$counter}");
-            $counter++;
+            //unset all session relate to update_qa
+            $this->session->unset_userdata('QID');
+            $this->session->unset_userdata('QuestionNr');
+            $this->session->unset_userdata('Q_Detail');
+            $AsmTypeID = $this->session->userdata('asm_type');
+            $total_choice = $this->Manage_assessment_type->get_total_choice($AsmTypeID);
+            $counter = 0;
+            while($counter <= $total_choice)
+            {
+                $this->session->unset_userdata("ChoiceID_{$counter}");
+                $this->session->unset_userdata("C_Detail_{$counter}");
+                $this->session->unset_userdata("AnswerGroupID_{$counter}");
+                $counter++;
+            }
+            $this->session->unset_userdata('form_flag');
+            $this->create_asm_view("review_qa");
         }
-        $this->session->unset_userdata('form_flag');
-        $this->create_asm_view("review_qa");
     }
 
     function delete_asm($AssessmentID)
@@ -240,18 +290,29 @@ class Assessment extends CI_Controller {
 
     function add_resultexp()
     {
-        //Need to store in to place
-        //1) result_expression->Expression then get ResultExpID from latest insert and send to (2)
-        //2) assessment->ResultExpressionID according to AssessmentID
-        $this->load->model('ResultExp_model');
-        $this->load->model('Manage_assessment');
-        $AssessmentID = $this->session->userdata('AssessmentID');
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('result_exp','Result Expression','trim|required|max_length[255]|xss_clean');
 
-        $result_exp = $this->input->post('result_exp');
-        $ResultExpID = $this->ResultExp_model->add_resultexp($result_exp);
-        $this->Manage_assessment->add_ResultExpID($AssessmentID, $ResultExpID);
+        if($this->form_validation->run() == FALSE)
+        {
+            //load view with error message on alert
+            $this->create_asm_view("result_condition");
+        }
+        else
+        {
+            //Need to store in to place
+            //1) result_expression->Expression then get ResultExpID from latest insert and send to (2)
+            //2) assessment->ResultExpressionID according to AssessmentID
+            $this->load->model('ResultExp_model');
+            $this->load->model('Manage_assessment');
+            $AssessmentID = $this->session->userdata('AssessmentID');
 
-        $this->create_asm_view("review_condition");
+            $result_exp = $this->input->post('result_exp');
+            $ResultExpID = $this->ResultExp_model->add_resultexp($result_exp);
+            $this->Manage_assessment->add_ResultExpID($AssessmentID, $ResultExpID);
+
+            $this->create_asm_view("review_condition");
+        }
     }
 
     function update_resultexp()
@@ -260,18 +321,29 @@ class Assessment extends CI_Controller {
         $this->load->model('Manage_assessment');
         $AssessmentID = $this->session->userdata('AssessmentID');
 
-        $result_exp = $this->input->post('result_exp');
-        $ResultExpID = $this->ResultExp_model->update_resultexp($result_exp);
-        $this->Manage_assessment->add_ResultExpID($AssessmentID, $ResultExpID);
-        
-        //unset all session relate to update result_condition
-        $data_array = array(
-            'Expression' => '',
-            'ResultExpID' => '',
-            're_flag' => ''
-        );
-        $this->session->unset_userdata($data_array);
-        $this->create_asm_view('review_condition');
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('result_exp','Result Expression','trim|required|max_length[255]|xss_clean');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            //load view with error message on alert
+            $this->create_asm_view("result_condition");
+        }
+        else
+        {
+            $result_exp = $this->input->post('result_exp');
+            $ResultExpID = $this->ResultExp_model->update_resultexp($result_exp);
+            $this->Manage_assessment->add_ResultExpID($AssessmentID, $ResultExpID);
+
+            //unset all session relate to update result_condition
+            $data_array = array(
+                'Expression' => '',
+                'ResultExpID' => '',
+                're_flag' => ''
+            );
+            $this->session->unset_userdata($data_array);
+            $this->create_asm_view('review_condition');
+        }
     }
 
     function get_condition_data($AsmID)
