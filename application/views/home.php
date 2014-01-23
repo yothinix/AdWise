@@ -31,8 +31,8 @@
 <div class="row">
 
 <?php
-    $Prev = $QuestionNr-1;
-    $Next = $QuestionNr+1;
+    $Prev = $QuestionNr - 1;
+    $Next = $QuestionNr + 1;
 
         foreach($asm_info as $asm_info_row)
         {
@@ -57,7 +57,17 @@
         'id' => "question-form",
         'name'=> "question-form"
     );
-    echo form_open("assessment/test/{$AssessmentID}/{$Next}", $attr);
+        $new_Total = (int) $TotalQuestion;
+        if($Next > $new_Total)
+        {
+            $normal = "assessment/result";
+        }
+        else
+        {
+            $normal = "assessment/test/{$AssessmentID}/{$Next}";
+        }
+        
+        echo form_open($normal, $attr);
 ?>
 			<input type="hidden" name="ans" id="ans" value="" />
 <?php
@@ -84,7 +94,6 @@
             $this->session->set_userdata('assessmentID', $AssessmentID);
             $this->session->set_userdata('QuestionNr', $Prev);
             $this->session->set_userdata('SelectChoice', $select);
-            var_dump($this->session->all_userdata());
         ?>
 
 </div>
@@ -93,26 +102,7 @@
 <div class="pagination" style="text-align: center">
     <ul>
         <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$Prev"); ?>">«</a></li>
-        <?php
-
-            function pagelist($aid, $i)
-            {
-                return base_url("index.php/assessment/test/$aid/$i");
-            }
-
-
-            foreach($TotalQuestion as $row)
-                $TTQ = $row->TotalQuestion;
-            for($i=1; $i<=$TTQ; $i++)
-            {
-                echo "<li ";
-                if($QuestionNr == "$i")
-                    echo "class=\"active\"";
-                echo "><a href=\"";
-                echo pagelist($AssessmentID,$i);
-                echo "\">$i</a></li>";
-            }
-        ?>
+        <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$QuestionNr"); ?>"><?php echo $QuestionNr ?></a></li>
         <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$Next"); ?>">»</a></li>
     </ul>
 </div>

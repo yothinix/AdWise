@@ -3,7 +3,7 @@ class User extends CI_Controller{
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('User_model');
     }
 
     public function index()
@@ -25,7 +25,7 @@ class User extends CI_Controller{
         $username=$this->input->post('username');
         $password=md5($this->input->post('password'));
 
-        $result=$this->user_model->signin($username,$password);
+        $result=$this->User_model->signin($username,$password);
         if($result)
         {
             $this->dashboard();
@@ -64,7 +64,7 @@ class User extends CI_Controller{
         }
         else
         {
-            $this->user_model->signup();
+            $this->User_model->signup();
             $data = array('main_content' => 'assessment_list');
             $this->load->view('includes/template', $data);
         }
@@ -74,7 +74,7 @@ class User extends CI_Controller{
     {
         $username = $this->session->userdata('user_name');
 
-        $profile = $this->user_model->profile($username);
+        $profile = $this->User_model->profile($username);
         $data = array(
             'main_content' => 'login/profile',
             'profile' => $profile
@@ -125,7 +125,7 @@ class User extends CI_Controller{
         $this->load->model('User_model');
 
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('password','password','trim|required|min_length[4]|max_length[32]');
+        $this->form_validation->set_rules('password','password','trim|required|min_length[8]|max_length[32]');
         $this->form_validation->set_rules('newpass', 'newpass', 'trim|required|min_length[8]|max_length[32]');
         $this->form_validation->set_rules('confirm', 'confirm', 'trim|required|matches[newpass]');
 
@@ -143,17 +143,43 @@ class User extends CI_Controller{
     function dashboard()
     {
         $username = $this->session->userdata('user_name');
-        $dashboard = $this->user_model->dashboard($username);
+        $dashboard = $this->User_model->dashboard($username);
         $data = array(
             'main_content' => 'dashboard',
             'dashboard' => $dashboard
         );
 
-        $assessment = $this->user_model->get_assessment();
+        $assessment = $this->User_model->get_assessment();
         $data2 = array(
             'main_content' => 'assessment_list'
         );
         $this->load->view('includes/template', $data, $data2);
+    }
+
+    function upload()
+    {
+        $username = $this->session->userdata('user_name');
+
+        $config['upload_path'] = 'uploads/';
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['max_width']  = '0';
+        $config['max_height']  = '0';
+        $config['file_name'] = date("YmdHis");
+
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+
+        if($this->upload->do_upload('photo'))
+        {
+            $filepath = $this->upload->data();
+            $this->User_model->upload($filepath['file_name']); //อัดไฟล์พาร์ธเข้ามาในนี้
+            $this->profile();
+        }
+        else
+        {
+            //$data['error'] = $this->upload->display_errors();
+            //$this->load->view('upload/insert_view',$data);
+        }
     }
 
 }
