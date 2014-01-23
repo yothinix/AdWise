@@ -4,9 +4,12 @@
         background : #6C7B8B;
         color : white;
         test-align : left;
-
     }
 
+    td
+    {
+        font-size: 14px;
+    }
     </style>
 
     <h2 style="margin-top: -30px">Manage Result</h2>
@@ -29,20 +32,41 @@
         ?>
 
         <tr>
-
             <td><?php echo $row->ResultID; ?>  </td>
             <td><?php echo $row->Name; ?>  </td>
             <td><?php echo $row->Detail; ?>  </td>
             <td style="text-align: center">
+                <!-- View -->
+                <a role="button"  class="btn btn-small" href="#view<?php echo $ResultID; ?>" data-toggle="modal"><i class="icon-file"></i></a>
                 <!-- Edit -->
                 <a role="button"  class="btn btn-small" href="#edit<?php echo $ResultID; ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
                 <!-- Delete -->
                 <a role="button"  class="btn btn-small" href="#del<?php echo $ResultID; ?>" data-toggle="modal"><i class="icon-trash"></i></a>  </td>
-
         </tr>
 
-            <!-- Modal Edit -->
+            <!-- Modal View -->
+            <div id="view<?php echo $ResultID; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">View Result</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="margin-left: 10px; margin-top: 5px">
+                        <b>Name </b> <?php echo $row->Name ?>
+                        <br>
+                        <b>Detail </b> <?php echo $row->Detail ?>
+                        <br>
+                        <b>Occupation </b>
+                        <br>
+                        <b>Academic </b>
+                    </div>
+                    <div class="row" style="text-align: center">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Modal Edit -->
             <div id="edit<?php echo $ResultID; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-header" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
