@@ -41,22 +41,7 @@
 <hr>
 <div>
     <div>
-        <div class="alert alert-block alert-error fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4 class="alert-heading">Warning! You submit question more than limit!</h4>
-            <p>This warning popup in case you submit the question more than total question you entered. To change
-the limit please visit Assessment Info. If you want to change question that already added please go to Review Q&A and select 
-question you want to edit.
-            </p>
-            <p>
-              <a class="btn btn-danger" href="<?php echo base_url("index.php/assessment/create_asm_view/{$prev}"); ?>">
-                Edit Assessment Info 
-              </a> 
-              <a class="btn " href="<?php echo base_url("index.php/assessment/create_asm_view/{$next}"); ?>">
-                Review Question and Answer
-              </a> 
-            </p>
-          </div>
+        <div id="alert_placeholder"></div>
         <span><?php echo "Total Question: {$Current_Question} / {$Total_Question}";?></span>
             <fieldset>Question</fieldset>
                 <?php
@@ -103,10 +88,10 @@ question you want to edit.
                     }
                     ?>
                     <br>
-<?php if($Current_Question != $Total_Question)
-          echo "<a href=\"javascript:limit()\" class=\"btn btn-success input-large\" style=\"margin-top:5px\" >+ Add Question</a>";
+<?php if($Current_Question == $Total_Question)
+echo "<input type=\"button\" id=\"clickme\" \" class=\"btn btn-success input-large\" style=\"margin-top:5px\" value=\"+ Add Question\"/>";
       else 
-          echo "<input type=\"submit\" name=\"mysubmit\" class=\"btn btn-success input-large\" style=\"margin-top:5px\" value=\"+ Add Question\" />";
+echo "<input type=\"submit\" name=\"mysubmit\" class=\"btn btn-success input-large\" style=\"margin-top:5px\" value=\"+ Add Question\"/>";
 ?>
                     <br>
                         <?php
@@ -122,6 +107,4 @@ question you want to edit.
             </div>
         <hr>
 
-
-
-
+<script src="<?php echo base_url("assets/js/question_alert.js"); ?>"></script>
