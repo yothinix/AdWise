@@ -90,21 +90,19 @@
             <div class="span5" style="margin-top: 20px">
                 <?php
                 $get_name = $this->User_model->get_creatorName($userID);
-                    foreach($get_name as $get_ID){ $ID = $get_ID->Username;}
-                        $get_image = $this->User_model->img($ID);
-                        foreach($get_image as $img) //ดึงข้อมูลมาจาก db
-                            {
-                                $filename = $img->Image;
-
-                                if($filename=="")
-                                    { ?>
-                                        <img class="img-circle" style="width: 150px; height: 150px; margin-left: 15px" src="<?php echo base_url("/uploads/default.jpg") ?>" >
-                                    <?php }
-                                else
-                                    { ?>
-                                        <img class="img-polaroid" style="width: 150px; height: 150px; margin-left: 15px" src="<?php echo base_url("/uploads/{$filename}") ?>" >
-                                    <?php }
-                            }?>
+                $get_image = $this->User_model->img($get_name);
+                foreach($get_image as $img) //ดึงข้อมูลมาจาก db
+                    {
+                        $filename = $img->Image;
+                        if($filename=="")
+                            { ?>
+                                <img class="img-circle" style="width: 150px; height: 150px; margin-left: 15px" src="<?php echo base_url("/uploads/default.jpg") ?>" >
+                                <?php }
+                        else
+                            { ?>
+                                <img class="img-polaroid" style="width: 150px; height: 150px; margin-left: 15px" src="<?php echo base_url("/uploads/{$filename}") ?>" >
+                                <?php }
+                        }?>
             </div>
             <div class="row">
                 <div class="span5" style="margin-left: 10px; margin-top: 5px">

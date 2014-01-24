@@ -9,8 +9,9 @@ class Manage_academic extends CI_Model {
     function academic()
     {
         $query = $this->db->query("
-        SELECT *
-        FROM academic
+        SELECT * FROM academic INNER JOIN tags_academic
+        ON tags_academic.Academic_id = academic.Academic_id
+        /* GROUP BY `Name` */
         ");
 
         return $query->result();
@@ -18,6 +19,9 @@ class Manage_academic extends CI_Model {
 
     function academic_db()
     {
+        $Academic_name = $this->input->post('Academic_name');
+        $Academic_detail = $this->input->post('Academic_detail');
+
         $data = array
         (
             'Name' => $Academic_name,
@@ -39,12 +43,12 @@ class Manage_academic extends CI_Model {
         return $Academic_id;
     }
 
-    function tag_db($Tags_name)
+    function tags_db($Tags_name)
     {
         $query = $this->db->query("
             SELECT Tags_id
             FROM tags
-            WHERE Tags_name = '{$Tangs_name}'
+            WHERE Tags_name = '{$Tags_name}'
             ");
 
         $Tags_id = 0;
@@ -52,6 +56,27 @@ class Manage_academic extends CI_Model {
             $Tags_id = $tgid->Tags_id;
 
         return $Tags_id;
+    }
+
+    function tags_aca($Academic_id,$Tags_id)
+    {
+        $data = array(
+            'Academic_id' => $Academic_id,
+            'Tags_id' => $Tags_id
+        );
+
+        $this->db->insert('tags_academic', $data);
+    }
+
+    function get_name($Tags_id)
+    {
+        $query = $this->db->query("
+            SELECT Tags_name
+            FROM tags
+            WHERE Tags_id = '{$Tags_id}'
+            ");
+
+        return $query->result();
     }
 }
 ?>
