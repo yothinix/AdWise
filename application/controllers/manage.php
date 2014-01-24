@@ -273,13 +273,18 @@ class Manage extends CI_Controller{
 
     function create_occupation()
     {
-        $data = array(
-            'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag')),
-            //'academic_id'=>($this->input->post('academic'))//
-        );
-        $this->Manage_occupation->create_occupation($data);
+        $this->load->model('Manage_occupation');
+        $Occupation_id = $this->Manage_occupation->ocp_db();
+        $Tags = $this->input->post('Tags');
+        $TotalTags = substr_count($Tags,',')+1;
+        $Tags_Key = explode(",", $Tags);
+        $counter = 0;
+        while($counter < $TotalTags)
+        {
+            $Tags_id = $this->Manage_occupation->tags_db($Tags_Key[$counter]);
+            $this->Manage_occupation->tags_ocp($Occupation_id,$Tags_id);
+            $counter++;
+        }
         $this->manage_occupation();
     }
 
@@ -289,7 +294,6 @@ class Manage extends CI_Controller{
             'Name'=>$this->input->post('name'),
             'Detail'=>$this->input->post('detail'),
             'Tag'=>($this->input->post('tag'))
-            //'academic_id'=>($this->input->post('academic'))//
         );
         $this->Manage_occupation->update($occupation_id ,$data);
         $this->manage_occupation();
