@@ -73,29 +73,42 @@
                     <h3 id="myModalLabel">Edit Result</h3>
                 </div>
                 <div class="modal-body">
-                        <?php
-                        $attr = array(
-                            'class' => "form-horizontal",
-                            'style' => "margin-top: -20px; margin-left: 10px; margin-right: 10px"
+                    <?php
+                    $attr = array(
+                        'class' => "form-horizontal",
+                        'style' => "margin-top: -20px; margin-left: 10px; margin-right: 10px"
                         );
-                        echo form_open("manage/update_result/{$ResultID}",$attr); ?>
-                        <div class="control-group" style="margin-left: 10px; margin-right: 10px">
-                            <label class="control-label" for="inputName">Name :</label>
-                            <div class="controls">
-                                <input type="text" id="name" name="name" class="input-block-level" value="<?php echo $row->Name ?>">
-                            </div>
+                    echo form_open("manage/update_result/{$ResultID}",$attr); ?>
+
+                    <div class="control-group" style="margin-left: 10px; margin-right: 10px">
+                        <label class="control-label" for="inputName">Name :</label>
+                        <div class="controls">
+                            <input type="text" id="name" name="name" class="input-block-level" value="<?php echo $row->Name ?>">
                         </div>
-                        <div class="control-group" style="margin-left: 10px; margin-right: 10px">
-                            <label class="control-label" for="inputDetail">Detail :</label>
-                            <div class="controls">
-                                <input type="text" id="detail" name="detail" class="input-block-level" value="<?php echo $row->Detail ?>">
-                            </div>
+                    </div>
+                    <div class="control-group" style="margin-left: 10px; margin-right: 10px">
+                        <label class="control-label" for="inputDetail">Detail :</label>
+                        <div class="controls">
+                            <textarea type="text" rows="5" id="detail" name="detail" class="input-block-level" ><?php echo $row->Detail ?></textarea>
                         </div>
-                        <div class="control-group" style="margin-top: 10px; text-align: center">
-                            <button type="submit" class="btn btn-success">Save</button>
-                            <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    </div>
+                    <!-- <div class="control-group" style="margin-left: 10px; margin-right: 10px">
+                        <label class="control-label" for="inputOccupation">Occupation :</label>
+                        <div class="controls">
+                            <input type="text"  class="input-block-level" value="">
                         </div>
-                        <?php echo form_close(); ?>
+                    </div>
+                    <div class="control-group" style="margin-left: 10px; margin-right: 10px">
+                        <label class="control-label" for="inputAcademic">Academic :</label>
+                        <div class="controls">
+                            <input type="text"  class="input-block-level" value="">
+                        </div>
+                    </div> -->
+                    <div class="control-group" style="margin-top: 10px; text-align: center">
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    </div>
+                    <?php echo form_close(); ?>
                 </div>
             </div>
 
@@ -118,7 +131,6 @@
         <?php
         }
         ?>
-
     </table>
 
     <!-- Modal Create -->
