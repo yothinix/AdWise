@@ -33,12 +33,19 @@
     {
         $Academic_id = $row->Academic_id;
 ?>
-
         <tr>
             <td style="text-align: center"><?php echo $row->Academic_id ?>  </td>
             <td><?php echo $row->Name ?>  </td>
             <td><?php echo $row->Detail ?>  </td>
-            <td> </td>
+
+            <?php
+            $Tags_id = $row->Tags_id;
+            $tags_name = $this->Manage_academic->get_name($Tags_id);
+            foreach($tags_name as $que){
+                echo "<td> $que->Tags_name  </td>";
+            }
+            ?>
+
             <td style="text-align: center">
                 <!-- Edit -->
                 <a role="button"  class="btn btn-small" href="#edit<?php echo $Academic_id; ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
@@ -53,7 +60,7 @@
             <h3 id="myModalLabel">Edit Academic</h3>
         </div>
         <div class="modal-body" style="margin-top: -10px">
-<?php
+            <?php
                 $form = array('class' => 'form-horizontal');
                 echo form_open("manage/update_academic/{$Academic_id}",$form); ?>
                 <div class="control-group" >
@@ -72,7 +79,7 @@
                     <label class="control-label" for="inputTag">Tag</label>
                     <div class="example example_typeahead">
                         <div class="bs-docs-example">
-                            <input type="text" name="tags" value=" " >
+                            <input type="text" name="tags" value="<?php echo $que->Tags_name ?>" >
                         </div>
                     </div>
                 </div>

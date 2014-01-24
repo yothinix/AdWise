@@ -79,7 +79,6 @@ class Manage extends CI_Controller{
     function manage_academic()
     {
         $user = $this->Manage_academic->academic();
-        //$this->Manage_academic->get_name($Tags_id);
         $data = array(
             'main_content' => 'manage_academic',
             'manage_academic' => $user
