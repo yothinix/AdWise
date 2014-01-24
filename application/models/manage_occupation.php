@@ -9,8 +9,9 @@ class Manage_occupation extends CI_Model {
     function get_manage_occupation()
     {
         $query = $this->db->query("
-        SELECT *
-        FROM occupation
+        SELECT * FROM occupation INNER JOIN tags_occupation
+        ON tags_occupation.Occupation_id = occupation.Occupation_id
+        /* GROUP BY `Name` */
         ");
 
         return $query->result();
@@ -62,6 +63,17 @@ class Manage_occupation extends CI_Model {
         );
 
         $this->db->insert('tags_occupation', $data);
+    }
+
+    function get_name($Tags_id)
+    {
+        $query = $this->db->query("
+            SELECT Tags_name
+            FROM tags
+            WHERE Tags_id = '{$Tags_id}'
+            ");
+
+        return $query->result();
     }
 }
 ?>

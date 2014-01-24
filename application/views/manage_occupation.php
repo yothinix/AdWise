@@ -41,7 +41,15 @@
             <td style="text-align: center"><?php echo $row->Occupation_id ?>  </td>
             <td><?php echo $row->Name ?>  </td>
             <td><?php echo $row->Detail ?>  </td>
-            <td>  </td>
+
+            <?php
+            $Tags_id = $row->Tags_id;
+            $tags_name = $this->Manage_occupation->get_name($Tags_id);
+            foreach($tags_name as $que){
+                echo "<td> $que->Tags_name  </td>";
+            }
+            ?>
+
             <td style="text-align: center">
                 <!-- Edit -->
                 <a role="button"  class="btn btn-small" href="#edit<?php echo $Occupation_id; ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
