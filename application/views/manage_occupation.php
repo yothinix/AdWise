@@ -83,12 +83,13 @@
                         <input type="text" id="detail" name="detail" class="input-block-level" value="<?php echo $row->Detail ?>">
                     </div>
                 </div>
-                <div class="control-group" style="margin-left: 5px; margin-right: 5px">
+                <div class="control-group" >
                     <label class="control-label" for="inputTag">Tag :</label>
-                    <div class="controls">
-                        <input type="text" id="tag" name="tag" class="input-block-level" value="<?php echo $row->Tag ?>">
+                    <div class="example example_typeahead">
+                        <div class="bs-docs-example">
+                            <input type="text" name="tags" value="<?php echo $que->Tags_name ?>" >
+                        </div>
                     </div>
-
                 </div>
                 <div class="control-group" style="margin-top: 10px; text-align: center">
                     <button type="submit" class="btn btn-success">Save</button>
