@@ -18,10 +18,10 @@
     <table class="table table-bordered">
 
         <tr>
-            <th style="text-align: center">ID</th>
-            <th style="text-align: center">Name</th>
+            <th style="text-align: center; width: 50px">ID</th>
+            <th style="text-align: center; width: 80px">Name</th>
             <th style="text-align: center">Detail</th>
-            <th style="text-align: center">Controller</th>
+            <th style="text-align: center; width: 130px">Controller</th>
         </tr>
 
         <?php
@@ -32,8 +32,8 @@
         ?>
 
         <tr>
-            <td><?php echo $row->ResultID; ?>  </td>
-            <td><?php echo $row->Name; ?>  </td>
+            <td style="text-align: center"><?php echo $row->ResultID; ?>  </td>
+            <td><b><?php echo $row->Name; ?></b></td>
             <td><?php echo $row->Detail; ?>  </td>
             <td style="text-align: center">
                 <!-- View -->
