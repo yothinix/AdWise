@@ -37,11 +37,17 @@ $next = "review_condition";
     <h3>Result Expression</h3>
     <div style="text-align: center">
 <?php
+    $controller = "";
+    if($this->session->userdata('re_flag') == 1)
+        $controller = "assessment/update_resultexp";
+    else
+        $controller = "assessment/add_resultexp";
+
     $AsmID = $this->session->userdata('AssessmentID');
     $attr = array('class' => "form-inline");
-    echo form_open("assessment/add_resultexp", $attr);
+    echo form_open($controller, $attr);
 ?>
-        <textarea type="text" rows="10" name="result_exp" class="input-block-level" placeholder ="Result Expression"></textarea>
+    <textarea type="text" rows="10" name="result_exp" class="input-block-level" placeholder ="Result Expression"><?php echo $this->session->userdata('Expression'); ?></textarea>
         <div style="text-align: center; margin-top: 20px">
             <input type="submit" name="check_exp" class="btn btn-warning" value="Check Expression" />
             <input type="submit" name="add_exp" class="btn btn-success" value="Add Expression" />

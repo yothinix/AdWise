@@ -3,21 +3,23 @@
     -------------------------------------------------- */
 
     /* Center align the text within the three columns below the carousel */
-    .row .span4 {
-        text-align: center;
-    }
+
     .row h3 {
         font-weight: normal;
     }
-    .row .span4 p {
-        margin-left: 10px;
-        margin-right: 10px;
-    }
+
 
     .nav-tabs a {
         font-size: 14px;
     }
 </style>
+
+<script type="text/javascript">
+    function limit()
+    {
+        $(".alert").alert()   
+    }
+</script>
 
 <h2 style="margin-top: -30px">Create Assessment</h2>
 <hr/>
@@ -25,6 +27,8 @@
     $prev = "asm_info";
     $next = "review_qa";
     $TotalChoice = (int) $this->Manage_assessment_type->get_total_choice($this->session->userdata('asm_type'));
+    $Current_Question = $this->Manage_assessment->count_question($this->session->userdata('AssessmentID'));
+    $Total_Question = $this->session->userdata('total_question');
 ?>
 <ul class="pager">
     <li class="previous">
@@ -35,62 +39,72 @@
     </li>
 </ul>
 <hr>
-<!-- HTML in AngularJS -->
 <div>
     <div>
-        <span>Total Question: <?php echo $this->session->userdata('total_question'); ?></span>
+        <div id="alert_placeholder"></div>
+        <span><?php echo "Total Question: {$Current_Question} / {$Total_Question}";?></span>
             <fieldset>Question</fieldset>
                 <?php
+                    $form_controller = "assessment/add_question_and_answer";
+
+                    if($this->session->userdata('form_flag') == 1)
+                        $form_controller = "assessment/update_qa";            
                     $attr = array('class' => "form-inline");
-                    echo form_open('assessment/add_question_and_answer', $attr);
-                    $asm_type = $this->session->userdata('asm_type');
+                    echo form_open($form_controller, $attr);
                 ?>
-                <input type="text" name="data_qnr" class="input-small" placeholder="Question No."/>
-                <input type="text" name="data_detail" class="input-xxlarge" placeholder="Question Detail"/>
+                    <small>Question No. </small>
+                    <input type="text" name="data_qnr" class="input-small" value="<?php echo $this->session->userdata('QuestionNr'); ?>"/>
+                    <small>Detail </small>
+                    <input type="text" name="data_detail" class="input-xxlarge" value="<?php echo $this->session->userdata('Q_Detail'); ?>"/>
                 <fieldset>Answer</fieldset>
                 <?php
+                    $asm_type = $this->session->userdata('asm_type');
                     $TotalChoice = $this->Manage_assessment_type->get_total_choice($asm_type);
                     $counter = 0;
 
                     //วนลูปสร้าง Answer ตาม AssessmentType ตรงนี้
                     while($counter < $TotalChoice)
                     {
+                        $index = $counter + 1;
                 ?>
                 <div> 
-                    <input type="text" name="<?php echo "data_choice_{$counter}_detail"; ?>" class="input-xxlarge" placeholder="Answer Detail"/>
-                    <div class="row">
-                        <div class="span4">
-                            <select name="<?php echo "data_choice_{$counter}_awg"; ?>"> 
+                    <small><?php echo "Answer Detail ({$index})"; ?></small>
+                    <input type="text" name="<?php echo "data_choice_{$counter}_detail"; ?>" class="input-xlarge" value="<?php echo $this->session->userdata("C_Detail_{$counter}"); ?>"/>
+                        <small>Answer Group </small>
+                            <select name="<?php echo "data_choice_{$counter}_awg"; ?>" class="input-small"> 
                                 <?php
                                     $get_answer_group = $this->Manage_answer_group->get_awg();
                                     foreach($get_answer_group as $dd) 
                                     {
                                         echo "<option value='". $dd['AnswerGroupID'] ."'";
-                                        if($dd['AnswerGroupID'] == $this->session->userdata('answer_group'))
+                                        if($dd['AnswerGroupID'] == $this->session->userdata("AnswerGroupID_{$counter}"))
                                             echo "selected=\"selected\"";
                                             echo ">". $dd['Name'] ."</option>";
                                     }
                                     $counter++;
                                 ?>
                             </select>
-                        </div>
-                    </div>
                     <?php
                     }
                     ?>
                     <br>
-                    <input type="submit" name="mysubmit" class="btn input-large" style="margin-top:-20px" value="+ Add more Question" />
-                    <pre>
+<?php if($Current_Question == $Total_Question)
+echo "<input type=\"button\" id=\"clickme\" \" class=\"btn btn-success input-large\" style=\"margin-top:5px\" value=\"+ Add Question\"/>";
+      else 
+echo "<input type=\"submit\" name=\"mysubmit\" class=\"btn btn-success input-large\" style=\"margin-top:5px\" value=\"+ Add Question\"/>";
+?>
+                    <br>
                         <?php
+                            echo "#### DEBUG ####";
+                            var_dump($Current_Question);
                             var_dump($this->session->userdata('QNR'));
                             var_dump($this->session->userdata('CID'));
+                            echo "under is all userdata";
+                            var_dump($this->session->all_userdata());
                             echo form_close();
                         ?>
-                    </pre>
                 </div>
             </div>
         <hr>
 
-
-
-
+<script src="<?php echo base_url("assets/js/question_alert.js"); ?>"></script>
