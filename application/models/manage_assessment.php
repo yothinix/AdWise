@@ -144,6 +144,16 @@ class Manage_assessment extends CI_Model {
         return $data['QuestionNr'];
     }
 
+    function delete_qa_data($AssessmentID, $QuestionNr)
+    {
+        $location = array(
+            'QuestionNr' => $QuestionNr,
+            'AssessmentID' => $AssessmentID
+        );
+        $this->db->delete('question', $location);
+        $this->db->delete('choice', $location);
+    }
+
     function delete_asm($AssessmentID)
     {
         $this->db->delete('assessment', array('AssessmentID' => $AssessmentID));
