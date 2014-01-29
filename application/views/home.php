@@ -14,18 +14,7 @@
         margin-right: 10px;
     }
 </style>
-<script>
-    var tricker = true;
-    function ans(choice)
-    {
-        if(tricker)
-        {
-            tricker = false;
-            document.getElementById("ans").value = choice;
-            document.getElementById("question-form").submit();
-        }
-    }
-</script>
+<script type="text/javascript" src="<?php echo base_url("/assets/js/answer.js"); ?>"></script>
 <h2 style="margin-top: -30px">Assessment: </h2>
 <hr/>
 <div class="row">
