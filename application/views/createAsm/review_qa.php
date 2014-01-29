@@ -80,7 +80,7 @@
 <?php 
     } 
 ?>
-                    
+<a href="<?php echo base_url('index.php/assessment/create_asm_view/question_and_answer'); ?>" class="btn btn-success">+ add more question</a>
 <hr>
 
 

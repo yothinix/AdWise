@@ -100,7 +100,8 @@ class Manage_assessment extends CI_Model {
         $data = array
             (
                 'Detail' => $Answer_detail,
-                'AnswerGroupID' => $Answer_group
+                'AnswerGroupID' => $Answer_group,
+                'QuestionNr' => $QNR
             );
         $this->db->where('ChoiceID', $CID);
         $this->db->update('choice', $data);
