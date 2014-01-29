@@ -46,14 +46,6 @@
     }
 </style>
 
-<script type='text/javascript'>
-    $(function() {
-        $('#datetimepicker1').datetimepicker({
-            language: 'pt-BR'
-        });
-    });
-</script>
-
 <h2 style="margin-top: -30px">Manage User</h2>
 <hr />
 <table class="table table-bordered">
@@ -98,21 +90,19 @@
             <div class="span5" style="margin-top: 20px">
                 <?php
                 $get_name = $this->User_model->get_creatorName($userID);
-                    foreach($get_name as $get_ID){ $ID = $get_ID->Username;}
-                        $get_image = $this->User_model->img($ID);
-                        foreach($get_image as $img) //ดึงข้อมูลมาจาก db
-                            {
-                                $filename = $img->Image;
-
-                                if($filename=="")
-                                    { ?>
-                                        <img class="img-circle" style="width: 150px; height: 150px; margin-left: 15px" src="<?php echo base_url("/uploads/default.jpg") ?>" >
-                                    <?php }
-                                else
-                                    { ?>
-                                        <img class="img-polaroid" style="width: 150px; height: 150px; margin-left: 15px" src="<?php echo base_url("/uploads/{$filename}") ?>" >
-                                    <?php }
-                            }?>
+                $get_image = $this->User_model->img($get_name);
+                foreach($get_image as $img) //ดึงข้อมูลมาจาก db
+                    {
+                        $filename = $img->Image;
+                        if($filename=="")
+                            { ?>
+                                <img class="img-circle" style="width: 150px; height: 150px; margin-left: 15px" src="<?php echo base_url("/uploads/default.jpg") ?>" >
+                                <?php }
+                        else
+                            { ?>
+                                <img class="img-polaroid" style="width: 150px; height: 150px; margin-left: 15px" src="<?php echo base_url("/uploads/{$filename}") ?>" >
+                                <?php }
+                        }?>
             </div>
             <div class="row">
                 <div class="span5" style="margin-left: 10px; margin-top: 5px">
@@ -140,6 +130,13 @@
     </div> <!-- ปิด edit -
 
     <!-- Model Edit -->
+    <script type='text/javascript'>
+        $(function() {
+            $('#datetimepicker<?php echo $userID; ?>').datetimepicker({
+                language: 'pt-BR'
+            });
+        });
+    </script>
         <div id="edit<?php echo $userID; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -187,7 +184,7 @@
                     <input type="radio" name="gender" value="1" <?php if($row->Gender==1) echo "checked"; ?> > Female
                     <br>
                     <b>Birthday</b>
-                    <div class='input-append' id='datetimepicker1'>
+                    <div class='input-append' id='datetimepicker<?php echo $userID; ?>'>
                     <input type='text' name="birthday" class="input-medium" data-format='yyyy-MM-dd' value="<?php echo $row->Birthday ?>" >
                         <span class='add-on'>
                             <i data-date-icon='icon-calendar'></i>

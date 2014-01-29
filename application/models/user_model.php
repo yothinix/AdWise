@@ -48,7 +48,7 @@ class User_model extends CI_Model {
         WHERE Username='$username'
         ");
 
-        return $query->result();
+            return $query->result();
     }
 
     function update($user,$data)
@@ -118,13 +118,15 @@ class User_model extends CI_Model {
 
     function get_creatorName($creatorID)
     {
+        $Username = "";
         $query = $this->db->query("
         SELECT Username
         FROM user
         WHERE ID = '$creatorID'
         ");
-
-        return $query->result();
+        foreach($query->result() as $row)
+            $Username = $row->Username;
+        return $Username;
     }
 
     function up_user($userID,$data)

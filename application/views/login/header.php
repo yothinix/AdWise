@@ -7,9 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href= "<?php echo base_url("assets/css/bootstrap.css"); ?>" rel="stylesheet">
-    <link href="<?php echo base_url("assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <link href="<?php echo base_url("/assets/css/bootstrap.css"); ?>" rel="stylesheet">
+    <link href="<?php echo base_url("/assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 
     <!-- Head -->
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -29,16 +29,15 @@
 
                     <div class="navbar-form pull-right" style="margin-bottom: -20px">
                         <?php echo form_open("user/signin"); ?>
-                        <input type="text" id="username" name="username" class="span2" placeholder="Username" value="<?php echo set_value('username'); ?>">
-                        <input type="password" id="password" name="password" class="span2" placeholder="Password" value="<?php echo set_value('password'); ?>">
-                        <button type="submit" value="signin" class="btn">Sign in</button>
+                            <input type="text" id="username" name="username" class="span2" placeholder="Username" value="<?php echo set_value('username'); ?>">
+                            <input type="password" id="password" name="password" class="span2" placeholder="Password" value="<?php echo set_value('password'); ?>">
+                            <button type="submit" value="signin" class="btn">Sign in</button>
                         <?php echo form_close(); ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <!-- POPUP -->
     <SCRIPT TYPE="text/javascript">
@@ -54,7 +53,5 @@
             return false;
         }
     </SCRIPT>
-
-
-
 </head>
+<body>>
