@@ -11,7 +11,18 @@ class Manage_academic extends CI_Model {
         $query = $this->db->query("
         SELECT * FROM academic INNER JOIN tags_academic
         ON tags_academic.Academic_id = academic.Academic_id
-        /* GROUP BY `Name` */
+        GROUP BY `Name`
+        ");
+
+        return $query->result();
+    }
+
+    function get_tags($Academic_id)
+    {
+        $query = $this->db->query("
+        SELECT tags_id FROM academic INNER JOIN tags_academic
+        ON tags_academic.Academic_id = academic.Academic_id
+        WHERE academic.Academic_id = '$Academic_id'
         ");
 
         return $query->result();
@@ -77,6 +88,42 @@ class Manage_academic extends CI_Model {
             ");
 
         return $query->result();
+    }
+
+    function update_db($Academic_id)
+    {
+        $Academic_name = $this->input->post('Academic_name');
+        $Academic_detail = $this->input->post('Academic_detail');
+
+        $data = array
+        (
+            'Name' => $Academic_name,
+            'Detail' => $Academic_detail
+        );
+        $this->db->update($Academic_id, $data);
+
+        $query = $this->db->query("
+            SELECT Academic_id
+            FROM academic
+            WHERE Name = '{$Academic_name}'
+            AND Detail = '{$Academic_detail}'
+            ");
+
+        $Academic_id = 0;
+        foreach($query->result() as $acid)
+            $Academic_id = $acid->Academic_id;
+
+        return $Academic_id;
+    }
+
+    function update_tags($Academic_id,$Tags_id)
+    {
+        $data = array(
+            'Academic_id' => $Academic_id,
+            'Tags_id' => $Tags_id
+        );
+
+        $this->db->update('tags_academic', $data);
     }
 }
 ?>
