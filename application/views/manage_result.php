@@ -1,3 +1,7 @@
+<link rel="stylesheet" href="<?php echo base_url("assets/css/docs.css"); ?>">
+<link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap-tagsinput.css"); ?>" >
+<link rel="stylesheet" href="<?php echo base_url("assets/css/app.css"); ?>" >
+
 <style type = "text/css">
     th
     {
@@ -92,18 +96,22 @@
                             <textarea type="text" rows="5" id="detail" name="detail" class="input-block-level" ><?php echo $row->Detail ?></textarea>
                         </div>
                     </div>
-                    <!-- <div class="control-group" style="margin-left: 10px; margin-right: 10px">
+                    <div class="control-group" style="margin-left: 10px; margin-right: 10px">
                         <label class="control-label" for="inputOccupation">Occupation :</label>
-                        <div class="controls">
-                            <input type="text"  class="input-block-level" value="">
+                        <div class="example occupation">
+                            <div class="bs-docs-example">
+                                <input type="text" placeholder="Occupation" name="Occupation" id="Occupation" >
+                            </div>
                         </div>
                     </div>
                     <div class="control-group" style="margin-left: 10px; margin-right: 10px">
                         <label class="control-label" for="inputAcademic">Academic :</label>
-                        <div class="controls">
-                            <input type="text"  class="input-block-level" value="">
+                        <div class="example academic">
+                            <div class="bs-docs-example">
+                                <input type="text" placeholder="Academic" name="Academic" id="Academic" >
+                            </div>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="control-group" style="margin-top: 10px; text-align: center">
                         <button type="submit" class="btn btn-success">Save</button>
                         <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
@@ -113,7 +121,6 @@
             </div>
 
             <!-- Modal Delete -->
-
             <div id="del<?php echo $ResultID; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -145,8 +152,23 @@
             <br>
             <input type="text" name="detail" id="detail" class="input-block-level" placeholder="Detail :">
             <br>
+            <div class="example occupation">
+                <div class="bs-docs-example">
+                    <input type="text" placeholder="Occupation :" name="Occupation" id="Occupation" >
+                </div>
+            </div>
+            <!--<div class="example academic">
+                <div class="bs-docs-example">
+                    <input type="text" placeholder="Academic :" name="Academic" id="Academic" >
+                </div>
+            </div> -->
+            <br>
             <button type="submit" class="btn btn-success">Save</button>
             <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
             <?php echo form_close(); ?>
         </div>
     </div>
+
+<script src="<?php echo base_url("assets/js/bootstrap-tagsinput.js"); ?>"></script>
+<script src="<?php echo base_url("assets/js/tag_typehead.js"); ?>"></script>
+<script src="<?php echo base_url("assets/js/tag_input_change.js"); ?>"></script>
