@@ -8,7 +8,10 @@ class Manage_result_data extends CI_Model {
 
     function get_manage_result()
     {
-        $query = $this->db->query("SELECT ResultID,Name,Detail FROM result");
+        $query = $this->db->query("
+        SELECT * FROM result JOIN result_occupation
+        ON result.ResultID = result_occupation.ResultID
+        ");
         return $query->result();
     }
 
@@ -73,5 +76,29 @@ class Manage_result_data extends CI_Model {
 
         $this->db->insert('result_occupation', $data);
     }
+
+    function get_ocp($ResultID)
+    {
+        $query = $this->db->query("
+        SELECT * FROM result JOIN result_occupation
+        ON result.ResultID = result_occupation.ResultID
+        WHERE result.ResultID = '$ResultID'
+        ");
+
+        return $query->result();
+    }
+
+    function get_name($Occupation_id)
+    {
+        $query = $this->db->query("
+            SELECT Name
+            FROM occupation
+            WHERE Occupation_id = '{$Occupation_id}'
+            ");
+
+        return $query->result();
+    }
+
+
 }
 ?>
