@@ -53,6 +53,8 @@
                 ?>
             </td>
             <td style="text-align: center">
+                <!-- View -->
+                <a role="button"  class="btn btn-small" href="#view<?php echo $Occupation_id; ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
                 <!-- Edit -->
                 <a role="button"  class="btn btn-small" href="#edit<?php echo $Occupation_id; ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
                 <!-- Delete -->
@@ -60,7 +62,6 @@
         </tr>
 
         <!-- Modal Edit -->
-
         <div id="edit<?php echo $Occupation_id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
@@ -138,6 +139,11 @@
         <div class="example example_typeahead">
             <div class="bs-docs-example">
                 <input type="text" placeholder="Tag" name="Tags" id="Tags" >
+            </div>
+        </div>
+        <div class="example academic">
+            <div class="bs-docs-example">
+                <input type="text" placeholder="Academic" name="Academic" id="Academic" >
             </div>
         </div>
         <br>

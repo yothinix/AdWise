@@ -5,3 +5,19 @@ $('.example_typeahead > > input').tagsinput({
     }
   }
 });
+
+$('.occupation > > input').tagsinput({
+  typeahead: {
+    source: function(query) {
+      return $.getJSON('http://localhost/adwise/assets/ocp.json');
+    }
+  }
+});
+
+$('.academic > > input').tagsinput({
+  typeahead: {
+    source: function(query) {
+      return $.getJSON('http://localhost/adwise/assets/aca.json');
+    }
+  }
+});
