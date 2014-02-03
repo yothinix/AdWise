@@ -111,18 +111,18 @@
                         <label class="control-label" for="inputOccupation">Occupation :</label>
                         <div class="example occupation">
                             <div class="bs-docs-example">
-                                <input type="text" placeholder="Occupation" name="Occupation" id="Occupation" >
+                                <input type="text" placeholder="Occupation" name="Occupation" id="Occupation" value="<?php echo $aa->Name; ?>">
                             </div>
                         </div>
                     </div>
-                    <div class="control-group" style="margin-left: 10px; margin-right: 10px">
+                    <!-- <div class="control-group" style="margin-left: 10px; margin-right: 10px">
                         <label class="control-label" for="inputAcademic">Academic :</label>
                         <div class="example academic">
                             <div class="bs-docs-example">
                                 <input type="text" placeholder="Academic" name="Academic" id="Academic" >
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="control-group" style="margin-top: 10px; text-align: center">
                         <button type="submit" class="btn btn-success">Save</button>
                         <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
