@@ -52,7 +52,10 @@
     <tr>
         <th style="text-align: center">ID</th>
         <th style="text-align: center">Name</th>
-        <th style="text-align: center">Lastname</th>
+        <th style="text-alignnter">Lastname</th>
+        <th style="text-align: center">ASM1</th>
+        <th style="text-align: center">ASM2</th>
+        <th style="text-align: center">ASM3</th>
         <th style="text-align: center">Controller</th>
     </tr>
 
@@ -68,6 +71,9 @@
         <td style="text-align: center"><?php echo $row->ID ?>  </td>
         <td><?php echo $row->Name ?>  </td>
         <td><?php echo $row->Lastname ?>  </td>
+        <td style="text-align: center"><button type="button" class="btn btn-warning">In Progress</button> </td>
+        <td style="text-align: center"><button type="button" class="btn btn-success">Complete</button>  </td>
+        <td style="text-align: center"><button type="button" class="btn btn-danger">Incomplete</button> </td>
         <td style="text-align: center">
             <a href="#view<?php echo $userID; ?>" role="button" class="btn" data-toggle="modal"><i class="icon-file"></i></a>
             <a href="#edit<?php echo $userID; ?>" role="button" class="btn" data-toggle="modal"><i class="icon-pencil"></i></a>
