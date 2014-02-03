@@ -54,7 +54,7 @@
             </td>
             <td style="text-align: center">
                 <!-- View -->
-                <a role="button"  class="btn btn-small" href="#view<?php echo $Occupation_id; ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
+                <a role="button"  class="btn btn-small" href="#view<?php echo $Occupation_id; ?>" data-toggle="modal"><i class="icon-file"></i></a>
                 <!-- Edit -->
                 <a role="button"  class="btn btn-small" href="#edit<?php echo $Occupation_id; ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
                 <!-- Delete -->
