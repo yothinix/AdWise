@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/project';
+$config['base_url']	= '';
 
 $config['server_root'] = $_SERVER['DOCUMENT_ROOT']; 
 /*
