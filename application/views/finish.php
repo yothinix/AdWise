@@ -39,7 +39,7 @@
     <div id="result_content" class="span8" style="margin-left: 10px">
         <div id="result_content1" class="row" style="margin-left: 10px">
             <h2>View your result</h2>
-            <a href="<?php echo base_url("index.php/Resultexp/Summation/{$UserID}/{$AsmID}"); ?>" class="btn btn-large btn-block btn-primary">Click</a>
+            <a href="<?php echo base_url("index.php/resultexp/Summation/{$UserID}/{$AsmID}"); ?>" class="btn btn-large btn-block btn-primary">Click</a>
         </div>
     </div>
 </div><!--/span-->
