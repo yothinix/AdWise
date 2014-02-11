@@ -24,7 +24,7 @@
         <th style="text-align: center">ID </th>
         <th style="text-align: center">Occupation Name </th>
         <th style="text-align: center">Detail </th>
-        <th style="text-align: center">Tag </th>
+        <th style="text-align: center; width: 180px">Tag </th>
         <th style="text-align: center">Controller </th>
     </tr>
 
@@ -37,20 +37,24 @@
         ?>
 
         <tr>
-
             <td style="text-align: center"><?php echo $row->Occupation_id ?>  </td>
             <td><?php echo $row->Name ?>  </td>
             <td><?php echo $row->Detail ?>  </td>
-
-            <?php
-            $Tags_id = $row->Tags_id;
-            $tags_name = $this->Manage_occupation->get_name($Tags_id);
-            foreach($tags_name as $que){
-                echo "<td> $que->Tags_name  </td>";
-            }
-            ?>
-
+            <td><?php
+                $tags = $this->Manage_occupation->get_tags($Occupation_id);
+                foreach($tags as $tg)
+                {
+                    $tags_id = $tg->tags_id;
+                    $tags_name = $this->Manage_occupation->get_name($tags_id);
+                    foreach($tags_name as $que){
+                        echo $que->Tags_name; ?> &nbsp <?php
+                    }
+                }
+                ?>
+            </td>
             <td style="text-align: center">
+                <!-- View -->
+                <a role="button"  class="btn btn-small" href="#view<?php echo $Occupation_id; ?>" data-toggle="modal"><i class="icon-file"></i></a>
                 <!-- Edit -->
                 <a role="button"  class="btn btn-small" href="#edit<?php echo $Occupation_id; ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
                 <!-- Delete -->
@@ -58,7 +62,6 @@
         </tr>
 
         <!-- Modal Edit -->
-
         <div id="edit<?php echo $Occupation_id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
@@ -136,6 +139,11 @@
         <div class="example example_typeahead">
             <div class="bs-docs-example">
                 <input type="text" placeholder="Tag" name="Tags" id="Tags" >
+            </div>
+        </div>
+        <div class="example academic">
+            <div class="bs-docs-example">
+                <input type="text" placeholder="Academic" name="Academic" id="Academic" >
             </div>
         </div>
         <br>
