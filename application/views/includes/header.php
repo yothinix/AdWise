@@ -37,7 +37,8 @@
 $asmlist = base_url("index.php/assessment/asmlist");
 $profile = base_url("index.php/user/profile");
 $change = base_url("index.php/user/changepassword");
-$result = base_url("index.php/assessment/result");
+//$result = base_url("index.php/assessment/result");  //OLD ONE FOR DIRECT USE OF ASSESSMENT DEBUGGING
+$result = base_url("index.php/result/view/{$this->session->userdata('user_id')}");
 $manage_user = base_url("index.php/manage/manage_user");
 $manage_assessment = base_url("index.php/manage/manage_assessment");
 $manage_assessment_type = base_url("index.php/manage/manage_assessment_type");
@@ -86,7 +87,7 @@ $tags = base_url("index.php/manage/manage_tags");
                     <li <?php if($main_content == 'assessment_list' || $main_content == 'home')
                             { echo "class=\"active\""; } ?>>
                         <a href="<?php echo $asmlist ?>"><i class="icon-edit icon-black"></i>Assessment</a></li>
-                    <li <?php if($main_content == 'result'){ echo "class=\"active\""; } ?>>
+                    <li <?php if($main_content == 'result_all'){ echo "class=\"active\""; } ?>>
                         <a href="<?php echo $result ?>"><i class="icon-print icon-black"></i>Report</a></li>
                     <li class="nav-header">User Menu</li>
                     <li <?php if($main_content == 'login/profile'){ echo "class=\"active\""; } ?>>
