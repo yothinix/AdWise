@@ -52,12 +52,12 @@ class Manage_occupation extends CI_Model {
         return $Occupation_id;
     }
 
-    function tag_db($Tags_name)
+    function tags_db($Tags_name)
     {
         $query = $this->db->query("
             SELECT Tags_id
             FROM tags
-            WHERE Tags_name = '{$Tangs_name}'
+            WHERE Tags_name = '{$Tags_name}'
             ");
 
         $Tags_id = 0;
