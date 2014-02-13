@@ -9,9 +9,9 @@ class Manage_result_data extends CI_Model {
     function get_manage_result()
     {
         $query = $this->db->query("
-        SELECT * FROM result JOIN result_occupation
-        ON result.ResultID = result_occupation.ResultID
+        SELECT * FROM result
         ");
+
         return $query->result();
     }
 

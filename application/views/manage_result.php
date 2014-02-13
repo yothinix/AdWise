@@ -65,7 +65,7 @@
                         $Occupation = $this->Manage_result_data->get_ocp($ResultID);
                         foreach($Occupation as $ocp)
                         {
-                            $Occupation_id = $row->Occupation_id;
+                            $Occupation_id = $ocp->Occupation_id;
                             $Name = $this->Manage_result_data->get_name($Occupation_id);
                             foreach($Name as $aa){
                                 echo $aa->Name;
