@@ -14,6 +14,11 @@
     {
         font-size: 14px;
     }
+
+    .modal-body
+    {
+        font-size: 16px;
+    }
     </style>
 
     <h2 style="margin-top: -30px">Manage Result</h2>
@@ -66,14 +71,24 @@
                         foreach($Occupation as $ocp)
                         {
                             $Occupation_id = $ocp->Occupation_id;
-                            $Name = $this->Manage_result_data->get_name($Occupation_id);
-                            foreach($Name as $aa){
-                                echo $aa->Name; ?> &nbsp <?php
+                            $Occupation_Name = $this->Manage_result_data->get_name($Occupation_id);
+                            foreach($Occupation_Name as $que1){
+                                echo $que1->Name;?>&nbsp&nbsp<?php
                             }
                         }
                         ?>
                         <br>
                         <b>Academic </b>
+                        <?php
+                        $Academic = $this->Manage_result_data->get_aca($Occupation_id);
+                        foreach($Academic as $aca){
+                            $Academic_id = $aca->Academic_id;
+                            $Academic_name = $this->Manage_result_data->get_name_aca($Academic_id);
+                            foreach($Academic_name as $que2){
+                                echo $que2->Name;?>&nbsp&nbsp<?php
+                            }
+                        }
+                        ?>
                     </div>
                     <div class="row" style="text-align: center">
                         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -111,18 +126,18 @@
                         <label class="control-label" for="inputOccupation">Occupation :</label>
                         <div class="example occupation">
                             <div class="bs-docs-example">
-                                <input type="text" placeholder="Occupation" name="Occupation" id="Occupation" value="<?php echo $aa->Name; ?>">
+                                <input type="text" placeholder="Occupation" name="Occupation" id="Occupation" value="">
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="control-group" style="margin-left: 10px; margin-right: 10px">
+                    <div class="control-group" style="margin-left: 10px; margin-right: 10px">
                         <label class="control-label" for="inputAcademic">Academic :</label>
                         <div class="example academic">
                             <div class="bs-docs-example">
-                                <input type="text" placeholder="Academic" name="Academic" id="Academic" >
+                                <input type="text" placeholder="Academic" name="Academic" id="Academic" value="">
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="control-group" style="margin-top: 10px; text-align: center">
                         <button type="submit" class="btn btn-success">Save</button>
                         <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
