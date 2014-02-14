@@ -68,12 +68,12 @@
                             $Occupation_id = $ocp->Occupation_id;
                             $Name = $this->Manage_result_data->get_name($Occupation_id);
                             foreach($Name as $aa){
-                                echo $aa->Name;
+                                echo $aa->Name; ?> &nbsp <?php
                             }
                         }
                         ?>
                         <br>
-                        <!-- <b>Academic </b> -->
+                        <b>Academic </b>
                     </div>
                     <div class="row" style="text-align: center">
                         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
