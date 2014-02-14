@@ -31,6 +31,9 @@ class Manage_occupation extends CI_Model {
 
     function ocp_db()
     {
+        $Occupation_name = $this->input->post('Occupation_name');
+        $Occupation_detail = $this->input->post('Occupation_detail');
+
         $data = array
         (
             'Name' => $Occupation_name,
@@ -80,10 +83,57 @@ class Manage_occupation extends CI_Model {
     function get_name($Tags_id)
     {
         $query = $this->db->query("
-            SELECT Tags_name
-            FROM tags
-            WHERE Tags_id = '{$Tags_id}'
+        SELECT Tags_name
+        FROM tags
+        WHERE Tags_id = '{$Tags_id}'
+        ");
+
+        return $query->result();
+    }
+
+    function aca_db($Academic_name)
+    {
+        $query = $this->db->query("
+            SELECT Academic_id
+            FROM academic
+            WHERE Name = '{$Academic_name}'
             ");
+
+        $Academic_id = 0;
+        foreach($query->result() as $acaid)
+            $Academic_id = $acaid->Academic_id;
+
+        return $Academic_id;
+    }
+
+    function ocp_aca($Occupation_id,$Academic_id)
+    {
+        $data = array(
+            'Occupation_id' => $Occupation_id,
+            'Academic_id' => $Academic_id
+        );
+
+        $this->db->insert('occupation_academic', $data);
+    }
+
+    function get_academic($Occupation_id)
+    {
+        $query = $this->db->query("
+        SELECT Academic_id FROM occupation INNER JOIN occupation_academic
+        ON occupation_academic.Occupation_id = occupation.Occupation_id
+        WHERE occupation.Occupation_id = '$Occupation_id'
+        ");
+
+        return $query->result();
+    }
+
+    function get_name_aca($Academic_id)
+    {
+        $query = $this->db->query("
+        SELECT Name
+        FROM academic
+        WHERE Academic_id = '{$Academic_id}'
+        ");
 
         return $query->result();
     }

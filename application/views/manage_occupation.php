@@ -86,7 +86,18 @@
                     }
                     ?>
                     <br>
-                    <b>Academic </b>
+                    <b>Academic</b> &nbsp
+                    <?php
+                    $academic = $this->Manage_occupation->get_academic($Occupation_id);
+                    foreach($academic as $aca)
+                    {
+                        $Academic_id = $aca->Academic_id;
+                        $Academic_name = $this->Manage_occupation->get_name_aca($Academic_id);
+                        foreach($Academic_name as $an){
+                            echo $an->Name; ?> &nbsp <?php
+                        }
+                    }
+                    ?>
                 </div>
                 <div class="row" style="text-align: center">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
