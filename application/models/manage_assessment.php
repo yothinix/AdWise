@@ -100,7 +100,8 @@ class Manage_assessment extends CI_Model {
         $data = array
             (
                 'Detail' => $Answer_detail,
-                'AnswerGroupID' => $Answer_group
+                'AnswerGroupID' => $Answer_group,
+                'QuestionNr' => $QNR
             );
         $this->db->where('ChoiceID', $CID);
         $this->db->update('choice', $data);
@@ -142,6 +143,16 @@ class Manage_assessment extends CI_Model {
         $this->db->update('question', $data);
 
         return $data['QuestionNr'];
+    }
+
+    function delete_qa_data($AssessmentID, $QuestionNr)
+    {
+        $location = array(
+            'QuestionNr' => $QuestionNr,
+            'AssessmentID' => $AssessmentID
+        );
+        $this->db->delete('question', $location);
+        $this->db->delete('choice', $location);
     }
 
     function delete_asm($AssessmentID)
