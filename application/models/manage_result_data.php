@@ -9,9 +9,9 @@ class Manage_result_data extends CI_Model {
     function get_manage_result()
     {
         $query = $this->db->query("
-        SELECT * FROM result JOIN result_occupation
-        ON result.ResultID = result_occupation.ResultID
+        SELECT * FROM result
         ");
+
         return $query->result();
     }
 
@@ -99,6 +99,25 @@ class Manage_result_data extends CI_Model {
         return $query->result();
     }
 
+    function get_aca($Occupation_id)
+    {
+        $query = $this->db->query("
+        SELECT Academic_id FROM occupation_academic
+        WHERE Occupation_id = '{$Occupation_id}'
+        ");
 
+        return $query->result();
+    }
+
+function get_name_aca($Academic_id)
+    {
+        $query = $this->db->query("
+            SELECT Name
+            FROM academic
+            WHERE Academic_id = '{$Academic_id}'
+            ");
+
+        return $query->result();
+    }
 }
 ?>

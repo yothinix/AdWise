@@ -61,6 +61,50 @@
                 <a role="button"  class="btn btn-small" href="#del<?php echo $Occupation_id; ?>" data-toggle="modal"><i class="icon-trash"></i></a> </td>
         </tr>
 
+        <!-- Modal View -->
+        <div id="view<?php echo $Occupation_id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">View Occupation</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin-left: 10px; margin-top: 5px; font-size: 16px">
+                    <b>Name</b> &nbsp <?php echo $row->Name ?>
+                    <br>
+                    <b>Detail</b> &nbsp <?php echo $row->Detail ?>
+                    <br>
+                    <b>Tag</b> &nbsp
+                    <?php
+                    $tags = $this->Manage_occupation->get_tags($Occupation_id);
+                    foreach($tags as $tg)
+                    {
+                        $tags_id = $tg->tags_id;
+                        $tags_name = $this->Manage_occupation->get_name($tags_id);
+                        foreach($tags_name as $que){
+                            echo $que->Tags_name; ?> &nbsp <?php
+                        }
+                    }
+                    ?>
+                    <br>
+                    <b>Academic</b> &nbsp
+                    <?php
+                    $academic = $this->Manage_occupation->get_academic($Occupation_id);
+                    foreach($academic as $aca)
+                    {
+                        $Academic_id = $aca->Academic_id;
+                        $Academic_name = $this->Manage_occupation->get_name_aca($Academic_id);
+                        foreach($Academic_name as $an){
+                            echo $an->Name; ?> &nbsp <?php
+                        }
+                    }
+                    ?>
+                </div>
+                <div class="row" style="text-align: center">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Modal Edit -->
         <div id="edit<?php echo $Occupation_id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
