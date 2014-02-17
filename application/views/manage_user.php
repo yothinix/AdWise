@@ -52,8 +52,11 @@
     <tr>
         <th style="text-align: center">ID</th>
         <th style="text-align: center">Name</th>
-        <th style="text-alignnter">Lastname</th>
+        <th style="text-align: center">Lastname</th>
+        <th style="text-align: center">Assessment</th>
+        <th style="text-align: center">Status</th>
         <th style="text-align: center">Controller</th>
+        
     </tr>
 
     <?php
@@ -66,8 +69,10 @@
 
     <tr>
         <td style="text-align: center"><?php echo $row->ID ?>  </td>
-        <td><?php echo $row->Name ?>  </td>
-        <td><?php echo $row->Lastname ?>  </td>
+        <td style="text-align: center"><?php echo $row->Name ?>  </td>
+        <td style="text-align: center"><?php echo $row->Lastname ?>  </td>
+        <td> </td>
+        <td> </td>
         <td style="text-align: center">
             <a href="#view<?php echo $userID; ?>" role="button" class="btn" data-toggle="modal"><i class="icon-file"></i></a>
             <a href="#edit<?php echo $userID; ?>" role="button" class="btn" data-toggle="modal"><i class="icon-pencil"></i></a>
@@ -113,20 +118,6 @@
                     <b>Email </b> <?php echo $row->Email ?>
                     <br>
                     <b>Role </b> <?php if($row->Role==0) echo "User"; ?> <?php if($row->Role==1) echo "Admin"; ?>
-
-                    <!--ส่วนที่เพิ่มเข้ามา--!>
-                    <br> <b>Status</b>
-                    <?php $result_stat = $this->User_model->status_user($userID);  //ส่งค่า userID ไปให้ query
-                    foreach($result_stat as $stat) //รับค่ามาแสดงผล
-                    {   //แทนตัวแปร
-                        $assessment = $stat->Name;
-                        $status = $stat->Status
-                        ?>
-                        <br>
-                        &nbsp <?php echo $assessment; echo "   ".$status;   //แสดงลิสสถานะ assessment ทั้งหมดของ user ID ที่ส่งไป
-                    }
-                    ?>
-                    <!--ส่วนที่เพิ่มเข้ามา--!>
 
                 </div>
             </div>
