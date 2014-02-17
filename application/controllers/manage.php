@@ -297,6 +297,7 @@ class Manage extends CI_Controller{
     {
         $this->load->model('Manage_occupation');
         $Occupation_id = $this->Manage_occupation->ocp_db();
+
         $Tags = $this->input->post('Tags');
         $TotalTags = substr_count($Tags,',')+1;
         $Tags_Key = explode(",", $Tags);
@@ -307,6 +308,18 @@ class Manage extends CI_Controller{
             $this->Manage_occupation->tags_ocp($Occupation_id,$Tags_id);
             $counter++;
         }
+
+        $Academic = $this->input->post('Academic');
+        $TotalAcademic = substr_count($Academic,',')+1;
+        $Academic_Key = explode(",", $Academic);
+        $counter = 0;
+        while($counter < $TotalAcademic)
+        {
+            $Academic_id = $this->Manage_occupation->aca_db($Academic_Key[$counter]);
+            $this->Manage_occupation->ocp_aca($Occupation_id,$Academic_id);
+            $counter++;
+        }
+
         $this->manage_occupation();
     }
 
