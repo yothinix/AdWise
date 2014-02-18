@@ -210,6 +210,7 @@
             </div> <!-- ปิด modal-body -->
         </div> <!-- ปิด edit -
 
+
     <!-- Modal Delete -->
     <div id="del<?php echo $userID; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
