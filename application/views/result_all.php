@@ -54,5 +54,20 @@ $array_size = count($ResultID);
 
 <hr>
 <?php
-    var_dump($ResultID);
+    echo "| TID | itemsets|<br/>";
+    for($x = 0; $x < $ocp_set_row; $x++)
+    {
+        echo "| {$ocp_array[$x][0]} | ";
+        for($y = 0; $y < $ocp_array[$x][3]; $y++)
+        {
+            echo "{$ocp_array[$x][2][$y]['Tags_id']} ";
+        }
+        echo "|<br/>";
+    }
+    echo "------------------------";
+    var_dump($ocp_array);
+?>
+
+<?php
+    //var_dump($ResultID);
 ?>

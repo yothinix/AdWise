@@ -44,4 +44,60 @@ class Result_model extends CI_Model {
 
         return $name;
     }
+    
+    function get_ocp_from_result($ResultID)
+    {
+        $query = $this->db->query
+            ("SELECT Occupation_id
+              FROM result_occupation
+              WHERE ResultID ='{$ResultID}'
+              ");
+
+        return $query->result_array();
+    }
+
+    function count_result_ocp_row($ResultID)
+    {
+        $query = $this->db->query
+            ("SELECT Occupation_id
+              FROM result_occupation
+              WHERE ResultID ='{$ResultID}'
+              ");
+        return $query->num_rows();
+    }
+
+    function get_ocp_name($ocp_id)
+    {
+        $name = "";
+        $query = $this->db->query
+            ("SELECT Name
+              FROM occupation
+              WHERE Occupation_id = '{$ocp_id}'
+              ");
+
+        foreach($query->result() as $items)
+            $name = $items->Name;
+
+        return $name;
+    }
+
+    function get_relate_tagid($ocp_id)
+    {
+        $query = $this->db->query
+            ("SELECT Tags_id
+              FROM tags_occupation
+              WHERE Occupation_id = '{$ocp_id}'
+              ");
+        return $query->result_array();
+    }
+
+    function count_tag_ocp_row($ocp_id)
+    {
+        $query = $this->db->query
+            ("SELECT Tags_id
+              FROM tags_occupation
+              WHERE Occupation_id ='{$ocp_id}'
+              ");
+        return $query->num_rows();
+    }
 }

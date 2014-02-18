@@ -7,7 +7,7 @@ class Apriori extends CI_Controller {
         parent::__construct();
     }
 
-    function Apriori($Dataset)
+    function Apriori()
     {
         //this function get dataset from sets of | result | occupation | tags(i) |
         //using minimum support = 2 and target support = 3 as a variable
