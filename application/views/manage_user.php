@@ -80,6 +80,7 @@
         </td>
     </tr>
 
+    
     <!-- Model View -->
     <div id="view<?php echo $userID; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
@@ -128,6 +129,7 @@
             </div>
         </div> <!-- ปิด modal-body -->
     </div> <!-- ปิด edit -
+
 
     <!-- Model Edit -->
     <script type='text/javascript'>
