@@ -23,7 +23,7 @@
         <th style="text-align: center">ID</th>
         <th style="text-align: center">Academic Name</th>
         <th style="text-align: center">Detail</th>
-        <th style="text-align: center">Tag</th>
+        <th style="text-align: center; width: 200px">Tag</th>
         <th style="text-align: center">Controller</th>
     </tr>
 
@@ -38,13 +38,23 @@
             <td><?php echo $row->Name ?>  </td>
             <td><?php echo $row->Detail ?>  </td>
 
-            <?php
-            $Tags_id = $row->Tags_id;
-            $tags_name = $this->Manage_academic->get_name($Tags_id);
-            foreach($tags_name as $que){
-                echo "<td> $que->Tags_name  </td>";
+            <td><?php
+            $tags = $this->Manage_academic->get_tags($Academic_id);
+            foreach($tags as $tg)
+            {
+                $tags_id = $tg->tags_id;
+                $tags_name = $this->Manage_academic->get_name($tags_id);
+                foreach($tags_name as $que){
+                    echo $que->Tags_name;?>&nbsp&nbsp<?php
+                }
             }
-            ?>
+
+            //$Tags_id = $row->Tags_id;
+            //$tags_name = $this->Manage_academic->get_name($Tags_id);
+            //foreach($tags_name as $que){
+            //    echo "<td> $que->Tags_name  </td>";
+            //}
+            ?> </td>
 
             <td style="text-align: center">
                 <!-- Edit -->
@@ -79,7 +89,17 @@
                     <label class="control-label" for="inputTag">Tag</label>
                     <div class="example example_typeahead">
                         <div class="bs-docs-example">
-                            <input type="text" name="tags" value="<?php echo $que->Tags_name ?>" >
+                            <input type="text" name="tags" value="
+                            <?php            $tags = $this->Manage_academic->get_tags($Academic_id);
+                            foreach($tags as $tg)
+                            {
+                                $tags_id = $tg->tags_id;
+                                $tags_name = $this->Manage_academic->get_name($tags_id);
+                                foreach($tags_name as $que){
+                                    echo $que->Tags_name;?>&nbsp&nbsp<?php
+                                }
+                            }?>
+                            ">
                         </div>
                     </div>
                 </div>

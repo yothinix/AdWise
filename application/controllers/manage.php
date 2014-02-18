@@ -111,12 +111,27 @@ class Manage extends CI_Controller{
 
     function update_academic($Academic_id)
     {
-        $data = array(
-            'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail')
-        );
-        $this->Manage_academic->update($Academic_id ,$data);
+        //$data = array(
+        //    'name'=>$this->input->post('name'),
+        //    'detail'=>$this->input->post('detail')
+        //);
+        //$this->Manage_academic->update($Academic_id ,$data);
+        //$this->manage_academic();
+
+        $this->load->model('Manage_academic');
+        $Academic_id = $this->Manage_academic->update_db($Academic_id); //ได้ academic id
+        $Tags = $this->input->post('Tags');
+        $TotalTags = substr_count($Tags,',')+1;
+        $Tags_Key = explode(",", $Tags);
+        $counter = 0;
+        while($counter < $TotalTags)
+        {
+            $Tags_id = $this->Manage_academic->tags_db($Tags_Key[$counter]); //ได้ tag id
+            $this->Manage_academic->update_tags($Academic_id,$Tags_id);
+            $counter++;
+        }
         $this->manage_academic();
+
     }
 
 /////////// Manage Assessment Controller Function Group/////////////////////////
@@ -282,6 +297,7 @@ class Manage extends CI_Controller{
     {
         $this->load->model('Manage_occupation');
         $Occupation_id = $this->Manage_occupation->ocp_db();
+
         $Tags = $this->input->post('Tags');
         $TotalTags = substr_count($Tags,',')+1;
         $Tags_Key = explode(",", $Tags);
@@ -292,6 +308,18 @@ class Manage extends CI_Controller{
             $this->Manage_occupation->tags_ocp($Occupation_id,$Tags_id);
             $counter++;
         }
+
+        $Academic = $this->input->post('Academic');
+        $TotalAcademic = substr_count($Academic,',')+1;
+        $Academic_Key = explode(",", $Academic);
+        $counter = 0;
+        while($counter < $TotalAcademic)
+        {
+            $Academic_id = $this->Manage_occupation->aca_db($Academic_Key[$counter]);
+            $this->Manage_occupation->ocp_aca($Occupation_id,$Academic_id);
+            $counter++;
+        }
+
         $this->manage_occupation();
     }
 
