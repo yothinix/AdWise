@@ -80,15 +80,20 @@
                         <br>
                         <b>Academic </b>
                         <?php
-                        $Academic = $this->Manage_result_data->get_aca($Occupation_id);
-                        foreach($Academic as $aca){
-                            $Academic_id = $aca->Academic_id;
-                            $Academic_name = $this->Manage_result_data->get_name_aca($Academic_id);
-                            foreach($Academic_name as $que2){
-                                echo $que2->Name;?>&nbsp&nbsp<?php
+                        $Occupation = $this->Manage_result_data->get_ocp($ResultID);
+                        foreach($Occupation as $ocp)
+                        {
+                            $Occupation_id = $ocp->Occupation_id;
+
+                            $Academic = $this->Manage_result_data->get_aca($Occupation_id);
+                            foreach($Academic as $aca){
+                                $Academic_id = $aca->Academic_id;
+                                $Academic_name = $this->Manage_result_data->get_name_aca($Academic_id);
+                                foreach($Academic_name as $que2){
+                                    echo $que2->Name;?>&nbsp&nbsp<?php
+                                }
                             }
-                        }
-                        ?>
+                        }?>
                     </div>
                     <div class="row" style="text-align: center">
                         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
