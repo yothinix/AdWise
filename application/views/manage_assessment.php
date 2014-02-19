@@ -99,8 +99,8 @@
     <tr>
 
         <td style="text-align: center"><?php echo $row->AssessmentID ?></td>
-        <td><a href="<?php echo base_url("index.php/assessment/edit/{$row->AssessmentID}"); ?>"><?php echo $row->Name ?></a></td>
-        <td><?php foreach($this->User_model->get_creatorName($row->CreatorID) as $row){echo $row->Username;} ?>  </td>
+        <td><a href="<?php echo base_url("index.php/assessment/edit/{$row->AssessmentID}"); ?>"><?php echo $row->Name; ?></a></td>
+        <td><?php echo $this->User_model->get_creatorName($row->CreatorID); ?>  </td>
         <td style="text-align: center"><?php echo "no of participant"; ?>  </td>
         <td style="text-align: center">
             <div class="onoffswitch">

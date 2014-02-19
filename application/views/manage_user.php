@@ -52,11 +52,11 @@
     <tr>
         <th style="text-align: center">ID</th>
         <th style="text-align: center">Name</th>
-        <th style="text-alignnter">Lastname</th>
-        <th style="text-align: center">ASM1</th>
-        <th style="text-align: center">ASM2</th>
-        <th style="text-align: center">ASM3</th>
+        <th style="text-align: center">Lastname</th>
+        <th style="text-align: center">Assessment</th>
+        <th style="text-align: center">Status</th>
         <th style="text-align: center">Controller</th>
+        
     </tr>
 
     <?php
@@ -69,11 +69,10 @@
 
     <tr>
         <td style="text-align: center"><?php echo $row->ID ?>  </td>
-        <td><?php echo $row->Name ?>  </td>
-        <td><?php echo $row->Lastname ?>  </td>
-        <td style="text-align: center"><button type="button" class="btn btn-warning">In Progress</button> </td>
-        <td style="text-align: center"><button type="button" class="btn btn-success">Complete</button>  </td>
-        <td style="text-align: center"><button type="button" class="btn btn-danger">Incomplete</button> </td>
+        <td style="text-align: center"><?php echo $row->Name ?>  </td>
+        <td style="text-align: center"><?php echo $row->Lastname ?>  </td>
+        <td> </td>
+        <td> </td>
         <td style="text-align: center">
             <a href="#view<?php echo $userID; ?>" role="button" class="btn" data-toggle="modal"><i class="icon-file"></i></a>
             <a href="#edit<?php echo $userID; ?>" role="button" class="btn" data-toggle="modal"><i class="icon-pencil"></i></a>
@@ -90,21 +89,19 @@
             <div class="span5" style="margin-top: 20px">
                 <?php
                 $get_name = $this->User_model->get_creatorName($userID);
-                    foreach($get_name as $get_ID){ $ID = $get_ID->Username;}
-                        $get_image = $this->User_model->img($ID);
-                        foreach($get_image as $img) //ดึงข้อมูลมาจาก db
-                            {
-                                $filename = $img->Image;
-
-                                if($filename=="")
-                                    { ?>
-                                        <img class="img-circle" style="width: 150px; height: 150px; margin-left: 15px" src="<?php echo base_url("/uploads/default.jpg") ?>" >
-                                    <?php }
-                                else
-                                    { ?>
-                                        <img class="img-polaroid" style="width: 150px; height: 150px; margin-left: 15px" src="<?php echo base_url("/uploads/{$filename}") ?>" >
-                                    <?php }
-                            }?>
+                $get_image = $this->User_model->img($get_name);
+                foreach($get_image as $img) //ดึงข้อมูลมาจาก db
+                    {
+                        $filename = $img->Image;
+                        if($filename=="")
+                            { ?>
+                                <img class="img-circle" style="width: 150px; height: 150px; margin-left: 15px" src="<?php echo base_url("/uploads/default.jpg") ?>" >
+                                <?php }
+                        else
+                            { ?>
+                                <img class="img-polaroid" style="width: 150px; height: 150px; margin-left: 15px" src="<?php echo base_url("/uploads/{$filename}") ?>" >
+                                <?php }
+                        }?>
             </div>
             <div class="row">
                 <div class="span5" style="margin-left: 10px; margin-top: 5px">
@@ -121,6 +118,7 @@
                     <b>Email </b> <?php echo $row->Email ?>
                     <br>
                     <b>Role </b> <?php if($row->Role==0) echo "User"; ?> <?php if($row->Role==1) echo "Admin"; ?>
+
                 </div>
             </div>
             <div class="row">

@@ -75,6 +75,15 @@ class User_model extends CI_Model {
         return $query->result();
     }
 
+    //เพิ่มเข้ามา    query จาก table assessment กับ user_test หาค่าจาก user ID ที่ส่งมา
+    function status_user($userID)
+    {
+        $query = $this->db->query("SELECT * FROM user_test INNER JOIN assessment ON user_test.AssessmentID = assessment.AssessmentID && user_test.UserID =".$userID);
+        return $query->result();
+    }
+    //เพิ่มเข้ามา
+
+
     function dashboard($username)
     {
         $query = $this->db->query("
@@ -118,13 +127,15 @@ class User_model extends CI_Model {
 
     function get_creatorName($creatorID)
     {
+        $Username = "";
         $query = $this->db->query("
         SELECT Username
         FROM user
         WHERE ID = '$creatorID'
         ");
-
-        return $query->result();
+        foreach($query->result() as $row)
+            $Username = $row->Username;
+        return $Username;
     }
 
     function up_user($userID,$data)
