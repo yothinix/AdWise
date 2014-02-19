@@ -89,17 +89,19 @@
                     <label class="control-label" for="inputTag">Tag</label>
                     <div class="example example_typeahead">
                         <div class="bs-docs-example">
-                            <input type="text" name="tags" value="
-                            <?php            $tags = $this->Manage_academic->get_tags($Academic_id);
-                            foreach($tags as $tg)
-                            {
-                                $tags_id = $tg->tags_id;
-                                $tags_name = $this->Manage_academic->get_name($tags_id);
-                                foreach($tags_name as $que){
-                                    echo $que->Tags_name;?>&nbsp&nbsp<?php
-                                }
-                            }?>
-                            ">
+
+                             <input type="text" name="tags" value="
+                             <?php
+                             $tags = $this->Manage_academic->get_tags($Academic_id);
+                             foreach($tags as $tg)
+                             {
+                                 $tags_id = $tg->tags_id;
+                                 $tags_name = $this->Manage_academic->get_name($tags_id);
+                                 foreach($tags_name as $que){
+                                     echo $que->Tags_name;
+                                 }
+                             }?>
+                             ">
                         </div>
                     </div>
                 </div>
