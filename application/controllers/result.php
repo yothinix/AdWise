@@ -75,7 +75,6 @@ class Result extends CI_Controller {
         // $seed_itemsets[x][1] => use to call Occupation_id
         // $seed_itemsets[x][2][y] => use to call Tags_id
         // x,y = key
-        
         return $seed_itemsets;
     }
 
@@ -91,16 +90,39 @@ class Result extends CI_Controller {
             $Lk[$i]['itemset'] = $_array[0][2][$i];
             $Lk[$i]['support'] = 1;
         }
-
-        for($x = 1; $x <= sizeof($_array); $x++)
+        
+        //find support of itemsets a.k.a frequent itemsets
+        for($x = 1; $x < sizeof($_array); $x++)            //every TID
         {
-            for($y = 0; $y < sizeof($_array[$x][2]); $y++)
+            for($y = 0; $y < sizeof($_array[$x][2]); $y++)  //every Tags
             {
-                if($_array[$x][2][$y] === $_array[0][2][$z]) //compare initialset with other itemsets
+                for($z = 0; $z < sizeof($Lk); $z++)         //check with exist itemsets in Lk
+                {
+                    if($_array[$x][2][$y] == $Lk[$z]['itemset'])
+                        $Lk[$z]['support']++;
+                }
+                array_push($Lk, array('itemset' => $_array[$x][2][$y], 'support' => 1));
             }
         }
 
-       return $Lk; 
+        //initial
+        $new_array = array(
+            0 => array(
+                'itemset' => $Lk[0]['itemset'], 
+                'support' => $Lk[0]['support']));
+        
+        //extract same itemsets from Lk 
+        for($i = 0; $i < sizeof($new_array); $i++)
+        {
+            if($new_array[$i]['itemset'] != $Lk[$i]['itemset'])
+            {
+                array_push($new_array, array(
+                    'itemset' => $Lk[$i]['itemset'],
+                    'support' => $Lk[$i]['support']
+                ));    
+            }
+        }
+        return $new_array; 
     }
 
 }
