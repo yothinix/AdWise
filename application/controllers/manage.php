@@ -276,7 +276,7 @@ class Manage extends CI_Controller{
         $this->load->view('manage occupation data', $data);
     }
 
-    function  manage_occupation()
+    function manage_occupation()
     {
         $this->load->model('Manage_occupation');
         $user = $this->Manage_occupation->get_manage_occupation();

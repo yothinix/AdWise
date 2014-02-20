@@ -143,6 +143,5 @@ class User_model extends CI_Model {
         $this->db->where('ID', $userID);
         $this->db->update('user', $data);
     }
-
 }
 ?>

@@ -4,6 +4,4 @@ $config['protocol'] = 'smtp';
 $config['smtp_host'] = 'ssl://smtp.gmail.com';
 $config['smtp_port'] = 465;
 $config['smtp_user'] = 'adwiseiteproject13@gmail.com';
-$config['smtp_pass'] = '';
-
-
+$config['smtp_pass'] = 'iteproject2013';

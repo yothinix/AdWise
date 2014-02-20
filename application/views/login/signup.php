@@ -80,7 +80,7 @@
         <h3 id="myModalLabel">Forget your password ?</h3>
     </div>
     <div class="modal-body" style="text-align: center;margin-right: 10px;margin-left: 10px">
-        <?php echo form_open(''); ?>
+        <?php echo form_open('email/send_email'); ?>
         <input type="text" name="username" class="input-block-level" placeholder="Username" style="margin-top: 5px">
         <br>
         <input type="text" name="email" class="input-block-level" placeholder="Email" style="margin-top: 5px">

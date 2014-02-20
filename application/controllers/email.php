@@ -5,56 +5,56 @@ class Email extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->database();
-        $this->load->helper(array('form', 'url'));
-        $this->load->library('form_validation');
     }
 
-    public function index()
+    public function send_email()
     {
-
+        $this->form_validation->set_rules('username', 'Username', 'trim|required|callback_username_check');
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_email_check');
 
         if ($this->form_validation->run() == FALSE)
         {
-            $this->load->view('login/signin');
+            $this->load->view('login/signup');
         }
         else
         {
             $email= $this->input->post('email');
+
             $this->load->helper('string');
-            //$rs = random_string('alnum', 12);
+            $password= random_string('alnum', 12);
 
             $data = array(
-                'rs' => $rs
+                'password' => $password
             );
+
             $this->db->where('email', $email);
-            $this->db->update('users', $data);
+            $this->db->update('user', $data);
 
             //now we will send an email
-
-            $config['protocol'] = 'smtp';
-            $config['smtp_host'] = 'ssl://smtp.googlemail.com';
-            $config['smtp_port'] = 465;
-            $config['smtp_user'] = 'adwiseiteproject13@gmail.com';
-            $config['smtp_pass'] = 'iteproject2013';
-
-            $this->load->library('email', $config);
+            $this->load->library('email');
+            $this->email->set_newline("\r\n");
 
             $this->email->from('adwiseiteproject13@gmail.com', 'AdWise');
             $this->email->to($email);
-
             $this->email->subject('Get your forgotten Password');
-            $this->email->message('Your password is'.$rs );
+            $this->email->message('Please go to this link to get your password.
+            http://localhost/ci/get_password/index/'.$password);
 
-            $this->email->send();
-            echo "Please check your email address.";
+            if($this->email->send())
+            {
+                echo 'Please check your email address.';
+            }
+
+            else
+            {
+                show_error($this->email->print_debugger());
+            }
         }
     }
 
     public function email_check($str)
     {
-        $query = $this->db->get_where('users', array('email' => $str), 1);
+        $query = $this->db->get_where('user', array('email' => $str), 1);
 
         if ($query->num_rows()== 1)
         {
@@ -68,3 +68,4 @@ class Email extends CI_Controller
         }
     }
 }
+?>
