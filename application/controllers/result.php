@@ -35,12 +35,15 @@ class Result extends CI_Controller {
             $seed_itemsets = array_merge($seed_itemsets, $seed[$i]);
 
         $output_from_extract = $this->extract_itemsets($seed_itemsets);
+        $output_from_generate_candidate_pair = $this
+            ->generate_candidate_pair($output_from_extract, 2);
 
         $data = array(
             'main_content' => 'result_all',
             'ResultID' => $ResultID_array,
             'seed_itemsets' => $seed_itemsets,
-            'output_from_extract' => $output_from_extract
+            'output_from_extract' => $output_from_extract,
+            'output_from_generate_candidate_pair' => $output_from_generate_candidate_pair
         );
         $this->load->view('/includes/template', $data);
     }
@@ -80,7 +83,6 @@ class Result extends CI_Controller {
 
     function extract_itemsets($_array)
     {
-        $this->load->helper('array');
         //extract itemsets from transaction and create Lk table
         // $Lk[x][0] => stand for itemsets //now use itemsets instead of 0
         // $Lk[x][1] => stand for minimum_support //now use support instead of 1
@@ -106,6 +108,7 @@ class Result extends CI_Controller {
             }
         }
         
+        //remove duplicate itemsets
         $Lk = array_reverse($Lk);
         foreach($Lk as $k => $v)
         {
@@ -117,8 +120,48 @@ class Result extends CI_Controller {
                 }
             }
         }
+        $Lk = array_reverse($Lk);
 
         return $Lk; 
+    }
+
+    function generate_candidate_pair($Lk, $min_sup)
+    {
+        //remove itemsets that have support < min_sup
+        foreach($Lk as $key => $value)
+        {
+            if($value['support'] < $min_sup)
+            {
+                unset($Lk[$key]);
+            }
+        }
+        $Lk = array_reverse(array_reverse($Lk)); //use to shift empty key off
+
+        $new_Lk = array();
+        foreach($Lk as $k => $v)
+        {
+            foreach($Lk as $key => $value)
+            {
+                if(!($k != $key && $v['itemset'] == $value['itemset']))
+                {
+                    array_push($new_Lk, 
+                        array('itemset' => 
+                        array($v['itemset'],$value['itemset'])));
+                }
+            }
+        }
+        
+        foreach($new_Lk as $index => $itemset) //unset same item case
+        {
+            foreach($itemset as $items)
+            {
+                if($items[0] === $items[1])
+                    unset($new_Lk[$index]);
+            }
+        }
+        $new_Lk = array_reverse(array_reverse($new_Lk));
+
+        return $new_Lk;
     }
 
 }

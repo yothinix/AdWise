@@ -54,6 +54,8 @@ $array_size = count($ResultID);
 
 <hr>
 <?php
+    echo "----------- C2 -----------------";
+    var_dump($output_from_generate_candidate_pair);
     echo "----------- L1 -----------------";
     var_dump($output_from_extract);
     echo "----------- transaction items -------------";
