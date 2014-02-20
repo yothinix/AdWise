@@ -80,6 +80,7 @@ class Result extends CI_Controller {
 
     function extract_itemsets($_array)
     {
+        $this->load->helper('array');
         //extract itemsets from transaction and create Lk table
         // $Lk[x][0] => stand for itemsets //now use itemsets instead of 0
         // $Lk[x][1] => stand for minimum_support //now use support instead of 1
@@ -94,7 +95,7 @@ class Result extends CI_Controller {
         //find support of itemsets a.k.a frequent itemsets
         for($x = 1; $x < sizeof($_array); $x++)            //every TID
         {
-            for($y = 0; $y < sizeof($_array[$x][2]); $y++)  //every Tags
+            for($y = 0; $y < sizeof($_array[$x][2]); $y++)  //every Tags items
             {
                 for($z = 0; $z < sizeof($Lk); $z++)         //check with exist itemsets in Lk
                 {
@@ -104,25 +105,20 @@ class Result extends CI_Controller {
                 array_push($Lk, array('itemset' => $_array[$x][2][$y], 'support' => 1));
             }
         }
-
-        //initial
-        $new_array = array(
-            0 => array(
-                'itemset' => $Lk[0]['itemset'], 
-                'support' => $Lk[0]['support']));
         
-        //extract same itemsets from Lk 
-        for($i = 0; $i < sizeof($new_array); $i++)
+        $Lk = array_reverse($Lk);
+        foreach($Lk as $k => $v)
         {
-            if($new_array[$i]['itemset'] != $Lk[$i]['itemset'])
+            foreach($Lk as $key => $value)
             {
-                array_push($new_array, array(
-                    'itemset' => $Lk[$i]['itemset'],
-                    'support' => $Lk[$i]['support']
-                ));    
+                if($k != $key && $v['itemset'] == $value['itemset'])
+                {
+                    unset($Lk[$k]);
+                }
             }
         }
-        return $new_array; 
+
+        return $Lk; 
     }
 
 }
