@@ -170,6 +170,13 @@ class Assessment extends CI_Controller {
         }
     }
 
+    function delete_qa($AssessmentID, $QuestionNr)
+    {
+        $this->load->model('Manage_assessment');
+        $this->Manage_assessment->delete_qa_data($AssessmentID, $QuestionNr);
+        $this->create_asm_view('review_qa');
+    }
+
     function get_qa_data($AssessmentID, $QuestionNr)
     {
         $this->load->model('Manage_assessment');
