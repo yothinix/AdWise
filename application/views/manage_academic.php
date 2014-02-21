@@ -130,7 +130,6 @@
         </div>
         </div> <!-- ปิด delete -->
 <?php } ?>
-    <button onclick="Javascript:test();">test</button>
 </table>
 
 <!-- Modal Create -->
