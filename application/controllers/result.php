@@ -75,6 +75,7 @@ class Result extends CI_Controller {
                 $seed_itemsets[$x][2][$y] = $ocp_array[$x][2][$y]['Tags_id'];
             }
         }
+        unset($ocp_array);
         // $seed_itemsets[x][1] => use to call Occupation_id
         // $seed_itemsets[x][2][y] => use to call Tags_id
         // x,y = key
@@ -144,21 +145,33 @@ class Result extends CI_Controller {
             {
                 if(!($k != $key && $v['itemset'] == $value['itemset']))
                 {
-                    array_push($new_Lk, 
-                        array('itemset' => 
-                        array($v['itemset'],$value['itemset'])));
+                    array_push($new_Lk, array($v['itemset'],$value['itemset']));
                 }
             }
         }
-        
+        unset($Lk);
         foreach($new_Lk as $index => $itemset) //unset same item case
         {
-            foreach($itemset as $items)
+            if($itemset[0] === $itemset[1])
+                unset($new_Lk[$index]);
+        }
+        $new_Lk = array_reverse(array_reverse($new_Lk));
+        
+        //de_duplicate items in new_Lk[x]['itemset'];
+        $new_array = array($new_Lk[0]);
+        $limit = sizeof($new_Lk);
+        for($i = 0; $i < $limit; $i++)
+        {
+            for($j = $i++; $j < $limit; $j++)
             {
-                if($items[0] === $items[1])
-                    unset($new_Lk[$index]);
+                if(sort($new_Lk[$i]) == sort($new_Lk[$j]))
+                {
+                    array_push($new_array, $new_Lk[$i]);
+                }
             }
         }
+        $new_Lk = array_map("unserialize", array_unique(array_map("serialize", $new_array)));
+        unset($new_array);
         $new_Lk = array_reverse(array_reverse($new_Lk));
 
         return $new_Lk;
