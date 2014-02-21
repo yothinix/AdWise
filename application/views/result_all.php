@@ -53,15 +53,34 @@ $array_size = count($ResultID);
           </div>
 
 <hr>
+<div class="row">
+<div class="span6">
+<?php
+    echo "----------- L2 -----------------";
+    var_dump($L2);
+?>
+</div>
+<div class="span6">
 <?php
     echo "----------- C2 -----------------";
     var_dump($output_from_generate_candidate_pair);
+?>
+</div>
+</div>
+<div class="row">
+<div class="span6">
+<?php 
     echo "----------- L1 -----------------";
     var_dump($output_from_extract);
+?>
+</div>
+<div class="span6">
+<?php 
     echo "----------- transaction items -------------";
     var_dump($seed_itemsets);
-    //var_dump($ocp_array);
 ?>
+</div>
+</div>
 
 <?php
     //var_dump($ResultID);

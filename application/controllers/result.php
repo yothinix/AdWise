@@ -19,7 +19,9 @@ class Result extends CI_Controller {
         $query = $this->Result_model->get_resultID($UserID);
         foreach($query as $items)
         {
-            $ResultID_array[$counter]['ASM'] = $this->Result_model->get_assessment_name($items->AssessmentID);
+            $ResultID_array[$counter]['ASM'] = $this
+                ->Result_model
+                ->get_assessment_name($items->AssessmentID);
             $ResultID_array[$counter]['rID'] = $items->ResultID; 
             $data = $this->Result_model->get_result_data($items->ResultID);
             foreach($data as $desc)
@@ -37,15 +39,80 @@ class Result extends CI_Controller {
         $output_from_extract = $this->extract_itemsets($seed_itemsets);
         $output_from_generate_candidate_pair = $this
             ->generate_candidate_pair($output_from_extract, 2);
+        $L2 = $this->extract_n_itemsets($seed_itemsets, $output_from_generate_candidate_pair, 2);
 
         $data = array(
             'main_content' => 'result_all',
             'ResultID' => $ResultID_array,
             'seed_itemsets' => $seed_itemsets,
             'output_from_extract' => $output_from_extract,
-            'output_from_generate_candidate_pair' => $output_from_generate_candidate_pair
+            'output_from_generate_candidate_pair' => $output_from_generate_candidate_pair,
+            'L2' => $L2
         );
         $this->load->view('/includes/template', $data);
+    }
+
+    function extract_n_itemsets(array $seed_itemsets, array $candidate_set, $n_itemset)
+    {
+        $Lk = array();
+        for($i = 0; $i < sizeof($candidate_set); $i++)
+        {
+            $Lk[$i]['itemset'] = $candidate_set[$i]['itemset'];
+            $Lk[$i]['support'] = 0;
+        }
+        $flag = 0;
+        $logic_check = array();
+        //find support of itemsets a.k.a frequent itemsets
+        for($x = 0; $x < sizeof($Lk) ; $x++) //itemset in candidate 
+        {
+            //$flag = 0;
+            for($z = 0; $z < sizeof($Lk[$x]['itemset']); $z++) //item in itemset
+            //for($z = 0; $z < sizeof($seed_itemsets); $z++) //itemset in seed_element
+            {
+                $flag = 0;
+                for($y = 0; $y < sizeof($seed_itemsets); $y++) //itemset in seed_itemsets
+                //for($y = 0; $y < sizeof($Lk[$x]['itemset']); $y++) //item in itemset
+                {
+                    if($this->check_itemset($Lk[$x]['itemset'][$z], $seed_itemsets[$y][2]))
+                    {
+                        $flag++;
+                    }
+                    //array_push($logic_check, 
+                        //$Lk[$x]['itemset'][$z]);
+                        //array(($Lk[$z]['itemset'][$a], $seed_itemsets[$x][2])));
+                    //    $this->check_itemset($Lk[$x]['itemset'][$z], $seed_itemsets[$y][2]));
+                    //$flag);
+
+                }
+                array_push($logic_check, $flag);
+                if($flag == sizeof($Lk[$x]['itemset']))
+                {
+                    $Lk[$x]['support']++;
+                }
+            }
+        }
+        /*
+        //remove duplicate itemsets
+        $Lk = array_reverse($Lk);
+        foreach($Lk as $k => $v)
+        {
+            foreach($Lk as $key => $value)
+            {
+                if($k != $key && $v['itemset'] == $value['itemset'])
+                {
+                    unset($Lk[$k]);
+                }
+            }
+        }
+        $Lk = array_reverse($Lk);
+        */
+        //return $Lk; 
+        return $logic_check;
+    }
+
+    function check_itemset($a, array $b)
+    {
+        return in_array($a, $b); 
     }
 
     function data_prep($result_id)
@@ -57,9 +124,15 @@ class Result extends CI_Controller {
         for($i = 0; $i < $ocp_set_row; $i++)
         {
             $ocp_array[$i][0] = $ocp_set[$i]['Occupation_id'];
-            $ocp_array[$i][1] = $this->Result_model->get_ocp_name($ocp_set[$i]['Occupation_id']);
-            $ocp_array[$i][2] = $this->Result_model->get_relate_tagid($ocp_set[$i]['Occupation_id']);
-            $ocp_array[$i][3] = $this->Result_model->count_tag_ocp_row($ocp_set[$i]['Occupation_id']);
+            $ocp_array[$i][1] = $this
+                ->Result_model
+                ->get_ocp_name($ocp_set[$i]['Occupation_id']);
+            $ocp_array[$i][2] = $this
+                ->Result_model
+                ->get_relate_tagid($ocp_set[$i]['Occupation_id']);
+            $ocp_array[$i][3] = $this
+                ->Result_model
+                ->count_tag_ocp_row($ocp_set[$i]['Occupation_id']);
         }
             // $ocp_array[x][0] => use to call Occupation_id
             // $ocp_array[x][1] => use to call Occupation Name
@@ -173,8 +246,15 @@ class Result extends CI_Controller {
         $new_Lk = array_map("unserialize", array_unique(array_map("serialize", $new_array)));
         unset($new_array);
         $new_Lk = array_reverse(array_reverse($new_Lk));
+        
+        $export_array = array();
+        foreach($new_Lk as $itemsets)
+        {
+            array_push($export_array, array('itemset' => $itemsets));
+        }
+        unset($new_Lk);
 
-        return $new_Lk;
+        return $export_array;
     }
 
 }
