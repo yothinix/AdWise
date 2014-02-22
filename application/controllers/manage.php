@@ -316,8 +316,9 @@ class Manage extends CI_Controller{
     function update_occupation($Occupation_id)
     {
         $this->Manage_occupation->update_occupation($Occupation_id);
+
         $this->Manage_occupation->delete_ocp($Occupation_id); // ลบ clear all tags ก่อนจะทำการจับคู่ใหม่
-        $Tags = $this->input->post('tags2');
+        $Tags = $this->input->post('tags');
         $TotalTags = substr_count($Tags,',')+1;
         $Tags_Key = explode(",", $Tags);
         $counter = 0;
@@ -328,14 +329,14 @@ class Manage extends CI_Controller{
             $counter++;
         }
 
-        $this->Manage_occupation->delete_aca($Occupation_id); // ลบ clear all aca
-        $Academic = $this->input->post('Academic2');
+        $this->Manage_occupation->delete_aca($Occupation_id); // ลบ clear all aca ก่อนจะทำการจับคู่ใหม่
+        $Academic = $this->input->post('academic');
         $TotalAcademic = substr_count($Academic,',')+1;
         $Academic_Key = explode(",", $Academic);
         $counter = 0;
         while($counter < $TotalAcademic)
         {
-            $Academic_id = $this->Manage_occupation->aca_db($Academic_Key[$counter]);
+            $Academic_id = $this->Manage_occupation->aca_db($Academic_Key[$counter]); //ได้ aca id
             $this->Manage_occupation->aca_chk($Occupation_id,$Academic_id);
             $counter++;
         }

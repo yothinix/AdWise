@@ -127,11 +127,11 @@
                         <input type="text" id="detail" name="detail" class="input-block-level" value="<?php echo $row->Detail ?>">
                     </div>
                 </div>
-                <div class="control-group" >
+                <div class="control-group">
                     <label class="control-label" for="inputTag">Tag :</label>
                     <div class="example example_typeahead">
                         <div class="bs-docs-example">
-                            <input type="text" name="tags2" value="
+                            <input type="text" name="tags" value="
                             <?php
                             $tags = $this->Manage_occupation->get_tags($Occupation_id);
                             foreach($tags as $tg)
@@ -147,11 +147,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="control-group" >
+                <div class="control-group">
                     <label class="control-label" for="inputAcademic">Academic :</label>
                     <div class="example academic">
                         <div class="bs-docs-example">
-                            <input type="text" name="academic2" value="
+                            <input type="text" name="academic" value="
                             <?php
                             $academic = $this->Manage_occupation->get_academic($Occupation_id);
                             foreach($academic as $aca)

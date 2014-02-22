@@ -165,7 +165,7 @@ class Manage_occupation extends CI_Model {
         $this->db->insert('tags_occupation', $data);
     }
 
-    //clear all aca in ocp_aca
+    //clear all tags in ocp
     function  delete_aca($Occupation_id){
         $this->db->query("
             DELETE FROM occupation_academic
