@@ -32,10 +32,7 @@
     $user = $this->Manage_occupation->get_manage_occupation();
     foreach($user as $row)
     {
-        $Occupation_id = $row->Occupation_id;
-
-        ?>
-
+        $Occupation_id = $row->Occupation_id; ?>
         <tr>
             <td style="text-align: center"><?php echo $row->Occupation_id ?>  </td>
             <td><?php echo $row->Name ?>  </td>
@@ -81,7 +78,7 @@
                         $tags_id = $tg->tags_id;
                         $tags_name = $this->Manage_occupation->get_name($tags_id);
                         foreach($tags_name as $que){
-                            echo $que->Tags_name; ?> &nbsp <?php
+                            echo $que->Tags_name;?>&nbsp<?php
                         }
                     }
                     ?>
@@ -94,7 +91,7 @@
                         $Academic_id = $aca->Academic_id;
                         $Academic_name = $this->Manage_occupation->get_name_aca($Academic_id);
                         foreach($Academic_name as $an){
-                            echo $an->Name; ?> &nbsp <?php
+                            echo $an->Name;?>&nbsp<?php
                         }
                     }
                     ?>
@@ -134,7 +131,39 @@
                     <label class="control-label" for="inputTag">Tag :</label>
                     <div class="example example_typeahead">
                         <div class="bs-docs-example">
-                            <input type="text" name="tags" value="<?php echo $que->Tags_name ?>" >
+                            <input type="text" name="tags2" value="
+                            <?php
+                            $tags = $this->Manage_occupation->get_tags($Occupation_id);
+                            foreach($tags as $tg)
+                            {
+                                $tags_id = $tg->tags_id;
+                                $tags_name = $this->Manage_occupation->get_name($tags_id);
+                                foreach($tags_name as $que){
+                                    echo ",";
+                                    echo $que->Tags_name;
+                                }
+                            }
+                            ?>" >
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group" >
+                    <label class="control-label" for="inputAcademic">Academic :</label>
+                    <div class="example academic">
+                        <div class="bs-docs-example">
+                            <input type="text" name="academic2" value="
+                            <?php
+                            $academic = $this->Manage_occupation->get_academic($Occupation_id);
+                            foreach($academic as $aca)
+                            {
+                                $Academic_id = $aca->Academic_id;
+                                $Academic_name = $this->Manage_occupation->get_name_aca($Academic_id);
+                                foreach($Academic_name as $an){
+                                    echo ",";
+                                    echo $an->Name;
+                                }
+                            }
+                            ?>">
                         </div>
                     </div>
                 </div>
@@ -159,13 +188,8 @@
                 <a class="btn btn-primary" href="<?php echo base_url("index.php/manage/delete_occupation/{$Occupation_id}"); ?>"> Yes </a>
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
             </div>
-           </div>
-
-        <?php
-
-    }
-    ?>
-
+        </div>
+    <?php } ?>
 </table>
 
 <!-- Modal Create -->

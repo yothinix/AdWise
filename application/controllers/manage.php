@@ -286,7 +286,6 @@ class Manage extends CI_Controller{
 
     function create_occupation()
     {
-        $this->load->model('Manage_occupation');
         $Occupation_id = $this->Manage_occupation->ocp_db();
 
         $Tags = $this->input->post('Tags');
@@ -314,14 +313,33 @@ class Manage extends CI_Controller{
         $this->manage_occupation();
     }
 
-    function update_occupation($occupation_id)
+    function update_occupation($Occupation_id)
     {
-        $data = array(
-            'Name'=>$this->input->post('name'),
-            'Detail'=>$this->input->post('detail'),
-            'Tag'=>($this->input->post('tag'))
-        );
-        $this->Manage_occupation->update($occupation_id ,$data);
+        $this->Manage_occupation->update_occupation($Occupation_id);
+        $this->Manage_occupation->delete_ocp($Occupation_id); // ลบ clear all tags ก่อนจะทำการจับคู่ใหม่
+        $Tags = $this->input->post('tags2');
+        $TotalTags = substr_count($Tags,',')+1;
+        $Tags_Key = explode(",", $Tags);
+        $counter = 0;
+        while($counter < $TotalTags)
+        {
+            $Tags_id = $this->Manage_occupation->tags_db($Tags_Key[$counter]); //ได้ tag id
+            $this->Manage_occupation->tags_chk($Occupation_id,$Tags_id);
+            $counter++;
+        }
+
+        $this->Manage_occupation->delete_aca($Occupation_id); // ลบ clear all aca
+        $Academic = $this->input->post('Academic2');
+        $TotalAcademic = substr_count($Academic,',')+1;
+        $Academic_Key = explode(",", $Academic);
+        $counter = 0;
+        while($counter < $TotalAcademic)
+        {
+            $Academic_id = $this->Manage_occupation->aca_db($Academic_Key[$counter]);
+            $this->Manage_occupation->aca_chk($Occupation_id,$Academic_id);
+            $counter++;
+        }
+
         $this->manage_occupation();
     }
 
@@ -360,11 +378,6 @@ class Manage extends CI_Controller{
         $this->Manage_tags->update($Tags_id,$data);
 
         $this->manage_tags();
-    }
-
-    function taginput()
-    {
-        $this->load->view('taginput.html');
     }
 }
 ?>
