@@ -146,10 +146,11 @@ $userID = $row->ID;
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                     <h3 id="myModalLabel"><?php echo $row->Username ?></h3>
                 </div>
-                <div class="modal-body" style="margin-top: -10px; margin-left: 50px; text-align: center;">
-                    <div class="span5" style="margin-top: -20px">
+                <div class="modal-body" style="margin-top: -10px; text-align: center;">
+                    <div style="margin-top: -20px">
                         <!--ส่วนที่เพิ่มเข้ามา--!>
                     <br> <b>Status</b>
+                    <center>
                     <TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3" >
                     <TD><strong>Assessment</strong></TD>
                     <TD><strong>Status</strong></TD>
@@ -175,8 +176,7 @@ $userID = $row->ID;
                     }
                     }
                     ?>
-
-                    </TABLE>
+                    </TABLE></center><br>
                     <!--ส่วนที่เพิ่มเข้ามา--!>
                     </div>
 
