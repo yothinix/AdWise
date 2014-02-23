@@ -241,19 +241,37 @@ class Manage extends CI_Controller{
         $this->manage_result();
     }
 
-    function update_result($ResultID)
-    {
-        $data = array(
-            'name' => $this->input->post('name'),
-            'Detail'=>$this->input->post('detail')
-        );
-        $this->Manage_result_data->update_result($ResultID ,$data);
-        $this->manage_result();
-    }
+    //function update_result($ResultID)
+    //{
+    //    $data = array(
+    //        'name' => $this->input->post('name'),
+    //        'Detail'=>$this->input->post('detail')
+    //    );
+    //    $this->Manage_result_data->update_result($ResultID ,$data);
+    //    $this->manage_result();
+    //}
 
     function delete_result($ResultID)
     {
         $this->db->delete('result', array('ResultID' => $ResultID));
+        $this->manage_result();
+    }
+
+    function update_result($ResultID)
+    {
+        $this->Manage_result_data->update_result($ResultID);
+
+        $this->Manage_result_data->delete_result($ResultID);
+        $Occupation = $this->input->post('Occupation');
+        $TotalOcp = substr_count($Occupation,',')+1;
+        $Ocp_Key = explode(",", $Occupation);
+        $counter = 0;
+        while($counter < $TotalOcp)
+        {
+            $Occupation_id = $this->Manage_result_data->ocp_db($Ocp_Key[$counter]);
+            $this->Manage_result_data->ocp_chk($ResultID,$Occupation_id);
+            $counter++;
+        }
         $this->manage_result();
     }
 
