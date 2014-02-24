@@ -149,7 +149,7 @@ $userID = $row->ID;
                 <div class="modal-body" style="margin-top: -10px; text-align: center;">
                     <div style="margin-top: -20px">
                         <!--ส่วนที่เพิ่มเข้ามา--!>
-                    <br> <b>Status</b>
+                    <br> <b> <font size=4>Status</font></b>
                     <center>
                     <TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3" >
                     <TD><strong>Assessment</strong></TD>
@@ -158,8 +158,8 @@ $userID = $row->ID;
                     if($result_stat==null){
                         ?>
                             <TR>
-                            <TD>None</TD>
-                            <TD>None</TD>
+                            <TD><span class='label label-Default'>None</span></TD>
+                            <TD><span class='label label-Default'>None</span></TD>
                             </TR>
                         <?php
                     }else{
@@ -169,7 +169,10 @@ $userID = $row->ID;
                         $status = $stat->Status
                         ?>
                         <TR>
-                         <?php echo "<TD>".$assessment."</TD>"; echo "<TD>".$status."</TD>";   //แสดงลิสสถานะ assessment ทั้งหมดของ user ID ที่ส่งไป
+                         <?php
+                         if($status == 'cp'){
+                            echo "<TD>".$assessment."</TD>"; echo "<TD><span class='label label-success'>Success</span></TD>";   //แสดงลิสสถานะ assessment ทั้งหมดของ user ID ที่ส่งไป
+                         }
                          ?>
                          </TR>
                     <?php
