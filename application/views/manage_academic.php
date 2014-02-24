@@ -76,33 +76,37 @@
                 <div class="control-group" >
                     <label class="control-label" for="inputName">Name</label>
                     <div class="controls">
-                        <input type="text" name="name" class="input-block-level" value="<?php echo $row->Name ?>">
+                        <input type="text" id="name" name="name" class="input-block-level" value="<?php echo $row->Name ?>">
                     </div>
                 </div>
                 <div class="control-group" >
                     <label class="control-label" for="inputDetail">Detail</label>
                     <div class="controls">
-                        <input type="text" name="detail" class="input-block-level" value="<?php echo $row->Detail ?>">
+                        <input type="text" id="detail" name="detail" class="input-block-level" value="<?php echo $row->Detail ?>">
                     </div>
                 </div>
                 <div class="control-group" >
                     <label class="control-label" for="inputTag">Tag</label>
                     <div class="example example_typeahead">
                         <div class="bs-docs-example">
-                            <input type="text" name="tags" value="
-                            <?php            $tags = $this->Manage_academic->get_tags($Academic_id);
-                            foreach($tags as $tg)
-                            {
-                                $tags_id = $tg->tags_id;
-                                $tags_name = $this->Manage_academic->get_name($tags_id);
-                                foreach($tags_name as $que){
-                                    echo $que->Tags_name;?>&nbsp&nbsp<?php
-                                }
-                            }?>
-                            ">
+                             <input type="text" id="tags2" name="tags2" value="
+                             <?php
+                             $tags = $this->Manage_academic->get_tags($Academic_id);
+                             foreach($tags as $tg)
+                             {
+                                 $tags_id = $tg->tags_id;
+                                 $tags_name = $this->Manage_academic->get_name($tags_id);
+                                 foreach($tags_name as $que){
+                                     echo ",";
+                                     echo $que->Tags_name;
+
+                                 }
+                             }?>
+                             ">
                         </div>
                     </div>
                 </div>
+
                 <div class="control-group" style="margin-top: 10px; text-align: center">
                     <button type="submit" class="btn btn-success">Save</button>
                     <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
@@ -126,7 +130,6 @@
         </div>
         </div> <!-- ปิด delete -->
 <?php } ?>
-
 </table>
 
 <!-- Modal Create -->
