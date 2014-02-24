@@ -254,6 +254,7 @@ class Manage extends CI_Controller{
     function delete_result($ResultID)
     {
         $this->db->delete('result', array('ResultID' => $ResultID));
+        $this->db->delete('result_occupation', array('ResultID' => $ResultID));
         $this->manage_result();
     }
 
