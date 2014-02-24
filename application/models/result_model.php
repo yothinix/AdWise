@@ -81,6 +81,16 @@ class Result_model extends CI_Model {
         return $name;
     }
 
+    function get_ocp_data($ocp_id)
+    {
+        $query = $this->db->query
+            ("SELECT Name, Detail
+              FROM occupation
+              WHERE Occupation_id = '{$ocp_id}'
+              ");
+        return $query->result_array();
+    }
+
     function get_relate_tagid($ocp_id)
     {
         $query = $this->db->query

@@ -71,13 +71,56 @@ class Result extends CI_Controller {
             $Result_array = $L2;
         else
             $Result_array = $Large_array[$index-1];
+
+        $ocp_array = $this->get_assoc_ocp($seed_itemsets, $Result_array);
+        $ocp_data = array();
         
+        for($index = 0; $index < sizeof($ocp_array); $index++)
+        {
+            array_push($ocp_data, $this->get_ocp_detail($ocp_array[$index]));
+        }
+
         $data = array(
             'main_content' => 'result_all',
             'ResultID' => $ResultID_array,
-            'Result_array' => $Result_array
+            'Result_array' => $Result_array,
+            'seed_itemsets' => $seed_itemsets,
+            'ocp_array' => $ocp_array,
+            'ocp_data' => $ocp_data
         );
         $this->load->view('/includes/template', $data);
+    }
+
+    function get_assoc_ocp(array $seed_itemsets, array $Result_array)
+    {
+        $ocp_array = array();
+        $flag = 0;
+        for($r_index = 0; $r_index < sizeof($Result_array); $r_index++)
+        {
+            for($s_index = 0; $s_index < sizeof($seed_itemsets); $s_index++)
+            {
+                $flag = 0;
+                for($item = 0; $item < sizeof($Result_array[$r_index]['itemset']); $item++)
+                {
+                    if($this->check_itemset($Result_array[$r_index]['itemset'][$item]
+                        ,$seed_itemsets[$s_index][2]))
+                    {
+                        $flag++;
+                    }
+
+                    if($flag == sizeof($Result_array[$r_index]['itemset']))
+                        array_push($ocp_array, $seed_itemsets[$s_index][1]);
+                }
+            }
+        }
+
+        $ocp_array = array_map("unserialize", array_unique(array_map("serialize", $ocp_array)));
+        return array_reverse(array_reverse($ocp_array));
+    }
+
+    function get_ocp_detail($ocp_id)
+    {
+        return $this->Result_model->get_ocp_data($ocp_id);
     }
 
     function generate_Ck(array $Lk_array, $Lk_index) //case index >= 3
