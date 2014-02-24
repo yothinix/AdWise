@@ -69,14 +69,45 @@ class Manage_academic extends CI_Model {
         return $Tags_id;
     }
 
+    //clear all tags in aca
+    function  delete_aca($Academic_id){
+        $this->db->query("
+            DELETE FROM tags_academic
+            WHERE Academic_id = $Academic_id
+            ");
+    }
+    function tags_chk($Academic_id,$Tags_id)
+    {
+        $data = array(
+            'Academic_id' => $Academic_id,
+            'Tags_id' => $Tags_id
+        );
+        //if($Tags_id != 0){
+            $this->db->insert('tags_academic', $data);
+        //}
+    }
+
+    //update name detail
+    function update_academic($Academic_id){
+        $Academic_name = $this->input->post('name');
+        $Academic_detail = $this->input->post('detail');
+        $this->db->query("
+            UPDATE academic
+            SET NAME = '{$Academic_name}',Detail = '{$Academic_detail}'
+            WHERE Academic_id = $Academic_id
+            ");
+
+    }
+
     function tags_aca($Academic_id,$Tags_id)
     {
         $data = array(
             'Academic_id' => $Academic_id,
             'Tags_id' => $Tags_id
         );
-
-        $this->db->insert('tags_academic', $data);
+        if($Tags_id != 0){
+            $this->db->insert('tags_academic', $data);
+        }
     }
 
     function get_name($Tags_id)
@@ -88,42 +119,6 @@ class Manage_academic extends CI_Model {
             ");
 
         return $query->result();
-    }
-
-    function update_db($Academic_id)
-    {
-        $Academic_name = $this->input->post('Academic_name');
-        $Academic_detail = $this->input->post('Academic_detail');
-
-        $data = array
-        (
-            'Name' => $Academic_name,
-            'Detail' => $Academic_detail
-        );
-        $this->db->update($Academic_id, $data);
-
-        $query = $this->db->query("
-            SELECT Academic_id
-            FROM academic
-            WHERE Name = '{$Academic_name}'
-            AND Detail = '{$Academic_detail}'
-            ");
-
-        $Academic_id = 0;
-        foreach($query->result() as $acid)
-            $Academic_id = $acid->Academic_id;
-
-        return $Academic_id;
-    }
-
-    function update_tags($Academic_id,$Tags_id)
-    {
-        $data = array(
-            'Academic_id' => $Academic_id,
-            'Tags_id' => $Tags_id
-        );
-
-        $this->db->update('tags_academic', $data);
     }
 }
 ?>
