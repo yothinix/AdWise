@@ -58,45 +58,14 @@ $array_size = count($ResultID);
 <div class="span6">
 <?php
     echo "----------- Result_array -----------------";
-    var_dump($Result_array); //not loaded
+    var_dump($Result_array); 
 ?>
 </div>
 <div class="span6">
 <?php
-    echo "----------- C3 -----------------";
-    var_dump($C3); //not loaded
-?>
-</div>
-</div>
-<div class="row">
-<div class="span6">
-<?php
-    echo "----------- L2 -----------------";
-    var_dump($L2);
-?>
-</div>
-<div class="span6">
-<?php
-    echo "----------- C2 -----------------";
-    var_dump($C2);
-?>
-</div>
-</div>
-<div class="row">
-<div class="span6">
-<?php 
-    echo "----------- L1 -----------------";
-    var_dump($L1);
-?>
-</div>
-<div class="span6">
-<?php 
-    echo "----------- transaction items -------------";
-    var_dump($seed_itemsets);
+    echo "---------- Debugging Variable ------------";
+    var_dump($Result_array); 
 ?>
 </div>
 </div>
 
-<?php
-    //var_dump($ResultID);
-?>
