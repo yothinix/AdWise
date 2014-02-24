@@ -57,14 +57,14 @@ $array_size = count($ResultID);
 <div class="row">
 <div class="span6">
 <?php
-    echo "----------- L3 -----------------";
-    //var_dump($L3); //not loaded
+    echo "----------- Result_array -----------------";
+    var_dump($Result_array); //not loaded
 ?>
 </div>
 <div class="span6">
 <?php
     echo "----------- C3 -----------------";
-    //var_dump($output_from_generate_candidate_pair); //not loaded
+    var_dump($C3); //not loaded
 ?>
 </div>
 </div>
@@ -78,7 +78,7 @@ $array_size = count($ResultID);
 <div class="span6">
 <?php
     echo "----------- C2 -----------------";
-    var_dump($output_from_generate_candidate_pair);
+    var_dump($C2);
 ?>
 </div>
 </div>
@@ -86,7 +86,7 @@ $array_size = count($ResultID);
 <div class="span6">
 <?php 
     echo "----------- L1 -----------------";
-    var_dump($output_from_extract);
+    var_dump($L1);
 ?>
 </div>
 <div class="span6">

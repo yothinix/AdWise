@@ -1,5 +1,8 @@
 <?php
 
+$result = array(); 
+$combination = array();
+
 class Result extends CI_Controller {
 
     function __construct()
@@ -15,7 +18,12 @@ class Result extends CI_Controller {
         $ResultID_array = array();
         $seed_itemsets = array();
         $seed = array();
+        $Large_array = array();
+        $Candidate_array = array();
+        $Result_array = array();
+        $index = 3;
         $counter = 1;
+
         $query = $this->Result_model->get_resultID($UserID);
         foreach($query as $items)
         {
@@ -36,21 +44,100 @@ class Result extends CI_Controller {
         for($i = 1; $i <= sizeof($seed); $i++)
             $seed_itemsets = array_merge($seed_itemsets, $seed[$i]);
 
-        $output_from_extract = $this->extract_itemsets($seed_itemsets);
-        $output_from_generate_candidate_pair = $this
-            ->generate_candidate_pair($output_from_extract);
-        $L2 = $this->extract_n_itemsets($seed_itemsets, $output_from_generate_candidate_pair);
-        $L2_complete = $this->exclude_min_support($L2, 2, 2); //array | min_sup | L_index
+        $L1 = $this->extract_itemsets($seed_itemsets);
+        $C2 = $this->generate_candidate_pair($L1);
+        $L2 = $this->extract_n_itemsets($seed_itemsets, $C2);
+        $L2 = $this->exclude_min_support($L2, 2, 2); //array | min_sup | L_index
 
+        //after this do until found empty set use Lk-1
+        do
+        {
+            if($index == 3)
+            {
+                $Candidate_array[3] = $this->generate_Ck($L2, $index);
+                $Large_array[3] = $this->extract_n_itemsets($seed_itemsets, $Candidate_array[3]);
+                $Large_array[3] = $this->exclude_min_support($Large_array[3], 2, $index);
+            }
+            else
+            {
+                $Candidate_array[$index] = $this->generate_Ck($Large_array[$index-1], $index);
+                $Large_array[$index] = $this->extract_n_itemsets($seed_itemsets, $Candidate_array[$index]);
+                $Large_array[$index] = $this->exclude_min_support($Large_array[$index], 2, $index);
+            }
+            $index++;
+        }
+        while(!(empty($Large_array[$index])));
+
+        if($index == 4)
+            $Result_array = $L2;
+        else
+            $Result_array = $Large_array[$index-1];
+        
         $data = array(
             'main_content' => 'result_all',
             'ResultID' => $ResultID_array,
             'seed_itemsets' => $seed_itemsets,
-            'output_from_extract' => $output_from_extract,
-            'output_from_generate_candidate_pair' => $output_from_generate_candidate_pair,
-            'L2' => $L2_complete
+            'L1' => $L1,
+            'C2' => $C2,
+            'L2' => $L2,
+            'C3' => $Candidate_array[3],
+            //'L3' => $Large_array[3]
+            'Result_array' => $Result_array
         );
         $this->load->view('/includes/template', $data);
+    }
+
+    function generate_Ck(array $Lk_array, $Lk_index) //case index >= 3
+    {
+        $Ck = array();
+        $result_array = array();
+        //$Ck = array(array('itemset' => array()));
+        //add itemsets into Ck array
+        $index_Ck = 0;
+
+        //extract item from $Lk[index]['itemset']
+        for($index = 0; $index < sizeof($Lk_array); $index++)
+        {
+            for($item = 0; $item < sizeof($Lk_array[$index]['itemset']); $item++)
+            {
+                array_push($Ck, $Lk_array[$index]['itemset'][$item]);
+            }
+        }
+        $Ck = array_map("unserialize", array_unique(array_map("serialize", $Ck)));
+        $Ck = array_reverse(array_reverse($Ck));
+
+        if(empty($Ck))
+            return array();
+        else
+        {
+            //pairing process
+            $Ck = $this->combinations($Ck, $Lk_index);
+            for($index = 0; $index < sizeof($Ck); $index++)
+            {
+                array_push($result_array, array('itemset' => $Ck[$index]));
+            }
+
+            return $result_array;
+        }
+    }
+
+    //http://stackoverflow.com/questions/16310553/php-find-all-somewhat-unique-combinations-of-an-array
+    function combinations(array $myArray, $choose) {
+        global $result, $combination;
+        $n = count($myArray);
+
+        function inner ($start, $choose_, $arr, $n) {
+            global $result, $combination;
+
+            if ($choose_ == 0) array_push($result,$combination);
+            else for ($i = $start; $i <= $n - $choose_; ++$i) {
+                array_push($combination, $arr[$i]);
+                inner($i + 1, $choose_ - 1, $arr, $n);
+                array_pop($combination);
+            }
+        }
+        inner(0, $choose, $myArray, $n);
+        return $result;
     }
 
     function extract_n_itemsets(array $seed_itemsets, array $candidate_set)
@@ -83,7 +170,6 @@ class Result extends CI_Controller {
                 }
             }
         }
-        
         return $Lk; 
     }
 
@@ -254,32 +340,4 @@ class Result extends CI_Controller {
 
         return $export_array;
     }
-
-    function generate_Ck(array $Lk_array, $Lk_index)
-    {
-        $Ck = array(array('itemset' => array()));
-        //add itemsets into Ck array
-        $index_Ck = 0;
-        while($index_Ck < 3) //Ck limit loop not exactly right
-        {
-            for($index = 0; $index < sizeof($Lk_array); $index++)
-            {
-                for($item = 0; $item < sizeof($Lk_array[$index]['itemset']); $item++)
-                {
-                    //check if item exist in array not sure with array_search
-                    if(array_search($Ck[$index_Ck]['itemset'], $Lk_array[$index]['itemset'][$item])) 
-                        array_push($Ck[$index_Ck]['itemset'], $Lk_array[$index]['itemset'][$item]);
-                    //Ck loop ?
-                }
-            }
-            $index_Ck++;
-        }
-
-        //other way to implement
-        //put Lk * Lk and remove unsed itemsets row
-
-        return $Ck;
-    }
-
-
 }
