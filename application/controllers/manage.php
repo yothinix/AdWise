@@ -105,6 +105,8 @@ class Manage extends CI_Controller{
     function del_academic($Academic_id)
     {
         $this->db->delete('academic',array('Academic_id' => $Academic_id));
+        $this->db->delete('tags_academic',array('Academic_id' => $Academic_id));
+        $this->db->delete('occupation_academic',array('Academic_id' => $Academic_id));
         $this->manage_academic();
     }
 
