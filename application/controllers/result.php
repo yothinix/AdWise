@@ -40,6 +40,7 @@ class Result extends CI_Controller {
         $output_from_generate_candidate_pair = $this
             ->generate_candidate_pair($output_from_extract, 2);
         $L2 = $this->extract_n_itemsets($seed_itemsets, $output_from_generate_candidate_pair);
+        $L2_complete = $this->exclude_min_support($L2, 2, 2); //array | min_sup | L_index
 
         $data = array(
             'main_content' => 'result_all',
@@ -47,7 +48,7 @@ class Result extends CI_Controller {
             'seed_itemsets' => $seed_itemsets,
             'output_from_extract' => $output_from_extract,
             'output_from_generate_candidate_pair' => $output_from_generate_candidate_pair,
-            'L2' => $L2
+            'L2' => $L2_complete
         );
         $this->load->view('/includes/template', $data);
     }
@@ -65,35 +66,25 @@ class Result extends CI_Controller {
         //find support of itemsets a.k.a frequent itemsets
         for($x = 0; $x < sizeof($Lk) ; $x++) //itemset in candidate 
         {
-            //$flag = 0;
-            //for($z = 0; $z < sizeof($Lk[$x]['itemset']); $z++) //item in itemset
             for($y = 0; $y < sizeof($seed_itemsets); $y++) //itemset in seed_element
             {
                 $flag = 0;
-                //for($y = 0; $y < sizeof($seed_itemsets); $y++) //itemset in seed_itemsets
                 for($z = 0; $z < sizeof($Lk[$x]['itemset']); $z++) //item in itemset
                 {
                     if($this->check_itemset($Lk[$x]['itemset'][$z], $seed_itemsets[$y][2]))
                     {
                         $flag++;
                     }
-                    //array_push($logic_check, 
-                    //$Lk[$x]['itemset'][$z]);
-                    //array(($Lk[$z]['itemset'][$a], $seed_itemsets[$x][2])));
-                    //    $this->check_itemset($Lk[$x]['itemset'][$z], $seed_itemsets[$y][2]));
-                    //$flag); //count here is 24!!!!!
 
                     if($flag == sizeof($Lk[$x]['itemset']))
                     {
                         $Lk[$x]['support']++;
                     }
-                    array_push($logic_check, $flag);
                 }
             }
         }
         
         return $Lk; 
-        //return $logic_check;
     }
 
     function check_itemset($a, array $b)
@@ -185,17 +176,38 @@ class Result extends CI_Controller {
         return $Lk; 
     }
 
+    function exclude_min_support(array $Lk, $min_sup, $L_index) //use to remove itemset below min_sup
+    {
+        if($L_index == 1)
+        {
+            //remove itemsets that have support < min_sup
+            foreach($Lk as $key => $value)
+            {
+                if($value['support'] < $min_sup)
+                {
+                    unset($Lk[$key]);
+                }
+            }
+            $Lk = array_reverse(array_reverse($Lk)); //use to shift empty key off
+            return $Lk;
+        }
+        
+        else
+        {
+            for($index = 0; $index <= sizeof($Lk); $index++) 
+            {
+                if($Lk[$index]['support'] < $min_sup)
+                    unset($Lk[$index]);
+            }
+            $Lk = array_reverse(array_reverse($Lk));
+
+            return $Lk;
+        }
+    }
+
     function generate_candidate_pair($Lk, $min_sup)
     {
-        //remove itemsets that have support < min_sup
-        foreach($Lk as $key => $value)
-        {
-            if($value['support'] < $min_sup)
-            {
-                unset($Lk[$key]);
-            }
-        }
-        $Lk = array_reverse(array_reverse($Lk)); //use to shift empty key off
+        $Lk = $this->exclude_min_support($Lk, 2, 1);
 
         $new_Lk = array();
         foreach($Lk as $k => $v)
