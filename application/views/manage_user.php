@@ -171,7 +171,7 @@ $userID = $row->ID;
                         <TR>
                          <?php
                          if($status == 'cp'){
-                            echo "<TD>".$assessment."</TD>"; echo "<TD><span class='label label-success'>Success</span></TD>";   //แสดงลิสสถานะ assessment ทั้งหมดของ user ID ที่ส่งไป
+                            echo "<TD>".$assessment."</TD>"; echo "<TD><span class='label label-success'>Complete</span></TD>";   //แสดงลิสสถานะ assessment ทั้งหมดของ user ID ที่ส่งไป
                          }
                          ?>
                          </TR>
