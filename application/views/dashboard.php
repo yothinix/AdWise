@@ -41,23 +41,58 @@
 <br>
 <hr>
 <div class="container-fluid">
-
-        <?php
-        $assessment = $this->User_model->get_assessment();
-        foreach($assessment as $row)
-        {
-            echo "<div class=\"span4\">";
-            ?>
-            <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" data-src="holder.js/140x140" src="<?php echo base_url("/resources/assessment.png"); ?>">
-            <?php
-            echo heading("$row->Name", 3);
-            ?>
-
-            <?php    echo "</div><!-- /.span4 -->";
-        }
-        ?>
+    <div class="modal-body" style="margin-top: 10px; margin-left: 90px;">
+        <div style="border:1px solid black;width:600px;height:200px;overflow-y:hidden;overflow-x:scroll;">
+        <p style="width:250%;">
+            <div class="modal-body" style="margin-top: -10px; text-align: center;">
+                <div style="margin-top: -20px">
+                    <?php
+                    $ID=0;
+                    $user = $this->User_model->manage_user();
+                    foreach($user as $row)
+                    {
+                    $userID = $row->ID;
+                    ?>
+                    <!--ส่วนที่เพิ่มเข้ามา--!>
+                    <br> <b> <font size=4>Status</font></b>
+                    <center>
+                    <TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3" >
+                    <TD><strong>Assessment</strong></TD>
+                    <TD><strong>Status</strong></TD>
+                    <?php $result_stat = $this->User_model->status_user($userID);  //ส่งค่า userID ไปให้ query
+                    if($result_stat==null){
+                        ?>
+                            <TR>
+                            <TD><span class='label label-Default'>None</span></TD>
+                            <TD><span class='label label-Default'>None</span></TD>
+                            </TR>
+                        <?php
+                    }else{
+                    foreach($result_stat as $stat) //รับค่ามาแสดงผล
+                    {   //แทนตัวแปร
+                        $assessment = $stat->Name;
+                        $status = $stat->Status
+                        ?>
+                        <TR>
+                         <?php
+                         if($status == 'cp'){
+                            echo "<TD>".$assessment."</TD>"; echo "<TD><span class='label label-success'>Success</span></TD>";   //แสดงลิสสถานะ assessment ทั้งหมดของ user ID ที่ส่งไป
+                         }
+                         ?>
+                         </TR>
+                    <?php
+                    }
+                    }
+                    ?>
+                    </TABLE></center><br>
+                    <!--ส่วนที่เพิ่มเข้ามา--!>
+                    </div>
+        </p>
+        </div>
+    </div>
 </div>
 
 <?php echo form_close(); ?>
+<?php } // ปิด foreach ?>
 
 <!-- เหลือ assessment status กับ report -->
