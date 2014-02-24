@@ -53,6 +53,21 @@ $array_size = count($ResultID);
           </div>
 
 <hr>
+
+<div class="row">
+<div class="span6">
+<?php
+    echo "----------- L3 -----------------";
+    //var_dump($L3); //not loaded
+?>
+</div>
+<div class="span6">
+<?php
+    echo "----------- C3 -----------------";
+    //var_dump($output_from_generate_candidate_pair); //not loaded
+?>
+</div>
+</div>
 <div class="row">
 <div class="span6">
 <?php

@@ -38,7 +38,7 @@ class Result extends CI_Controller {
 
         $output_from_extract = $this->extract_itemsets($seed_itemsets);
         $output_from_generate_candidate_pair = $this
-            ->generate_candidate_pair($output_from_extract, 2);
+            ->generate_candidate_pair($output_from_extract);
         $L2 = $this->extract_n_itemsets($seed_itemsets, $output_from_generate_candidate_pair);
         $L2_complete = $this->exclude_min_support($L2, 2, 2); //array | min_sup | L_index
 
@@ -205,7 +205,7 @@ class Result extends CI_Controller {
         }
     }
 
-    function generate_candidate_pair($Lk, $min_sup)
+    function generate_candidate_pair($Lk)
     {
         $Lk = $this->exclude_min_support($Lk, 2, 1);
 
@@ -254,5 +254,32 @@ class Result extends CI_Controller {
 
         return $export_array;
     }
+
+    function generate_Ck(array $Lk_array, $Lk_index)
+    {
+        $Ck = array(array('itemset' => array()));
+        //add itemsets into Ck array
+        $index_Ck = 0;
+        while($index_Ck < 3) //Ck limit loop not exactly right
+        {
+            for($index = 0; $index < sizeof($Lk_array); $index++)
+            {
+                for($item = 0; $item < sizeof($Lk_array[$index]['itemset']); $item++)
+                {
+                    //check if item exist in array not sure with array_search
+                    if(array_search($Ck[$index_Ck]['itemset'], $Lk_array[$index]['itemset'][$item])) 
+                        array_push($Ck[$index_Ck]['itemset'], $Lk_array[$index]['itemset'][$item]);
+                    //Ck loop ?
+                }
+            }
+            $index_Ck++;
+        }
+
+        //other way to implement
+        //put Lk * Lk and remove unsed itemsets row
+
+        return $Ck;
+    }
+
 
 }
