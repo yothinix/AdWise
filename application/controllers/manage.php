@@ -281,6 +281,9 @@ class Manage extends CI_Controller{
     function delete_occupation($Occupation_id)
     {
         $this->db->delete('occupation', array('Occupation_id' => $Occupation_id));
+        $this->db->delete('tags_occupation', array('Occupation_id' => $Occupation_id));
+        $this->db->delete('occupation_academic', array('Occupation_id' => $Occupation_id));
+        $this->db->delete('result_occupation', array('Occupation_id' => $Occupation_id));
         $this->manage_occupation();
     }
 
