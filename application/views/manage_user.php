@@ -149,8 +149,8 @@ $userID = $row->ID;
                 <div class="modal-body" style="margin-top: -10px; text-align: center;">
                     <div style="margin-top: -20px">
                         <!--ส่วนที่เพิ่มเข้ามา--!>
-                    <br> <b> <font size=4>Status</font></b>
-                    <center>
+                    <br> <b> <font size=4>Assessment Status</font></b>
+                    <center><br>
                     <TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3" >
                     <TD><strong>Assessment</strong></TD>
                     <TD><strong>Status</strong></TD>
