@@ -42,19 +42,19 @@
 <br>
 <hr>
 <div class="container-fluid">
-    <div style="border:1px solid black;width:500px;height:150px;overflow:scroll;overflow-y:scroll;overflow-x:hidden;margin-left: 150px;margin-top: 20px;">
+    <div style="border:1px solid black;width:500px;height:180px;overflow:scroll;overflow-y:scroll;overflow-x:hidden;margin-left: 150px;margin-top: 20px;">
 
 
         <p style="width:250%;">
             <div class="modal-body" style="margin-top: -40px; text-align: center;">
-                <div style="margin-top: -10px">
+                <div style="margin-top: 6px">
                     <?php
                     $ID=0;
                     $userID = $this->session->userdata('user_id');
                     ?>
                     <!--ส่วนที่เพิ่มเข้ามา--!>
                     <br> <b> <font size=5>Assessment Status</font></b>
-                    <center>
+                    <center><br>
                     <TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3" >
                     <TD><center><strong>Assessment</strong></center></TD>
                     <TD><center><strong>Status</strong></center></TD>
