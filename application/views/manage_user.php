@@ -173,6 +173,9 @@ $userID = $row->ID;
                          if($status == 'cp'){
                             echo "<TD>".$assessment."</TD>"; echo "<TD><span class='label label-success'>Complete</span></TD>";   //แสดงลิสสถานะ assessment ทั้งหมดของ user ID ที่ส่งไป
                          }
+                         else if($status == 'ic'){
+                            echo "<TD>".$assessment."</TD>"; echo "<TD><span class='label label-danger'>Incomplete</span></TD>";
+                         }
                          ?>
                          </TR>
                     <?php
