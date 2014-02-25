@@ -9,6 +9,7 @@
     }
     .modal-body {
         font-size: 14px;
+       
     }
     .btn-file {
         position: relative;
@@ -151,15 +152,15 @@ $userID = $row->ID;
                         <!--ส่วนที่เพิ่มเข้ามา--!>
                     <br> <b> <font size=4>Assessment Status</font></b>
                     <center><br>
-                    <TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3" >
-                    <TD><strong>Assessment</strong></TD>
-                    <TD><strong>Status</strong></TD>
+                    <TABLE BORDER="5" CELLPADDING="10" CELLSPACING="200" >
+                    <TD><center><strong>Assessment</strong></center></TD>
+                    <TD><center><strong>Status</strong></center></TD>
                     <?php $result_stat = $this->User_model->status_user($userID);  //ส่งค่า userID ไปให้ query
                     if($result_stat==null){
                         ?>
                             <TR>
-                            <TD><span class='label label-Default'>None</span></TD>
-                            <TD><span class='label label-Default'>None</span></TD>
+                            <TD><center><span class="btn btn-inverse" type="button">None</span></center></TD>
+                            <TD><center><span class="btn btn-inverse" type="button">None</span></center></TD>
                             </TR>
                         <?php
                     }else{
@@ -171,10 +172,10 @@ $userID = $row->ID;
                         <TR>
                          <?php
                          if($status == 'cp'){
-                            echo "<TD>".$assessment."</TD>"; echo "<TD><span class='label label-success'>Complete</span></TD>";   //แสดงลิสสถานะ assessment ทั้งหมดของ user ID ที่ส่งไป
+                            echo "<TD>".$assessment."</TD>"; echo "<TD><span class='btn btn-success' type='botton'>Complete</span></TD>";   //แสดงลิสสถานะ assessment ทั้งหมดของ user ID ที่ส่งไป
                          }
                          else if($status == 'ic'){
-                            echo "<TD>".$assessment."</TD>"; echo "<TD><span class='label label-danger'>Incomplete</span></TD>";
+                            echo "<TD>".$assessment."</TD>"; echo "<TD><span class='btn btn-danger' type='botton'>Incomplete</span></TD></TD>";
                          }
                          ?>
                          </TR>
