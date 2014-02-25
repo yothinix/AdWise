@@ -36,30 +36,27 @@
             <?php echo $row->Email ?>
 
         <?php } //ตัวปิด ?>
+
     </div>
 </div>
 <br>
 <hr>
 <div class="container-fluid">
-    <div class="modal-body" style="margin-top: 10px; margin-left: 90px;">
-        <div style="border:1px solid black;width:600px;height:200px;overflow-y:hidden;overflow-x:scroll;">
+
         <p style="width:250%;">
-            <div class="modal-body" style="margin-top: -10px; text-align: center;">
+            <div class="modal-body" style="margin-top: -25px; text-align: center;">
                 <div style="margin-top: -20px">
                     <?php
                     $ID=0;
-                    $user = $this->User_model->manage_user();
-                    foreach($user as $row)
-                    {
-                    $userID = $row->ID;
+                    $userID = $this->session->userdata('user_id');
                     ?>
                     <!--ส่วนที่เพิ่มเข้ามา--!>
-                    <br> <b> <font size=4>Status</font></b>
+                    <br> <b> <font size=5>Assessment Status</font></b>
                     <center>
                     <TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3" >
-                    <TD><strong>Assessment</strong></TD>
-                    <TD><strong>Status</strong></TD>
-                    <?php $result_stat = $this->User_model->status_user($userID);  //ส่งค่า userID ไปให้ query
+                    <TD><center><strong>Assessment</strong></center></TD>
+                    <TD><center><strong>Status</strong></center></TD>
+                    <?php $result_stat = $this->User_model->status_dashboard($userID);  //ส่งค่า userID ไปให้ query
                     if($result_stat==null){
                         ?>
                             <TR>
@@ -68,20 +65,20 @@
                             </TR>
                         <?php
                     }else{
-                    foreach($result_stat as $stat) //รับค่ามาแสดงผล
-                    {   //แทนตัวแปร
-                        $assessment = $stat->Name;
-                        $status = $stat->Status
+                        foreach($result_stat as $stat){
+                        $assessment = $stat->Assessment;
+                        $status = $stat->Status;
                         ?>
                         <TR>
                          <?php
                          if($status == 'cp'){
                             echo "<TD>".$assessment."</TD>"; echo "<TD><span class='label label-success'>Success</span></TD>";   //แสดงลิสสถานะ assessment ทั้งหมดของ user ID ที่ส่งไป
-                         }
+
                          ?>
                          </TR>
                     <?php
-                    }
+                        }
+                        }
                     }
                     ?>
                     </TABLE></center><br>
@@ -89,10 +86,8 @@
                     </div>
         </p>
         </div>
-    </div>
-</div>
+
 
 <?php echo form_close(); ?>
-<?php } // ปิด foreach ?>
 
 <!-- เหลือ assessment status กับ report -->
