@@ -42,10 +42,12 @@
 <br>
 <hr>
 <div class="container-fluid">
+    <div style="border:1px solid black;width:500px;height:150px;overflow:scroll;overflow-y:scroll;overflow-x:hidden;margin-left: 150px;margin-top: 20px;">
+
 
         <p style="width:250%;">
-            <div class="modal-body" style="margin-top: -25px; text-align: center;">
-                <div style="margin-top: -20px">
+            <div class="modal-body" style="margin-top: -40px; text-align: center;">
+                <div style="margin-top: -10px">
                     <?php
                     $ID=0;
                     $userID = $this->session->userdata('user_id');
@@ -86,7 +88,7 @@
                     </div>
         </p>
         </div>
-
+ </div>
 
 <?php echo form_close(); ?>
 
