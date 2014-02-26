@@ -32,7 +32,7 @@ class User extends CI_Controller{
         }
         else
         {
-            //$this->form_validation->set_message('$username','ไม่มี user');
+            redirect('/user/index?error');
 
         }
     }
@@ -132,12 +132,13 @@ class User extends CI_Controller{
 
         if($this->form_validation->run() == FALSE)
         {
-            $this->load->view('Failed');
+            redirect('/user/changepassword?error');
         }
         else
         {
             $this->User_model->password($username);
-            $this->profile();
+            redirect('/user/changepassword?success');
+
         }
     }
 
@@ -189,7 +190,7 @@ class User extends CI_Controller{
 
         if ($this->form_validation->run() == FALSE)
         {
-            $this->load->view('login/signup');
+            redirect('/user/index?failed');
         }
         else
         {
@@ -212,19 +213,19 @@ class User extends CI_Controller{
             $this->email->from('adwiseiteproject13@gmail.com', 'AdWise');
             $this->email->to($email);
             $this->email->subject('Get your forgotten Password');
-            $this->email->message('You have requested the new password, Here is you new password:'. $password);
-            $this->email->message('Please go to this link to get your password.');
+            $this->email->message('You have requested the new password, Here is you new password: '.$password);
+            //$this->email->message('Please go to this link to get your password.');
             //$this->email->subject('Get your forgotten Password');
             //$this->email->message('We want to help you reset password! Please <a href="'.base_url().'user/get_password/'.$password.'">click here</a> to reset your password.');
 
             if($this->email->send())
             {
-                echo 'Please check your email address.';
+                redirect('/user/index?success');
             }
 
             else
             {
-                show_error($this->email->print_debugger());
+                redirect('/user/index?failed');
             }
         }
     }

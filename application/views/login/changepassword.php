@@ -1,16 +1,20 @@
-<script>
-    function myFunction()
-    {
-        alert("Success! You have successfully done it.");
-    }
-</script>
-
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span11">
             <div class="row-fluid">
                 <h2 style="margin-top: -30px">Change Password</h2>
                 <hr/>
+
+                <div id="message1" class="alert alert-success" style="display:none;font-size: 14px;width: 700px">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Success!</strong> You have successfully done it.
+                </div>
+
+                <div id="message2" class="alert alert-danger" style="display:none;font-size: 14px;width: 700px">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Error!</strong> This is a fatal error.
+                </div>
+
                 <div class="span4" style="margin-top: 25px; text-align: center">
                     <?php
                     $get_image = $this->User_model->img($this->session->userdata('user_name'));
@@ -60,14 +64,27 @@
 
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" onclick="myModal()" class="btn btn-success">Save</button>
+                            <button type="submit" class="btn btn-success" ">Save</button>
                             <button type="reset" class="btn btn-danger" style="margin-left: 10px">Cancel</button>
                             <?php echo form_close(); ?>
+
                         </div>
                     </div>
                 </div><!--/span-->
+
             </div>
         </div>
     </div>
 </div>
 <br><br>
+<script>
+    if(<?php echo json_encode(isset($_GET['success']))?>){
+        document.getElementById("message1").style.display="block";
+    }
+</script>
+
+<script>
+    if(<?php echo json_encode(isset($_GET['error']))?>){
+        document.getElementById("message2").style.display="block";
+    }
+</script>
