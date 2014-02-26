@@ -1,5 +1,4 @@
-<?php
-class Manage extends CI_Controller{
+<?php class Manage extends CI_Controller{
     function __construct()
     {
         parent::__construct();
@@ -373,8 +372,16 @@ class Manage extends CI_Controller{
 
     function analytics()
     {
+        $this->load->model('Analytics_model');
+
+        $user_test_data = $this->Analytics_model->get_user_test_data(1); 
+        //AssessmentID input method will change later
+        $sex = 0;
+
+
         $data = array(
             'main_content' => 'analytics',
+            'user_test_data' => $user_test_data
 
         );
         $this->load->view('includes/template', $data);

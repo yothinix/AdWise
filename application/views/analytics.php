@@ -75,9 +75,11 @@
 <h2>Female</h2>
 <svg id="Female" class="mypiechart"></svg>
         </td>
-
     </tr>
 </table>
+<?php 
+    var_dump($user_test_data);
+?>
     <hr />
 
 <script type="text/javascript" src="<?php echo base_url("/assets/js/pie/lib/d3.v3.js"); ?>"></script>
@@ -88,7 +90,8 @@
 <script type="text/javascript" src="<?php echo base_url("/assets/js/pie/src/utils.js"); ?>"></script>
 
 <script>
-
+    //This is JSON data via JavaScript Template
+    //Need to json_encode the php array before sending to relate function
     var testdata = [
         {
             key: "One",
