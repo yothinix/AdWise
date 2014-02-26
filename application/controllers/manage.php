@@ -378,10 +378,13 @@
         //AssessmentID input method will change later
         $sex = 0;
 
+        $assessment = $this->Analytics_model->assessment();
+
 
         $data = array(
             'main_content' => 'analytics',
-            'user_test_data' => $user_test_data
+            'user_test_data' => $user_test_data,
+            'assessment' => $assessment
 
         );
         $this->load->view('includes/template', $data);

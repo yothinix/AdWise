@@ -64,7 +64,18 @@
 <link href="<?php echo base_url("/assets/js/pie/src/nv.d3.css"); ?>" rel="stylesheet" type="text/css">
 <h2 style="margin-top: -30px">Analytics</h2>
 <body class='with-3d-shadow with-transitions'>
+<select>
+    <?php
+    //var_dump($user_test_data);
+    var_dump($assessment);
+    foreach($assessment as $row){
+        echo "<option value='".$row["AssessmentID"]."'>".$row["Name"]."</option>";
+    }
+    ?>
 
+
+
+</select>
 <table>
     <tr>
         <td>
@@ -77,9 +88,7 @@
         </td>
     </tr>
 </table>
-<?php 
-    var_dump($user_test_data);
-?>
+
     <hr />
 
 <script type="text/javascript" src="<?php echo base_url("/assets/js/pie/lib/d3.v3.js"); ?>"></script>

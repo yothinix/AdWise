@@ -7,19 +7,23 @@ class Analytics_model extends CI_Model {
     }
     function get_user_test_data($AssessmentID)
     {
-        //I mention about this function in HipChat
-        //I want the table look like below (it can be using JOIN)
-        //  ____________________________
-        // | UserID | Gender| ResultID |
-        // ----------------------------
-        //
-        //
+        $query = $this->db->query("SELECT user_test.UserID, user.Gender, user_test.ResultID
+            FROM user_test
+            INNER JOIN user ON user_test.UserID = user.ID");
+
+
         $query = $this->db->query
             ("SELECT UserID, ResultID
               FROM user_test
               WHERE AssessmentID = '{$AssessmentID}'
               ");
 
+        return $query->result_array();
+    }
+
+    function assessment()
+    {
+        $query = $this->db->query("SELECT AssessmentID,Name FROM assessment");
         return $query->result_array();
     }
 
