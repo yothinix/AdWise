@@ -368,5 +368,16 @@ class Manage extends CI_Controller{
     {
         $this->load->view('taginput.html');
     }
+
+    ////////////// Analytics Function //////////////
+
+    function analytics()
+    {
+        $data = array(
+            'main_content' => 'analytics',
+
+        );
+        $this->load->view('includes/template', $data);
+    }
 }
 ?>
