@@ -32,7 +32,8 @@ class User extends CI_Controller{
         }
         else
         {
-            $this->form_validation->set_message('$username','ไม่มี user');
+            //$this->form_validation->set_message('$username','ไม่มี user');
+
         }
     }
 
@@ -56,7 +57,7 @@ class User extends CI_Controller{
         $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[8]|xss_clean');
         $this->form_validation->set_rules('email', 'Your Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[32]');
-        $this->form_validation->set_rules('re-type_password', 'Re-type Password', 'trim|required|matches[password]');
+        $this->form_validation->set_rules('re_password', 'Re-type Password', 'trim|required|matches[password]');
 
         if($this->form_validation->run() == FALSE)
         {
@@ -179,6 +180,52 @@ class User extends CI_Controller{
         {
             //$data['error'] = $this->upload->display_errors();
             //$this->load->view('upload/insert_view',$data);
+        }
+    }
+
+    function reset_password()
+    {
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->load->view('login/signup');
+        }
+        else
+        {
+            $email= $this->input->post('email');
+
+            $this->load->helper('string');
+            $password = random_string('alnum', 12);
+
+            $data = array(
+                'password' => MD5($password)
+            );
+
+            $this->db->where('email', $email);
+            $this->db->update('user', $data);
+
+            //now we will send an email
+            $this->load->library('email');
+            $this->email->set_newline("\r\n");
+
+            $this->email->from('adwiseiteproject13@gmail.com', 'AdWise');
+            $this->email->to($email);
+            $this->email->subject('Get your forgotten Password');
+            $this->email->message('You have requested the new password, Here is you new password:'. $password);
+            $this->email->message('Please go to this link to get your password.');
+            //$this->email->subject('Get your forgotten Password');
+            //$this->email->message('We want to help you reset password! Please <a href="'.base_url().'user/get_password/'.$password.'">click here</a> to reset your password.');
+
+            if($this->email->send())
+            {
+                echo 'Please check your email address.';
+            }
+
+            else
+            {
+                show_error($this->email->print_debugger());
+            }
         }
     }
 }

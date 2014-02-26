@@ -1,5 +1,4 @@
 <!-- ===== Sign Up ===== -->
-
 <style type="text/css">
     body {
         padding-top: 76px;
@@ -45,6 +44,40 @@
     }
 </style>
 
+<script>
+    $(document).ready(function(){
+
+        $('#contact-form').validate(
+            {
+                rules: {
+                    name: {
+                        required: true
+                    },
+                    lastname: {
+                        required: true
+                    },
+                    phone: {
+                        number: true,
+                        minlength: 10,
+                        maxlength: 10
+                    },
+                    email: {
+                        email: true,
+                        required: true
+                    }
+                },
+                highlight: function(element) {
+                    $(element).closest('.control-group').removeClass('success').addClass('error');
+                },
+                success: function(element) {
+                    element
+                        .text('OK!').addClass('valid')
+                        .closest('.control-group').removeClass('error').addClass('success');
+                }
+            });
+    }); // end document.ready
+</script>
+
 <?php echo br(5); ?>
 
 <div class="container-fluid">
@@ -80,13 +113,10 @@
         <h3 id="myModalLabel">Forget your password ?</h3>
     </div>
     <div class="modal-body" style="text-align: center;margin-right: 10px;margin-left: 10px">
-        <?php echo form_open('email/send_email'); ?>
-        <input type="text" name="username" class="input-block-level" placeholder="Username" style="margin-top: 5px">
-        <br>
+        <?php echo form_open('user/reset_password'); ?>
         <input type="text" name="email" class="input-block-level" placeholder="Email" style="margin-top: 5px">
         <br>
         <button type="submit" class="btn btn-success" style="margin-top: 5px;margin-left: -40px">Send Email</button>
-        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" style="margin-top: 5px;margin-left: 5px">Cancel</button>
         <?php echo form_close(); ?>
     </div>
 </div>

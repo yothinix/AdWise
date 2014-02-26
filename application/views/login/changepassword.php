@@ -51,7 +51,6 @@
                         </div>
                     </div>
 
-
                     <div class="control-group">
                         <label class="control-label" for="inputConfirm"> Confirm Password </label>
                         <div class="controls">
@@ -59,15 +58,13 @@
                         </div>
                     </div>
 
-
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" onclick="myFunction()" class="btn btn-success">Save</button>
+                            <button type="submit" onclick="myModal()" class="btn btn-success">Save</button>
                             <button type="reset" class="btn btn-danger" style="margin-left: 10px">Cancel</button>
                             <?php echo form_close(); ?>
                         </div>
                     </div>
-
                 </div><!--/span-->
             </div>
         </div>
