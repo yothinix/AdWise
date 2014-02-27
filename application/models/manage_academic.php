@@ -76,6 +76,7 @@ class Manage_academic extends CI_Model {
             WHERE Academic_id = $Academic_id
             ");
     }
+
     function tags_chk($Academic_id,$Tags_id)
     {
         $data = array(

@@ -32,7 +32,7 @@ class User_model extends CI_Model {
 
     function signup()
     {
-        $data=array(
+        $data = array(
             'username'=>$this->input->post('username'),
             'email'=>$this->input->post('email'),
             'password'=>md5($this->input->post('password'))
@@ -48,7 +48,7 @@ class User_model extends CI_Model {
         WHERE Username='$username'
         ");
 
-            return $query->result();
+        return $query->result();
     }
 
     function update($user,$data)
@@ -72,6 +72,12 @@ class User_model extends CI_Model {
     function manage_user()
     {
         $query = $this->db->query("SELECT * FROM user");
+        return $query->result();
+    }
+
+    function status_dashboard($user_id)
+    {
+        $query = $this->db->query("SELECT user_test.Status as Status, assessment.Name as Assessment FROM user_test INNER JOIN assessment ON assessment.AssessmentID = user_test.AssessmentID AND user_test.UserID = ".$user_id);
         return $query->result();
     }
 
@@ -144,5 +150,22 @@ class User_model extends CI_Model {
         $this->db->update('user', $data);
     }
 
+    function check_email($email)
+    {
+        $query = $this->db->query("SELECT * FROM user WHERE Email = '$email'");
+        return $query->result();
+    }
+
+    function check_password($password)
+    {
+        $query = $this->db->query("SELECT * FROM user WHERE Password = '$password'");
+        return $query->result();
+    }
+
+    function check_db($username,$email)
+    {
+        $query = $this->db->query("SELECT * FROM user WHERE Username ='$username' OR Email = '$email'");
+        return $query->result();
+    }
 }
 ?>

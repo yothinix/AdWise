@@ -62,6 +62,8 @@ class Assessment extends CI_Controller {
     {
         if($this->session->userdata('SelectChoice') == false)
         {
+            $UserID = $this->session->userdata('user_id');
+            $this->Assessment_model->reset_test_data($AID, $UserID);
             $this->test_all($AID,$QNR);
         }
         
