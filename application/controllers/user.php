@@ -4,6 +4,7 @@ class User extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('User_model');
+        $this->load->library('form_validation');
     }
 
     public function index()
@@ -52,8 +53,6 @@ class User extends CI_Controller{
 
     function signup()
     {
-        $this->load->library('form_validation');
-        // field name, error message, validation rules
         $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[8]|xss_clean');
         $this->form_validation->set_rules('email', 'Your Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[32]');
@@ -61,7 +60,7 @@ class User extends CI_Controller{
 
         if($this->form_validation->run() == FALSE)
         {
-            $this->load->view('login/Failed');
+            //$this->load->view('login/Failed');
         }
         else
         {
@@ -86,15 +85,6 @@ class User extends CI_Controller{
     function update()
     {
         $username = $this->session->userdata('user_name');
-
-        $this->load->model('User_model');
-        /*$data=array(
-            'name'=>$this->input->post('name'),
-            'lastname'=>$this->input->post('lastname'),
-            'phone'=>$this->input->post('phone'),
-            'email'=>($this->input->post('email'))
-        );
-        $this->db->update('user',$data,array('username' => 'pattie1211'));*/
 
         $data = array(
             'name'=>$this->input->post('name'),
@@ -123,22 +113,29 @@ class User extends CI_Controller{
     {
         $username = $this->session->userdata('user_name');
 
-        $this->load->model('User_model');
+        $password = md5($this->input->post('password'));
+        $check = $this->User_model->check_password($password);
 
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('password','password','trim|required|min_length[8]|max_length[32]');
-        $this->form_validation->set_rules('newpass', 'newpass', 'trim|required|min_length[8]|max_length[32]');
-        $this->form_validation->set_rules('confirm', 'confirm', 'trim|required|matches[newpass]');
-
-        if($this->form_validation->run() == FALSE)
+        if($check == NULL)
         {
             redirect('/user/changepassword?error');
         }
         else
         {
-            $this->User_model->password($username);
-            redirect('/user/changepassword?success');
+            $this->form_validation->set_rules('password','password','trim|required|min_length[8]|max_length[32]');
+            $this->form_validation->set_rules('newpass', 'newpass', 'trim|required|min_length[8]|max_length[32]');
+            $this->form_validation->set_rules('confirm', 'confirm', 'trim|required|matches[newpass]');
 
+            if($this->form_validation->run() == FALSE)
+            {
+                redirect('/user/changepassword?error');
+            }
+            else
+            {
+                $this->User_model->password($username);
+                redirect('/user/changepassword?success');
+
+            }
         }
     }
 
@@ -186,43 +183,50 @@ class User extends CI_Controller{
 
     function reset_password()
     {
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $email = $this->input->post('email');
+        $check = $this->User_model->check_email($email);
 
-        if ($this->form_validation->run() == FALSE)
+        if($check == NULL)
         {
             redirect('/user/index?failed');
         }
         else
         {
-            $email= $this->input->post('email');
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
 
-            $this->load->helper('string');
-            $password = random_string('alnum', 12);
-
-            $data = array(
-                'password' => MD5($password)
-            );
-
-            $this->db->where('email', $email);
-            $this->db->update('user', $data);
-
-            //now we will send an email
-            $this->load->library('email');
-            $this->email->set_newline("\r\n");
-
-            $this->email->from('adwiseiteproject13@gmail.com', 'AdWise');
-            $this->email->to($email);
-            $this->email->subject('Get your forgotten Password');
-            $this->email->message("You have requested the new password, Here is you new password: ".$password);
-
-            if($this->email->send())
-            {
-                redirect('/user/index?success');
-            }
-
-            else
+            if ($this->form_validation->run() == FALSE)
             {
                 redirect('/user/index?failed');
+            }
+            else
+            {
+                $this->load->helper('string');
+                $password = random_string('alnum', 12);
+
+                $data = array(
+                    'password' => MD5($password)
+                );
+
+                $this->db->where('email', $email);
+                $this->db->update('user', $data);
+
+                //now we will send an email
+                $this->load->library('email');
+                $this->email->set_newline("\r\n");
+
+                $this->email->from('adwiseiteproject13@gmail.com', 'AdWise');
+                $this->email->to($email);
+                $this->email->subject('Get your forgotten Password');
+                $this->email->message("You have requested the new password, Here is you new password: ".$password);
+
+                if($this->email->send())
+                {
+                    redirect('/user/index?success');
+                }
+                else
+                {
+                    redirect('/user/index?failed');
+                }
             }
         }
     }

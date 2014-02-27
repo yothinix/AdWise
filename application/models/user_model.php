@@ -149,5 +149,17 @@ class User_model extends CI_Model {
         $this->db->where('ID', $userID);
         $this->db->update('user', $data);
     }
+
+    function check_email($email)
+    {
+        $query = $this->db->query("SELECT * FROM user WHERE Email = '$email'");
+        return $query->result();
+    }
+
+    function check_password($password)
+    {
+        $query = $this->db->query("SELECT * FROM user WHERE Password = '$password'");
+        return $query->result();
+    }
 }
 ?>
