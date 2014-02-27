@@ -106,6 +106,11 @@ class Assessment_model extends CI_Model {
     {
         $this->db->update('assessment', array('status' => 0 ), array('AssessmentID' => $aid));
     }
+
+    function reset_test_data($Assessment_id, $UserID)
+    {
+        $this->db->delete('test', array('UserID' => $UserID, 'AssessmentID' => $Assessment_id));
+    }
 }
 ?>
 

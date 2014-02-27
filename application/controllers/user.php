@@ -181,6 +181,5 @@ class User extends CI_Controller{
             //$this->load->view('upload/insert_view',$data);
         }
     }
-
 }
 ?>

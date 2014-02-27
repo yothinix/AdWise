@@ -7,9 +7,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <!-- Javascript preload -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    <script src="<?php echo base_url("assets/js/bootstrap.min.js"); ?>"></script>
+
+    <!-- Le styles -->
     <link href="<?php echo base_url("/assets/css/bootstrap.css"); ?>" rel="stylesheet">
     <link href="<?php echo base_url("/assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
-    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 
     <!-- Head -->
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -38,20 +42,5 @@
             </div>
         </div>
     </div>
-
-    <!-- POPUP -->
-    <SCRIPT TYPE="text/javascript">
-        function popup(mylink, windowname)
-        {
-            if (! window.focus)return true;
-            var href;
-            if (typeof(mylink) == 'string')
-                href=mylink;
-            else
-                href=mylink.href;
-            window.open(href, windowname, 'width=400,height=200,scrollbars=yes');
-            return false;
-        }
-    </SCRIPT>
 </head>
 <body>>
