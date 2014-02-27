@@ -34,7 +34,6 @@ class User extends CI_Controller{
         else
         {
             redirect('/user/index?error');
-
         }
     }
 
@@ -53,19 +52,18 @@ class User extends CI_Controller{
 
     function signup()
     {
-        $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[8]|xss_clean');
-        $this->form_validation->set_rules('email', 'Your Email', 'trim|required|valid_email');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[32]');
-        $this->form_validation->set_rules('re_password', 'Re-type Password', 'trim|required|matches[password]');
+        $username = $this->input->post('username');
+        $email = $this->input->post('email');
+        $check = $this->User_model->check_db($username,$email);
 
-        if($this->form_validation->run() == FALSE)
-        {
-            $this->load->view('login/Failed');
-        }
-        else
+        if($check == NULL)
         {
             $this->User_model->signup();
             redirect('/user/index?complete');
+        }
+        else
+        {
+            redirect('/user/index?wrong');
         }
     }
 
