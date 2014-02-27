@@ -243,19 +243,38 @@ class Manage extends CI_Controller{
         $this->manage_result();
     }
 
-    function update_result($ResultID)
-    {
-        $data = array(
-            'name' => $this->input->post('name'),
-            'Detail'=>$this->input->post('detail')
-        );
-        $this->Manage_result_data->update_result($ResultID ,$data);
-        $this->manage_result();
-    }
+    //function update_result($ResultID)
+    //{
+    //    $data = array(
+    //        'name' => $this->input->post('name'),
+    //        'Detail'=>$this->input->post('detail')
+    //    );
+    //    $this->Manage_result_data->update_result($ResultID ,$data);
+    //    $this->manage_result();
+    //}
 
     function delete_result($ResultID)
     {
         $this->db->delete('result', array('ResultID' => $ResultID));
+        $this->db->delete('result_occupation', array('ResultID' => $ResultID));
+        $this->manage_result();
+    }
+
+    function update_result($ResultID)
+    {
+        $this->Manage_result_data->update_result($ResultID);
+
+        $this->Manage_result_data->delete_result($ResultID);
+        $Occupation = $this->input->post('Occupation');
+        $TotalOcp = substr_count($Occupation,',')+1;
+        $Ocp_Key = explode(",", $Occupation);
+        $counter = 0;
+        while($counter < $TotalOcp)
+        {
+            $Occupation_id = $this->Manage_result_data->ocp_db($Ocp_Key[$counter]);
+            $this->Manage_result_data->ocp_chk($ResultID,$Occupation_id);
+            $counter++;
+        }
         $this->manage_result();
     }
 
@@ -283,12 +302,14 @@ class Manage extends CI_Controller{
     function delete_occupation($Occupation_id)
     {
         $this->db->delete('occupation', array('Occupation_id' => $Occupation_id));
+        $this->db->delete('tags_occupation', array('Occupation_id' => $Occupation_id));
+        $this->db->delete('occupation_academic', array('Occupation_id' => $Occupation_id));
+        $this->db->delete('result_occupation', array('Occupation_id' => $Occupation_id));
         $this->manage_occupation();
     }
 
     function create_occupation()
     {
-        $this->load->model('Manage_occupation');
         $Occupation_id = $this->Manage_occupation->ocp_db();
 
         $Tags = $this->input->post('Tags');
@@ -316,14 +337,34 @@ class Manage extends CI_Controller{
         $this->manage_occupation();
     }
 
-    function update_occupation($occupation_id)
+    function update_occupation($Occupation_id)
     {
-        $data = array(
-            'Name'=>$this->input->post('name'),
-            'Detail'=>$this->input->post('detail'),
-            'Tag'=>($this->input->post('tag'))
-        );
-        $this->Manage_occupation->update($occupation_id ,$data);
+        $this->Manage_occupation->update_occupation($Occupation_id);
+
+        $this->Manage_occupation->delete_ocp($Occupation_id); // ลบ clear all tags ก่อนจะทำการจับคู่ใหม่
+        $Tags = $this->input->post('tags');
+        $TotalTags = substr_count($Tags,',')+1;
+        $Tags_Key = explode(",", $Tags);
+        $counter = 0;
+        while($counter < $TotalTags)
+        {
+            $Tags_id = $this->Manage_occupation->tags_db($Tags_Key[$counter]); //ได้ tag id
+            $this->Manage_occupation->tags_chk($Occupation_id,$Tags_id);
+            $counter++;
+        }
+
+        $this->Manage_occupation->delete_aca($Occupation_id); // ลบ clear all aca ก่อนจะทำการจับคู่ใหม่
+        $Academic = $this->input->post('academic');
+        $TotalAcademic = substr_count($Academic,',')+1;
+        $Academic_Key = explode(",", $Academic);
+        $counter = 0;
+        while($counter < $TotalAcademic)
+        {
+            $Academic_id = $this->Manage_occupation->aca_db($Academic_Key[$counter]); //ได้ aca id
+            $this->Manage_occupation->aca_chk($Occupation_id,$Academic_id);
+            $counter++;
+        }
+
         $this->manage_occupation();
     }
 
@@ -362,11 +403,6 @@ class Manage extends CI_Controller{
         $this->Manage_tags->update($Tags_id,$data);
 
         $this->manage_tags();
-    }
-
-    function taginput()
-    {
-        $this->load->view('taginput.html');
     }
 }
 ?>

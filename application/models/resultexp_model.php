@@ -122,7 +122,7 @@ class ResultExp_model extends CI_Model {
 
     function get_asm_status($userID, $AsmID)
     {
-        $output;
+        $output="";
         $query = $this->db->query("
             SELECT Status
             FROM user_test

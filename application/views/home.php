@@ -63,7 +63,7 @@
                 $currentChoiceID = $row->ChoiceID;
                 echo "<div class=\"row\">
                         <div class=\"span4\">
-                            <a class=\"btn btn-primary\" href=\"javascript:ans($currentChoiceID)\">ตัวเลือก $row->ChoiceID</a>
+                            <a class=\"btn btn-primary\" href=\"javascript:ans($currentChoiceID)\">ตัวเลือก</a>
                         </div><!--/span4-->
                         <div class=\"span8\" style =\"margin-left: -40px\">
                             <p>$row->Detail</p>
