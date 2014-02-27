@@ -95,12 +95,6 @@ echo "<input type=\"submit\" name=\"mysubmit\" class=\"btn btn-success input-lar
 ?>
                     <br>
                         <?php
-                            echo "#### DEBUG ####";
-                            var_dump($Current_Question);
-                            var_dump($this->session->userdata('QNR'));
-                            var_dump($this->session->userdata('CID'));
-                            echo "under is all userdata";
-                            var_dump($this->session->all_userdata());
                             echo form_close();
                         ?>
                 </div>
