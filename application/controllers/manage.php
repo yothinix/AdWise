@@ -74,7 +74,7 @@ class Manage extends CI_Controller{
         $this->upload->initialize($config);
     }
 
-    ////// Manage Academic Controller Function Group/////////////////////////
+/////////// Manage Academic Controller Function Group ////////////////
 
     function manage_academic()
     {
@@ -86,31 +86,44 @@ class Manage extends CI_Controller{
         $this->load->view('includes/template', $data);
     }
 
+    function create_academic()
+    {
+        $Academic_id = $this->Manage_academic->academic_db(); //ได้ academic id
+        $Tags = $this->input->post('Tags');
+        $TotalTags = substr_count($Tags,',')+1;
+        $Tags_Key = explode(",", $Tags);
+        $counter = 0;
+        while($counter < $TotalTags)
+        {
+            $Tags_id = $this->Manage_academic->tags_db($Tags_Key[$counter]); //ได้ tag id
+            $this->Manage_academic->tags_aca($Academic_id,$Tags_id);
+            $counter++;
+        }
+        $this->manage_academic();
+    }
+
     function del_academic($Academic_id)
     {
         $this->db->delete('academic',array('Academic_id' => $Academic_id));
+        $this->db->delete('tags_academic',array('Academic_id' => $Academic_id));
+        $this->db->delete('occupation_academic',array('Academic_id' => $Academic_id));
         $this->manage_academic();
     }
 
-    function create_academic()
+    function update_academic($Academic_id)
     {
-        $data = array(
-            'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag'))
-        );
-        $this->Manage_academic->create_academic($data);
-        $this->manage_academic();
-    }
-
-    function update_academic($academic_id)
-    {
-        $data = array(
-            'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag'))
-        );
-        $this->Manage_academic->update($academic_id ,$data);
+        $this->Manage_academic->update_academic($Academic_id);
+        $this->Manage_academic->delete_aca($Academic_id); // ลบ clear all tags ก่อนจะทำการจับคู่ใหม่
+        $Tags = $this->input->post('tags2');
+        $TotalTags = substr_count($Tags,',')+1;
+        $Tags_Key = explode(",", $Tags);
+        $counter = 0;
+        while($counter < $TotalTags)
+        {
+            $Tags_id = $this->Manage_academic->tags_db($Tags_Key[$counter]); //ได้ tag id
+            $this->Manage_academic->tags_chk($Academic_id,$Tags_id);
+            $counter++;
+        }
         $this->manage_academic();
     }
 
@@ -214,12 +227,19 @@ class Manage extends CI_Controller{
 
     function create_result()
     {
-        $data = array(
-            'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail')
+        $this->load->model('Manage_result_data');
 
-        );
-        $this->Manage_result_data->create_result($data);
+        $ResultID = $this->Manage_result_data->result_db();
+        $Occupation = $this->input->post('Occupation');
+        $TotalOcp = substr_count($Occupation,',')+1;
+        $Tags_Key = explode(",", $Occupation);
+        $counter = 0;
+        while($counter < $TotalOcp)
+        {
+            $Occupation_id = $this->Manage_result_data->ocp_db($Tags_Key[$counter]); //ได้ tag id
+            $this->Manage_result_data->result_ocp($ResultID,$Occupation_id);
+            $counter++;
+        }
         $this->manage_result();
     }
 
@@ -249,7 +269,7 @@ class Manage extends CI_Controller{
         $this->load->view('manage occupation data', $data);
     }
 
-    function  manage_occupation()
+    function manage_occupation()
     {
         $this->load->model('Manage_occupation');
         $user = $this->Manage_occupation->get_manage_occupation();
@@ -268,13 +288,31 @@ class Manage extends CI_Controller{
 
     function create_occupation()
     {
-        $data = array(
-            'name'=>$this->input->post('name'),
-            'detail'=>$this->input->post('detail'),
-            'tag'=>($this->input->post('tag')),
-            //'academic_id'=>($this->input->post('academic'))//
-        );
-        $this->Manage_occupation->create_occupation($data);
+        $this->load->model('Manage_occupation');
+        $Occupation_id = $this->Manage_occupation->ocp_db();
+
+        $Tags = $this->input->post('Tags');
+        $TotalTags = substr_count($Tags,',')+1;
+        $Tags_Key = explode(",", $Tags);
+        $counter = 0;
+        while($counter < $TotalTags)
+        {
+            $Tags_id = $this->Manage_occupation->tags_db($Tags_Key[$counter]);
+            $this->Manage_occupation->tags_ocp($Occupation_id,$Tags_id);
+            $counter++;
+        }
+
+        $Academic = $this->input->post('Academic');
+        $TotalAcademic = substr_count($Academic,',')+1;
+        $Academic_Key = explode(",", $Academic);
+        $counter = 0;
+        while($counter < $TotalAcademic)
+        {
+            $Academic_id = $this->Manage_occupation->aca_db($Academic_Key[$counter]);
+            $this->Manage_occupation->ocp_aca($Occupation_id,$Academic_id);
+            $counter++;
+        }
+
         $this->manage_occupation();
     }
 
@@ -284,7 +322,6 @@ class Manage extends CI_Controller{
             'Name'=>$this->input->post('name'),
             'Detail'=>$this->input->post('detail'),
             'Tag'=>($this->input->post('tag'))
-            //'academic_id'=>($this->input->post('academic'))//
         );
         $this->Manage_occupation->update($occupation_id ,$data);
         $this->manage_occupation();
@@ -325,6 +362,11 @@ class Manage extends CI_Controller{
         $this->Manage_tags->update($Tags_id,$data);
 
         $this->manage_tags();
+    }
+
+    function taginput()
+    {
+        $this->load->view('taginput.html');
     }
 }
 ?>

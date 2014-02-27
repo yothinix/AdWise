@@ -7,10 +7,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <!-- Javascript preload -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    <script src="<?php echo base_url("assets/js/bootstrap.min.js"); ?>"></script>
+
     <!-- Le styles -->
     <link href="<?php echo base_url("/assets/css/bootstrap.css"); ?>" rel="stylesheet">
-    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-
+    <link href="<?php echo base_url("/assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url("/assets/css/bootstrap-datetimepicker.min.css"); ?>">
     <style type="text/css">
         body {
             padding-top: 60px;
@@ -18,15 +22,8 @@
         .sidebar-nav {
             padding: 9px 0;
         }
-
-
-        }
     </style>
-    <link href="<?php echo base_url("/assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
-
-
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url("/assets/css/bootstrap-datetimepicker.min.css"); ?>">
-
+    
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="assets/js/html5shiv.js"></script>
@@ -34,13 +31,14 @@
 
 </head>
 
-<body ng-app>
+<body>
 
 <?php
 $asmlist = base_url("index.php/assessment/asmlist");
 $profile = base_url("index.php/user/profile");
 $change = base_url("index.php/user/changepassword");
-$result = base_url("index.php/assessment/result");
+//$result = base_url("index.php/assessment/result");  //OLD ONE FOR DIRECT USE OF ASSESSMENT DEBUGGING
+$result = base_url("index.php/result/view/{$this->session->userdata('user_id')}");
 $manage_user = base_url("index.php/manage/manage_user");
 $manage_assessment = base_url("index.php/manage/manage_assessment");
 $manage_assessment_type = base_url("index.php/manage/manage_assessment_type");
@@ -89,7 +87,7 @@ $tags = base_url("index.php/manage/manage_tags");
                     <li <?php if($main_content == 'assessment_list' || $main_content == 'home')
                             { echo "class=\"active\""; } ?>>
                         <a href="<?php echo $asmlist ?>"><i class="icon-edit icon-black"></i>Assessment</a></li>
-                    <li <?php if($main_content == 'result'){ echo "class=\"active\""; } ?>>
+                    <li <?php if($main_content == 'result_all'){ echo "class=\"active\""; } ?>>
                         <a href="<?php echo $result ?>"><i class="icon-print icon-black"></i>Report</a></li>
                     <li class="nav-header">User Menu</li>
                     <li <?php if($main_content == 'login/profile'){ echo "class=\"active\""; } ?>>
