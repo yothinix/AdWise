@@ -10,9 +10,12 @@
     <!-- Javascript preload -->
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script src="<?php echo base_url("assets/js/bootstrap.min.js"); ?>"></script>
+    <script src="<?php echo base_url("assets/js/jquery.validate.js"); ?>"></script>
+    <script src="<?php echo base_url("assets/js/jquery.validate.bootstrap.popover.min.js"); ?>"></script>
+    <script src="<?php echo base_url("assets/js/popover.js"); ?>"></script>
 
     <!-- Le styles -->
-    <link href="<?php echo base_url("/assets/css/bootstrap.css"); ?>" rel="stylesheet">
+    <link href="<?php echo base_url("/assets/css/bootstrap.min.css"); ?>" rel="stylesheet">
     <link href="<?php echo base_url("/assets/css/bootstrap-responsive.css"); ?>" rel="stylesheet">
 
     <!-- Head -->
@@ -43,4 +46,63 @@
         </div>
     </div>
 </head>
-<body>>
+<body>
+<!-- Alert Message Sign in Failed -->
+<div id="signin" class="alert alert-danger" style="display:none;font-size: 16px;margin-top: -35px">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Wrong!</strong> Username or password is incorrect.
+</div>
+
+<script>
+    if(<?php echo json_encode(isset($_GET['error']))?>){
+        document.getElementById("signin").style.display="block";
+    }
+</script>
+
+<!-- Alert Message Forget Password Failed -->
+<div id="forget1" class="alert alert-danger" style="display:none; font-size: 16px; margin-top: -35px">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Wrong!</strong> Email is incorrect.
+</div>
+
+<script>
+    if(<?php echo json_encode(isset($_GET['failed']))?>){
+        document.getElementById("forget1").style.display="block";
+    }
+</script>
+
+<!-- Alert Message Forget Password Successful -->
+<div id="forget2" class="alert alert-success" style="display:none; font-size: 16px; margin-top: -35px">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Success!</strong> Please check your email address.
+</div>
+
+<script>
+    if(<?php echo json_encode(isset($_GET['success']))?>){
+        document.getElementById("forget2").style.display="block";
+    }
+</script>
+
+<!-- Alert Message Sign up Successful -->
+<div id="signup1" class="alert alert-success" style="display:none; font-size: 16px; margin-top: -35px">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Success!</strong> You have successfully done it.
+</div>
+
+<script>
+    if(<?php echo json_encode(isset($_GET['complete']))?>){
+        document.getElementById("signup1").style.display="block";
+    }
+</script>
+
+<!-- Alert Message Sign up Failed -->
+<div id="signup2" class="alert alert-danger" style="display:none; font-size: 16px; margin-top: -35px">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Wrong!</strong> Username/Email ไม่สามารถใช้ได้.
+</div>
+
+<script>
+    if(<?php echo json_encode(isset($_GET['wrong']))?>){
+        document.getElementById("signup2").style.display="block";
+    }
+</script>

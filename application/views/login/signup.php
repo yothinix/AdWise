@@ -1,5 +1,3 @@
-<!-- ===== Sign Up ===== -->
-
 <style type="text/css">
     body {
         padding-top: 76px;
@@ -56,37 +54,40 @@
         </div>
 
         <div class="span4 offset2">
-            <form action="user/signup" id="contact-form" class="form-signup">
+            <?php
+            $form = array(
+                'class' => 'form-signup',
+                'id' => 'signup-form'
+            );
+            echo form_open('user/signup',$form); ?>
+            <!-- <form action="user/signup" class="form-signup" id="signup-form"> -->
                 <h2 class="form-signup-heading"><b style="color: lightgray">Sign Up to </b><b style="color: #ffffff">Ad</b><b style="color: red">Wise</b></h2>
-                <input type="text" id="username" name="username" class="input-block-level" placeholder="Username" value="<?php echo set_value('username'); ?>">
+                <input type="text" id="username" name="username" class="input-block-level required" minlength="8" placeholder="Username" value="<?php echo set_value('username'); ?>">
                 <br />
-                <input type="text" id="email" name="email" class="input-block-level" placeholder="Your Email" value="<?php echo set_value('email'); ?>">
+                <input type="text" id="email" name="email" class="input-block-level required email" placeholder="Your Email" value="<?php echo set_value('email'); ?>">
                 <br />
-                <input type="password" id="password" name="password" class="input-block-level" placeholder="Password" value="<?php echo set_value('password'); ?>">
+                    <input type="password" id="password" name="password" class="input-block-level required" minlength="8" maxlength="32" placeholder="Password" value="<?php echo set_value('password'); ?>">
                 <br />
-                <input type="password" id="re-type_password" name="re-type_password" class="input-block-level" placeholder="Re-type Password" value="<?php echo set_value('re-type_password'); ?>">
+                <input type="password" id="re_password" name="re_password" class="input-block-level required" equalTo="#password" placeholder="Re-type Password" value="<?php echo set_value('re-type_password'); ?>">
                 <br />
                 <button type="submit" value="submit" class="btn btn-success btn-large btn-block">Sign up</button>
-
                 <a href="#forget" class="pull-right" data-toggle="modal">Forget your password ?</a>
-            </form>
+            <!-- </form> -->
+            <?php echo form_close(); ?>
         </div>
     </div>
 </div>
 
 <div id="forget" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header" style="margin-top: 20px;margin-right: 10px;margin-left: 10px">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">?</button>
         <h3 id="myModalLabel">Forget your password ?</h3>
     </div>
     <div class="modal-body" style="text-align: center;margin-right: 10px;margin-left: 10px">
-        <?php echo form_open('email/send_email'); ?>
-        <input type="text" name="username" class="input-block-level" placeholder="Username" style="margin-top: 5px">
-        <br>
+        <?php echo form_open('user/reset_password'); ?>
         <input type="text" name="email" class="input-block-level" placeholder="Email" style="margin-top: 5px">
         <br>
         <button type="submit" class="btn btn-success" style="margin-top: 5px;margin-left: -40px">Send Email</button>
-        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" style="margin-top: 5px;margin-left: 5px">Cancel</button>
         <?php echo form_close(); ?>
     </div>
 </div>
