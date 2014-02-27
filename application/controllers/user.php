@@ -213,10 +213,7 @@ class User extends CI_Controller{
             $this->email->from('adwiseiteproject13@gmail.com', 'AdWise');
             $this->email->to($email);
             $this->email->subject('Get your forgotten Password');
-            $this->email->message('You have requested the new password, Here is you new password: '.$password);
-            //$this->email->message('Please go to this link to get your password.');
-            //$this->email->subject('Get your forgotten Password');
-            //$this->email->message('We want to help you reset password! Please <a href="'.base_url().'user/get_password/'.$password.'">click here</a> to reset your password.');
+            $this->email->message("You have requested the new password, Here is you new password: ".$password);
 
             if($this->email->send())
             {

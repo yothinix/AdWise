@@ -1,4 +1,3 @@
-<!-- ===== Sign Up ===== -->
 <style type="text/css">
     body {
         padding-top: 76px;
@@ -43,40 +42,6 @@
         bottom: 0px;
     }
 </style>
-
-<script>
-    $(document).ready(function(){
-
-        $('#contact-form').validate(
-            {
-                rules: {
-                    name: {
-                        required: true
-                    },
-                    lastname: {
-                        required: true
-                    },
-                    phone: {
-                        number: true,
-                        minlength: 10,
-                        maxlength: 10
-                    },
-                    email: {
-                        email: true,
-                        required: true
-                    }
-                },
-                highlight: function(element) {
-                    $(element).closest('.control-group').removeClass('success').addClass('error');
-                },
-                success: function(element) {
-                    element
-                        .text('OK!').addClass('valid')
-                        .closest('.control-group').removeClass('error').addClass('success');
-                }
-            });
-    }); // end document.ready
-</script>
 
 <?php echo br(5); ?>
 
