@@ -31,13 +31,7 @@
             <?php
             echo heading("$asm_info_row->Name", 3);
             echo "<p>$asm_info_row->Description</p>";
-            ?>
-            <p><a class="btn btn-primary btn-large btn-block" href="
-    <?php
-                echo base_url("index.php/assessment/test/{$asm_info_row->AssessmentID}/1");
-                ?>
-        "><i class="icon-hdd icon-white"></i> Save Progress</a></p>
-            <?php    echo "</div><!-- /.span4 -->";
+            echo "</div><!-- /.span4 -->";
         }
     ?>
     <div id="test" class="row span8" style="margin-left: 10px">

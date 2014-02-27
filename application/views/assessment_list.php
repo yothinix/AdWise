@@ -20,25 +20,25 @@
 
 <div class="row">
 
-    <?php
-    $assessment = $this->Assessment_model->get_asm_list();
-    foreach($assessment as $row)
-    {
-        echo "<div class=\"span4\">";
-    ?>
+<?php
+$assessment = $this->Assessment_model->get_asm_list();
+foreach($assessment as $row)
+{
+    echo "<div class=\"span4\">";
+?>
         <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" data-src="holder.js/140x140" src="<?php echo base_url("/resources/assessment.png"); ?>">
-    <?php
-        echo heading("$row->Name", 3);
-        echo "<p>$row->Description</p>";
-    ?>
+<?php
+    echo heading("$row->Name", 3);
+    echo "<p>$row->Description</p>";
+?>
     <p><a class="btn btn-primary btn-large btn-block" href="
-    <?php
+<?php
     echo base_url("index.php/assessment/test/{$row->AssessmentID}/1");
-    ?>
+?>
         ">Start Test &raquo;</a></p>
-    <?php    echo "</div><!-- /.span4 -->";
-    }
-    ?>
+<?php    echo "</div><!-- /.span4 -->";
+}
+?>
 </div><!--/span-->
 <hr>
 
