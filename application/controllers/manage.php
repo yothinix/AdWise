@@ -99,6 +99,7 @@ class Manage extends CI_Controller{
             $this->Manage_academic->tags_aca($Academic_id,$Tags_id);
             $counter++;
         }
+        $this->update_aca_json();
         $this->manage_academic();
     }
 
@@ -107,6 +108,7 @@ class Manage extends CI_Controller{
         $this->db->delete('academic',array('Academic_id' => $Academic_id));
         $this->db->delete('tags_academic',array('Academic_id' => $Academic_id));
         $this->db->delete('occupation_academic',array('Academic_id' => $Academic_id));
+        $this->update_aca_json();
         $this->manage_academic();
     }
 
@@ -124,7 +126,22 @@ class Manage extends CI_Controller{
             $this->Manage_academic->tags_chk($Academic_id,$Tags_id);
             $counter++;
         }
+        $this->update_aca_json();
         $this->manage_academic();
+    }
+
+    function update_aca_json()
+    {
+        $posts = array();
+        $query = $this->db->query("SELECT * FROM academic");
+        foreach($query->result() as $row)
+        {
+            $ACA_name = $row->Name;
+            $posts[] = ($ACA_name);
+        }
+        $data = json_encode($posts);
+        $path = FCPATH;
+        write_file("{$path}/assets/aca.json", $data, 'w');
     }
 
 /////////// Manage Assessment Controller Function Group/////////////////////////
@@ -305,6 +322,7 @@ class Manage extends CI_Controller{
         $this->db->delete('tags_occupation', array('Occupation_id' => $Occupation_id));
         $this->db->delete('occupation_academic', array('Occupation_id' => $Occupation_id));
         $this->db->delete('result_occupation', array('Occupation_id' => $Occupation_id));
+        $this->update_ocp_json();
         $this->manage_occupation();
     }
 
@@ -333,7 +351,7 @@ class Manage extends CI_Controller{
             $this->Manage_occupation->ocp_aca($Occupation_id,$Academic_id);
             $counter++;
         }
-
+        $this->update_ocp_json();
         $this->manage_occupation();
     }
 
@@ -364,8 +382,22 @@ class Manage extends CI_Controller{
             $this->Manage_occupation->aca_chk($Occupation_id,$Academic_id);
             $counter++;
         }
-
+        $this->update_ocp_json();
         $this->manage_occupation();
+    }
+
+    function update_ocp_json()
+    {
+        $posts = array();
+        $query = $this->db->query("SELECT * FROM occupation");
+        foreach($query->result() as $row)
+        {
+            $OCP_name = $row->Name;
+            $posts[] = ($OCP_name);
+        }
+        $data = json_encode($posts);
+        $path = FCPATH;
+        write_file("{$path}/assets/ocp.json", $data, 'w');
     }
 
 ////////////// Manage Tags Controller Function Group //////////////
@@ -382,7 +414,7 @@ class Manage extends CI_Controller{
 
     function del_tags($Tags_id)
     {
-        $this->db->delete('tags',array('Tags_id' => $Tags_id));
+        $this->Manage_tags->delete_tags($Tags_id);
         $this->manage_tags();
     }
 
