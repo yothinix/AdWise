@@ -14,13 +14,13 @@
         <?php }
         else
         { ?>
-            <img class="img-polaroid" style="width: 150px; height: 150px; margin-left: 15px" src="<?php echo base_url("/uploads/{$filename}") ?>" >
+            <img class="img-polaroid" style="width: 200px; height: 200px; margin-left: 50px" src="<?php echo base_url("/uploads/{$filename}") ?>" >
         <?php }
         echo br(2);
         } ?>
     </div>
 
-    <div class="span4">
+    <div class="span4"style="margin-left: 60px; margin-top: 40px; ">
 
         <?php
         foreach($dashboard as $row)
@@ -36,27 +36,60 @@
             <?php echo $row->Email ?>
 
         <?php } //ตัวปิด ?>
+
     </div>
 </div>
 <br>
 <hr>
 <div class="container-fluid">
 
-        <?php
-        $assessment = $this->User_model->get_assessment();
-        foreach($assessment as $row)
-        {
-            echo "<div class=\"span4\">";
-            ?>
-            <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" data-src="holder.js/140x140" src="<?php echo base_url("/resources/assessment.png"); ?>">
-            <?php
-            echo heading("$row->Name", 3);
-            ?>
+        <p style="width:250%;">
+            <div class="modal-body" style="margin-top: -20px; text-align: center;">
+                <div style="margin-top: -50px">
+                    <?php
+                    $ID=0;
+                    $userID = $this->session->userdata('user_id');
+                    ?>
+                    <!--ส่วนที่เพิ่มเข้ามา--!>
+                    <br> <b> <font size=5>Assessment Status</font></b>
+                    <center><br>
+                    <TABLE BORDER="5" CELLPADDING="10" CELLSPACING="200" >
+                    <TD><center><strong>Assessment</strong></center></TD>
+                    <TD><center><strong>Status</strong></center></TD>
+                    <?php $result_stat = $this->User_model->status_dashboard($userID);  //ส่งค่า userID ไปให้ query
+                    if($result_stat==null){
+                        ?>
+                            <TR>
+                            <TD><center><span class="btn btn-inverse" type="button">None</span></center></TD>
+                            <TD><center><span class="btn btn-inverse" type="button">None</span></center></TD>
+                            </TR>
+                        <?php
+                    }else{
+                        foreach($result_stat as $stat){
+                        $assessment = $stat->Assessment;
+                        $status = $stat->Status;
+                        ?>
+                        <TR>
+                         <?php
+                         if($status == 'cp'){
+                            echo "<TD>".$assessment."</TD>"; echo "<TD><span class='btn btn-success' type='botton'>Complete</span></TD>";   //แสดงลิสสถานะ assessment ทั้งหมดของ user ID ที่ส่งไป
+                         }
+                         else if($status == 'ic'){
+                            echo "<TD>".$assessment."</TD>"; echo "<TD><span class='btn btn-danger' type='botton'>Incomplete</span></TD></TD>";
+                         }
+                         ?>
+                         </TR>
+                    <?php
+                        }
+                        }
 
-            <?php    echo "</div><!-- /.span4 -->";
-        }
-        ?>
-</div>
+                    ?>
+                    </TABLE></center><br>
+                    <!--ส่วนที่เพิ่มเข้ามา--!>
+                    </div>
+        </p>
+        </div>
+
 
 <?php echo form_close(); ?>
 
