@@ -40,6 +40,19 @@ class Analytics_model extends CI_Model {
 
         return $gender;
     }
+
+    function graph_data($AssessmentID,$Gender){
+        $query = $this->db->query
+            ("SELECT AssessmentID, ResultID, COUNT( ResultID ) AS TotalResult
+              FROM user_test
+              INNER JOIN user ON UserID = ID
+              AND AssessmentID = ".$AssessmentID."
+              AND Gender = ".$Gender."
+              GROUP BY ResultID
+            ");
+        return $query->result();
+
+    }
 }
 
 ?>

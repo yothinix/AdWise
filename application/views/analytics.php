@@ -61,15 +61,33 @@
         border: 2px;
     }
 </style>
+<script type="text/javascript">
+    function change_analytics(){
+        var assessmentID = document.getElementById("select1").value;
+        alert(assessmentID);
+        $.ajax({
+            url:"<?php echo base_url('index.php/manage/get_analytics') ?>",
+            type:'POST',
+            data: {assessmentID: assessmentID},
+            success: function(data){
+                alert(data);
+            }
+        });
+
+       // show();
+    }
+</script>
 <link href="<?php echo base_url("/assets/js/pie/src/nv.d3.css"); ?>" rel="stylesheet" type="text/css">
 <h2 style="margin-top: -30px">Analytics</h2>
 <body class='with-3d-shadow with-transitions'>
-<select>
+
+<select id="select1" onchange='change_analytics();' >
     <?php
     //var_dump($user_test_data);
-    var_dump($assessment);
+
     foreach($assessment as $row){
-        echo "<option value='".$row["AssessmentID"]."'>".$row["Name"]."</option>";
+        echo "<option value='".$row["AssessmentID"]."' >".$row["Name"]."</option>";
+
     }
     ?>
 
@@ -101,6 +119,7 @@
 <script>
     //This is JSON data via JavaScript Template
     //Need to json_encode the php array before sending to relate function
+    function show(){
     var testdata = [
         {
             key: "One",
@@ -194,5 +213,6 @@
 
         return chart;
     });
+    }
 
 </script>

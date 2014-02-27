@@ -10,6 +10,7 @@
         $this->load->model('Manage_occupation');
         $this->load->model('Manage_result_data');
         $this->load->model('Manage_tags');
+        $this->load->model('Analytics_model');
     }
 
     function index()
@@ -389,5 +390,20 @@
         );
         $this->load->view('includes/template', $data);
     }
+
+    function get_analytics()
+    {
+        $assessmentID = $this->input->post('assessmentID');
+        $result_male = $this->Analytics_model->graph_data($assessmentID,0);
+        if(isset($result_male)){
+            foreach ($result_male as $row){
+                echo "AssessmentID : ".$row->AssessmentID;
+            }
+        }
+
+       // echo "$assessmentID ";
+        //echo "dsadas";
+    }
+
 }
 ?>
