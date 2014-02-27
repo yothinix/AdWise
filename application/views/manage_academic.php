@@ -99,7 +99,6 @@
                                  foreach($tags_name as $que){
                                      echo ",";
                                      echo $que->Tags_name;
-
                                  }
                              }?>
                              ">

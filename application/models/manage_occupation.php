@@ -137,5 +137,49 @@ class Manage_occupation extends CI_Model {
 
         return $query->result();
     }
+
+    function update_occupation($Occupation_id){
+        $Occupation_name = $this->input->post('name');
+        $Occupation_detail = $this->input->post('detail');
+        $this->db->query("
+            UPDATE occupation
+            SET NAME = '{$Occupation_name}',Detail = '{$Occupation_detail}'
+            WHERE Occupation_id = $Occupation_id
+            ");
+    }
+
+    //clear all tags in ocp
+    function  delete_ocp($Occupation_id){
+        $this->db->query("
+            DELETE FROM tags_occupation
+            WHERE Occupation_id = $Occupation_id
+            ");
+    }
+
+    function tags_chk($Occupation_id,$Tags_id)
+    {
+        $data = array(
+            'Occupation_id' => $Occupation_id,
+            'Tags_id' => $Tags_id
+        );
+        $this->db->insert('tags_occupation', $data);
+    }
+
+    //clear all tags in ocp
+    function  delete_aca($Occupation_id){
+        $this->db->query("
+            DELETE FROM occupation_academic
+            WHERE Occupation_id = $Occupation_id
+            ");
+    }
+
+    function aca_chk($Occupation_id,$Academic_id)
+    {
+        $data = array(
+            'Occupation_id' => $Occupation_id,
+            'Academic_id' => $Academic_id
+        );
+        $this->db->insert('occupation_academic', $data);
+    }
 }
 ?>
