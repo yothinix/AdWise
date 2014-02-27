@@ -75,6 +75,12 @@ class User_model extends CI_Model {
         return $query->result();
     }
 
+    function status_dashboard($user_id)
+    {
+        $query = $this->db->query("SELECT user_test.Status as Status, assessment.Name as Assessment FROM user_test INNER JOIN assessment ON assessment.AssessmentID = user_test.AssessmentID AND user_test.UserID = ".$user_id);
+        return $query->result();
+    }
+
     //เพิ่มเข้ามา    query จาก table assessment กับ user_test หาค่าจาก user ID ที่ส่งมา
     function status_user($userID)
     {
@@ -143,6 +149,5 @@ class User_model extends CI_Model {
         $this->db->where('ID', $userID);
         $this->db->update('user', $data);
     }
-
 }
 ?>

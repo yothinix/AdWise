@@ -56,6 +56,7 @@
                     <p><small><?php echo $data['asm_desc']; ?></small></p>
                 </div>
                 <hr/>
+<a href="<?php echo base_url('index.php/assessment/create_asm_view/question_and_answer'); ?>" class="btn btn-success">+ add more question</a>
 <?php
     $question = $this->Manage_assessment->get_all_question($AsmID);
     foreach($question as $row)
@@ -85,7 +86,6 @@
 <?php 
     } 
 ?>
-<a href="<?php echo base_url('index.php/assessment/create_asm_view/question_and_answer'); ?>" class="btn btn-success">+ add more question</a>
 <hr>
 
 

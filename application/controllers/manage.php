@@ -105,6 +105,8 @@ class Manage extends CI_Controller{
     function del_academic($Academic_id)
     {
         $this->db->delete('academic',array('Academic_id' => $Academic_id));
+        $this->db->delete('tags_academic',array('Academic_id' => $Academic_id));
+        $this->db->delete('occupation_academic',array('Academic_id' => $Academic_id));
         $this->manage_academic();
     }
 
@@ -241,19 +243,38 @@ class Manage extends CI_Controller{
         $this->manage_result();
     }
 
-    function update_result($ResultID)
-    {
-        $data = array(
-            'name' => $this->input->post('name'),
-            'Detail'=>$this->input->post('detail')
-        );
-        $this->Manage_result_data->update_result($ResultID ,$data);
-        $this->manage_result();
-    }
+    //function update_result($ResultID)
+    //{
+    //    $data = array(
+    //        'name' => $this->input->post('name'),
+    //        'Detail'=>$this->input->post('detail')
+    //    );
+    //    $this->Manage_result_data->update_result($ResultID ,$data);
+    //    $this->manage_result();
+    //}
 
     function delete_result($ResultID)
     {
         $this->db->delete('result', array('ResultID' => $ResultID));
+        $this->db->delete('result_occupation', array('ResultID' => $ResultID));
+        $this->manage_result();
+    }
+
+    function update_result($ResultID)
+    {
+        $this->Manage_result_data->update_result($ResultID);
+
+        $this->Manage_result_data->delete_result($ResultID);
+        $Occupation = $this->input->post('Occupation');
+        $TotalOcp = substr_count($Occupation,',')+1;
+        $Ocp_Key = explode(",", $Occupation);
+        $counter = 0;
+        while($counter < $TotalOcp)
+        {
+            $Occupation_id = $this->Manage_result_data->ocp_db($Ocp_Key[$counter]);
+            $this->Manage_result_data->ocp_chk($ResultID,$Occupation_id);
+            $counter++;
+        }
         $this->manage_result();
     }
 
@@ -267,7 +288,7 @@ class Manage extends CI_Controller{
         $this->load->view('manage occupation data', $data);
     }
 
-    function  manage_occupation()
+    function manage_occupation()
     {
         $this->load->model('Manage_occupation');
         $user = $this->Manage_occupation->get_manage_occupation();

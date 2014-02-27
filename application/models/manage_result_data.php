@@ -20,11 +20,11 @@ class Manage_result_data extends CI_Model {
         $this->db->insert('result', $data);
     }
 
-    function update_result($ResultID, $data)
-    {
-        $this->db->where('ResultID', $ResultID);
-        $this->db->update('result', $data);
-    }
+    //function update_result($ResultID, $data)
+    //{
+    //    $this->db->where('ResultID', $ResultID);
+    //    $this->db->update('result', $data);
+    //}
 
     function result_db()
     {
@@ -118,6 +118,34 @@ function get_name_aca($Academic_id)
             ");
 
         return $query->result();
+    }
+
+    function update_result($ResultID)
+    {
+        $Name = $this->input->post('name');
+        $Detail = $this->input->post('detail');
+        $this->db->query("
+            UPDATE result
+            SET NAME = '{$Name}',Detail = '{$Detail}'
+            WHERE ResultID = $ResultID
+            ");
+    }
+
+    function delete_result($ResultID)
+    {
+        $this->db->query("
+            DELETE FROM result_occupation
+            WHERE ResultID = $ResultID
+            ");
+    }
+
+    function ocp_chk($ResultID,$Occupation_id)
+    {
+        $data = array(
+            'ResultID' => $ResultID,
+            'Occupation_id' => $Occupation_id
+        );
+        $this->db->insert('result_occupation', $data);
     }
 }
 ?>

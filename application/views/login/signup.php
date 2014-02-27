@@ -68,8 +68,25 @@
                 <br />
                 <button type="submit" value="submit" class="btn btn-success btn-large btn-block">Sign up</button>
 
-                <a id="forget" href="#" class="pull-right">Forget your password ?</a>
+                <a href="#forget" class="pull-right" data-toggle="modal">Forget your password ?</a>
             </form>
         </div>
+    </div>
+</div>
+
+<div id="forget" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header" style="margin-top: 20px;margin-right: 10px;margin-left: 10px">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Forget your password ?</h3>
+    </div>
+    <div class="modal-body" style="text-align: center;margin-right: 10px;margin-left: 10px">
+        <?php echo form_open('email/send_email'); ?>
+        <input type="text" name="username" class="input-block-level" placeholder="Username" style="margin-top: 5px">
+        <br>
+        <input type="text" name="email" class="input-block-level" placeholder="Email" style="margin-top: 5px">
+        <br>
+        <button type="submit" class="btn btn-success" style="margin-top: 5px;margin-left: -40px">Send Email</button>
+        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" style="margin-top: 5px;margin-left: 5px">Cancel</button>
+        <?php echo form_close(); ?>
     </div>
 </div>
