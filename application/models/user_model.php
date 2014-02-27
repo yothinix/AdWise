@@ -32,7 +32,7 @@ class User_model extends CI_Model {
 
     function signup()
     {
-        $data=array(
+        $data = array(
             'username'=>$this->input->post('username'),
             'email'=>$this->input->post('email'),
             'password'=>md5($this->input->post('password'))

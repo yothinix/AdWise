@@ -44,7 +44,7 @@
     </div>
 </head>
 <body>
-<!-- Alert Message Failed Sign in -->
+<!-- Alert Message Sign in Failed -->
 <div id="signin" class="alert alert-danger" style="display:none;font-size: 16px;margin-top: -35px">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong>Wrong!</strong> Username or password is incorrect.
@@ -56,7 +56,7 @@
     }
 </script>
 
-<!-- Alert Message Failed Forget Password -->
+<!-- Alert Message Forget Password Failed -->
 <div id="forget1" class="alert alert-danger" style="display:none; font-size: 16px; margin-top: -35px">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong>Wrong!</strong> Email is incorrect.
@@ -68,7 +68,7 @@
     }
 </script>
 
-<!-- Alert Message Success Forget Password -->
+<!-- Alert Message Forget Password Successful -->
 <div id="forget2" class="alert alert-success" style="display:none; font-size: 16px; margin-top: -35px">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong>Success!</strong> Please check your email address.
@@ -77,5 +77,17 @@
 <script>
     if(<?php echo json_encode(isset($_GET['success']))?>){
         document.getElementById("forget2").style.display="block";
+    }
+</script>
+
+<!-- Alert Message Sign up Successful -->
+<div id="signup" class="alert alert-success" style="display:none; font-size: 16px; margin-top: -35px">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Success!</strong> You have successfully done it.
+</div>
+
+<script>
+    if(<?php echo json_encode(isset($_GET['complete']))?>){
+        document.getElementById("signup").style.display="block";
     }
 </script>

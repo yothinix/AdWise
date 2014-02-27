@@ -60,13 +60,12 @@ class User extends CI_Controller{
 
         if($this->form_validation->run() == FALSE)
         {
-            //$this->load->view('login/Failed');
+            $this->load->view('login/Failed');
         }
         else
         {
             $this->User_model->signup();
-            $data = array('main_content' => 'assessment_list');
-            $this->load->view('includes/template', $data);
+            redirect('/user/index?complete');
         }
     }
 
