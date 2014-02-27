@@ -62,6 +62,14 @@ class Result extends CI_Controller {
                 $Candidate_array[$index] = $this->generate_Ck($Large_array[$index-1], $index);
                 $Large_array[$index] = $this->extract_n_itemsets($seed_itemsets, $Candidate_array[$index]);
                 $Large_array[$index] = $this->exclude_min_support($Large_array[$index], 2, $index);
+                if($index == 5)
+                {
+                    unset($Large_array[$index-2]);
+                    unset($Candidate_array[$index-2]);
+                    unset($L1);
+                    unset($C2);
+                    unset($L2);
+                }
             }
             $index++;
         }

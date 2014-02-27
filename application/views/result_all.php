@@ -88,26 +88,4 @@ $array_size = count($ResultID);
 
 <hr>
 
-<div class="row">
-<div class="span6">
-<div class="row">
-<?php
-    echo "----------- Occupation_array ------------";
-    var_dump($ocp_data); 
-?>
-</div>
-<div class="row">
-<?php
-    echo "----------- Result_array -----------------";
-    var_dump($Result_array); 
-?>
-</div>
-</div>
-<div class="span6">
-<?php
-    echo "---------- Debugging Variable ------------";
-    var_dump($seed_itemsets); 
-?>
-</div>
-</div>
 
