@@ -381,11 +381,11 @@
 
         $assessment = $this->Analytics_model->assessment();
 
-
         $data = array(
             'main_content' => 'analytics',
             'user_test_data' => $user_test_data,
-            'assessment' => $assessment
+            'assessment' => $assessment,
+            'result_male' => 0
 
         );
         $this->load->view('includes/template', $data);
@@ -394,15 +394,20 @@
     function get_analytics()
     {
         $assessmentID = $this->input->post('assessmentID');
-        $result_male = $this->Analytics_model->graph_data($assessmentID,0);
-        if(isset($result_male)){
-            foreach ($result_male as $row){
-                echo "AssessmentID : ".$row->AssessmentID;
-            }
+        $result_male = $this->Analytics_model->graph_data((string) $assessmentID,0);
+        $return_array = array();
+
+        for($index = 0; $index < sizeof($result_male); $index++)
+        {
+            array_push($return_array, array('key' => $result_male[$index]['ResultID'], 'y' => $result_male[$index]['TotalResult']));
         }
 
-       // echo "$assessmentID ";
-        //echo "dsadas";
+        $data = array(
+            'main_content' => 'analytics',
+            'result_male' => json_encode($return_array)
+        );
+        $this->load->view('includes/template', $data);
+
     }
 
 }
