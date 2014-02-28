@@ -44,43 +44,32 @@ class Result extends CI_Controller {
             $seed_itemsets = array_merge($seed_itemsets, $seed[$i]);
         unset($seed);
         $L1 = $this->extract_itemsets($seed_itemsets);
-        $C2 = $this->generate_candidate_pair($L1);
+        //$C2 = $this->generate_candidate_pair($L1);
+        $C2 = $this->gen_c2($L1);
         $L2 = $this->extract_n_itemsets($seed_itemsets, $C2);
-        $L2 = $this->exclude_min_support($L2, 2, 2); //array | min_sup | L_index
+        $L2 = $this->exclude_min_support($L2, 7, 2); //array | min_sup | L_index
 
+        $Candidate_array[2] = $C2;
+        $Large_array[2] = $L2;
+        unset($L1);
+        unset($C2);
+        unset($L2);
         //after this do until found empty set use Lk-1
         do
         {
-            if($index == 3)
+            $Candidate_array[$index] = $this->generate_Ck($Large_array[$index-1], $index);
+            $Large_array[$index] = $this->extract_n_itemsets($seed_itemsets, $Candidate_array[$index]);
+            $Large_array[$index] = $this->exclude_min_support($Large_array[$index], 7, $index);
+            if($index > 4)
             {
-                $Candidate_array[3] = $this->generate_Ck($L2, $index);
-                $Large_array[3] = $this->extract_n_itemsets($seed_itemsets, $Candidate_array[3]);
-                $Large_array[3] = $this->exclude_min_support($Large_array[3], 2, $index);
-            }
-            else
-            {
-                $Candidate_array[$index] = $this->generate_Ck($Large_array[$index-1], $index);
-                $Large_array[$index] = $this->extract_n_itemsets($seed_itemsets, $Candidate_array[$index]);
-                $Large_array[$index] = $this->exclude_min_support($Large_array[$index], 2, $index);
-                if($index > 4)
-                {
-                    unset($Candidate_array[3]);
-                    unset($Large_array[3]);
-                    unset($Large_array[$index-2]);
-                    unset($Candidate_array[$index-2]);
-                    unset($L1);
-                    unset($C2);
-                    unset($L2);
-                }
+                unset($Large_array[$index-2]);
+                unset($Candidate_array[$index-2]);
             }
             $index++;
         }
         while(!(empty($Large_array[$index])));
 
-        if($index == 4)
-            $Result_array = $L2;
-        else
-            $Result_array = $Large_array[$index-1];
+        $Result_array = $Large_array[$index-1];
 
         $ocp_array = $this->get_assoc_ocp($seed_itemsets, $Result_array);
         $ocp_data = array();
@@ -89,14 +78,15 @@ class Result extends CI_Controller {
         {
             array_push($ocp_data, $this->get_ocp_detail($ocp_array[$index]));
         }
-
+        $final_index = $index; 
         $data = array(
             'main_content' => 'result_all',
             'ResultID' => $ResultID_array,
             'Result_array' => $Result_array,
             'seed_itemsets' => $seed_itemsets,
             'ocp_array' => $ocp_array,
-            'ocp_data' => $ocp_data
+            'ocp_data' => $ocp_data,
+            'index' => $final_index
         );
         $this->load->view('/includes/template', $data);
     }
@@ -328,6 +318,38 @@ class Result extends CI_Controller {
         }
     }
 
+    function gen_c2($Lk)
+    {
+        $Lk = $this->exclude_min_support($Lk,7,1);
+        $new_Lk = array();
+        foreach($Lk as $k => $v)
+        {
+            foreach($Lk as $key => $value)
+            {
+                if(!($k != $key && $v['itemset'] == $value['itemset']))
+                {
+                    array_push($new_Lk, array($v['itemset'],$value['itemset']));
+                }
+            }
+        }
+        unset($Lk);
+        foreach($new_Lk as $index => $itemset) //unset same item case
+        {
+            if($itemset[0] === $itemset[1])
+                unset($new_Lk[$index]);
+        }
+        $new_Lk = array_reverse(array_reverse($new_Lk));
+        
+        $export_array = array();
+        foreach($new_Lk as $itemsets)
+        {
+            array_push($export_array, array('itemset' => $itemsets));
+        }
+        unset($new_Lk);
+
+        return $export_array;
+    }
+
     function generate_candidate_pair($Lk)
     {
         $Lk = $this->exclude_min_support($Lk, 2, 1);
@@ -358,7 +380,7 @@ class Result extends CI_Controller {
         {
             for($j = $i++; $j < $limit; $j++)
             {
-                if(sort($new_Lk[$i]) == sort($new_Lk[$j]))
+                if(sort($new_Lk[$i]) == sort($new_Lk[$j])) //problem is on this line
                 {
                     array_push($new_array, $new_Lk[$i]);
                 }

@@ -85,7 +85,6 @@ $array_size = count($ResultID);
 </tbody></table></div>
 </div>
 </div>
-
 <hr>
 
 
