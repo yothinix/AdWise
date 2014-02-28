@@ -60,6 +60,8 @@
         width: 500px;
         border: 2px;
     }
+
+
 </style>
 <link href="<?php echo base_url("/assets/js/pie/src/nv.d3.css"); ?>" rel="stylesheet" type="text/css">
 <h2 style="margin-top: -30px">Analytics</h2>
@@ -68,18 +70,30 @@
 $controller = "manage/get_analytics";
 echo form_open($controller);
 ?>
-<select name="assessmentID">
-    <?php
-    foreach($assessment as $row){
-        echo "<option value='".$row["AssessmentID"]."' >".$row["Name"]."</option>";
-    }
-    ?>
-</select>
-<button type="submit" class="btn">Submit</button>
+
+ <table style="position: absolute">
+     <tr>
+         <td>
+            <select name="assessmentID">
+                <option value="" style="display:none;"><----Please Assessment----></option>
+                <?php
+                foreach($assessment as $row){
+                    echo "<option value='".$row["AssessmentID"]."' >".$row["Name"]."</option>";
+                }
+                ?>
+            </select>
+         </td>
+         <td style=" padding-bottom:13px ">
+            <button type="submit" class="btn" >Submit</button>
+         </td>
+     </tr>
+</table>
+
 <?php 
 echo form_close();
 ?>
-<table>
+
+<table style="margin-top: 40px">
     <tr>
         <td>
 <h2>Male</h2>
@@ -104,7 +118,8 @@ echo form_close();
 <script>
     //This is JSON data via JavaScript Template
 //Need to json_encode the php array before sending to relate function
-    var testdata = <?php echo $result_male; ?>;
+    var male = <?php echo $result_male; ?>;
+    var female = <?php echo $result_female; ?>;
     nv.addGraph(function() {
         var width = 430,
             height = 430;
@@ -117,25 +132,27 @@ echo form_close();
             .height(height);
 
         d3.select("#Male")
-            .datum(testdata)
+            .datum(male)
             .transition().duration(1200)
             .attr('width', width)
             .attr('height', height)
             .call(chart);
 
         d3.select("#Female")
-            .datum(testdata)
+            .datum(female)
             .transition().duration(1200)
             .attr('width', width)
             .attr('height', height)
             .call(chart);
+
 
         chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
 
         return chart;
     });
 
-    nv.addGraph(function() {
+
+   /*( nv.addGraph(function() {
 
         var width = 500,
             height = 500;
@@ -156,15 +173,15 @@ echo form_close();
 
         //chart.pie.donutLabelsOutside(true).donut(true);
 
-        d3.select("#test2")
+        d3.select("#test")
             //.datum(historicalBarChart)
-            .datum(testdata)
+            .datum(1111)
             .transition().duration(1200)
             .attr('width', width)
             .attr('height', height)
             .call(chart);
 
         return chart;
-    });
+    });*/
 
 </script>

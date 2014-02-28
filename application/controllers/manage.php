@@ -385,7 +385,8 @@
             'main_content' => 'analytics',
             'user_test_data' => $user_test_data,
             'assessment' => $assessment,
-            'result_male' => 0
+            'result_male' => 0,
+            'result_female' => 0
 
         );
         $this->load->view('includes/template', $data);
@@ -393,18 +394,28 @@
 
     function get_analytics()
     {
+        $assessment = $this->Analytics_model->assessment();
         $assessmentID = $this->input->post('assessmentID');
         $result_male = $this->Analytics_model->graph_data((string) $assessmentID,0);
-        $return_array = array();
+        $result_female = $this->Analytics_model->graph_data((string) $assessmentID,1);
+        $return_array_male = array();
+        $return_array_female = array();
 
         for($index = 0; $index < sizeof($result_male); $index++)
         {
-            array_push($return_array, array('key' => $result_male[$index]['ResultID'], 'y' => $result_male[$index]['TotalResult']));
+            array_push($return_array_male, array('key' => $result_male[$index]['Name'], 'y' => $result_male[$index]['TotalResult']));
+        }
+        for($index = 0; $index < sizeof($result_female); $index++)
+        {
+            array_push($return_array_female, array('key' => $result_female[$index]['Name'], 'y' => $result_female[$index]['TotalResult']));
         }
 
         $data = array(
+            'assessment' => $assessment,
             'main_content' => 'analytics',
-            'result_male' => json_encode($return_array)
+            'result_male' => json_encode($return_array_male),
+            'result_female' => json_encode($return_array_female)
+
         );
         $this->load->view('includes/template', $data);
 

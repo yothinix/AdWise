@@ -44,9 +44,10 @@ class Analytics_model extends CI_Model {
     function graph_data($AssessmentID, $Gender)
     {
         $query = $this->db->query
-            ("SELECT AssessmentID, ResultID, COUNT( ResultID ) AS TotalResult
+            ("SELECT result.Name as Name, user_test.ResultID, COUNT( user_test.ResultID ) AS TotalResult
               FROM user_test
               INNER JOIN user ON UserID = ID
+              INNER JOIN result ON result.ResultID = user_test.ResultID
               AND AssessmentID = '{$AssessmentID}'
               AND Gender = '{$Gender}'
               GROUP BY ResultID
@@ -54,6 +55,7 @@ class Analytics_model extends CI_Model {
 
         return $query->result_array();
     }
+
 }
 
 ?>
