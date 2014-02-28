@@ -119,9 +119,11 @@
                 <?php
                     foreach($profile as $row)
                     {
+                        $form = array('class' => 'form-horizontal' , 'id' => 'contact-form');
+                        echo form_open('user/update',$form);
                 ?>
 
-                <form action="user/update" id="contact-form" class="form-horizontal">
+                <!-- <form action="user/update" id="contact-form" class="form-horizontal"> -->
 
                 <div class="control-group">
                     <label class="control-label" for="inputName"> Name <font>*</font> </label>
@@ -187,8 +189,8 @@
                         <?php echo form_close(); ?>
                     </div>
                 </div>
-                </form>
-                <?php } //ตัวปิด ?>
+                <!-- </form> -->
+                <?php echo form_close(); } ?>
             </div><!--/span-->
         </div>
     </div>
