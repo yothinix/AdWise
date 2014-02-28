@@ -442,20 +442,12 @@ class Manage extends CI_Controller{
     function analytics()
     {
         $this->load->model('Analytics_model');
-
-        $user_test_data = $this->Analytics_model->get_user_test_data(1); 
-        //AssessmentID input method will change later
-        $sex = 0;
-
         $assessment = $this->Analytics_model->assessment();
-
         $data = array(
             'main_content' => 'analytics',
-            'user_test_data' => $user_test_data,
             'assessment' => $assessment,
             'result_male' => 0,
             'result_female' => 0
-
         );
         $this->load->view('includes/template', $data);
     }
