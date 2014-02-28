@@ -103,8 +103,6 @@ $tags = base_url("index.php/manage/manage_tags");
                         {
                     ?>
                             <li class="nav-header">Admin Menu</li>
-                            <li>
-                                <a href="#"><i class="icon-cog"></i>Admin Home</a></li>
                             <li <?php if($main_content == 'manage_assessment_type'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $manage_assessment_type; ?>"><i class="icon-th-list"></i>Manage Assessment Type</a></li>
                             <li <?php if($main_content == 'manage_assessment' || $main_content == 'create_assessment'){ echo "class=\"active\""; } ?>>

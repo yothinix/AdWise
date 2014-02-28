@@ -51,8 +51,40 @@ $array_size = count($ResultID);
               </tbody>
             </table>
           </div>
-
-<hr>
-<?php
-    var_dump($ResultID);
+<div class="row" style="margin-left:10px">
+<div class="span6">
+            <table class="table table-striped table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th style="text-align: center">Career Path</th>
+                </tr>
+              </thead>
+              <tbody>
+<?php 
+    for($index = 0; $index < sizeof($ocp_data); $index++)
+    {
+        echo "<tr><td><h4>{$ocp_data[$index][0]['Name']}</h4></td></tr>";
+    }
 ?>
+</tbody></table></div>
+<div class="span6">
+            <table class="table table-striped table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th style="text-align: center">Academic Path</th>
+                </tr>
+              </thead>
+              <tbody>
+<?php
+   //use same data_model as career path [need to fill data in occupation_academic 
+    for($index = 0; $index < sizeof($ocp_data); $index++)
+    {
+        echo "<tr><td><h4>{$ocp_data[$index][0]['Name']}</h4></td></tr>";
+    }
+?>
+</tbody></table></div>
+</div>
+</div>
+<hr>
+
+
