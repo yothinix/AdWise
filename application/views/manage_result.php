@@ -78,18 +78,7 @@
                         }
                         ?>
                         <br>
-                        <b>Academic </b>
-                        <?php
-                        $Academic = $this->Manage_result_data->get_aca($Occupation_id);
-                        foreach($Academic as $aca){
-                            $Academic_id = $aca->Academic_id;
-                            $Academic_name = $this->Manage_result_data->get_name_aca($Academic_id);
-                            foreach($Academic_name as $que2){
-                                echo $que2->Name;?>&nbsp&nbsp<?php
-                            }
-                        }
-                        ?>
-                    </div>
+                        </div>
                     <div class="row" style="text-align: center">
                         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                     </div>
@@ -126,15 +115,20 @@
                         <label class="control-label" for="inputOccupation">Occupation :</label>
                         <div class="example occupation">
                             <div class="bs-docs-example">
-                                <input type="text" placeholder="Occupation" name="Occupation" id="Occupation" value="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="control-group" style="margin-left: 10px; margin-right: 10px">
-                        <label class="control-label" for="inputAcademic">Academic :</label>
-                        <div class="example academic">
-                            <div class="bs-docs-example">
-                                <input type="text" placeholder="Academic" name="Academic" id="Academic" value="">
+                                <input type="text" placeholder="Occupation" name="Occupation" id="Occupation" value="
+                                <?php
+                                $Occupation = $this->Manage_result_data->get_ocp($ResultID);
+                                foreach($Occupation as $ocp)
+                                {
+                                    $Occupation_id = $ocp->Occupation_id;
+                                    $Occupation_Name = $this->Manage_result_data->get_name($Occupation_id);
+                                    foreach($Occupation_Name as $que1){
+                                        echo ",";
+                                        echo $que1->Name;
+                                    }
+                                }
+                                ?>
+                                ">
                             </div>
                         </div>
                     </div>
@@ -183,11 +177,7 @@
                     <input type="text" placeholder="Occupation :" name="Occupation" id="Occupation" >
                 </div>
             </div>
-            <!--<div class="example academic">
-                <div class="bs-docs-example">
-                    <input type="text" placeholder="Academic :" name="Academic" id="Academic" >
-                </div>
-            </div> -->
+            
             <br>
             <button type="submit" class="btn btn-success">Save</button>
             <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>

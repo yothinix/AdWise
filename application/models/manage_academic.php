@@ -8,11 +8,13 @@ class Manage_academic extends CI_Model {
 
     function academic()
     {
-        $query = $this->db->query("
+        /* $query = $this->db->query("
         SELECT * FROM academic INNER JOIN tags_academic
         ON tags_academic.Academic_id = academic.Academic_id
         GROUP BY `Name`
-        ");
+        "); */
+
+        $query = $this->db->query("SELECT * FROM academic");
 
         return $query->result();
     }
@@ -76,6 +78,7 @@ class Manage_academic extends CI_Model {
             WHERE Academic_id = $Academic_id
             ");
     }
+
     function tags_chk($Academic_id,$Tags_id)
     {
         $data = array(
