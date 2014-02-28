@@ -42,7 +42,7 @@ class Result extends CI_Controller {
         
         for($i = 1; $i <= sizeof($seed); $i++)
             $seed_itemsets = array_merge($seed_itemsets, $seed[$i]);
-
+        unset($seed);
         $L1 = $this->extract_itemsets($seed_itemsets);
         $C2 = $this->generate_candidate_pair($L1);
         $L2 = $this->extract_n_itemsets($seed_itemsets, $C2);
@@ -62,8 +62,10 @@ class Result extends CI_Controller {
                 $Candidate_array[$index] = $this->generate_Ck($Large_array[$index-1], $index);
                 $Large_array[$index] = $this->extract_n_itemsets($seed_itemsets, $Candidate_array[$index]);
                 $Large_array[$index] = $this->exclude_min_support($Large_array[$index], 2, $index);
-                if($index == 5)
+                if($index > 4)
                 {
+                    unset($Candidate_array[3]);
+                    unset($Large_array[3]);
                     unset($Large_array[$index-2]);
                     unset($Candidate_array[$index-2]);
                     unset($L1);
