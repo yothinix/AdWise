@@ -48,6 +48,7 @@ $manage_occupation = base_url("index.php/manage/manage_occupation");
 $dashboard = base_url("index.php/user/dashboard");
 $academic = base_url("index.php/manage/manage_academic");
 $tags = base_url("index.php/manage/manage_tags");
+$analytics = base_url("index.php/manage/analytics");
 ?>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -103,8 +104,6 @@ $tags = base_url("index.php/manage/manage_tags");
                         {
                     ?>
                             <li class="nav-header">Admin Menu</li>
-                            <li>
-                                <a href="#"><i class="icon-cog"></i>Admin Home</a></li>
                             <li <?php if($main_content == 'manage_assessment_type'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $manage_assessment_type; ?>"><i class="icon-th-list"></i>Manage Assessment Type</a></li>
                             <li <?php if($main_content == 'manage_assessment' || $main_content == 'create_assessment'){ echo "class=\"active\""; } ?>>
@@ -121,7 +120,8 @@ $tags = base_url("index.php/manage/manage_tags");
                                 <a href="<?php echo $tags?>"><i class="icon-tags"></i>Manage Tags</a></li>
                             <li <?php if($main_content == 'manage_user'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $manage_user; ?>"><i class="icon-user"></i>Manage User</a></li>
-                            <li><a href="#"><i class="icon-home"></i>Analytics</a></li>
+                            <li <?php if($main_content == 'analytics'){ echo "class=\"active\""; } ?>>
+                                <a href="<?php echo $analytics; ?>"><i class="icon-home"></i>Analytics</a></li>
                     <?php
                         }
                     ?>

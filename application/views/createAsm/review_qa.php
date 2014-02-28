@@ -17,6 +17,10 @@
     .nav-tabs a {
         font-size: 14px;
     }
+
+    a.delete_qa:link {
+        color: #FF0000;
+    }
 </style>
 
 <h2 style="margin-top: -30px">Create Assessment</h2>
@@ -52,6 +56,7 @@
                     <p><small><?php echo $data['asm_desc']; ?></small></p>
                 </div>
                 <hr/>
+<a href="<?php echo base_url('index.php/assessment/create_asm_view/question_and_answer'); ?>" class="btn btn-success">+ add more question</a>
 <?php
     $question = $this->Manage_assessment->get_all_question($AsmID);
     foreach($question as $row)
@@ -60,7 +65,8 @@
         $Q_Detail = $row->Detail;
 ?>                
                     <div id="question" style="margin-left: 30px">
-                    <h4><a href="<?php echo base_url("index.php/assessment/get_qa_data/{$AsmID}/{$QuestionNr}"); ?>"><?php echo "{$QuestionNr}. {$Q_Detail} "; ?></a><a href="<?php echo base_url("index.php/assessment/delete_qa/{$AsmID}/{$QuestionNr}"); ?>">✘</a></h4>
+                    <h4><a href="<?php echo base_url("index.php/assessment/get_qa_data/{$AsmID}/{$QuestionNr}"); ?>"><?php echo "{$QuestionNr}. {$Q_Detail} "; ?></a>
+                        <a class="delete_qa" href="<?php echo base_url("index.php/assessment/delete_qa/{$AsmID}/{$QuestionNr}"); ?>">✘</a></h4>
                         <div id="answer">
 <?php 
         $choice = $this->Assessment_model->get_choice($AsmID, $QuestionNr);
@@ -80,7 +86,6 @@
 <?php 
     } 
 ?>
-<a href="<?php echo base_url('index.php/assessment/create_asm_view/question_and_answer'); ?>" class="btn btn-success">+ add more question</a>
 <hr>
 
 

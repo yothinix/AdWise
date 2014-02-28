@@ -9,9 +9,9 @@ class Manage_result_data extends CI_Model {
     function get_manage_result()
     {
         $query = $this->db->query("
-        SELECT * FROM result JOIN result_occupation
-        ON result.ResultID = result_occupation.ResultID
+        SELECT * FROM result
         ");
+
         return $query->result();
     }
 
@@ -20,11 +20,11 @@ class Manage_result_data extends CI_Model {
         $this->db->insert('result', $data);
     }
 
-    function update_result($ResultID, $data)
-    {
-        $this->db->where('ResultID', $ResultID);
-        $this->db->update('result', $data);
-    }
+    //function update_result($ResultID, $data)
+    //{
+    //    $this->db->where('ResultID', $ResultID);
+    //    $this->db->update('result', $data);
+    //}
 
     function result_db()
     {
@@ -99,6 +99,53 @@ class Manage_result_data extends CI_Model {
         return $query->result();
     }
 
+    function get_aca($Occupation_id)
+    {
+        $query = $this->db->query("
+        SELECT Academic_id FROM occupation_academic
+        WHERE Occupation_id = '{$Occupation_id}'
+        ");
 
+        return $query->result();
+    }
+
+function get_name_aca($Academic_id)
+    {
+        $query = $this->db->query("
+            SELECT Name
+            FROM academic
+            WHERE Academic_id = '{$Academic_id}'
+            ");
+
+        return $query->result();
+    }
+
+    function update_result($ResultID)
+    {
+        $Name = $this->input->post('name');
+        $Detail = $this->input->post('detail');
+        $this->db->query("
+            UPDATE result
+            SET NAME = '{$Name}',Detail = '{$Detail}'
+            WHERE ResultID = $ResultID
+            ");
+    }
+
+    function delete_result($ResultID)
+    {
+        $this->db->query("
+            DELETE FROM result_occupation
+            WHERE ResultID = $ResultID
+            ");
+    }
+
+    function ocp_chk($ResultID,$Occupation_id)
+    {
+        $data = array(
+            'ResultID' => $ResultID,
+            'Occupation_id' => $Occupation_id
+        );
+        $this->db->insert('result_occupation', $data);
+    }
 }
 ?>
