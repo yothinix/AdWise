@@ -108,7 +108,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 <h3 id="myModalLabel">Edit Occupation</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="margin-top: 15px">
                 <?php
                 $attr = array(
                     'class' => 'form-horizontal',
@@ -167,7 +167,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="control-group" style="margin-top: 10px; text-align: center">
+            </div>
+            <div class="modal-footer">
+                <div class="control-group">
                     <button type="submit" class="btn btn-success">Save</button>
                     <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
                 </div>
@@ -198,7 +200,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="myModalLabel">Create Occupation</h3>
     </div>
-    <div class="modal-body" style="text-align: center">
+    <div class="modal-body" style="text-align: center; margin-top: 25px">
         <?php echo form_open('manage/create_occupation'); ?>
         <label>Name <input type="text" name="Occupation_name" id="Occupation_name" class="span9" style="margin-left: 50px"></label>
         <label>Detail <input type="text" name="Occupation_detail" id="Occupation_detail" class="span9" style="margin-left: 50px"></label>
@@ -212,7 +214,9 @@
                 <label>Academic <input type="text" name="Academic" id="Academic" class="span9" style="margin-left: 24px"></label>
             </div>
         </div>
-        <button type="submit" class="btn btn-success" style="margin-left: -32px; margin-right: 10px">Add New Occupation</button>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Add New Occupation</button>
         <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
         <?php echo form_close(); ?>
     </div>

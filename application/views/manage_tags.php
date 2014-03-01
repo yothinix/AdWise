@@ -44,17 +44,19 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h3 id="myModalLabel">Edit Tag</h3>
             </div>
-            <div class="modal-body" style="margin-top: -10px">
+            <div class="modal-body">
                 <?php
                 $form = array('class' => 'form-horizontal');
                 echo form_open("manage/update_tags/{$Tags_id}",$form); ?>
-                <div class="control-group" >
+                <div class="control-group">
                     <label class="control-label" for="inputName">Name</label>
                     <div class="controls">
                         <input type="text" name="tags_name" class="input-block-level" value="<?php echo $row->Tags_name ?>">
                     </div>
                 </div>
-                <div class="control-group" style="margin-top: 10px; text-align: center">
+            </div>
+            <div class="modal-footer">
+                <div class="control-group">
                     <button type="submit" class="btn btn-success">Save</button>
                     <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
                 </div>
@@ -86,9 +88,11 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="myModalLabel">Create Tag</h3>
     </div>
-    <div class="modal-body" style="text-align: center">
+    <div class="modal-body" style="text-align: center; margin-top: 25px">
         <?php echo form_open('manage/create_tags'); ?>
         <label>Name <input type="text" name="tags_name" class="span10" style="margin-left: 10px"></label>
+    </div>
+    <div class="modal-footer">
         <button type="submit" class="btn btn-success" style="margin-left: -32px; margin-right: 10px">Add New Tag</button>
         <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
         <?php echo form_close(); ?>
