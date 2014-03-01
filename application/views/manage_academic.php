@@ -137,19 +137,16 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="myModalLabel">Create Academic</h3>
     </div>
-    <div class="modal-body" style="text-align: center">
+    <div class="modal-body" style="text-align: center;font-size: 16px">
         <?php echo form_open('manage/create_academic'); ?>
-        <input type="text" name="Academic_name" id="Academic_name" class="input-block-level" placeholder="Name">
-        <br>
-        <input type="text" name="Academic_detail" id="Academic_detail" class="input-block-level" placeholder="Detail">
-        <br>
+        <label>Name <input type="text" name="Academic_name" id="Academic_name" class="span10" style="margin-left: 10px"></label>
+        <label>Detail <input type="text" name="Academic_detail" id="Academic_detail" class="span10" style="margin-left: 10px"></label>
         <div class="example example_typeahead">
             <div class="bs-docs-example">
-                <input type="text" placeholder="Tag" name="Tags" id="Tags" >
+                <label >Tag <input type="text" name="Tags" id="Tags" class="span10" style="margin-left: 20px"></label>
             </div>
         </div>
-        <br>
-        <button type="submit" class="btn btn-success">Add new academic</button>
+        <button type="submit" class="btn btn-success" style="margin-left: -32px; margin-right: 10px">Add New Academic</button>
         <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
         <?php echo form_close(); ?>
     </div>
