@@ -12,7 +12,7 @@
 </style>
 
 <h2 style="margin-top: -30px">Manage Tags</h2>
-<a href="#create" role="button" class="btn pull-right" data-toggle="modal" style="margin-top: -40px">+ Create Tags</a>
+<a href="#create" role="button" class="btn pull-right" data-toggle="modal" style="margin-top: -40px">+ Create Tag</a>
 <hr>
 <table class="table table-bordered">
     <tr>
@@ -42,7 +42,7 @@
         <div id="edit<?php echo $Tags_id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Edit Academic</h3>
+                <h3 id="myModalLabel">Edit Tag</h3>
             </div>
             <div class="modal-body" style="margin-top: -10px">
                 <?php
@@ -84,13 +84,12 @@
 <div id="create" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Create Tags</h3>
+        <h3 id="myModalLabel">Create Tag</h3>
     </div>
     <div class="modal-body" style="text-align: center">
         <?php echo form_open('manage/create_tags'); ?>
-        <input type="text" name="tags_name" class="input-block-level" placeholder="Name">
-        <br>
-        <button type="submit" class="btn btn-success">Add new tags</button>
+        <label>Name <input type="text" name="tags_name" class="span10" style="margin-left: 10px"></label>
+        <button type="submit" class="btn btn-success" style="margin-left: -32px; margin-right: 10px">Add New Tag</button>
         <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
         <?php echo form_close(); ?>
     </div>
