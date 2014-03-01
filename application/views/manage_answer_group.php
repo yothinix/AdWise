@@ -35,7 +35,7 @@
             <td style="text-align: center"><?php echo $row->AnswerGroupID ?></td>
             <td><?php echo $row->Name ?></td>
             <td><?php echo $row->Detail ?></td>
-            <td>
+            <td style="text-align: center">
                 <a href="#EditAnswerGroup<?php echo $Answer_group_ID; ?>" class="btn btn-small" role="button" data-toggle="modal"><i class="icon-pencil"></i></a>
                 <a href="#myModal<?php echo $Answer_group_ID ?>" class="btn" role="button" data-toggle="modal"><i class="icon-trash"></i></a>
         </tr>
@@ -95,7 +95,9 @@
         <?php
         echo form_open("manage/create_answer_group");
         ?>
+        <small>Name</small>
         <input type="text" id="answer_group_name" name="answer_group_name" class="input-block-level" placeholder="Answer Group" />
+        <small>Detail</small>
         <textarea type="text" rows="10" id="answer_group_detail" name="answer_group_detail" class="input-block-level" placeholder="Detail" ></textarea>
     </div>
     <div class="modal-footer">
