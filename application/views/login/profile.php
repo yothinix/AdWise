@@ -1,10 +1,3 @@
-<script>
-    function myFunction()
-    {
-        alert("Success! You have successfully done it.");
-    }
-</script>
-
 <style type="text/css">
     .btn-file {
         position: relative;
@@ -40,16 +33,53 @@
         cursor: inherit;
         display: block;
     }
+    font {
+        font-weight: bold;
+        color: #FF0000;
+    }
 </style>
+
+<script>
+    $(document).ready(function(){
+        $('#contact-form').validate(
+            {
+                rules: {
+                    name: {
+                        required: true
+                    },
+                    lastname: {
+                        required: true
+                    },
+                    phone: {
+                        number: true,
+                        minlength: 10,
+                        maxlength: 10
+                    },
+                    email: {
+                        email: true,
+                        required: true
+                    }
+                },
+                highlight: function(element) {
+                    $(element).closest('.control-group').removeClass('success').addClass('error');
+                },
+                success: function(element) {
+                    element
+                        .text('OK!').addClass('valid')
+                        .closest('.control-group').removeClass('error').addClass('success');
+                }
+            });
+    }); // end document.ready
+</script>
 
 <div class="container-fluid">
     <div class="row-fluid">
-        <div class="span11">
+        <div class="span13">
         <div class="row-fluid">
             <h2 style="margin-top: -30px">Profile</h2>
             <hr/>
             <br>
-            <div class="span4">
+            <div class="span4" style="text-align: center">
                 <?php
                 $get_image = $this->User_model->img($this->session->userdata('user_name'));
                 foreach($get_image as $row) //ดึงข้อมูลมาจาก db
@@ -58,11 +88,11 @@
 
                     if($filename=="")
                     { ?>
-                        <img class="img-circle" style="width: 200px; height: 200px; margin-left: 15px" src="<?php echo base_url("/uploads/default.jpg") ?>" >
+                        <img class="img-circle" style="width: 200px; height: 200px" src="<?php echo base_url("/uploads/default.jpg") ?>" >
                     <?php }
                     else
                     { ?>
-                        <img class="img-polaroid" style="width: 200px; height: 200px; margin-left: 15px" src="<?php echo base_url("/uploads/{$filename}") ?>" >
+                        <img class="img-circle" style="width: 200px; height: 200px" src="<?php echo base_url("/uploads/{$filename}") ?>" >
                     <?php }
 
                     echo br(2);
@@ -85,29 +115,25 @@
                 } //ตัวปิด ?>
             </div><!--/span-->
 
-            <div class="span6">
+            <div class="span7">
                 <?php
-                $pro = array(
-                    'class' => 'form-horizontal'
-                );
-
-                foreach($profile as $row)
-                {
-
-                echo form_open('user/update',$pro);
+                    foreach($profile as $row)
+                    {
+                        $form = array('class' => 'form-horizontal' , 'id' => 'contact-form');
+                        echo form_open('user/update',$form);
                 ?>
 
+                <!-- <form action="user/update" id="contact-form" class="form-horizontal"> -->
 
                 <div class="control-group">
-                    <label class="control-label" for="inputName"> Name </label>
+                    <label class="control-label" for="inputName"> Name <font>*</font> </label>
                     <div class="controls">
                         <input type="text" name="name" value="<?php echo $row->Name ?>">
                     </div>
                 </div>
 
-
                 <div class="control-group">
-                    <label class="control-label" for="inputLastname"> Lastname </label>
+                    <label class="control-label" for="inputLastname"> Lastname <font>*</font> </label>
                     <div class="controls">
                         <input type="text" name="lastname" value="<?php echo $row->Lastname ?>">
                     </div>
@@ -115,9 +141,9 @@
 
                 <div class="control-group">
                     <label class="control-label" for="inputGender"> Gender </label>
-                    <div class="controls">
-                        <input type="radio" name="gender" value="0" <?php if($row->Gender==0) echo "checked"; ?> > Male
-                        <input type="radio" name="gender" value="1" <?php if($row->Gender==1) echo "checked"; ?> > Female
+                    <div class="controls" style="font-size: 14px">
+                        <input type="radio" name="gender" value="0" <?php if($row->Gender==0) echo "checked"; ?> style="margin-top: -3px"> Male &nbsp;&nbsp;
+                        <input type="radio" name="gender" value="1" <?php if($row->Gender==1) echo "checked"; ?> style="margin-top: -3px"> Female
                     </div>
                 </div>
 
@@ -133,6 +159,7 @@
                         </div>
                     </div>
                 </div>
+
                     <script type='text/javascript'>
                         $(function() {
                             $('#datetimepicker1').datetimepicker({
@@ -149,28 +176,44 @@
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="inputEmail"> Email </label>
+                    <label class="control-label" for="inputEmail"> Email <font>*</font> </label>
                     <div class="controls">
                         <input type="text" name="email" value="<?php echo $row->Email ?>">
                      </div>
                 </div>
 
                 <div class="control-group">
-                    <div class="controls" style="text-align: center">
-                        <button type="submit" onclick="myFunction()" class="btn btn-success">Save</button>
+                    <div class="controls" style="margin-top: 10px">
+                        <button type="submit" class="btn btn-success" style="margin-left: 5px">Save</button>
+                        <button type="reset" class="btn btn-danger" style="margin-left: 10px">Cancel</button>
                         <?php echo form_close(); ?>
                     </div>
                 </div>
-
-                <?php } //ตัวปิด ?>
-
+                <!-- </form> -->
+                <?php echo form_close(); } ?>
             </div><!--/span-->
         </div>
     </div>
 </div>
 </div>
 
+<style type="text/css">
+    label.valid {
+        width: 24px;
+        height: 24px;
+        background: url(<?php echo base_url("/assets/img/valid.png"); ?>) center center no-repeat;
+        display: inline-block;
+        text-indent: -9999px;
+    }
+    label.error {
+        font-weight: bold;
+        color: red;
+        padding: 2px 8px;
+        margin-top: 2px;
+    }
+</style>
 
 <script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-datetimepicker.min.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url("/assets/js/bootstrap-alert.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("/assets/js/jquery.validate.min.js"); ?>"></script>
+
 

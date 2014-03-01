@@ -32,7 +32,7 @@ class User_model extends CI_Model {
 
     function signup()
     {
-        $data=array(
+        $data = array(
             'username'=>$this->input->post('username'),
             'email'=>$this->input->post('email'),
             'password'=>md5($this->input->post('password'))
@@ -48,7 +48,7 @@ class User_model extends CI_Model {
         WHERE Username='$username'
         ");
 
-            return $query->result();
+        return $query->result();
     }
 
     function update($user,$data)
@@ -74,6 +74,21 @@ class User_model extends CI_Model {
         $query = $this->db->query("SELECT * FROM user");
         return $query->result();
     }
+
+    function status_dashboard($user_id)
+    {
+        $query = $this->db->query("SELECT user_test.Status as Status, assessment.Name as Assessment FROM user_test INNER JOIN assessment ON assessment.AssessmentID = user_test.AssessmentID AND user_test.UserID = ".$user_id);
+        return $query->result();
+    }
+
+    //เพิ่มเข้ามา    query จาก table assessment กับ user_test หาค่าจาก user ID ที่ส่งมา
+    function status_user($userID)
+    {
+        $query = $this->db->query("SELECT * FROM user_test INNER JOIN assessment ON user_test.AssessmentID = assessment.AssessmentID && user_test.UserID =".$userID);
+        return $query->result();
+    }
+    //เพิ่มเข้ามา
+
 
     function dashboard($username)
     {
@@ -118,13 +133,15 @@ class User_model extends CI_Model {
 
     function get_creatorName($creatorID)
     {
+        $Username = "";
         $query = $this->db->query("
         SELECT Username
         FROM user
         WHERE ID = '$creatorID'
         ");
-
-        return $query->result();
+        foreach($query->result() as $row)
+            $Username = $row->Username;
+        return $Username;
     }
 
     function up_user($userID,$data)
@@ -133,5 +150,22 @@ class User_model extends CI_Model {
         $this->db->update('user', $data);
     }
 
+    function check_email($email)
+    {
+        $query = $this->db->query("SELECT * FROM user WHERE Email = '$email'");
+        return $query->result();
+    }
+
+    function check_password($password)
+    {
+        $query = $this->db->query("SELECT * FROM user WHERE Password = '$password'");
+        return $query->result();
+    }
+
+    function check_db($username,$email)
+    {
+        $query = $this->db->query("SELECT * FROM user WHERE Username ='$username' OR Email = '$email'");
+        return $query->result();
+    }
 }
 ?>

@@ -17,13 +17,17 @@
     .nav-tabs a {
         font-size: 14px;
     }
+
+    a.delete_qa:link {
+        color: #FF0000;
+    }
 </style>
 
 <h2 style="margin-top: -30px">Create Assessment</h2>
 <hr/>
 <?php
-$prev = "question_and_answer";
-$next = "result_condition";
+    $prev = "question_and_answer";
+    $next = "result_condition";
 ?>
 <ul class="pager">
     <li class="previous">
@@ -34,69 +38,54 @@ $next = "result_condition";
     </li>
 </ul>
 <hr>
+<?php
+    $AsmID = $this->session->userdata('AssessmentID');
+    $data = array();
+    $asm_info = $this->Manage_assessment->get_asm_info($AsmID);
+    foreach($asm_info as $row)
+    {
+        $data['asm_name'] = $row->Name;
+        $data['asm_type'] = $this->Manage_assessment_type->get_asm_type_name($row->AssessmentTypeID);
+        $data['asm_creator'] = $this->User_model->get_creatorName($row->CreatorID);
+        $data['asm_desc'] = $row->Description; 
+    }
+?>
                 <div style="text-align: center">
-                    <h3>Assessment Name</h3>
-                    <p> Type: <small>Assessment Type</small> Creator: <small>Creator Name</small></p>
-                    <p>
-                        <small>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor
-                        id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac,
-                        vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-                        </small>
-                    </p>
+                    <h3><?php echo $data['asm_name']; ?></h3>
+                    <p> Type: <small><?php echo $data['asm_type']; ?></small> Creator: <small><?php echo $data['asm_creator']; ?></small></p>
+                    <p><small><?php echo $data['asm_desc']; ?></small></p>
                 </div>
                 <hr/>
+<a href="<?php echo base_url('index.php/assessment/create_asm_view/question_and_answer'); ?>" class="btn btn-success">+ add more question</a>
+<?php
+    $question = $this->Manage_assessment->get_all_question($AsmID);
+    foreach($question as $row)
+    {
+        $QuestionNr = $row->QuestionNr;
+        $Q_Detail = $row->Detail;
+?>                
                     <div id="question" style="margin-left: 30px">
-                        <input type="text" name="txt" id = "txt" value="" onkeyup = "copyIt()"><br>
-                        <input type="text" name="txt1" id = "txt1"  value=""><br>
-
-                        <script type = "text/javascript">
-                            function copyIt() {
-                            var x = document.getElementById("txt").value;
-                            document.getElementById("txt1").value = x;
-                        }
-                        </script>
-
-                        <h4>1. โต๊ะของคุณเป็นอย่างไร</h4>
+                    <h4><a href="<?php echo base_url("index.php/assessment/get_qa_data/{$AsmID}/{$QuestionNr}"); ?>"><?php echo "{$QuestionNr}. {$Q_Detail} "; ?></a>
+                        <a class="delete_qa" href="<?php echo base_url("index.php/assessment/delete_qa/{$AsmID}/{$QuestionNr}"); ?>">✘</a></h4>
                         <div id="answer">
+<?php 
+        $choice = $this->Assessment_model->get_choice($AsmID, $QuestionNr);
+        foreach($choice as $row2)
+        {
+            $C_Detail = $row2->Detail;
+?>
                             <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                    Option one is this and that—be sure to include why it's great
+                                <input type="radio" name="optionsRadios">
+                                <?php echo $C_Detail; ?>
                             </label>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                    Option two can be something else and selecting it will deselect option one
-                            </label>
+<?php
+        }
+?>
                         </div>
                     </div>
-                    <br/>
-                    <div id="question" style="margin-left: 30px">
-                        <h4>2. เก้าอี้ของคุณเป็นอย่างไร</h4>
-                        <div id="answer">
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                Option one is this and that—be sure to include why it's great
-                            </label>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                Option two can be something else and selecting it will deselect option one
-                            </label>
-                        </div>
-                    </div>
-                    <br/>
-                    <div id="question" style="margin-left: 30px">
-                        <h4>3. ตู้ของคุณเป็นอย่างไร</h4>
-                        <div id="answer">
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                Option one is this and that—be sure to include why it's great
-                            </label>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                Option two can be something else and selecting it will deselect option one
-                            </label>
-                        </div>
-                    </div>
-
+<?php 
+    } 
+?>
 <hr>
 
 

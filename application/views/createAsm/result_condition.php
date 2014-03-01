@@ -34,66 +34,41 @@ $next = "review_condition";
     </li>
 </ul>
 <hr>
-                <!-- Script in AngularJS -->
-                <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
-                <script type="text/javascript">
-                    function ResultCtrl($scope) {
-                        $scope.results = [
-                        {}];
-                        $scope.addResult = function() {
-                        $scope.results.push({text:$scope.resultText, done:false});
-                        $scope.resultText = '';
-                        };
-                    }
-                </script>
-                <!-- HTML in AngularJS -->
-                <div>
-                    <div ng-controller="ResultCtrl">
-                        <span>Total Result: {{results.length}}</span>
-                        <ul class="unstyled">
-                            <li ng-repeat="result in results">
-                                <div class="row-fluid">
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Result 1</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Answer group 1</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Answer group 2</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Answer group 3</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                    <div class="span2">
-                                        <select class="input-block-level">
-                                            <option>Answer group 4</option>
-                                            <option>Result 2</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <hr>
-                        <form ng-submit="addResult()">
-                            <input type="submit" class="btn input-large" style="margin-top: -20px" value="+ Add another result">
-                        </form>
-                    </div>
-                </div>
+    <h3>Result Expression</h3>
+    <div style="text-align: center">
+<?php
+    $controller = "";
+    if($this->session->userdata('re_flag') == 1)
+        $controller = "assessment/update_resultexp";
+    else
+        $controller = "assessment/add_resultexp";
+
+    $AsmID = $this->session->userdata('AssessmentID');
+    $attr = array('class' => "form-inline");
+    echo form_open($controller, $attr);
+?>
+    <textarea type="text" rows="10" name="result_exp" class="input-block-level" placeholder ="Result Expression"><?php echo $this->session->userdata('Expression'); ?></textarea>
+        <div style="text-align: center; margin-top: 20px">
+            <a href="#re_desc" role="button" class="btn" data-toggle="modal">How To</a>
+            <input type="submit" name="add_exp" class="btn btn-primary" value="Add Expression" />
+        </div>
+<?php
+    echo form_close();
+?>
+    </div>
 <hr>
 
-
-
-
+<!-- Modal -->
+<div id="re_desc" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">How To</h3>
+  </div>
+  <div class="modal-body">
+    <p> <h5>Result Expression</h5> เป็นรูปแบบของภาษาที่ทีม AdWise ได้พัฒนาขึ้นโดยอาศัยความสัมพันธ์ของตำแหน่งของกลุ่มคำตอบ (Answer group) เทียบกับรูปแบบผลลัพธ์ (Result) ที่มีอยู่ในระบบ การประมวลผลในแต่ละตำแหน่งของผลลัพธ์จะคิดเป็น 1 คำสั่ง (expression) ซึ่งแต่ละคำสั่งจะถูกคั่นด้วยเครื่องหมาย semicolon (;) โดยในการประมวลผลคำตอบ Result Expression จะเลือกกลุ่มคำตอบในคำสั่งที่มีค่าผลรวมที่ผู้ใช้ทำการตอบสูงสุดเป็นตัวแทนกลุ่มในการหาผลลัพธ์ต่อไป 
+    </p>
+    <h5>Example Usage</h5>
+    <pre>pair(1) = {awg(3),awg(2),awg(1)};</pre>
+    <p>จากตัวอย่าง หมายความว่า ตำแหน่งแรกของผลลัพธ์สามารถเกิดขึ้นได้จากกลุ่มคำตอบที่มี id = 3,2,1 ได้</p>
+  </div>
+</div>
