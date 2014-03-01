@@ -21,11 +21,11 @@
 <table class="table table-bordered">
 
     <tr>
-        <th style="text-align: center">ID </th>
-        <th style="text-align: center">Occupation Name </th>
+        <th style="text-align: center; width: 60px">ID </th>
+        <th style="text-align: center; width: 210px">Occupation Name </th>
         <th style="text-align: center">Detail </th>
         <th style="text-align: center; width: 180px">Tag </th>
-        <th style="text-align: center">Controller </th>
+        <th style="text-align: center; width: 140px">Controller </th>
     </tr>
 
     <?php
@@ -200,22 +200,19 @@
     </div>
     <div class="modal-body" style="text-align: center">
         <?php echo form_open('manage/create_occupation'); ?>
-        <input type="text" name="Occupation_name" id="Occupation_name" class="input-block-level" placeholder="Name">
-        <br>
-        <input type="text" name="Occupation_detail" id="Occupation_detail" class="input-block-level" placeholder="Detail">
-        <br>
+        <label>Name <input type="text" name="Occupation_name" id="Occupation_name" class="span9" style="margin-left: 50px"></label>
+        <label>Detail <input type="text" name="Occupation_detail" id="Occupation_detail" class="span9" style="margin-left: 50px"></label>
         <div class="example example_typeahead">
             <div class="bs-docs-example">
-                <input type="text" placeholder="Tag" name="Tags" id="Tags" >
+                <label>Tag <input type="text" name="Tags" id="Tags" class="span9" style="margin-left: 60px"></label>
             </div>
         </div>
         <div class="example academic">
             <div class="bs-docs-example">
-                <input type="text" placeholder="Academic" name="Academic" id="Academic" >
+                <label>Academic <input type="text" name="Academic" id="Academic" class="span9" style="margin-left: 24px"></label>
             </div>
         </div>
-        <br>
-        <button type="submit" class="btn btn-success">Add new occupation</button>
+        <button type="submit" class="btn btn-success" style="margin-left: -32px; margin-right: 10px">Add New Occupation</button>
         <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
         <?php echo form_close(); ?>
     </div>
