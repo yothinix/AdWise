@@ -31,7 +31,7 @@
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li><a href="#">Features</a></li>
-                        <li><a href="#">Meet Us</a></li>
+                        <li><a href="<?php echo base_url("index.php/meetus/index"); ?>">Meet Us</a></li>
                     </ul>
 
                     <div class="navbar-form pull-right" style="margin-bottom: -20px">
