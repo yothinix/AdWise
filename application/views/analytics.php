@@ -75,13 +75,26 @@ echo form_open($controller);
      <tr>
          <td>
             <select name="assessmentID">
-                <option value="" style="display:none;"><----Please Assessment----></option>
+                <option value="" style="display:none;"><---- Select Assessment ----></option>
                 <?php
                 foreach($assessment as $row){
                     echo "<option value='".$row["AssessmentID"]."' >".$row["Name"]."</option>";
                 }
                 ?>
             </select>
+         </td>
+         <td>
+             <select name=" ">
+                 <option value="" style="display:none;"><------- Select Graph -------></option>
+                 <?php
+                        function getAge($birthday) {
+                        $then = strtotime($birthday);
+                        return(floor((time()-$then)/31556926));
+                        }
+                        $dateB="1990-02-14";
+                        echo getAge($dateB);
+                 ?>
+             </select>
          </td>
          <td style=" padding-bottom:13px ">
             <button type="submit" class="btn" >Submit</button>
