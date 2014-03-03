@@ -156,7 +156,9 @@ class User extends CI_Controller{
     {
         $username = $this->session->userdata('user_name');
 
-        $config['upload_path'] = 'uploads/';
+        $path = FCPATH . 'uploads';
+        $config['upload_path'] = $path;
+        //$config['upload_path'] = 'uploads/';
         $config['allowed_types'] = 'gif|jpg|jpeg|png';
         $config['max_width']  = '0';
         $config['max_height']  = '0';
