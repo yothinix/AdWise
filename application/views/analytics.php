@@ -3,6 +3,8 @@
         background : #6C7B8B;
         color : white;
         test-align : left;
+        height: 500px;
+        width: 600px;
     }
     td {
         font-size: 14px;
@@ -58,6 +60,7 @@
 
     .mypiechart {
         width: 500px;
+        height: 400px;
         border: 2px;
     }
 
@@ -71,7 +74,7 @@ $controller = "manage/get_analytics";
 echo form_open($controller);
 ?>
 
- <table style="position: absolute">
+ <table style="position: absolute;">
      <tr>
          <td>
             <select name="assessmentID">
@@ -106,21 +109,20 @@ echo form_open($controller);
 echo form_close();
 ?>
 
-<table style="margin-top: 40px">
+<table style="margin-top: 80px;" >
     <tr>
         <td>
-<h2>Male</h2>
+<h2 style="position: absolute;">Male</h2>
 <svg id="Male" class="mypiechart"></svg>
         </td>
         <td>
-<h2>Female</h2>
+<h2 style="position: absolute;" >Female</h2>
 <svg id="Female" class="mypiechart"></svg>
         </td>
     </tr>
 </table>
 
-    <hr />
-
+<hr \>
 <script type="text/javascript" src="<?php echo base_url("/assets/js/pie/lib/d3.v3.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("/assets/js/pie/nv.d3.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("/assets/js/pie/src/models/legend.js"); ?>"></script>
