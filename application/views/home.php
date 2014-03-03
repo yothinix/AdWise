@@ -81,7 +81,12 @@
     <ul>
         <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$Prev"); ?>">«</a></li>
         <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$QuestionNr"); ?>"><?php echo $QuestionNr ?></a></li>
-        <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$Next"); ?>">»</a></li>
+        <li><a href="<?php
+            if($Next > $new_Total)
+                echo "#";
+            else
+                echo base_url("$baseTestUrl/$AssessmentID/$Next");
+            ?>">»</a></li>
     </ul>
 </div>
 <?php
