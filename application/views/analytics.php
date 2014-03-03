@@ -87,16 +87,17 @@ echo form_open($controller);
             </select>
          </td>
          <td>
-             <select name=" ">
+             <select name="graphID">
                  <option value="" style="display:none;"><------- Select Graph -------></option>
                  <?php
-                        function getAge($birthday) {
-                        $then = strtotime($birthday);
-                        return(floor((time()-$then)/31556926));
-                        }
-                        $dateB="1990-02-14";
-                        echo getAge($dateB);
+                 $graph = $this->Analytics_model->graph();
+                 foreach($graph as $gh)
+                 {
+                     $graphID = $gh->graphID ?>
+                    <option value="<?php echo $gh->graphID ?>" > <?php echo $gh->name ?> </option>
+                 <?php }
                  ?>
+
              </select>
          </td>
          <td style=" padding-bottom:13px ">
@@ -167,36 +168,6 @@ echo form_close();
     });
 
 
-   /*( nv.addGraph(function() {
 
-        var width = 500,
-            height = 500;
-
-        var chart = nv.models.pieChart()
-            .x(function(d) { return d.key })
-            //.y(function(d) { return d.value })
-            //.labelThreshold(.08)
-            //.showLabels(false)
-            .color(d3.scale.category10().range())
-            .width(width)
-            .height(height)
-            .donut(true);
-
-        chart.pie
-            .startAngle(function(d) { return d.startAngle/2 -Math.PI/2 })
-            .endAngle(function(d) { return d.endAngle/2 -Math.PI/2 });
-
-        //chart.pie.donutLabelsOutside(true).donut(true);
-
-        d3.select("#test")
-            //.datum(historicalBarChart)
-            .datum(1111)
-            .transition().duration(1200)
-            .attr('width', width)
-            .attr('height', height)
-            .call(chart);
-
-        return chart;
-    });*/
 
 </script>
