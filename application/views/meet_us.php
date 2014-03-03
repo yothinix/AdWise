@@ -38,7 +38,7 @@
         </div>
         <div class="span4">
             <br>
-            <center><img class="img-circle" style="width: 230px; height: 230px;" src="<?php echo base_url("/uploads/a02.jpg")?>"></center>
+            <center><img class="img-circle" style="width: 230px; height: 230px;" src="<?php echo base_url("/uploads/A02.jpg")?>"></center>
             <br>
             <p style="font-size: 23px; font-weight: bold">Patthira Khakhuntod</p>
             <p style="font-size: 20px">Developer</p>

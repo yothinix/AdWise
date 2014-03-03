@@ -59,7 +59,14 @@ $analytics = base_url("index.php/manage/analytics");
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="<?php echo base_url("index.php/meetus/index"); ?>"><b style="color: #ffffff">Ad</b><b style="color: red">Wise</b></a>
+            <a class="brand" href="
+            <?php
+            if($this->session->userdata('user_id') != null)
+                echo base_url("index.php/user/dashboard");
+            else
+                echo base_url();
+            ?>
+            "><b style="color: #ffffff">Ad</b><b style="color: red">Wise</b></a>
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
