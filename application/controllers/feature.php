@@ -1,5 +1,5 @@
 <?php
-class Meetus extends CI_Controller{
+class Feature extends CI_Controller{
     public function __construct()
     {
         parent::__construct();
@@ -11,14 +11,14 @@ class Meetus extends CI_Controller{
 
         if($username == NULL)
         {
-            $data['title']= 'AdWise | Meet Us';
+            $data['title']= 'AdWise | Features';
             $this->load->view('login/header',$data);
-            $this->load->view('meet_us',$data);
+            $this->load->view('feature',$data);
         }
         else{
-            $data['title']= 'AdWise | Meet Us';
+            $data['title']= 'AdWise | Features';
             $this->load->view('header',$data);
-            $this->load->view('meet_us',$data);
+            $this->load->view('feature',$data);
         }
     }
 }

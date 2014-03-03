@@ -37,7 +37,7 @@
                 "><b style="color: #ffffff">Ad</b><b style="color: red">Wise</b></a>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
-                        <li><a href="#">Features</a></li>
+                        <li><a href="<?php echo base_url("index.php/feature/index"); ?>">Features</a></li>
                         <li><a href="<?php echo base_url("index.php/meetus/index"); ?>">Meet Us</a></li>
                     </ul>
 
