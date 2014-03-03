@@ -58,8 +58,20 @@ class User extends CI_Controller{
 
         if($check == NULL)
         {
-            $this->User_model->signup();
-            redirect('/user/index?complete');
+            $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[8]');
+            $this->form_validation->set_rules('email', 'Your Email', 'trim|required|valid_email');
+            $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[32]');
+            $this->form_validation->set_rules('re_password', 'Re-type Password', 'trim|required|matches[password]');
+
+            if($this->form_validation->run() == FALSE)
+            {
+                redirect('/user/index?wrong');
+            }
+            else
+            {
+                $this->User_model->signup();
+                redirect('/user/index?complete');
+            }
         }
         else
         {
