@@ -27,6 +27,15 @@ class Analytics_model extends CI_Model {
         return $query->result_array();
     }
 
+    function graph()
+    {
+        $query = $this->db->query
+            ("SELECT graphID,name
+              FROM graph
+            ");
+        return $query->result();
+    }
+
 }
 
 ?>
