@@ -13,13 +13,11 @@ class ResultExp_model extends CI_Model {
 
     function load_asw_sheet($userID, $AID)
     {
-        $sessionID = $this->session->userdata('session_id');
         $query = $this->db->query("
         SELECT QuestionNr, ChoiceID
         FROM test
         WHERE UserID = '{$userID}'
         AND AssessmentID = '{$AID}'
-        AND sessionID ='{$sessionID}'
         ");
 
         return $query->result();
