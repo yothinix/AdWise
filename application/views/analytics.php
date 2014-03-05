@@ -108,7 +108,14 @@ echo form_open($controller);
                     <option value="<?php echo $gh->graphID ?>" > <?php echo $gh->name ?> </option>
                  <?php }
                  ?>
-                 <option value="<?php echo $gh->graphID ?>" > <?php echo $gh->name ?> </option>
+             </select>
+         </td>
+         <td>
+             <select >
+                 <option value="" style="display:none;"><-------- Select Data --------></option>
+
+
+
              </select>
          </td>
          <td style=" padding-bottom:13px ">
@@ -150,6 +157,7 @@ echo form_close();
 <script type="text/javascript" src="<?php echo base_url("/assets/js/discrete/src/models/discreteBarChart.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("/assets/js/horizontal/lib/d3.v2.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("/assets/js/horizontal/lib/horizon.js"); ?>"></script>
+
 
 
 <script>

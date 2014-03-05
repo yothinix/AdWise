@@ -23,7 +23,12 @@ class Analytics_model extends CI_Model {
 
     function assessment()
     {
-        $query = $this->db->query("SELECT AssessmentID,Name FROM assessment");
+        $query = $this->db->query("SELECT assessment.AssessmentID as AssessmentID,assessment.name as Name
+                                   FROM user_test
+                                   INNER JOIN assessment ON assessment.AssessmentID = user_test.AssessmentID
+                                   GROUP BY user_test.AssessmentID
+                                   ORDER BY user_test.AssessmentID
+                                  ");
         return $query->result_array();
     }
 
