@@ -39,8 +39,8 @@
 
     </div>
 </div>
-<br>
 <hr>
+<br>
 <div class="container-fluid">
 
         <p style="width:250%;">
@@ -85,10 +85,10 @@
 
                     ?>
                     </TABLE></center><br>
-                    <!--ส่วนที่เพิ่มเข้ามา--!>
-                    </div>
+                    <!--ส่วนที่เพิ่มเข้ามา-->
+                </div>
         </p>
-        </div>
+</div>
 
 
 <?php echo form_close(); ?>

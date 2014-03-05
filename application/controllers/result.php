@@ -61,6 +61,10 @@ class Result extends CI_Controller {
         while(!(empty($Large_array[$index])));
 
         $Result_array = $Large_array[$index-1];
+        $Result_array = $this->final_array($Result_array, $index-1); 
+
+        $itemsets = $this->json_itemset($Result_array);
+        $support = $this->json_support($Result_array);
 
         $ocp_array = $this->get_assoc_ocp($seed_itemsets, $Result_array);
         $ocp_data = array();
@@ -70,6 +74,8 @@ class Result extends CI_Controller {
             array_push($ocp_data, $this->get_ocp_detail($ocp_array[$counter]));
         }
 
+        $aca_array = $this->generate_academic($ocp_array);
+
         $data = array(
             'main_content' => 'result_all',
             'ResultID' => $ResultID_array,
@@ -77,9 +83,88 @@ class Result extends CI_Controller {
             'seed_itemsets' => $seed_itemsets,
             'ocp_array' => $ocp_array,
             'ocp_data' => $ocp_data,
-            'index' => $index
+            'index' => $index,
+            'json_support' => $support,
+            'json_itemset' => $itemsets,
+            'aca_array' => $aca_array
         );
         $this->load->view('/includes/template', $data);
+    }
+
+    function generate_academic($ocp_array)
+    {
+        $this->load->model('Result_model');
+        $academic_array = array();
+        $temp_array = array();
+        $return_array = array();
+        foreach($ocp_array as $item)
+        {
+            $list_aca = $this->Result_model->get_academic($item);
+            array_push($academic_array, $list_aca);
+        }
+
+        for($index = 0; $index < sizeof($academic_array); $index++)
+        {
+            for($arr = 0; $arr < sizeof($academic_array[$index]); $arr++)
+            {
+                array_push($temp_array, $academic_array[$index][$arr]['Academic_id']);
+            }
+        }
+        unset($academic_array);
+
+        for($index = 0; $index < sizeof($temp_array); $index++)
+        {
+            $Name = $this->Result_model->get_aca_name($temp_array[$index]);
+            array_push($return_array, $Name);
+        }
+        $return_array = array_unique($return_array);
+        $return_array = array_reverse(array_reverse($return_array));
+        
+        return array_unique($return_array);
+    } 
+
+    function json_itemset($Result_array)
+    {
+        //$this->get_tag_name($tag_id);
+        $this->load->model('Result_model');
+        $json_itemset = array();
+
+        for($r_index = 0; $r_index < sizeof($Result_array); $r_index++)
+        {
+            for($i_index = 0; $i_index < sizeof($Result_array[$r_index]['itemset']); $i_index++)
+            {
+                $value = $Result_array[$r_index]['itemset'][$i_index];
+                $name = $this->Result_model->get_tag_name($value); 
+                $Result_array[$r_index]['itemset'][$i_index] = $name;            
+            }
+        }
+
+        for($index = 0; $index < sizeof($Result_array); $index++)
+            array_push($json_itemset, $Result_array[$index]['itemset']);
+
+        return json_encode($json_itemset);
+    }
+
+    function json_support($Result_array)
+    {
+        $json_support = array();
+        for($index = 0; $index < sizeof($Result_array); $index++)
+            array_push($json_support, $Result_array[$index]['support']);
+
+        return json_encode($json_support);
+    }
+
+    function final_array($Result_array, $index)
+    {
+        global $minimum_support;
+        $new_array = array();
+        $Result_array = $this->exclude_min_support($Result_array,$minimum_support, $index);
+        for($item = 0; $item < sizeof($Result_array); $item++)
+        {
+            if($Result_array[$item]['support'] >= $minimum_support)
+                array_push($new_array,$Result_array[$item]);
+        }
+        return $new_array;
     }
 
     function get_assoc_ocp(array $seed_itemsets, array $Result_array)

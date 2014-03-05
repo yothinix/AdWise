@@ -37,8 +37,8 @@
                 "><b style="color: #ffffff">Ad</b><b style="color: red">Wise</b></a>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Meet Us</a></li>
+                        <li><a href="<?php echo base_url("index.php/feature/index"); ?>">Features</a></li>
+                        <li><a href="<?php echo base_url("index.php/meetus/index"); ?>">Meet Us</a></li>
                     </ul>
 
                     <div class="navbar-form pull-right" style="margin-bottom: -20px">
@@ -105,7 +105,7 @@
 <!-- Alert Message Sign up Failed -->
 <div id="signup2" class="alert alert-danger" style="display:none; font-size: 16px; margin-top: -35px">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Wrong!</strong> Username/Email ไม่สามารถใช้ได้.
+    <strong>Wrong!</strong> Please try again...
 </div>
 
 <script>

@@ -186,4 +186,19 @@ class ResultExp_model extends CI_Model {
         return $ResultExpID;
     }
 
+    function get_answer_group_list()
+    {
+        $export = array();
+        $query = $this->db->query
+            ("SELECT Name, Detail
+              FROM answer_group
+            ");
+        foreach($query->result() as $row)
+        {
+            $str = "{$row->Detail} ($row->Name)";
+            array_push($export, $str);
+        }
+        return $export;
+    }
+
 }
