@@ -31,8 +31,8 @@ class Resultexp extends CI_Controller {
             $summation_array[$awg]++;
         }
 
-        $sorted = $this->re_Sort($summation_array);
-        $resultID = $this->re_Compare($sorted);
+        $sorted = $this->re_Sort($summation_array, $AID);
+        $resultID = $this->re_Compare($sorted, $userID, $AID);
 
         $awg_list = $this->ResultExp_model->get_answer_group_list();
         $awg_list = json_encode($awg_list);
@@ -54,7 +54,7 @@ class Resultexp extends CI_Controller {
         return $summation_array;
     }
 
-    function re_Sort($summation_array) //($summation_array, $Resultexp) AKA sort_pair
+    function re_Sort($summation_array, $AssessmentID) //($summation_array, $Resultexp) AKA sort_pair
     {
         /* === Result Expression ===
         Total_AWG = 8;
@@ -71,7 +71,7 @@ class Resultexp extends CI_Controller {
         */
         
         //ResultExpressionID get From Table 'assessment'
-        $str = $this->ResultExp_model->get_result_expression($this->session->userdata('assessmentID')); 
+        $str = $this->ResultExp_model->get_result_expression($AssessmentID); 
         $str_array = explode(";", str_replace(' ','',trim(preg_replace('/\s\s+/', ' ', $str))),-1);
 
         $out = array();
@@ -87,7 +87,6 @@ class Resultexp extends CI_Controller {
 
         $compare_array = array();
         $pair_array = array();      //for identified 'out' array and 'summation' array
-        $AssessmentID = $this->session->userdata('assessmentID');
         $total_answer_group = $this->ResultExp_model->get_total_awg($AssessmentID);    //can pull from database
         $k = 1;
         $total_pair = 4; //database improve will change this into query
@@ -140,14 +139,14 @@ class Resultexp extends CI_Controller {
         return $return_array;
     }
 
-    function re_Compare($ASGPattern)
+    function re_Compare($ASGPattern, $UID, $AID)
     {
         $ASGPattern = implode('', $ASGPattern);
         $ResultID = $this->ResultExp_model->get_result_ID($ASGPattern);
         $ResultName = $this->ResultExp_model->get_result_Name($ResultID);
         $date = date('Y/m/d H:i:s');
-        $userID = $this->session->userdata('user_id');
-        $AsmID = $this->session->userdata('assessmentID'); 
+        $userID = $UID;
+        $AsmID = $AID;
         //Save relation AssessmentID+UserID = ResultID into Database too!
         $data = array(
             'UserID' => $userID,
