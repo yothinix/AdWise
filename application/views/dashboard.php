@@ -68,11 +68,14 @@
                         foreach($result_stat as $stat){
                         $assessment = $stat->Assessment;
                         $status = $stat->Status;
+                        $AID = $stat->AID;
                         ?>
                         <TR>
-                         <?php
-                         if($status == 'cp'){
-                            echo "<TD>".$assessment."</TD>"; echo "<TD><span class='btn btn-success' type='botton'>Complete</span></TD>";   //แสดงลิสสถานะ assessment ทั้งหมดของ user ID ที่ส่งไป
+<?php
+                        //change the link to controller relate to view spider page
+                        $link = base_url("index.php/resultexp/Summation/{$userID}/{$AID}");
+                        if($status == 'cp'){
+                            echo "<TD>".$assessment."</TD>"; echo "<TD><a href=\"{$link}\" class='btn btn-success'>Complete</a></TD>";   //แสดงลิสสถานะ assessment ทั้งหมดของ user ID ที่ส่งไป
                          }
                          else if($status == 'ic'){
                             echo "<TD>".$assessment."</TD>"; echo "<TD><span class='btn btn-danger' type='botton'>Incomplete</span></TD></TD>";
@@ -82,15 +85,10 @@
                     <?php
                         }
                         }
-
                     ?>
                     </TABLE></center><br>
                     <!--ส่วนที่เพิ่มเข้ามา-->
                 </div>
         </p>
 </div>
-
-
 <?php echo form_close(); ?>
-
-<!-- เหลือ assessment status กับ report -->

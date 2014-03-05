@@ -77,7 +77,11 @@ class User_model extends CI_Model {
 
     function status_dashboard($user_id)
     {
-        $query = $this->db->query("SELECT user_test.Status as Status, assessment.Name as Assessment FROM user_test INNER JOIN assessment ON assessment.AssessmentID = user_test.AssessmentID AND user_test.UserID = ".$user_id);
+        $query = $this->db->query("SELECT user_test.Status as Status, 
+            assessment.Name as Assessment, assessment.AssessmentID as AID 
+            FROM user_test 
+            INNER JOIN assessment ON assessment.AssessmentID = user_test.AssessmentID 
+            AND user_test.UserID = ".$user_id);
         return $query->result();
     }
 
