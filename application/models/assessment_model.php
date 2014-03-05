@@ -39,7 +39,7 @@ class Assessment_model extends CI_Model {
     function get_asm_list()
     {
         $query = $this->db->query("
-        SELECT AssessmentID, Name, Description, CreatorID, status
+        SELECT AssessmentID, Name, Description, CreatorID, status, TotalQuestion
         FROM assessment
         WHERE status = '1'
         ");
