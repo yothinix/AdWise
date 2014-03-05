@@ -61,13 +61,8 @@
             foreach($choice as $row)
             {
                 $currentChoiceID = $row->ChoiceID;
-                echo "<div class=\"row\">
-                        <div class=\"span4\">
-                            <a class=\"btn btn-primary\" href=\"javascript:ans($currentChoiceID)\">ตัวเลือก</a>
-                        </div><!--/span4-->
-                        <div class=\"span8\" style =\"margin-left: -40px\">
-                            <p>$row->Detail</p>
-                        </div><!--/span8-->
+                echo "<div class=\"row\" style=\"text-align: center\">
+                            <a class=\"btn btn-primary\" href=\"javascript:ans($currentChoiceID)\">$row->Detail</a>
                     </div><!--/row-->";
             }
     ?>
@@ -84,9 +79,7 @@
 
 <div class="pagination" style="text-align: center">
     <ul>
-        <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$Prev"); ?>">«</a></li>
-        <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$QuestionNr"); ?>"><?php echo $QuestionNr ?></a></li>
-        <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$Next"); ?>">»</a></li>
+        <li><a href="<?php echo base_url("$baseTestUrl/$AssessmentID/$QuestionNr"); ?>"><?php echo $QuestionNr."/".$new_Total; ?></a></li>
     </ul>
 </div>
 <?php

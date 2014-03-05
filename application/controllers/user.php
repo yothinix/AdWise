@@ -58,8 +58,20 @@ class User extends CI_Controller{
 
         if($check == NULL)
         {
-            $this->User_model->signup();
-            redirect('/user/index?complete');
+            $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[8]');
+            $this->form_validation->set_rules('email', 'Your Email', 'trim|required|valid_email');
+            $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[32]');
+            $this->form_validation->set_rules('re_password', 'Re-type Password', 'trim|required|matches[password]');
+
+            if($this->form_validation->run() == FALSE)
+            {
+                redirect('/user/index?wrong');
+            }
+            else
+            {
+                $this->User_model->signup();
+                redirect('/user/index?complete');
+            }
         }
         else
         {
@@ -156,7 +168,9 @@ class User extends CI_Controller{
     {
         $username = $this->session->userdata('user_name');
 
-        $config['upload_path'] = 'uploads/';
+        $path = FCPATH . 'uploads';
+        $config['upload_path'] = $path;
+        //$config['upload_path'] = 'uploads/';
         $config['allowed_types'] = 'gif|jpg|jpeg|png';
         $config['max_width']  = '0';
         $config['max_height']  = '0';

@@ -34,12 +34,20 @@ class Resultexp extends CI_Controller {
         $sorted = $this->re_Sort($summation_array);
         $resultID = $this->re_Compare($sorted);
 
+        $awg_list = $this->ResultExp_model->get_answer_group_list();
+        $awg_list = json_encode($awg_list);
+        $new_summation_array = array();
+        for($index = 1; $index <= sizeof($summation_array); $index++)
+            array_push($new_summation_array, $summation_array[$index]);
+        $summation_array = json_encode($new_summation_array);
         ////////////////////////////////////////////////////////////////
         $data = array(
             'main_content' => 'result_test',
             'summation_array' => $summation_array,
             'Total_AnswerGroup' => $Total_AnswerGroup,
-            'resultID' => $resultID
+            'resultID' => $resultID,
+            'awg_list' => $awg_list,
+            'AID' => $AID
         );
         $this->load->view('/includes/template', $data);
 
@@ -163,6 +171,3 @@ class Resultexp extends CI_Controller {
     }
 
 }
-
-//    bug
-//    - ghost query (effect a lot in processing method)

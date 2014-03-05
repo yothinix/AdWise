@@ -29,6 +29,7 @@ foreach($assessment as $row)
         <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" data-src="holder.js/140x140" src="<?php echo base_url("/resources/assessment.png"); ?>">
 <?php
     echo heading("$row->Name", 3);
+    echo "<h4>Total Question: {$row->TotalQuestion}</h4>";   
     echo "<p>$row->Description</p>";
 ?>
     <p><a class="btn btn-primary btn-large btn-block" href="
@@ -36,7 +37,8 @@ foreach($assessment as $row)
     echo base_url("index.php/assessment/test/{$row->AssessmentID}/1");
 ?>
         ">Start Test &raquo;</a></p>
-<?php    echo "</div><!-- /.span4 -->";
+<?php 
+    echo "</div><!-- /.span4 -->";
 }
 ?>
 </div><!--/span-->

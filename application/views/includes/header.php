@@ -2,7 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>AdWise | Assessment</title>
+    <title>
+        <?php
+        if($main_content == 'feature'){ echo "AdWise | Features"; }
+        if($main_content == 'meet_us'){ echo "AdWise | Meet Us"; }
+        if($main_content == 'dashboard'){ echo "AdWise | When Student found their ways"; }
+        if($main_content == 'assessment_list'){ echo "AdWise | Assessment"; }
+        if($main_content == 'result_all'){ echo "AdWise | Report"; }
+        if($main_content == 'login/profile'){ echo "AdWise | Profile"; }
+        if($main_content == 'login/changepassword'){ echo "AdWise | Change Password"; }
+        ///// Admin /////
+        if($main_content == 'manage_assessment_type'){ echo "AdWise | Manage Assessment Type"; }
+        if($main_content == 'manage_assessment' || $main_content == 'createAsm/asm_info' ||
+            $main_content == 'createAsm/question_and_answer' || $main_content == 'createAsm/review_qa' ||
+            $main_content == 'createAsm/result_condition' || $main_content == 'createAsm/review_condition')
+            { echo "AdWise | Manage Assessment"; }
+        if($main_content == 'manage_result'){ echo "AdWise | Manage Result"; }
+        if($main_content == 'manage_answer_group'){ echo "AdWise | Manage Answer Group"; }
+        if($main_content == 'manage_occupation'){ echo "AdWise | Manage Occupation"; }
+        if($main_content == 'manage_academic'){ echo "AdWise | Manage Academic"; }
+        if($main_content == 'manage_tags'){ echo "AdWise | Manage Tags"; }
+        if($main_content == 'manage_user'){ echo "AdWise | Manage User"; }
+        if($main_content == 'analytics'){ echo "AdWise | Analytics"; } ?>
+    </title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -70,7 +93,7 @@ $analytics = base_url("index.php/manage/analytics");
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li><a href="#">Features</a></li>
+                    <li><a href="<?php echo base_url("index.php/feature/index"); ?>">Features</a></li>
                     <li><a href="<?php echo base_url("index.php/meetus/index"); ?>">Meet Us</a></li>
                 </ul>
                 <div class="navbar-text pull-right" style="margin-bottom: -30px">
@@ -113,8 +136,11 @@ $analytics = base_url("index.php/manage/analytics");
                             <li class="nav-header">Admin Menu</li>
                             <li <?php if($main_content == 'manage_assessment_type'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $manage_assessment_type; ?>"><i class="icon-th-list"></i>Manage Assessment Type</a></li>
-                            <li <?php if($main_content == 'manage_assessment' || $main_content == 'create_assessment'){ echo "class=\"active\""; } ?>>
-                                <a href="<?php echo $manage_assessment; ?>"><i class="icon-file"></i>Manage Assessment</a></li>
+                            <li <?php if($main_content == 'manage_assessment' || $main_content == 'createAsm/asm_info' ||
+                                $main_content == 'createAsm/question_and_answer' || $main_content == 'createAsm/review_qa' ||
+                                $main_content == 'createAsm/result_condition' || $main_content == 'createAsm/review_condition')
+                                { echo "class=\"active\""; } ?>>
+                                <a href="<?php echo $manage_assessment ?>"><i class="icon-file"></i>Manage Assessment</a></li>
                             <li <?php if($main_content == 'manage_result'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $manage_result ?>"><i class="icon-tasks"></i>Manage Result</a></li>
                             <li <?php if($main_content == 'manage_answer_group'){ echo "class=\"active\""; } ?>>

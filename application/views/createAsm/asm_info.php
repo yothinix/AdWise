@@ -45,8 +45,10 @@
         $controller = "assessment/init_create_asm";
     echo form_open($controller);
 ?>
-                <input type="text" name="asm_name" class="input-block-level" placeholder="Assessment Name" value="<?php echo $asm_name; ?>" />
-                <textarea type="text" rows="10" name="asm_desc" class="input-block-level" placeholder="Assessment Description"><?php echo $asm_desc; ?></textarea>
+                <label>Assessment Name</label>
+                <input type="text" name="asm_name" class="input-block-level" value="<?php echo $asm_name; ?>" />
+                <label>Assessment Description</label>
+                <textarea type="text" rows="10" name="asm_desc" class="input-block-level"><?php echo $asm_desc; ?></textarea>
                 <div class="row">
                     <div class="span4">
                         <select name="asm_type">

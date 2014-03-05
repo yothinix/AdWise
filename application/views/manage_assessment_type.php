@@ -59,15 +59,20 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">?</button>
                 <h3 id="myModalLabel">Edit Assessment Type</h3>
             </div>
-            <div class="modal-body">
-<?php
-    echo form_open("manage/update_asm_type/{$Asm_type_ID}");
-?>
-            <input type="text" name="asm_type_name" class="input-block-level" value="<?php echo $row->Name ?>" placeholder="Name"/>
-            <input type="text" name="asm_type_desc" class="input-block-level" value="<?php echo $row->Description ?>" placeholder="Description" />
-            <input type="text" name="no_choice" class="input-block-level" value="<?php echo $row->TotalChoice ?>" placeholder="Total Choice"/>
-            <input type="text" name="no_answer" class="input-block-level" value="<?php echo $row->TotalAnswer ?>" placeholder="Total Answer"/>
-            <input type="text" name="no_answer_group" class="input-block-level" value="<?php echo $row->TotalAnswerGroup ?>" placeholder="Total Answer Group"/>
+            <div class="modal-body" style="margin-top: -20px">
+            <?php
+            echo form_open("manage/update_asm_type/{$Asm_type_ID}");
+            ?>
+            <small>Name</small>
+            <input type="text" name="asm_type_name" class="input-block-level" value="<?php echo $row->Name ?>" />
+            <small>Description</small>
+            <input type="text" name="asm_type_desc" class="input-block-level" value="<?php echo $row->Description ?>" />
+            <small>Total Choice</small>
+            <input type="text" name="no_choice" class="input-block-level" value="<?php echo $row->TotalChoice ?>" />
+            <small>Total Answer</small>
+            <input type="text" name="no_answer" class="input-block-level" value="<?php echo $row->TotalAnswer ?>" />
+            <small>Total Answer Group</small>
+            <input type="text" name="no_answer_group" class="input-block-level" value="<?php echo $row->TotalAnswerGroup ?>" />
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-success">Update Assessment Type</button>
@@ -94,11 +99,16 @@
 <?php
     echo form_open("manage/create_asm_type");
 ?>
-        <input type="text" name="asm_type_name" class="input-block-level" placeholder="Assessment Type Name" />
-        <input type="text" name="asm_type_desc" class="input-block-level" placeholder="Description" />
-        <input type="text" name="no_choice" class="input-block-level" placeholder="No. of Choice" />
-        <input type="text" name="no_answer" class="input-block-level" placeholder="No. of Answer" />
-        <input type="text" name="no_answer_group" class="input-block-level" placeholder="No. of Answer Group" />
+        <small>Name</small>
+        <input type="text" name="asm_type_name" class="input-block-level" />
+        <small>Description</small>
+        <input type="text" name="asm_type_desc" class="input-block-level" />
+        <small>Total Choice</small>
+        <input type="text" name="no_choice" class="input-block-level" />
+        <small>Total Answer</small>
+        <input type="text" name="no_answer" class="input-block-level" />
+        <small>Total Answer Group</small>
+        <input type="text" name="no_answer_group" class="input-block-level" />
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-success">Create Assessment Type</button>

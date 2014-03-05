@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>AdWise | Assessment</title>
+    <title><?php echo (isset($title)) ? $title : "" ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -68,7 +68,7 @@ $analytics = base_url("index.php/manage/analytics");
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li><a href="#">Features</a></li>
+                    <li><a href="<?php echo base_url("index.php/feature/index"); ?>">Features</a></li>
                     <li><a href="<?php echo base_url("index.php/meetus/index"); ?>">Meet Us</a></li>
                 </ul>
                 <div class="navbar-text pull-right" style="margin-bottom: -30px">

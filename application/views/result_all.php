@@ -77,14 +77,65 @@ $array_size = count($ResultID);
               <tbody>
 <?php
    //use same data_model as career path [need to fill data in occupation_academic 
-    for($index = 0; $index < sizeof($ocp_data); $index++)
+    for($index = 0; $index < sizeof($aca_array); $index++)
     {
-        echo "<tr><td><h4>{$ocp_data[$index][0]['Name']}</h4></td></tr>";
+        echo "<tr><td><h4>{$aca_array[$index]}</h4></td></tr>";
     }
 ?>
 </tbody></table></div>
 </div>
 </div>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <hr>
+<script type="text/javascript">
+$(function () {
+        $('#container').highcharts({
+            chart: {
+                type: 'bar',
+                backgroundColor: '#eeeeee'
+            },
+            title: {
+                text: 'Result of Apriori algorithm'
+            },
+            xAxis: {
+                categories: <?php echo $json_itemset ?>,
+                title: {
+                    text: 'Tags itemset' 
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Support',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                data: <?php echo $json_support; ?>
+            }]
+        });
+    });
+    
+</script>
 
-
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>

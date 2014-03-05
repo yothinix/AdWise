@@ -14,13 +14,16 @@
         margin-right: 10px;
     }
 </style>
+
 <h2 style="margin-top: -30px">Report</h2>
 <hr/>
 <div class="row">
-    <?php
-    $asm_info = $this->Assessment_model->get_asm_info(1); //เอาค่ามาจาก session วิธีเดียวกับ Take an Assessment
+<?php
+    $Assessment_name;
+    $asm_info = $this->Assessment_model->get_asm_info($AID);     
     foreach($asm_info as $asm_info_row)
     {
+        $Assessment_name = $asm_info_row->Name;
         echo "<div class=\"span4\">";
         ?>
         <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" data-src="holder.js/140x140" src="<?php echo base_url("/resources/assessment.png"); ?>">
@@ -38,28 +41,87 @@
     ?>
     <div id="result_content" class="span8" style="margin-left: 10px">
         <div id="result_content1" class="row" style="margin-left: 10px">
-            <h3>Test Result</h3>
             <div id="name_asset" class="span7">
-                <h2>Your Meyer-Briggs Type Indicator is:</h2>
+            <h2>Your <?php echo $Assessment_name; ?> is:</h2>
             </div>
             <div id="asset_result" class="span4">
                 <pre><h1 style="text-align: left"><?php echo $resultID; ?></h1></pre>
             </div>
+    <div id="container" style="min-width: 400px; max-width: 600px; height: 400px; margin: 0 auto"></div>
         </div>
     </div>
-    <div id="awg_content" class="span8">
-        <h3 style="font-style: italic">Answer Group: Summation</h3>
-        <?php
-            //var_dump($Total_AnswerGroup);
-            $i=1;
-            while($i <= $Total_AnswerGroup)
-            {
-                echo "AWG{$i}: {$summation_array[$i]}";
-                echo br();
-                $i++;
-            }
-        ?>
-    </div>
 </div><!--/span-->
-
 <hr>
+
+<script type="text/javascript">
+$(function () {
+	$('#container').highcharts({
+	            
+        chart: {
+	        polar: true,
+            type: 'line',
+            backgroundColor: '#eeeeee'
+        },
+        
+        plotOptions: {
+            series: {
+            }
+        },
+
+	    title: {
+	        text: null
+        },
+        
+        credits: {
+            enabled: false
+        },
+
+	    pane: {
+	    	size: '80%'
+	    },
+	    
+        xAxis: {
+            categories: <?php echo $awg_list; ?>,
+	        tickmarkPlacement: 'on',
+            lineWidth: 0,
+            labels : {
+                style: {
+                    color: 'red',
+                        fontWeight: 'bold',
+                        fontSize: 15
+                },
+            }
+	    },
+	        
+	    yAxis: {
+	        gridLineInterpolation: 'polygon',
+	        lineWidth: 0,
+	        min: 0
+	    },
+	    
+        series: [{
+            data: <?php echo $summation_array; ?>,
+            lineWidth: 4,
+	        pointPlacement: 'on',
+            marker: {
+                fillColor: '#FFFFFF',
+                    lineWidth: 2,
+                    lineColor: null // inherit from series
+            }
+        }],
+
+        exporting: {
+            enabled: false
+        },
+
+        legend: {
+            enabled: false
+        }
+
+
+    });
+});
+</script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>

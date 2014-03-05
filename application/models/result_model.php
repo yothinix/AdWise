@@ -110,4 +110,41 @@ class Result_model extends CI_Model {
               ");
         return $query->num_rows();
     }
+
+    function get_tag_name($tag_id)
+    {
+        $name;
+        $query = $this->db->query
+            ("SELECT Tags_name
+              FROM tags
+              WHERE Tags_id = '{$tag_id}'
+              ");
+        foreach($query->result() as $item)
+            $name = $item->Tags_name;
+        return $name;
+    }
+
+    function get_academic($Occupation_id)
+    {
+        $query = $this->db->query
+            ("SELECT Academic_id
+              FROM occupation_academic
+              WHERE Occupation_id = '{$Occupation_id}'
+              ");
+
+        return $query->result_array();
+    }
+
+    function get_aca_name($aca_id)
+    {
+        $Name;
+        $query = $this->db->query
+            ("SELECT Name
+              FROM academic
+              WHERE Academic_id = '{$aca_id}'
+              ");
+        foreach($query->result() as $row)
+            $Name = $row->Name;
+        return $Name;
+    }
 }

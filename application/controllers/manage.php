@@ -457,25 +457,29 @@ class Manage extends CI_Controller{
         $this->load->model('Analytics_model');
         $assessment = $this->Analytics_model->assessment();
         $assessmentID = $this->input->post('assessmentID');
+        $graphID = $this->input->post('graphIDD');
         $result_male = $this->Analytics_model->graph_data((string) $assessmentID,0);
         $result_female = $this->Analytics_model->graph_data((string) $assessmentID,1);
         $return_array_male = array();
         $return_array_female = array();
 
+
         for($index = 0; $index < sizeof($result_male); $index++)
         {
-            array_push($return_array_male, array('key' => $result_male[$index]['Name'], 'y' => $result_male[$index]['TotalResult']));
+            array_push($return_array_male, array('label' => $result_male[$index]['Name'], 'value' => $result_male[$index]['TotalResult']));
         }
         for($index = 0; $index < sizeof($result_female); $index++)
         {
-            array_push($return_array_female, array('key' => $result_female[$index]['Name'], 'y' => $result_female[$index]['TotalResult']));
+            array_push($return_array_female, array('label' => $result_female[$index]['Name'], 'value' => $result_female[$index]['TotalResult']));
         }
 
         $data = array(
             'assessment' => $assessment,
             'main_content' => 'analytics',
+            'graph_Select' => $graphID,
             'result_male' => json_encode($return_array_male),
-            'result_female' => json_encode($return_array_female)
+            'result_female' => json_encode($return_array_female),
+            'check'=> 'data'
 
         );
         $this->load->view('includes/template', $data);
