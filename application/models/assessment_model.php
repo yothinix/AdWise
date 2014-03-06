@@ -111,6 +111,15 @@ class Assessment_model extends CI_Model {
     {
         $this->db->delete('test', array('UserID' => $UserID, 'AssessmentID' => $Assessment_id));
     }
+
+    function get_participant($AssessmentID)
+    {
+        $variable;
+        $query = $this->db->query("SELECT COUNT(Status) as Participant FROM user_test WHERE AssessmentID = {$AssessmentID}");
+        foreach($query->result_array() as $item)
+            $variable = $item['Participant'];
+        return $variable;
+    }
 }
 ?>
 
