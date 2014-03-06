@@ -115,7 +115,6 @@
             </div>
         </td>
         <td>
-            <a  style="margin-left: 20px"class="btn btn-small" href="#"><i class="icon-file"></i></a>
             <a  class="btn btn-small" href="#edit<?php echo $ASMID ?>" role="button" class="btn" data-toggle="modal"><i class="icon-pencil"></i></a>
             <a href="#delete<?php echo $ASMID ?>" role="button" class="btn" data-toggle="modal"><i class="icon-trash"></i></a>
         </td>
