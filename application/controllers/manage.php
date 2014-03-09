@@ -382,7 +382,7 @@
         $assessment = $this->Analytics_model->assessment();
 
         $data = array(
-            'main_content' => 'analytics',
+            'main_content' => 'Analytics/analytics',
             'user_test_data' => $user_test_data,
             'assessment' => $assessment,
             'result_male' => 0,
@@ -392,38 +392,130 @@
         $this->load->view('includes/template', $data);
     }
 
-    function get_analytics()
+    function graph()
     {
-        $assessment = $this->Analytics_model->assessment();
-        $assessmentID = $this->input->post('assessmentID');
-        $graphID = $this->input->post('graphIDD');
-        $result_male = $this->Analytics_model->graph_data((string) $assessmentID,0);
-        $result_female = $this->Analytics_model->graph_data((string) $assessmentID,1);
-        $return_array_male = array();
-        $return_array_female = array();
+        $this->load->model('Analytics_model');
+        $AssessmentID = $this->input->post('asmID');
+        $graph_id = $this->input->post('graphID');
+        $graph_data = $this->input->post('graph_data');
+        $data = array();
 
-
-        for($index = 0; $index < sizeof($result_male); $index++)
+        if($graph_id == 1 && $graph_data == 1) //case pie chart with male and female data graph_id 1 = pie, graph_data 1 = gender
         {
-            array_push($return_array_male, array('label' => $result_male[$index]['Name'], 'value' => $result_male[$index]['TotalResult']));
-        }
-        for($index = 0; $index < sizeof($result_female); $index++)
+            $male_array = array();
+            $female_array = array();
+            $male = $this->Analytics_model->get_pie_gender_male($AssessmentID);
+            $female = $this->Analytics_model->get_pie_gender_female($AssessmentID);
+
+            for($index = 0; $index < sizeof($male); $index++)
+            {
+                array_push($male_array, array($male[$index]['Name'],(int) $male[$index]['Value']));
+            }
+
+            for($index = 0; $index < sizeof($female); $index++)
+            {
+                array_push($female_array, array($female[$index]['Name'],(int) $female[$index]['Value']));
+            }
+                    $data = array(
+                        'main_content' => 'Analytics/pie_gender',
+                        'male' => $male_array,
+                        'female' => $female_array
+
+             );
+
+        }else if ($graph_id == 1 && $graph_data == 2) //case pie chart  data graph_id 1 = pie, graph_data 2 = age
+                {
+                    $age = $this->Analytics_model->get_pie_age($AssessmentID);
+                    $data = array(
+                        'main_content' => 'Analytics/pie_age',
+                        'age' => $age
+
+                    );
+
+        }else if ($graph_id == 1 && $graph_data == 3) //case pie chart  data graph_id 1 = pie, graph_data 3 = total
+                {
+                    $total = $this->Analytics_model->get_pie_total($AssessmentID);
+
+                    $data = array(
+                        'main_content' => 'Analytics/pie_total',
+                        'total' => $total
+
+                    );
+                }
+        if($graph_id == 2 && $graph_data == 1) //case line chart with male and female data graph_id 2 = pie, graph_data 1 = gender
         {
-            array_push($return_array_female, array('label' => $result_female[$index]['Name'], 'value' => $result_female[$index]['TotalResult']));
+            $male_array = array();
+            $female_array = array();
+            $male = $this->Analytics_model->get_pie_gender_male($AssessmentID);
+            $female = $this->Analytics_model->get_pie_gender_female($AssessmentID);
+
+            for($index = 0; $index < sizeof($male); $index++)
+            {
+                array_push($male_array, array($male[$index]['Name'],(int) $male[$index]['Value']));
+            }
+
+            for($index = 0; $index < sizeof($female); $index++)
+            {
+                array_push($female_array, array($female[$index]['Name'],(int) $female[$index]['Value']));
+            }
+            $data = array(
+                'main_content' => 'Analytics/line_gender',
+                'male' => $male_array,
+                'female' => $female_array
+
+            );
+
+        }else if ($graph_id == 2 && $graph_data == 2) //case line chart with male and female data graph_id 2 = pie, graph_data 2 = age
+                {
+                    $age = $this->Analytics_model->get_pie_age($AssessmentID);
+                    $data = array(
+                        'main_content' => 'Analytics/line_age',
+                        'age' => $age
+                    );
+
+        }else if ($graph_id == 2 && $graph_data == 3) //case line chart with male and female data graph_id 1 = pie, graph_data 3 = total
+                {
+                    $total = $this->Analytics_model->get_line_total($AssessmentID);
+                    $data = array(
+                        'main_content' => 'Analytics/line_total',
+                        'total' => $total
+                    );
+                }
+
+
+        if($graph_id == 3 && $graph_data == 1) //case column chart with male and female data graph_id 2 = pie, graph_data 1 = gender
+        {
+            $male = $this->Analytics_model->get_column_gender_male($AssessmentID);
+            $female = $this->Analytics_model->get_column_gender_female($AssessmentID);
+
+                    $data = array(
+                        'main_content'   => 'Analytics/column_gender',
+                        'male' => $male,
+                        'female' => $female
+            );
+
+        }else if ($graph_id == 3 && $graph_data == 2) //case column chart with male and female data graph_id 2 = pie, graph_data 2 = age
+        {
+                    $age = $this->Analytics_model->get_pie_age($AssessmentID);
+                    $data = array(
+                        'main_content' => 'Analytics/column_age',
+                        'age' => $age
+                    );
+
+        }else if ($graph_id == 3 && $graph_data == 3) //case column chart with male and female data graph_id 1 = pie, graph_data 3 = total
+        {
+                    $total = $this->Analytics_model->get_line_total($AssessmentID);
+                    $data = array(
+                        'main_content' => 'Analytics/column_total',
+                        'total' => $total
+                    );
         }
 
-        $data = array(
-            'assessment' => $assessment,
-            'main_content' => 'analytics',
-            'graph_Select' => $graphID,
-            'result_male' => json_encode($return_array_male),
-            'result_female' => json_encode($return_array_female),
-            'check'=> 'data'
+            $this->load->view('includes/template', $data);
+        }
 
-        );
-        $this->load->view('includes/template', $data);
 
-    }
+
 
 }
 ?>
