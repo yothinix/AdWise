@@ -1,5 +1,4 @@
-<?php
-class Manage extends CI_Controller{
+<?php class Manage extends CI_Controller{
     function __construct()
     {
         parent::__construct();
@@ -11,6 +10,7 @@ class Manage extends CI_Controller{
         $this->load->model('Manage_occupation');
         $this->load->model('Manage_result_data');
         $this->load->model('Manage_tags');
+        $this->load->model('Analytics_model');
     }
 
     function index()
@@ -99,7 +99,6 @@ class Manage extends CI_Controller{
             $this->Manage_academic->tags_aca($Academic_id,$Tags_id);
             $counter++;
         }
-        $this->update_aca_json();
         $this->manage_academic();
     }
 
@@ -108,7 +107,6 @@ class Manage extends CI_Controller{
         $this->db->delete('academic',array('Academic_id' => $Academic_id));
         $this->db->delete('tags_academic',array('Academic_id' => $Academic_id));
         $this->db->delete('occupation_academic',array('Academic_id' => $Academic_id));
-        $this->update_aca_json();
         $this->manage_academic();
     }
 
@@ -126,22 +124,7 @@ class Manage extends CI_Controller{
             $this->Manage_academic->tags_chk($Academic_id,$Tags_id);
             $counter++;
         }
-        $this->update_aca_json();
         $this->manage_academic();
-    }
-
-    function update_aca_json()
-    {
-        $posts = array();
-        $query = $this->db->query("SELECT * FROM academic");
-        foreach($query->result() as $row)
-        {
-            $ACA_name = $row->Name;
-            $posts[] = ($ACA_name);
-        }
-        $data = json_encode($posts);
-        $path = FCPATH;
-        write_file("{$path}/assets/aca.json", $data, 'w');
     }
 
 /////////// Manage Assessment Controller Function Group/////////////////////////
@@ -260,38 +243,19 @@ class Manage extends CI_Controller{
         $this->manage_result();
     }
 
-    //function update_result($ResultID)
-    //{
-    //    $data = array(
-    //        'name' => $this->input->post('name'),
-    //        'Detail'=>$this->input->post('detail')
-    //    );
-    //    $this->Manage_result_data->update_result($ResultID ,$data);
-    //    $this->manage_result();
-    //}
+    function update_result($ResultID)
+    {
+        $data = array(
+            'name' => $this->input->post('name'),
+            'Detail'=>$this->input->post('detail')
+        );
+        $this->Manage_result_data->update_result($ResultID ,$data);
+        $this->manage_result();
+    }
 
     function delete_result($ResultID)
     {
         $this->db->delete('result', array('ResultID' => $ResultID));
-        $this->db->delete('result_occupation', array('ResultID' => $ResultID));
-        $this->manage_result();
-    }
-
-    function update_result($ResultID)
-    {
-        $this->Manage_result_data->update_result($ResultID);
-
-        $this->Manage_result_data->delete_result($ResultID);
-        $Occupation = $this->input->post('Occupation');
-        $TotalOcp = substr_count($Occupation,',')+1;
-        $Ocp_Key = explode(",", $Occupation);
-        $counter = 0;
-        while($counter < $TotalOcp)
-        {
-            $Occupation_id = $this->Manage_result_data->ocp_db($Ocp_Key[$counter]);
-            $this->Manage_result_data->ocp_chk($ResultID,$Occupation_id);
-            $counter++;
-        }
         $this->manage_result();
     }
 
@@ -319,15 +283,12 @@ class Manage extends CI_Controller{
     function delete_occupation($Occupation_id)
     {
         $this->db->delete('occupation', array('Occupation_id' => $Occupation_id));
-        $this->db->delete('tags_occupation', array('Occupation_id' => $Occupation_id));
-        $this->db->delete('occupation_academic', array('Occupation_id' => $Occupation_id));
-        $this->db->delete('result_occupation', array('Occupation_id' => $Occupation_id));
-        $this->update_ocp_json();
         $this->manage_occupation();
     }
 
     function create_occupation()
     {
+        $this->load->model('Manage_occupation');
         $Occupation_id = $this->Manage_occupation->ocp_db();
 
         $Tags = $this->input->post('Tags');
@@ -351,53 +312,19 @@ class Manage extends CI_Controller{
             $this->Manage_occupation->ocp_aca($Occupation_id,$Academic_id);
             $counter++;
         }
-        $this->update_ocp_json();
+
         $this->manage_occupation();
     }
 
-    function update_occupation($Occupation_id)
+    function update_occupation($occupation_id)
     {
-        $this->Manage_occupation->update_occupation($Occupation_id);
-
-        $this->Manage_occupation->delete_ocp($Occupation_id); // ลบ clear all tags ก่อนจะทำการจับคู่ใหม่
-        $Tags = $this->input->post('tags');
-        $TotalTags = substr_count($Tags,',')+1;
-        $Tags_Key = explode(",", $Tags);
-        $counter = 0;
-        while($counter < $TotalTags)
-        {
-            $Tags_id = $this->Manage_occupation->tags_db($Tags_Key[$counter]); //ได้ tag id
-            $this->Manage_occupation->tags_chk($Occupation_id,$Tags_id);
-            $counter++;
-        }
-
-        $this->Manage_occupation->delete_aca($Occupation_id); // ลบ clear all aca ก่อนจะทำการจับคู่ใหม่
-        $Academic = $this->input->post('academic');
-        $TotalAcademic = substr_count($Academic,',')+1;
-        $Academic_Key = explode(",", $Academic);
-        $counter = 0;
-        while($counter < $TotalAcademic)
-        {
-            $Academic_id = $this->Manage_occupation->aca_db($Academic_Key[$counter]); //ได้ aca id
-            $this->Manage_occupation->aca_chk($Occupation_id,$Academic_id);
-            $counter++;
-        }
-        $this->update_ocp_json();
+        $data = array(
+            'Name'=>$this->input->post('name'),
+            'Detail'=>$this->input->post('detail'),
+            'Tag'=>($this->input->post('tag'))
+        );
+        $this->Manage_occupation->update($occupation_id ,$data);
         $this->manage_occupation();
-    }
-
-    function update_ocp_json()
-    {
-        $posts = array();
-        $query = $this->db->query("SELECT * FROM occupation");
-        foreach($query->result() as $row)
-        {
-            $OCP_name = $row->Name;
-            $posts[] = ($OCP_name);
-        }
-        $data = json_encode($posts);
-        $path = FCPATH;
-        write_file("{$path}/assets/ocp.json", $data, 'w');
     }
 
 ////////////// Manage Tags Controller Function Group //////////////
@@ -414,7 +341,7 @@ class Manage extends CI_Controller{
 
     function del_tags($Tags_id)
     {
-        $this->Manage_tags->delete_tags($Tags_id);
+        $this->db->delete('tags',array('Tags_id' => $Tags_id));
         $this->manage_tags();
     }
 
@@ -437,53 +364,158 @@ class Manage extends CI_Controller{
         $this->manage_tags();
     }
 
+    function taginput()
+    {
+        $this->load->view('taginput.html');
+    }
+
     ////////////// Analytics Function //////////////
 
     function analytics()
     {
         $this->load->model('Analytics_model');
+
+        $user_test_data = $this->Analytics_model->get_user_test_data(1); 
+        //AssessmentID input method will change later
+        $sex = 0;
+
         $assessment = $this->Analytics_model->assessment();
+
         $data = array(
-            'main_content' => 'analytics',
+            'main_content' => 'Analytics/analytics',
+            'user_test_data' => $user_test_data,
             'assessment' => $assessment,
             'result_male' => 0,
             'result_female' => 0
+
         );
         $this->load->view('includes/template', $data);
     }
 
-    function get_analytics()
+    function graph()
     {
         $this->load->model('Analytics_model');
-        $assessment = $this->Analytics_model->assessment();
-        $assessmentID = $this->input->post('assessmentID');
-        $graphID = $this->input->post('graphIDD');
-        $result_male = $this->Analytics_model->graph_data((string) $assessmentID,0);
-        $result_female = $this->Analytics_model->graph_data((string) $assessmentID,1);
-        $return_array_male = array();
-        $return_array_female = array();
+        $AssessmentID = $this->input->post('asmID');
+        $graph_id = $this->input->post('graphID');
+        $graph_data = $this->input->post('graph_data');
+        $data = array();
 
-
-        for($index = 0; $index < sizeof($result_male); $index++)
+        if($graph_id == 1 && $graph_data == 1) //case pie chart with male and female data graph_id 1 = pie, graph_data 1 = gender
         {
-            array_push($return_array_male, array('label' => $result_male[$index]['Name'], 'value' => $result_male[$index]['TotalResult']));
-        }
-        for($index = 0; $index < sizeof($result_female); $index++)
+            $male_array = array();
+            $female_array = array();
+            $male = $this->Analytics_model->get_pie_gender_male($AssessmentID);
+            $female = $this->Analytics_model->get_pie_gender_female($AssessmentID);
+
+            for($index = 0; $index < sizeof($male); $index++)
+            {
+                array_push($male_array, array($male[$index]['Name'],(int) $male[$index]['Value']));
+            }
+
+            for($index = 0; $index < sizeof($female); $index++)
+            {
+                array_push($female_array, array($female[$index]['Name'],(int) $female[$index]['Value']));
+            }
+                    $data = array(
+                        'main_content' => 'Analytics/pie_gender',
+                        'male' => $male_array,
+                        'female' => $female_array
+
+             );
+
+        }else if ($graph_id == 1 && $graph_data == 2) //case pie chart  data graph_id 1 = pie, graph_data 2 = age
+                {
+                    $age = $this->Analytics_model->get_pie_age($AssessmentID);
+                    $data = array(
+                        'main_content' => 'Analytics/pie_age',
+                        'age' => $age
+
+                    );
+
+        }else if ($graph_id == 1 && $graph_data == 3) //case pie chart  data graph_id 1 = pie, graph_data 3 = total
+                {
+                    $total = $this->Analytics_model->get_pie_total($AssessmentID);
+
+                    $data = array(
+                        'main_content' => 'Analytics/pie_total',
+                        'total' => $total
+
+                    );
+                }
+        if($graph_id == 2 && $graph_data == 1) //case line chart with male and female data graph_id 2 = pie, graph_data 1 = gender
         {
-            array_push($return_array_female, array('label' => $result_female[$index]['Name'], 'value' => $result_female[$index]['TotalResult']));
+            $male_array = array();
+            $female_array = array();
+            $male = $this->Analytics_model->get_pie_gender_male($AssessmentID);
+            $female = $this->Analytics_model->get_pie_gender_female($AssessmentID);
+
+            for($index = 0; $index < sizeof($male); $index++)
+            {
+                array_push($male_array, array($male[$index]['Name'],(int) $male[$index]['Value']));
+            }
+
+            for($index = 0; $index < sizeof($female); $index++)
+            {
+                array_push($female_array, array($female[$index]['Name'],(int) $female[$index]['Value']));
+            }
+            $data = array(
+                'main_content' => 'Analytics/line_gender',
+                'male' => $male_array,
+                'female' => $female_array
+
+            );
+
+        }else if ($graph_id == 2 && $graph_data == 2) //case line chart with male and female data graph_id 2 = pie, graph_data 2 = age
+                {
+                    $age = $this->Analytics_model->get_pie_age($AssessmentID);
+                    $data = array(
+                        'main_content' => 'Analytics/line_age',
+                        'age' => $age
+                    );
+
+        }else if ($graph_id == 2 && $graph_data == 3) //case line chart with male and female data graph_id 1 = pie, graph_data 3 = total
+                {
+                    $total = $this->Analytics_model->get_line_total($AssessmentID);
+                    $data = array(
+                        'main_content' => 'Analytics/line_total',
+                        'total' => $total
+                    );
+                }
+
+
+        if($graph_id == 3 && $graph_data == 1) //case column chart with male and female data graph_id 2 = pie, graph_data 1 = gender
+        {
+            $male = $this->Analytics_model->get_column_gender_male($AssessmentID);
+            $female = $this->Analytics_model->get_column_gender_female($AssessmentID);
+
+                    $data = array(
+                        'main_content'   => 'Analytics/column_gender',
+                        'male' => $male,
+                        'female' => $female
+            );
+
+        }else if ($graph_id == 3 && $graph_data == 2) //case column chart with male and female data graph_id 2 = pie, graph_data 2 = age
+        {
+                    $age = $this->Analytics_model->get_pie_age($AssessmentID);
+                    $data = array(
+                        'main_content' => 'Analytics/column_age',
+                        'age' => $age
+                    );
+
+        }else if ($graph_id == 3 && $graph_data == 3) //case column chart with male and female data graph_id 1 = pie, graph_data 3 = total
+        {
+                    $total = $this->Analytics_model->get_line_total($AssessmentID);
+                    $data = array(
+                        'main_content' => 'Analytics/column_total',
+                        'total' => $total
+                    );
         }
 
-        $data = array(
-            'assessment' => $assessment,
-            'main_content' => 'analytics',
-            'graph_Select' => $graphID,
-            'result_male' => json_encode($return_array_male),
-            'result_female' => json_encode($return_array_female),
-            'check'=> 'data'
+            $this->load->view('includes/template', $data);
+        }
 
-        );
-        $this->load->view('includes/template', $data);
 
-    }
+
+
 }
 ?>
