@@ -120,6 +120,18 @@ class Assessment_model extends CI_Model {
             $variable = $item['Participant'];
         return $variable;
     }
+
+    function get_parameter()
+    {
+        $parameter = $this->db->query("SELECT value FROM parameter WHERE name='minimum support'")->result_array();
+        return $parameter[0]['value'];
+    }
+
+    function set_parameter()
+    {
+        $this->db->where('name', 'minimum support');
+        $this->db->update('parameter', array('value' => $this->input->post('min_sup')));
+    }
 }
 ?>
 

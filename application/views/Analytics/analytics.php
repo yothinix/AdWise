@@ -100,17 +100,12 @@
                      <select name="graphID">
                          <option value="" style="display:none;"><------- Select Graph -------></option>
                          <option value="1" >Pie Chart</option>
-                         <option value="2" >Line</option>
-                         <option value="3" >Column</option>
-
                      </select>
                  </td>
                  <td>
                      <select name="graph_data" >
                          <option value="" style="display:none;"><-------- Select Data --------></option>
                          <option value="1" >Gender</option>
-                         <option value="2" >Age</option>
-                         <option value="3" >Total</option>
                      </select>
                  </td>
                  <td style=" padding-bottom:13px ">

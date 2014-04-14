@@ -23,7 +23,6 @@
         <th style="text-align: center">ID</th>
         <th style="text-align: center">Academic Name</th>
         <th style="text-align: center">Detail</th>
-        <th style="text-align: center; width: 200px">Tag</th>
         <th style="text-align: center">Controller</th>
     </tr>
 
@@ -37,25 +36,6 @@
             <td style="text-align: center"><?php echo $row->Academic_id ?>  </td>
             <td><?php echo $row->Name ?>  </td>
             <td><?php echo $row->Detail ?>  </td>
-
-            <td><?php
-            $tags = $this->Manage_academic->get_tags($Academic_id);
-            foreach($tags as $tg)
-            {
-                $tags_id = $tg->tags_id;
-                $tags_name = $this->Manage_academic->get_name($tags_id);
-                foreach($tags_name as $que){
-                    echo $que->Tags_name;?>&nbsp&nbsp<?php
-                }
-            }
-
-            //$Tags_id = $row->Tags_id;
-            //$tags_name = $this->Manage_academic->get_name($Tags_id);
-            //foreach($tags_name as $que){
-            //    echo "<td> $que->Tags_name  </td>";
-            //}
-            ?> </td>
-
             <td style="text-align: center">
                 <!-- Edit -->
                 <a role="button"  class="btn btn-small" href="#edit<?php echo $Academic_id; ?>" data-toggle="modal"><i class="icon-pencil"></i></a>
@@ -83,26 +63,6 @@
                     <label class="control-label" for="inputDetail">Detail</label>
                     <div class="controls">
                         <input type="text" id="detail" name="detail" class="input-block-level" value="<?php echo $row->Detail ?>">
-                    </div>
-                </div>
-                <div class="control-group" >
-                    <label class="control-label" for="inputTag">Tag</label>
-                    <div class="example example_typeahead">
-                        <div class="bs-docs-example">
-                             <input type="text" id="tags2" name="tags2" value="
-                             <?php
-                             $tags = $this->Manage_academic->get_tags($Academic_id);
-                             foreach($tags as $tg)
-                             {
-                                 $tags_id = $tg->tags_id;
-                                 $tags_name = $this->Manage_academic->get_name($tags_id);
-                                 foreach($tags_name as $que){
-                                     echo ",";
-                                     echo $que->Tags_name;
-                                 }
-                             }?>
-                             ">
-                        </div>
                     </div>
                 </div>
         </div>
@@ -142,11 +102,6 @@
         <?php echo form_open('manage/create_academic'); ?>
         <label>Name <input type="text" name="Academic_name" id="Academic_name" class="span10" style="margin-left: 10px"></label>
         <label>Detail <input type="text" name="Academic_detail" id="Academic_detail" class="span10" style="margin-left: 10px"></label>
-        <div class="example example_typeahead">
-            <div class="bs-docs-example">
-                <label >Tag <input type="text" name="Tags" id="Tags" class="span10" style="margin-left: 20px"></label>
-            </div>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-success">Add New Academic</button>
@@ -154,7 +109,3 @@
         <?php echo form_close(); ?>
     </div>
 </div>
-
-<script src="<?php echo base_url("assets/js/bootstrap-tagsinput.js"); ?>"></script>
-<script src="<?php echo base_url("assets/js/tag_typehead.js"); ?>"></script>
-<script src="<?php echo base_url("assets/js/tag_input_change.js"); ?>"></script>

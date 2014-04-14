@@ -1,4 +1,6 @@
-<?php class Manage extends CI_Controller{
+<?php 
+
+class Manage extends CI_Controller{
     function __construct()
     {
         parent::__construct();
@@ -89,23 +91,12 @@
     function create_academic()
     {
         $Academic_id = $this->Manage_academic->academic_db(); //ได้ academic id
-        $Tags = $this->input->post('Tags');
-        $TotalTags = substr_count($Tags,',')+1;
-        $Tags_Key = explode(",", $Tags);
-        $counter = 0;
-        while($counter < $TotalTags)
-        {
-            $Tags_id = $this->Manage_academic->tags_db($Tags_Key[$counter]); //ได้ tag id
-            $this->Manage_academic->tags_aca($Academic_id,$Tags_id);
-            $counter++;
-        }
         $this->manage_academic();
     }
 
     function del_academic($Academic_id)
     {
         $this->db->delete('academic',array('Academic_id' => $Academic_id));
-        $this->db->delete('tags_academic',array('Academic_id' => $Academic_id));
         $this->db->delete('occupation_academic',array('Academic_id' => $Academic_id));
         $this->manage_academic();
     }
@@ -114,16 +105,6 @@
     {
         $this->Manage_academic->update_academic($Academic_id);
         $this->Manage_academic->delete_aca($Academic_id); // ลบ clear all tags ก่อนจะทำการจับคู่ใหม่
-        $Tags = $this->input->post('tags2');
-        $TotalTags = substr_count($Tags,',')+1;
-        $Tags_Key = explode(",", $Tags);
-        $counter = 0;
-        while($counter < $TotalTags)
-        {
-            $Tags_id = $this->Manage_academic->tags_db($Tags_Key[$counter]); //ได้ tag id
-            $this->Manage_academic->tags_chk($Academic_id,$Tags_id);
-            $counter++;
-        }
         $this->manage_academic();
     }
 
@@ -391,6 +372,24 @@
         );
         $this->load->view('includes/template', $data);
     }
+        
+    function manage_parameter($set_param)
+    {
+        $this->load->model('assessment_model');
+        if($set_param == 1)
+        {
+            $this->Assessment_model->set_parameter();
+                
+        }
+
+        $minimum_support = $this->Assessment_model->get_parameter();
+        $data = array(
+            'main_content' => 'manage_parameter',
+            'min_sup'      => $minimum_support,
+        );
+        $this->load->view('includes/template', $data);
+
+    }
 
     function graph()
     {
@@ -513,9 +512,5 @@
 
             $this->load->view('includes/template', $data);
         }
-
-
-
-
 }
 ?>
