@@ -1,5 +1,4 @@
 <?php
-    var_dump($min_sup);
     $controller = "manage/manage_parameter/1";
     echo form_open($controller)
 ?>

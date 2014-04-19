@@ -124,7 +124,7 @@ class Assessment_model extends CI_Model {
     function get_parameter()
     {
         $parameter = $this->db->query("SELECT value FROM parameter WHERE name='minimum support'")->result_array();
-        return $parameter[0]['value'];
+        return (int) $parameter[0]['value'];
     }
 
     function set_parameter()
