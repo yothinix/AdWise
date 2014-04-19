@@ -111,6 +111,27 @@ class Assessment_model extends CI_Model {
     {
         $this->db->delete('test', array('UserID' => $UserID, 'AssessmentID' => $Assessment_id));
     }
+
+    function get_participant($AssessmentID)
+    {
+        $variable;
+        $query = $this->db->query("SELECT COUNT(Status) as Participant FROM user_test WHERE AssessmentID = {$AssessmentID}");
+        foreach($query->result_array() as $item)
+            $variable = $item['Participant'];
+        return $variable;
+    }
+
+    function get_parameter()
+    {
+        $parameter = $this->db->query("SELECT value FROM parameter WHERE name='minimum support'")->result_array();
+        return (int) $parameter[0]['value'];
+    }
+
+    function set_parameter()
+    {
+        $this->db->where('name', 'minimum support');
+        $this->db->update('parameter', array('value' => $this->input->post('min_sup')));
+    }
 }
 ?>
 

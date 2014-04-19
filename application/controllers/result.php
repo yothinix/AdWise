@@ -2,14 +2,12 @@
 
 $result = array(); 
 $combination = array();
-$minimum_support = 7;
 
 class Result extends CI_Controller {
 
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Result_model');
     }
 
     function view($UserID)
@@ -23,7 +21,8 @@ class Result extends CI_Controller {
         $Result_array = array();
         $index = 3;
         $counter = 1;
-        global $minimum_support;
+        $this->load->model('Assessment_model');
+        $minimum_support = $this->Assessment_model->get_parameter();
 
         $query = $this->Result_model->get_resultID($UserID);
         foreach($query as $items)
@@ -156,7 +155,8 @@ class Result extends CI_Controller {
 
     function final_array($Result_array, $index)
     {
-        global $minimum_support;
+        $this->load->model('Assessment_model');
+        $minimum_support = $this->Assessment_model->get_parameter();
         $new_array = array();
         $Result_array = $this->exclude_min_support($Result_array,$minimum_support, $index);
         for($item = 0; $item < sizeof($Result_array); $item++)
@@ -395,7 +395,8 @@ class Result extends CI_Controller {
 
     function generate_candidate_pair($Lk)
     {
-        global $minimum_support;
+        $this->load->model('Assessment_model');
+        $minimum_support = $this->Assessment_model->get_parameter();
         $Lk = $this->exclude_min_support($Lk, $minimum_support, 1);
 
         $new_Lk = array();

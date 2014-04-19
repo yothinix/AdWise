@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-        <?php
+<?php
         if($main_content == 'feature'){ echo "AdWise | Features"; }
         if($main_content == 'meet_us'){ echo "AdWise | Meet Us"; }
         if($main_content == 'dashboard'){ echo "AdWise | When Student found their ways"; }
@@ -23,7 +23,9 @@
         if($main_content == 'manage_academic'){ echo "AdWise | Manage Academic"; }
         if($main_content == 'manage_tags'){ echo "AdWise | Manage Tags"; }
         if($main_content == 'manage_user'){ echo "AdWise | Manage User"; }
-        if($main_content == 'analytics'){ echo "AdWise | Analytics"; } ?>
+        if($main_content == 'analytics'){ echo "AdWise | Analytics"; }
+        if($main_content == 'manage_parameter'){ echo "AdWise | Manage Parameter"; } 
+?>
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,6 +74,7 @@ $dashboard = base_url("index.php/user/dashboard");
 $academic = base_url("index.php/manage/manage_academic");
 $tags = base_url("index.php/manage/manage_tags");
 $analytics = base_url("index.php/manage/analytics");
+$parameter = base_url("index.php/manage/manage_parameter");
 ?>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -155,6 +158,8 @@ $analytics = base_url("index.php/manage/analytics");
                                 <a href="<?php echo $manage_user; ?>"><i class="icon-user"></i>Manage User</a></li>
                             <li <?php if($main_content == 'analytics'){ echo "class=\"active\""; } ?>>
                                 <a href="<?php echo $analytics; ?>"><i class="icon-home"></i>Analytics</a></li>
+                            <li <?php if($main_content == 'manage_parameter'){ echo "class=\"active\""; } ?>>
+                                <a href="<?php echo $parameter; ?>"><i class="icon-tasks"></i>Manage Parameter</a></li>
                     <?php
                         }
                     ?>

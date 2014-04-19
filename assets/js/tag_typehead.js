@@ -1,7 +1,7 @@
 $('.example_typeahead > > input').tagsinput({
   typeahead: {
     source: function(query) {
-      return $.getJSON('http://localhost/project/assets/tags.json');
+      return $.getJSON('http://adwise.kmi.tl/assets/tags.json');
     }
   }
 });
@@ -9,7 +9,7 @@ $('.example_typeahead > > input').tagsinput({
 $('.occupation > > input').tagsinput({
   typeahead: {
     source: function(query) {
-      return $.getJSON('http://localhost/project/assets/ocp.json');
+      return $.getJSON('http://adwise.kmi.tl/assets/ocp.json');
     }
   }
 });
@@ -17,7 +17,7 @@ $('.occupation > > input').tagsinput({
 $('.academic > > input').tagsinput({
   typeahead: {
     source: function(query) {
-      return $.getJSON('http://localhost/project/assets/aca.json');
+      return $.getJSON('http://adwise.kmi.tl/assets/aca.json');
     }
   }
 });

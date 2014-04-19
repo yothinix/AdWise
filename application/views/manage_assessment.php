@@ -101,7 +101,7 @@
         <td style="text-align: center"><?php echo $row->AssessmentID ?></td>
         <td><a href="<?php echo base_url("index.php/assessment/edit/{$row->AssessmentID}"); ?>"><?php echo $row->Name; ?></a></td>
         <td><?php echo $this->User_model->get_creatorName($row->CreatorID); ?>  </td>
-        <td style="text-align: center"><?php echo "no of participant"; ?>  </td>
+        <td style="text-align: center"><?php echo $this->Assessment_model->get_participant($row->AssessmentID); ?>  </td>
         <td style="text-align: center">
             <div class="onoffswitch">
                 <input type="checkbox" id="myonoffswitch<?php echo $ASMID?>" name="onoffswitch" class="onoffswitch-checkbox"
@@ -115,7 +115,6 @@
             </div>
         </td>
         <td>
-            <a  style="margin-left: 20px"class="btn btn-small" href="#"><i class="icon-file"></i></a>
             <a  class="btn btn-small" href="#edit<?php echo $ASMID ?>" role="button" class="btn" data-toggle="modal"><i class="icon-pencil"></i></a>
             <a href="#delete<?php echo $ASMID ?>" role="button" class="btn" data-toggle="modal"><i class="icon-trash"></i></a>
         </td>
@@ -151,6 +150,6 @@
             </div>
         </div>
     <?php
-        }
+    }
     ?>
 </table>

@@ -8,25 +8,7 @@ class Manage_academic extends CI_Model {
 
     function academic()
     {
-        /* $query = $this->db->query("
-        SELECT * FROM academic INNER JOIN tags_academic
-        ON tags_academic.Academic_id = academic.Academic_id
-        GROUP BY `Name`
-        "); */
-
         $query = $this->db->query("SELECT * FROM academic");
-
-        return $query->result();
-    }
-
-    function get_tags($Academic_id)
-    {
-        $query = $this->db->query("
-        SELECT tags_id FROM academic INNER JOIN tags_academic
-        ON tags_academic.Academic_id = academic.Academic_id
-        WHERE academic.Academic_id = '$Academic_id'
-        ");
-
         return $query->result();
     }
 
@@ -56,38 +38,12 @@ class Manage_academic extends CI_Model {
         return $Academic_id;
     }
 
-    function tags_db($Tags_name)
-    {
-        $query = $this->db->query("
-            SELECT Tags_id
-            FROM tags
-            WHERE Tags_name = '{$Tags_name}'
-            ");
-
-        $Tags_id = 0;
-        foreach($query->result() as $tgid)
-            $Tags_id = $tgid->Tags_id;
-
-        return $Tags_id;
-    }
-
     //clear all tags in aca
     function  delete_aca($Academic_id){
         $this->db->query("
             DELETE FROM tags_academic
             WHERE Academic_id = $Academic_id
             ");
-    }
-
-    function tags_chk($Academic_id,$Tags_id)
-    {
-        $data = array(
-            'Academic_id' => $Academic_id,
-            'Tags_id' => $Tags_id
-        );
-        //if($Tags_id != 0){
-            $this->db->insert('tags_academic', $data);
-        //}
     }
 
     //update name detail
@@ -100,28 +56,6 @@ class Manage_academic extends CI_Model {
             WHERE Academic_id = $Academic_id
             ");
 
-    }
-
-    function tags_aca($Academic_id,$Tags_id)
-    {
-        $data = array(
-            'Academic_id' => $Academic_id,
-            'Tags_id' => $Tags_id
-        );
-        if($Tags_id != 0){
-            $this->db->insert('tags_academic', $data);
-        }
-    }
-
-    function get_name($Tags_id)
-    {
-        $query = $this->db->query("
-            SELECT Tags_name
-            FROM tags
-            WHERE Tags_id = '{$Tags_id}'
-            ");
-
-        return $query->result();
     }
 }
 ?>
