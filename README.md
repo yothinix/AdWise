@@ -9,7 +9,9 @@ Installation
 
 - Clone this [project][1] into your web root directory, e.g., `/var/www/`
 - Download AdWise [database schema][2]
-- Import DB schema to your RDBMS //SQL command
+- Import DB schema to your RDBMS by login to your MySQL console and using:
+    `mysql> use DATABASE_NAME;`
+    `mysql> source path/to/AdWise-database-Example.sql;`
 - Configuration your baseURL on [config_main][3] e.g., `http://localhost/AdWise/`
 - Edit database configuration on [database.php][4]:
     
